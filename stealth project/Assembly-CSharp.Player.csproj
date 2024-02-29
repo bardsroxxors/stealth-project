@@ -347,6 +347,10 @@
       <HintPath>Library\PackageCache\com.unity.visualscripting@1.9.1\Runtime\VisualScripting.Flow\Dependencies\NCalc\Unity.VisualScripting.Antlr3.Runtime.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="Pathfinding.Ionic.Zip.Reduced">
+      <HintPath>Assets\AstarPathfindingProject\Plugins\DotNetZip\Pathfinding.Ionic.Zip.Reduced.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="netstandard">
       <HintPath>E:\Unity\2022.3.20f1\Editor\Data\NetStandard\ref\2.1.0\netstandard.dll</HintPath>
       <Private>False</Private>
@@ -896,6 +900,10 @@
     <ProjectReference Include="Unity.2D.PixelPerfect.Player.csproj">
       <Project>{3100ABC1-FA60-50AC-C9B6-4B47907CFFF1}</Project>
       <Name>Unity.2D.PixelPerfect.Player</Name>
+    </ProjectReference>
+    <ProjectReference Include="AstarPathfindingProject.Player.csproj">
+      <Project>{31FF8AD0-6430-3D88-0084-3546007006F1}</Project>
+      <Name>AstarPathfindingProject.Player</Name>
     </ProjectReference>
     <ProjectReference Include="Unity.Mathematics.Player.csproj">
       <Project>{87EB90E3-70CA-9561-C803-D40CE054D4F0}</Project>
