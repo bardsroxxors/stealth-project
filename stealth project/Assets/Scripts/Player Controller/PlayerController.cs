@@ -47,6 +47,12 @@ public class PlayerController : MonoBehaviour
     private Vector2 moveStickVector = new Vector2(0, 0); // raw input from left stick / wasd
     private Vector2 aimStickVector = new Vector2(0, 0); // raw input from right stick
     private Vector2 playerFacingVector = new Vector2(1, 0); // used to aim abilities if there is no input, and used to determine sprite facing
+    public Boolean groundedFlag = false;
+    public float gravityAccel = 1;
+    public float maxFallSpeed = 10;
+
+    [Header("Jump")]
+    public float jumpForce = 5;
 
     // the attack state has some important variables that go with it. 
     // there is the InitFlag which is used to execute the initialisation code once when the state is entered
@@ -115,18 +121,18 @@ public class PlayerController : MonoBehaviour
     // when grapple is cast, player is sent backwards a tiny bit
     // a raycast is made in the 
     // the trigger is activated and a list is pulled of everything 
-
+    /*
     [Header("Other Stuff")]
     public GameObject grappleHitBox;
     public float grappleHitBoxOffset = 9;
     public GameObject grappleLineObject;
-    private GrappleLineRenderer grappleLineRenderer;
+    private GrappleLineRenderer grappleLineRenderer;*/
 
 
 
     void Start()
     {
-        grappleLineRenderer = grappleLineObject.GetComponent<GrappleLineRenderer>();
+        //grappleLineRenderer = grappleLineObject.GetComponent<GrappleLineRenderer>();
         //swordHitboxScript = SwordSwingObject.GetComponent<SwordHitboxScript>();
         playerAttacks = GetComponent<PlayerAttackManager>();
 
@@ -160,8 +166,8 @@ public class PlayerController : MonoBehaviour
         // place the grapple hitbox
         Vector2 grappleDirection = aimStickVector;
         if (aimStickVector == Vector2.zero) grappleDirection = playerFacingVector;
-        grappleHitBox.transform.localPosition = grappleDirection.normalized * grappleHitBoxOffset;
-        grappleHitBox.transform.right = grappleDirection.normalized;
+        //grappleHitBox.transform.localPosition = grappleDirection.normalized * grappleHitBoxOffset;
+        //grappleHitBox.transform.right = grappleDirection.normalized;
 
 
         // Process the current state
@@ -194,7 +200,7 @@ public class PlayerController : MonoBehaviour
     void ApplyMovement()
     {
         // todo: add collision detection stuff maybe if needed
-        movementVector = inputVector;
+        movementVector.x = inputVector.x;
 
 
         transform.position += (Vector3)movementVector * Time.deltaTime;
@@ -214,16 +220,27 @@ public class PlayerController : MonoBehaviour
 
         if (moveStickVector.magnitude >= 0.25)
         {
-            inputVector = moveStickVector.normalized * moveSpeed;
+            inputVector.x = moveStickVector.normalized.x * moveSpeed;
             playerFacingVector = moveStickVector.normalized;
         }
         // if there is no input then apply movement decay
         else if (inputVector.magnitude > 0)
         {
-            inputVector = inputVector - (inputVector * moveDecay * Time.deltaTime);
+            inputVector.x = inputVector.x - (inputVector.x * moveDecay * Time.deltaTime);
         }
         // clamp to zero when its close
         if (inputVector.magnitude <= 0.1) inputVector = Vector2.zero;
+
+        // apply gravity if not grounded
+        if (!groundedFlag)
+        {
+            movementVector.y -= gravityAccel * Time.deltaTime;
+            if(movementVector.y < -maxFallSpeed) movementVector.y = -maxFallSpeed;
+        }
+        else
+        {
+            movementVector.y = 0;
+        }
 
 
     }
@@ -510,7 +527,19 @@ public class PlayerController : MonoBehaviour
 
     void OnMove(InputValue value)
     {
-        moveStickVector = value.Get<Vector2>();
+        moveStickVector.x = value.Get<Vector2>().x;
+    }
+
+    void OnJump(InputValue value)
+    {
+        Debug.Log("Jump");
+
+        if (groundedFlag)
+        {
+            movementVector.y += jumpForce;
+            groundedFlag = false;
+        }
+        
     }
 
     void OnAim(InputValue value)
@@ -518,6 +547,8 @@ public class PlayerController : MonoBehaviour
         if(controlScheme == ControlSchemes.Gamepad) aimStickVector = value.Get<Vector2>().normalized;
     }
 
+
+    /*
     void OnAttack(InputValue value)
     {
         if(CurrentPlayerState == PlayerControllerStates.FreeMove && playerAttacks.FlagCanMeleeAttack)
@@ -531,16 +562,16 @@ public class PlayerController : MonoBehaviour
             playerAttacks.FlagNewAttackInput = true;
         }
 
-        /*
+        
         // if we're in a dash or zip then kick
         if(CurrentPlayerState == PlayerControllerStates.Dash || CurrentPlayerState == PlayerControllerStates.zipToTarget)
         {
             ChangeState(PlayerControllerStates.Attacking);
             playerAttacks.currentAttack = PlayerAttacks.Kick;
             playerAttacks.FlagNewAttackInput = true;
-        }*/
+        }
     }
-
+    
     void OnAttackHold(InputValue value)
     {
         if(CurrentPlayerState == PlayerControllerStates.FreeMove || CurrentPlayerState == PlayerControllerStates.Attacking)
@@ -558,22 +589,22 @@ public class PlayerController : MonoBehaviour
             }
 
         }
-
-    }
-
+    
+    }*/
+    /*
     void OnUnAttack(InputValue value)
     {
         if (CurrentPlayerState == PlayerControllerStates.Attacking && playerAttacks.currentAttack == PlayerAttacks.ChargeUp)
         {
             playerAttacks.FlagChargeReleaseInput = true;
         }
-    }
-
+    }*/
+    /*
     void OnDash(InputValue value)
     {
         Debug.Log("Dash");
 
-        /*
+        
         if (CurrentPlayerState == PlayerControllerStates.FreeMove && FlagCanDash)
         {
             
@@ -589,7 +620,7 @@ public class PlayerController : MonoBehaviour
             playerAttacks.InitFlagChargeUp = false;
             playerAttacks.currentAttack = PlayerAttacks.None;
             ChangeState(PlayerControllerStates.Dash);
-        }*/
+        }
 
     }
     /*
@@ -606,7 +637,7 @@ public class PlayerController : MonoBehaviour
             }
         }
     }
-    */
+    
     void OnUnDash()
     {
         Debug.Log("Undash");
@@ -615,7 +646,7 @@ public class PlayerController : MonoBehaviour
             ChangeState(PlayerControllerStates.FreeMove);
         }
     }
-    /*
+    
     void OnGrapple(InputValue value)
     {
         if ((CurrentPlayerState == PlayerControllerStates.FreeMove || CurrentPlayerState == PlayerControllerStates.Hover)
@@ -634,6 +665,26 @@ public class PlayerController : MonoBehaviour
     void OnKeyboardAny(InputValue value)
     {
         if (controlScheme != ControlSchemes.MouseKeyboard) controlScheme = ControlSchemes.MouseKeyboard;
+    }
+
+
+
+
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if(collision.collider.gameObject.tag == "Ground")
+        {
+            groundedFlag = true;
+        }
+    }
+
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        if (collision.collider.gameObject.tag == "Ground")
+        {
+            groundedFlag = false;
+        }
     }
 
 
