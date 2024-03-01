@@ -47,12 +47,18 @@ public class PlayerController : MonoBehaviour
     private Vector2 moveStickVector = new Vector2(0, 0); // raw input from left stick / wasd
     private Vector2 aimStickVector = new Vector2(0, 0); // raw input from right stick
     private Vector2 playerFacingVector = new Vector2(1, 0); // used to aim abilities if there is no input, and used to determine sprite facing
-    public Boolean groundedFlag = false;
+    public Boolean groundedFlag = false; // tracks wether we're on the ground. turned on by colliding with ground. turned off by jumping
     public float gravityAccel = 1;
     public float maxFallSpeed = 10;
+    public float groundDistance = 1; // How far away to place the player from the ground when grounded
+    public int horizCollision = 0; // set to 0 for no collision, -1 for left, 1 for right
+    public int vertiCollision = 0; // set to 0 for no collision, -1 for down, 1 for up
+
 
     [Header("Jump")]
     public float jumpForce = 5;
+
+    public LayerMask selfLayerMask;
 
     // the attack state has some important variables that go with it. 
     // there is the InitFlag which is used to execute the initialisation code once when the state is entered
@@ -203,6 +209,12 @@ public class PlayerController : MonoBehaviour
         movementVector.x = inputVector.x;
 
 
+        if(vertiCollision > 0) movementVector.y = Mathf.Clamp(movementVector.y, -100, 0);
+        else if (vertiCollision < 0) movementVector.y = Mathf.Clamp(movementVector.y, 0, 100);
+
+        if (horizCollision > 0) movementVector.x = Mathf.Clamp(movementVector.x, -100, 0);
+        else if (horizCollision < 0) movementVector.x = Mathf.Clamp(movementVector.x, 0, 100);
+
         transform.position += (Vector3)movementVector * Time.deltaTime;
     }
 
@@ -239,7 +251,21 @@ public class PlayerController : MonoBehaviour
         }
         else
         {
+            
+
             movementVector.y = 0;
+            /*
+            RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.down, 1, selfLayerMask);
+
+            Ray ray = new Ray(transform.position, Vector2.down);
+            Debug.DrawRay(ray.origin, ray.direction, Color.cyan);
+
+            Debug.Log(hit.transform.gameObject.name);
+            
+            Vector2 pos = transform.position;
+            pos.y = hit.point.y + groundDistance;
+            transform.position = hit.point;
+            */
         }
 
 
@@ -676,15 +702,51 @@ public class PlayerController : MonoBehaviour
         if(collision.collider.gameObject.tag == "Ground")
         {
             groundedFlag = true;
+
+            Vector2 point;
+
+            /*
+            for(int i = 0; i < collision.contactCount; i++)
+            {
+                point = collision.GetContact(i).point;
+
+                if (point.y > transform.position.y)
+                {
+                    vertiCollision = 1;
+                }
+                else if (point.y < transform.position.y)
+                {
+                    vertiCollision = -1;
+                }
+
+
+                if (point.x > transform.position.x)
+                {
+                    horizCollision = 1;
+                }
+                else if (point.x < transform.position.x)
+                {
+                    horizCollision = -1;
+                }
+
+            }*/
+
+
+   
+
         }
     }
 
     private void OnCollisionExit2D(Collision2D collision)
     {
+        
         if (collision.collider.gameObject.tag == "Ground")
         {
             groundedFlag = false;
         }
+
+        vertiCollision = 0;
+        horizCollision = 0;
     }
 
 
