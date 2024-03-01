@@ -37,6 +37,8 @@ public class PlayerController : MonoBehaviour
     private ControlSchemes controlScheme = ControlSchemes.MouseKeyboard;
 
     private PlayerAttackManager playerAttacks;
+
+    public bool lit = false;
     
 
     [Header("Free Move")]
@@ -747,6 +749,17 @@ public class PlayerController : MonoBehaviour
 
         vertiCollision = 0;
         horizCollision = 0;
+    }
+
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "Light") lit = true;
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "Light") lit = false;
     }
 
 
