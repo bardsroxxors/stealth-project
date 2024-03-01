@@ -873,10 +873,6 @@
       <Project>{E6FE2FB0-96CA-364F-4937-2C4125BA3AA4}</Project>
       <Name>Unity.2D.Common.Runtime.Player</Name>
     </ProjectReference>
-    <ProjectReference Include="UnityEngine.UI.Player.csproj">
-      <Project>{14C71EEF-259E-7380-8FE2-5383A331D494}</Project>
-      <Name>UnityEngine.UI.Player</Name>
-    </ProjectReference>
     <ProjectReference Include="Unity.Timeline.Player.csproj">
       <Project>{650661B1-E436-EC0A-8B14-F8466CF7D01F}</Project>
       <Name>Unity.Timeline.Player</Name>
@@ -888,6 +884,10 @@
     <ProjectReference Include="Unity.InputSystem.ForUI.Player.csproj">
       <Project>{8DAF2ED4-8BF1-A288-FE9C-A60D87AC1FAA}</Project>
       <Name>Unity.InputSystem.ForUI.Player</Name>
+    </ProjectReference>
+    <ProjectReference Include="UnityEngine.UI.Player.csproj">
+      <Project>{14C71EEF-259E-7380-8FE2-5383A331D494}</Project>
+      <Name>UnityEngine.UI.Player</Name>
     </ProjectReference>
     <ProjectReference Include="Unity.Collections.Player.csproj">
       <Project>{638A0842-71B3-4C17-A402-58842974C352}</Project>

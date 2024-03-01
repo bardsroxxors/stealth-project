@@ -186,8 +186,8 @@
     <Compile Include="Library\PackageCache\com.unity.2d.animation@9.1.0\Editor\SkinningModule\UI\WeightInspectorIMGUIPanel.cs" />
     <Compile Include="Library\PackageCache\com.unity.2d.animation@9.1.0\Editor\SkinningModule\SpriteBoneInfluence\InfluenceWindow.cs" />
     <Compile Include="Library\PackageCache\com.unity.2d.animation@9.1.0\Editor\SkinningModule\IMGUI\ISpriteMeshView.cs" />
-    <Compile Include="Library\PackageCache\com.unity.2d.animation@9.1.0\Editor\SkinningModule\SkeletonTool\SkeletonToolWrapper.cs" />
     <Compile Include="Library\PackageCache\com.unity.2d.animation@9.1.0\Editor\UpgradeTools\SpriteLibUpgrader.cs" />
+    <Compile Include="Library\PackageCache\com.unity.2d.animation@9.1.0\Editor\SkinningModule\SkeletonTool\SkeletonToolWrapper.cs" />
     <Compile Include="Library\PackageCache\com.unity.2d.animation@9.1.0\Editor\AssemblyInfo.cs" />
     <Compile Include="Library\PackageCache\com.unity.2d.animation@9.1.0\Editor\SkinningModule\Selectors\CircleVertexSelector.cs" />
     <Compile Include="Library\PackageCache\com.unity.2d.animation@9.1.0\Editor\SkinningModule\SkinningCache\SkinningCachePersistentState.cs" />
@@ -234,8 +234,8 @@
     <Compile Include="Library\PackageCache\com.unity.2d.animation@9.1.0\Editor\SkinningModule\Triangulation\TriangulationUtility.cs" />
     <Compile Include="Library\PackageCache\com.unity.2d.animation@9.1.0\Editor\SkinningModule\SkinningCache\SpriteCache.cs" />
     <Compile Include="Library\PackageCache\com.unity.2d.animation@9.1.0\Editor\SpriteLib\SpriteLibCombineCache.cs" />
-    <Compile Include="Library\PackageCache\com.unity.2d.animation@9.1.0\Editor\SkinningModule\SkeletonTool\SkeletonTool.cs" />
     <Compile Include="Library\PackageCache\com.unity.2d.animation@9.1.0\Editor\SkinningModule\IMGUI\RectSelectionTool.cs" />
+    <Compile Include="Library\PackageCache\com.unity.2d.animation@9.1.0\Editor\SkinningModule\SkeletonTool\SkeletonTool.cs" />
     <Compile Include="Library\PackageCache\com.unity.2d.animation@9.1.0\Editor\SkinningModule\SkinningCache\BoneCacheExtensions.cs" />
     <Compile Include="Library\PackageCache\com.unity.2d.animation@9.1.0\Editor\SkinningModule\Selection\IndexedSelection.cs" />
     <Compile Include="Library\PackageCache\com.unity.2d.animation@9.1.0\Editor\SkinningModule\VisibilityTool\SpriteVisibilityTool.cs" />
@@ -683,6 +683,10 @@
     </Reference>
     <Reference Include="Unity.VisualScripting.TextureAssets">
       <HintPath>Library\PackageCache\com.unity.visualscripting@1.9.1\Editor\VisualScripting.Core\EditorAssetResources\Unity.VisualScripting.TextureAssets.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Pathfinding.Ionic.Zip.Reduced">
+      <HintPath>Assets\AstarPathfindingProject\Plugins\DotNetZip\Pathfinding.Ionic.Zip.Reduced.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="nunit.framework">

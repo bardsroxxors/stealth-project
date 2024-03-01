@@ -117,7 +117,7 @@ TextureImporter:
         y: 32
         width: 32
         height: 32
-      alignment: 9
+      alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
@@ -134,19 +134,73 @@ TextureImporter:
       name: basic tileset_1
       rect:
         serializedVersion: 2
+        x: 32
+        y: 32
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape:
+      - - {x: 8, y: 0}
+        - {x: -8, y: -8}
+        - {x: -16, y: -12}
+        - {x: -16, y: -16}
+        - {x: 16, y: -16}
+        - {x: 16, y: 4}
+      tessellationDetail: 0
+      bones: []
+      spriteID: b84d0e694d4a22f4f9bbb25318b30ef3
+      internalID: -1977319173
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: basic tileset_2
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 32
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape:
+      - - {x: 8, y: 16}
+        - {x: 0, y: 12}
+        - {x: -16, y: 4}
+        - {x: -16, y: -16}
+        - {x: 16, y: -16}
+        - {x: 16, y: 16}
+      tessellationDetail: 0
+      bones: []
+      spriteID: a8fd11abcdec73e4881fc5c6a85b094a
+      internalID: -1180168964
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: basic tileset_3
+      rect:
+        serializedVersion: 2
         x: 0
         y: 0
         width: 32
         height: 32
-      alignment: 9
+      alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 2454c1fbfae3e5941802ef5cb4d4af10
-      internalID: -1977319173
+      spriteID: 6418a6743c418c9439a1d890dda40a68
+      internalID: 1097211759
       vertices: []
       indices: 
       edges: []
@@ -164,6 +218,8 @@ TextureImporter:
     nameFileIdTable:
       basic tileset_0: 949842400
       basic tileset_1: -1977319173
+      basic tileset_2: -1180168964
+      basic tileset_3: 1097211759
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

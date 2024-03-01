@@ -985,9 +985,9 @@
       <Project>{39BF9286-509B-8788-5342-5B383B94A725}</Project>
       <Name>Unity.VisualScripting.Flow</Name>
     </ProjectReference>
-    <ProjectReference Include="Unity.VisualScripting.Flow.Editor.csproj">
-      <Project>{3CEADABD-A8EF-D9F9-412C-89B0D11E51B7}</Project>
-      <Name>Unity.VisualScripting.Flow.Editor</Name>
+    <ProjectReference Include="PackageToolsEditor.csproj">
+      <Project>{8DA4CEA9-9E74-625B-2D17-1223D55A2B2C}</Project>
+      <Name>PackageToolsEditor</Name>
     </ProjectReference>
     <ProjectReference Include="Unity.InternalAPIEngineBridge.001.csproj">
       <Project>{666CD223-21C1-9621-F574-1E7867EFA169}</Project>
@@ -997,21 +997,17 @@
       <Project>{3AB470C0-B07F-1344-C5B5-AC67BC02EAD5}</Project>
       <Name>Unity.Mathematics.Editor</Name>
     </ProjectReference>
+    <ProjectReference Include="Unity.VisualScripting.Flow.Editor.csproj">
+      <Project>{3CEADABD-A8EF-D9F9-412C-89B0D11E51B7}</Project>
+      <Name>Unity.VisualScripting.Flow.Editor</Name>
+    </ProjectReference>
     <ProjectReference Include="Unity.2D.Common.Runtime.csproj">
       <Project>{B8D79908-7E01-FF64-C5FA-E445392D18CB}</Project>
       <Name>Unity.2D.Common.Runtime</Name>
     </ProjectReference>
-    <ProjectReference Include="UnityEngine.UI.csproj">
-      <Project>{454252F5-2A2E-1F1C-E85D-636202A17BC5}</Project>
-      <Name>UnityEngine.UI</Name>
-    </ProjectReference>
     <ProjectReference Include="Unity.2D.Tilemap.Extras.Editor.csproj">
       <Project>{095AFAA6-2B1A-862D-2F82-097310E5546F}</Project>
       <Name>Unity.2D.Tilemap.Extras.Editor</Name>
-    </ProjectReference>
-    <ProjectReference Include="PackageToolsEditor.csproj">
-      <Project>{8DA4CEA9-9E74-625B-2D17-1223D55A2B2C}</Project>
-      <Name>PackageToolsEditor</Name>
     </ProjectReference>
     <ProjectReference Include="Unity.Timeline.csproj">
       <Project>{975EE3AE-2366-37D2-65DA-22B953F36504}</Project>
@@ -1024,6 +1020,10 @@
     <ProjectReference Include="Unity.InputSystem.ForUI.csproj">
       <Project>{C6E737C7-68AE-14B4-E5DA-0D5270E39EF4}</Project>
       <Name>Unity.InputSystem.ForUI</Name>
+    </ProjectReference>
+    <ProjectReference Include="UnityEngine.UI.csproj">
+      <Project>{454252F5-2A2E-1F1C-E85D-636202A17BC5}</Project>
+      <Name>UnityEngine.UI</Name>
     </ProjectReference>
     <ProjectReference Include="Unity.VisualScripting.SettingsProvider.Editor.csproj">
       <Project>{89BCF80B-31BB-E7AF-D0AC-879831D393A3}</Project>
