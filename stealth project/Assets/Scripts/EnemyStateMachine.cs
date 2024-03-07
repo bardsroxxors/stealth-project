@@ -37,6 +37,10 @@ public class EnemyStateMachine : MonoBehaviour
     public float pathUpdateSeconds = 0.5f;
     public float nextWaypointDistance = 1f;
 
+    [Header("Sight Cone")]
+    public GameObject sightCone;
+    public Vector2 sightConePosition = Vector2.zero;
+
 
     private Path path;
     private int currentWaypoint = 0;
@@ -72,6 +76,11 @@ public class EnemyStateMachine : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
+
+        if(sightCone != null)
+        {
+            sightCone.transform.localPosition = sightConePosition;
+        }
 
         switch (currentState)
         {
