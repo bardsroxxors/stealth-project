@@ -781,12 +781,13 @@ MonoBehaviour:
   groundDistance: 0
   horizCollision: 0
   vertiCollision: 0
+  collisionLayers:
+  - Ground
+  - Enemy
   jumpForce: 5
   selfLayerMask:
     serializedVersion: 2
     m_Bits: 64
-  hoverSpeed: 10
-  hoverTurnSpeed: 1
 --- !u!4 &808550040
 Transform:
   m_ObjectHideFlags: 0
@@ -5782,7 +5783,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 4
+  m_Constraints: 7
 --- !u!61 &1676389693
 BoxCollider2D:
   m_ObjectHideFlags: 0

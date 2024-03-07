@@ -67,6 +67,7 @@
     <Compile Include="Assets\Scripts\SmallObjectScript.cs" />
     <Compile Include="Assets\Scripts\Player Controller\PlayerAttackManager.cs" />
     <Compile Include="Assets\Scripts\Player Controller\GrappleLineRenderer.cs" />
+    <Compile Include="Assets\Scripts\Player Controller\PlayerGroundTrigger.cs" />
     <Compile Include="Assets\Scripts\EnemyStateMachine.cs" />
     <Compile Include="Assets\Scripts\CameraFollow.cs" />
     <Compile Include="Assets\Scripts\EnemyAwareness.cs" />
