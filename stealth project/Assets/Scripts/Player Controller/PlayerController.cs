@@ -50,18 +50,23 @@ public class PlayerController : MonoBehaviour
     private Vector2 moveStickVector = new Vector2(0, 0); // raw input from left stick / wasd
     private Vector2 aimStickVector = new Vector2(0, 0); // raw input from right stick
     private Vector2 playerFacingVector = new Vector2(1, 0); // used to aim abilities if there is no input, and used to determine sprite facing
-    public Boolean groundedFlag = false; // tracks wether we're on the ground. turned on by colliding with ground. turned off by jumping
-    public float gravityAccel = 1;
-    public float maxFallSpeed = 10;
-    public float groundDistance = 1; // How far away to place the player from the ground when grounded
-    public int horizCollision = 0; // set to 0 for no collision, -1 for left, 1 for right
-    public int vertiCollision = 0; // set to 0 for no collision, -1 for down, 1 for up
-    public string[] collisionLayers;
-
+    
 
     [Header("Jump")]
     public float jumpForce = 5;
     public LayerMask selfLayerMask;
+    public float gravityAccel = 1;
+    public float maxFallSpeed = 10;
+
+
+    [Header("Collisions")]
+    public Vector2 collisionDirections = Vector2.zero; // set to 0 for no collision, -1 for left, 1 for right
+    //public int horizCollision = 0; // set to 0 for no collision, -1 for left, 1 for right
+    //public int vertiCollision = 0; // set to 0 for no collision, -1 for down, 1 for up
+    public string[] collisionLayers;
+
+
+    
 
 
     private Bounds boxBounds;
@@ -113,13 +118,15 @@ public class PlayerController : MonoBehaviour
         movementVector.x = inputVector.x;
 
 
-        if(vertiCollision > 0) movementVector.y = Mathf.Clamp(movementVector.y, -100, 0);
-        else if (vertiCollision < 0) movementVector.y = Mathf.Clamp(movementVector.y, 0, 100);
+        if(collisionDirections.y > 0) movementVector.y = Mathf.Clamp(movementVector.y, -100, 0);
+        else if (collisionDirections.y < 0) movementVector.y = Mathf.Clamp(movementVector.y, 0, 100);
 
-        if (horizCollision > 0) movementVector.x = Mathf.Clamp(movementVector.x, -100, 0);
-        else if (horizCollision < 0) movementVector.x = Mathf.Clamp(movementVector.x, 0, 100);
+        if (collisionDirections.x > 0) movementVector.x = Mathf.Clamp(movementVector.x, -100, 0);
+        else if (collisionDirections.x < 0) movementVector.x = Mathf.Clamp(movementVector.x, 0, 100);
 
-        transform.position += (Vector3)movementVector * Time.deltaTime;
+        transform.position += (Vector3) movementVector * Time.deltaTime;
+
+        collisionDirections = Vector2.zero;
     }
 
 
@@ -148,29 +155,10 @@ public class PlayerController : MonoBehaviour
         if (inputVector.magnitude <= 0.1) inputVector = Vector2.zero;
 
         // apply gravity if not grounded
-        if (/*!groundedFlag*/ vertiCollision != -1)
+        if (collisionDirections.y != -1)
         {
             movementVector.y -= gravityAccel * Time.deltaTime;
             if(movementVector.y < -maxFallSpeed) movementVector.y = -maxFallSpeed;
-        }
-
-        else
-        {
-            
-
-            movementVector.y = 0;
-            /*
-            RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.down, 1, selfLayerMask);
-
-            Ray ray = new Ray(transform.position, Vector2.down);
-            Debug.DrawRay(ray.origin, ray.direction, Color.cyan);
-
-            Debug.Log(hit.transform.gameObject.name);
-            
-            Vector2 pos = transform.position;
-            pos.y = hit.point.y + groundDistance;
-            transform.position = hit.point;
-            */
         }
 
 
@@ -226,14 +214,6 @@ public class PlayerController : MonoBehaviour
 
 
 
-
-
-
-
-
-
-
-
     // Input Listener Methods
 
     void OnMove(InputValue value)
@@ -245,17 +225,115 @@ public class PlayerController : MonoBehaviour
     {
         Debug.Log("Jump");
 
-        if (/*groundedFlag*/ vertiCollision == -1)
+        if ( collisionDirections.y == -1)
         {
-            movementVector.y += jumpForce;
-            //groundedFlag = false;
+            movementVector.y = jumpForce;
         }
         
     }
 
+    
+
+
+
+    private void OnCollisionStay2D(Collision2D collision)
+    {
+        if(collisionLayers.Contains(collision.collider.gameObject.tag))
+        {
+            Vector2 normal;
+            
+            for(int i = 0; i < collision.contacts.Length; i++)
+            {
+                normal = collision.contacts[i].normal;
+
+                // if surface faces up
+                if(Vector2.Angle(normal, Vector2.up) < 45f)
+                {
+                    collisionDirections.y = -1;
+                }
+                // if surface faces down
+                else if (Vector2.Angle(normal, Vector2.down) < 45f)
+                {
+                    collisionDirections.y = 1;
+                }
+                // if surface faces left
+                else if (Vector2.Angle(normal, Vector2.left) < 45f)
+                {
+                    collisionDirections.x = 1;
+                }
+                // if surface faces right
+                else if (Vector2.Angle(normal, Vector2.right) < 45f)
+                {
+                    collisionDirections.x = -1;
+                }
+
+
+            }
+
+        }
+    }
+    /*
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        
+        if (collisionLayers.Contains(collision.collider.gameObject.tag))
+        {
+            Vector2 normal;
+
+            for (int i = 0; i < collision.contacts.Length; i++)
+            {
+                normal = collision.contacts[i].normal;
+
+                // if surface faces up
+                if (Vector2.Angle(normal, Vector2.up) < 45f)
+                {
+                    collisionDirections.y = 0;
+                }
+                // if surface faces down
+                else if (Vector2.Angle(normal, Vector2.down) < 45f)
+                {
+                    collisionDirections.y = 0;
+                }
+                // if surface faces left
+                else if (Vector2.Angle(normal, Vector2.left) < 45f)
+                {
+                    collisionDirections.x = 0;
+                }
+                // if surface faces right
+                else if (Vector2.Angle(normal, Vector2.right) < 45f)
+                {
+                    collisionDirections.x = 0;
+                }
+
+
+            }
+        }
+
+    }*/
+
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "Light") lit = true;
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "Light") lit = false;
+    }
+
+
+
+
+
+
+
+
+
+
     void OnAim(InputValue value)
     {
-        if(controlScheme == ControlSchemes.Gamepad) aimStickVector = value.Get<Vector2>().normalized;
+        if (controlScheme == ControlSchemes.Gamepad) aimStickVector = value.Get<Vector2>().normalized;
     }
 
 
@@ -267,72 +345,6 @@ public class PlayerController : MonoBehaviour
     void OnKeyboardAny(InputValue value)
     {
         if (controlScheme != ControlSchemes.MouseKeyboard) controlScheme = ControlSchemes.MouseKeyboard;
-    }
-
-
-    // called by the ground trigger at the players feet
-    private void GroundTriggerContact()
-    {
-        //groundedFlag = true;
-    }
-
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if(collisionLayers.Contains(collision.collider.gameObject.tag))
-        {
-            
-
-            Vector2 point;
-            Vector2 normal;
-
-            //bool collisionUp
-            
-            for(int i = 0; i < collision.contacts.Length; i++)
-            {
-                //point = collision.contacts[i].point;
-                normal = collision.contacts[i].normal;
-
-                // if surface faces up at all
-                if(Vector2.Angle(normal, Vector2.up) < 90f)
-                {
-                    vertiCollision = -1;
-                    groundedFlag = true;
-                }
-                // if surface faces down at all
-                else if (Vector2.Angle(normal, Vector2.down) < 90f)
-                {
-                    vertiCollision = 1;
-                }
-
-            }
-
-
-   
-
-        }
-    }
-
-    private void OnCollisionExit2D(Collision2D collision)
-    {
-        
-        if (collisionLayers.Contains(collision.collider.gameObject.tag))
-        {
-            groundedFlag = false;
-        }
-
-        vertiCollision = 0;
-        horizCollision = 0;
-    }
-
-
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.gameObject.tag == "Light") lit = true;
-    }
-
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-        if (collision.gameObject.tag == "Light") lit = false;
     }
 
 
