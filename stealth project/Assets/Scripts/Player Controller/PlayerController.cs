@@ -61,16 +61,17 @@ public class PlayerController : MonoBehaviour
 
     [Header("Collisions")]
     public Vector2 collisionDirections = Vector2.zero; // set to 0 for no collision, -1 for left, 1 for right
-    //public int horizCollision = 0; // set to 0 for no collision, -1 for left, 1 for right
-    //public int vertiCollision = 0; // set to 0 for no collision, -1 for down, 1 for up
     public string[] collisionLayers;
+    public Vector2 groundNormal = Vector2.zero;
+
+    public GameObject normalIndicator;
+    public bool slopeCheckRaycast = false;
+    public LayerMask slopeMask;
+    public float slopeRaycastDistance = 1;
 
 
-    
-
-
-    private Bounds boxBounds;
-    
+    private BoxCollider2D collider;
+    public GameObject colliderObject;
 
 
 
@@ -81,9 +82,7 @@ public class PlayerController : MonoBehaviour
         //swordHitboxScript = SwordSwingObject.GetComponent<SwordHitboxScript>();
         playerAttacks = GetComponent<PlayerAttackManager>();
 
-        boxBounds = GetComponent<BoxCollider2D>().bounds;
-
-
+        collider = colliderObject.GetComponent<BoxCollider2D>();
     }
 
     // Update is called once per frame
@@ -117,12 +116,29 @@ public class PlayerController : MonoBehaviour
     {
         movementVector.x = inputVector.x;
 
+        Vector2 groundDirection = Vector2.Perpendicular(groundNormal) * -1 * inputVector.x;
 
-        if(collisionDirections.y > 0) movementVector.y = Mathf.Clamp(movementVector.y, -100, 0);
-        else if (collisionDirections.y < 0) movementVector.y = Mathf.Clamp(movementVector.y, 0, 100);
+        if (Vector2.Angle(groundNormal, Vector2.up) >= 20 && slopeCheckRaycast)
+        {
 
-        if (collisionDirections.x > 0) movementVector.x = Mathf.Clamp(movementVector.x, -100, 0);
-        else if (collisionDirections.x < 0) movementVector.x = Mathf.Clamp(movementVector.x, 0, 100);
+            movementVector.x = groundDirection.x;
+            if(movementVector.y <= jumpForce/4)
+                movementVector.y = groundDirection.y;
+
+            
+        }
+
+        normalIndicator.transform.right = groundDirection;
+
+
+        // apply gravity if not grounded
+        if (collisionDirections.y != -1 && CurrentPlayerState == PlayerControllerStates.FreeMove)
+        {
+            movementVector.y -= gravityAccel * Time.deltaTime;
+            if (movementVector.y < -maxFallSpeed) movementVector.y = -maxFallSpeed;
+        }
+
+        ClampMovementForCollisions();
 
         transform.position += (Vector3) movementVector * Time.deltaTime;
 
@@ -140,6 +156,7 @@ public class PlayerController : MonoBehaviour
     {
         //Vector2 joystickVector = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
 
+        CheckSlopeRaycast();
 
         if (moveStickVector.magnitude >= 0.25)
         {
@@ -154,12 +171,7 @@ public class PlayerController : MonoBehaviour
         // clamp to zero when its close
         if (inputVector.magnitude <= 0.1) inputVector = Vector2.zero;
 
-        // apply gravity if not grounded
-        if (collisionDirections.y != -1)
-        {
-            movementVector.y -= gravityAccel * Time.deltaTime;
-            if(movementVector.y < -maxFallSpeed) movementVector.y = -maxFallSpeed;
-        }
+        
 
 
     }
@@ -211,7 +223,14 @@ public class PlayerController : MonoBehaviour
 
 
 
+    private void ClampMovementForCollisions()
+    {
+        if (collisionDirections.y > 0) movementVector.y = Mathf.Clamp(movementVector.y, -100, 0);
+        else if (collisionDirections.y < 0) movementVector.y = Mathf.Clamp(movementVector.y, 0, 100);
 
+        if (collisionDirections.x > 0) movementVector.x = Mathf.Clamp(movementVector.x, -100, 0);
+        else if (collisionDirections.x < 0) movementVector.x = Mathf.Clamp(movementVector.x, 0, 100);
+    }
 
 
     // Input Listener Methods
@@ -234,7 +253,22 @@ public class PlayerController : MonoBehaviour
 
     
 
+    private void CheckSlopeRaycast()
+    {
+        RaycastHit2D ray = Physics2D.Raycast(
+            collider.bounds.center + new Vector3(0, -collider.bounds.extents.y, 0),
+            Vector2.down,
+            slopeRaycastDistance,
+            slopeMask
 
+            );
+
+        slopeCheckRaycast = ray;
+
+        if(ray) groundNormal = ray.normal;
+        else groundNormal = Vector2.up;
+
+    }
 
     private void OnCollisionStay2D(Collision2D collision)
     {
@@ -250,6 +284,7 @@ public class PlayerController : MonoBehaviour
                 if(Vector2.Angle(normal, Vector2.up) < 45f)
                 {
                     collisionDirections.y = -1;
+                    //groundNormal = normal;
                 }
                 // if surface faces down
                 else if (Vector2.Angle(normal, Vector2.down) < 45f)
