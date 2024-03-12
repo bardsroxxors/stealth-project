@@ -50,6 +50,7 @@ public class PlayerController : MonoBehaviour
     private Vector2 moveStickVector = new Vector2(0, 0); // raw input from left stick / wasd
     private Vector2 aimStickVector = new Vector2(0, 0); // raw input from right stick
     private Vector2 playerFacingVector = new Vector2(1, 0); // used to aim abilities if there is no input, and used to determine sprite facing
+    public Vector2 gravityVector = Vector2.zero;
     
 
     [Header("Jump")]
@@ -115,7 +116,9 @@ public class PlayerController : MonoBehaviour
     void ApplyMovement()
     {
         movementVector.x = inputVector.x;
+        movementVector.y = gravityVector.y;
 
+        /*
         Vector2 groundDirection = Vector2.Perpendicular(groundNormal) * -1 * inputVector.x;
 
         if (Vector2.Angle(groundNormal, Vector2.up) >= 20 && slopeCheckRaycast)
@@ -123,20 +126,21 @@ public class PlayerController : MonoBehaviour
 
             movementVector.x = groundDirection.x;
             if(movementVector.y <= jumpForce/4)
-                movementVector.y = groundDirection.y;
+                movementVector.y = groundDirection.y - gravityVector.y;
 
             
         }
 
         normalIndicator.transform.right = groundDirection;
-
+        */
 
         // apply gravity if not grounded
         if (collisionDirections.y != -1 && CurrentPlayerState == PlayerControllerStates.FreeMove)
         {
-            movementVector.y -= gravityAccel * Time.deltaTime;
-            if (movementVector.y < -maxFallSpeed) movementVector.y = -maxFallSpeed;
+            gravityVector.y -= gravityAccel * Time.deltaTime;
+            if (gravityVector.y < -maxFallSpeed) gravityVector.y = -maxFallSpeed;
         }
+        else if (collisionDirections.y == -1) gravityVector.y = 0;
 
         ClampMovementForCollisions();
 
@@ -246,7 +250,8 @@ public class PlayerController : MonoBehaviour
 
         if ( collisionDirections.y == -1)
         {
-            movementVector.y = jumpForce;
+            gravityVector.y = jumpForce;
+            collisionDirections.y = 0;
         }
         
     }
@@ -284,7 +289,7 @@ public class PlayerController : MonoBehaviour
                 if(Vector2.Angle(normal, Vector2.up) < 45f)
                 {
                     collisionDirections.y = -1;
-                    //groundNormal = normal;
+                    gravityVector.y = 0;
                 }
                 // if surface faces down
                 else if (Vector2.Angle(normal, Vector2.down) < 45f)
