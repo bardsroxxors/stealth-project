@@ -57,6 +57,7 @@ public class PlayerController : MonoBehaviour
     public float jumpForce = 5;
     public LayerMask selfLayerMask;
     public float gravityAccel = 1;
+    public float jumpPeakGravityScale = 0.5f;
     public float maxFallSpeed = 10;
 
 
