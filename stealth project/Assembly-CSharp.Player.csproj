@@ -855,6 +855,10 @@
       <Project>{24016E29-1FD4-2911-7CEF-03B226C7B1E2}</Project>
       <Name>Unity.RenderPipelines.Core.Runtime.Player</Name>
     </ProjectReference>
+    <ProjectReference Include="Unity.RenderPipelines.Universal.Config.Runtime.Player.csproj">
+      <Project>{4BB5E11E-3012-84E3-33F5-A7CB5007F024}</Project>
+      <Name>Unity.RenderPipelines.Universal.Config.Runtime.Player</Name>
+    </ProjectReference>
     <ProjectReference Include="Unity.VisualScripting.Flow.Player.csproj">
       <Project>{CE81B741-5FBC-D893-A1EF-DC5E9EF23899}</Project>
       <Name>Unity.VisualScripting.Flow.Player</Name>
@@ -882,6 +886,10 @@
     <ProjectReference Include="Unity.RenderPipelines.ShaderGraph.ShaderGraphLibrary.Player.csproj">
       <Project>{72892E68-B44A-50AF-535D-329EB4E7BE12}</Project>
       <Name>Unity.RenderPipelines.ShaderGraph.ShaderGraphLibrary.Player</Name>
+    </ProjectReference>
+    <ProjectReference Include="Unity.RenderPipelines.Universal.Runtime.Player.csproj">
+      <Project>{937B4AEF-E597-1702-2BB0-09323E2B12CB}</Project>
+      <Name>Unity.RenderPipelines.Universal.Runtime.Player</Name>
     </ProjectReference>
     <ProjectReference Include="Unity.Burst.Player.csproj">
       <Project>{B856128C-AE34-D776-CC4F-DE4028BF2339}</Project>
@@ -911,6 +919,10 @@
       <Project>{E6FE2FB0-96CA-364F-4937-2C4125BA3AA4}</Project>
       <Name>Unity.2D.Common.Runtime.Player</Name>
     </ProjectReference>
+    <ProjectReference Include="Unity.RenderPipeline.Universal.ShaderLibrary.Player.csproj">
+      <Project>{A1290469-2A14-11A7-FDE0-BF158A623AF3}</Project>
+      <Name>Unity.RenderPipeline.Universal.ShaderLibrary.Player</Name>
+    </ProjectReference>
     <ProjectReference Include="Unity.Timeline.Player.csproj">
       <Project>{650661B1-E436-EC0A-8B14-F8466CF7D01F}</Project>
       <Name>Unity.Timeline.Player</Name>
@@ -930,6 +942,10 @@
     <ProjectReference Include="Unity.Mathematics.Player.csproj">
       <Project>{87EB90E3-70CA-9561-C803-D40CE054D4F0}</Project>
       <Name>Unity.Mathematics.Player</Name>
+    </ProjectReference>
+    <ProjectReference Include="Unity.RenderPipelines.Universal.Shaders.Player.csproj">
+      <Project>{35FF3B31-84A3-7580-B11E-818D86EA4780}</Project>
+      <Name>Unity.RenderPipelines.Universal.Shaders.Player</Name>
     </ProjectReference>
     <ProjectReference Include="Unity.VisualScripting.State.Player.csproj">
       <Project>{DFACD295-A192-D9B2-2BD4-C070AC18B887}</Project>
