@@ -127,7 +127,7 @@ public class PlayerAttackManager : MonoBehaviour
                 Vector2 aimStick = playerController.GetVector2Input("aimStick");
 
                 // Set the position of the hitbox
-                if (aimStick == Vector2.zero) aimStick = playerController.GetPlayerFacing();
+                //if (aimStick == Vector2.zero) aimStick = playerController.GetPlayerFacing();
                 Vector2 hitboxPosition = aimStick;
                 SwordSwingObject.transform.right = hitboxPosition;
                 SwordSwingObject.transform.localPosition = hitboxPosition * hitboxPositionOffset;
@@ -165,7 +165,7 @@ public class PlayerAttackManager : MonoBehaviour
         if (TimerThreeSwingLifespan > comboChainTime)
         {
             InitFlag3Hit = false;
-            playerController.ChangeState(PlayerControllerStates.FreeMove);
+            playerController.ChangeState(e_PlayerControllerStates.FreeMove);
             currentAttack = PlayerAttacks.None;
             TimerMeleeAttackCooldown = meleeAttackCooldownTime;
             FlagCanMeleeAttack = false;
@@ -191,7 +191,7 @@ public class PlayerAttackManager : MonoBehaviour
         {
             FlagChargeReleaseInput = false;
             InitFlagChargeUp = false;
-            playerController.ChangeState(PlayerControllerStates.Attacking);
+            playerController.ChangeState(e_PlayerControllerStates.Attacking);
             currentAttack = PlayerAttacks.HeavySlash;
             Debug.Log("heavy slash");
         }
@@ -201,7 +201,7 @@ public class PlayerAttackManager : MonoBehaviour
         {
             FlagChargeReleaseInput= false;
             InitFlagChargeUp = false;
-            playerController.ChangeState(PlayerControllerStates.FreeMove);
+            playerController.ChangeState(e_PlayerControllerStates.FreeMove);
             currentAttack = PlayerAttacks.None;
             currentConsecutive = 0;
             Debug.Log("early release");
@@ -224,7 +224,7 @@ public class PlayerAttackManager : MonoBehaviour
         if(TimerKickUptime <= 0)
         {
             InitFlagKick = false;
-            playerController.ChangeState(PlayerControllerStates.FreeMove);
+            playerController.ChangeState(e_PlayerControllerStates.FreeMove);
             currentAttack = PlayerAttacks.None;
         }
     }
@@ -255,7 +255,7 @@ public class PlayerAttackManager : MonoBehaviour
         if(TimerHeavySlashLifetime > heavyComboChainTime)
         {
             InitFlagHeavySlash = false;
-            playerController.ChangeState(PlayerControllerStates.FreeMove);
+            playerController.ChangeState(e_PlayerControllerStates.FreeMove);
             currentAttack = PlayerAttacks.None;
             currentConsecutive = 0;
             Debug.Log("heavy slash done");

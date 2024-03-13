@@ -73,6 +73,7 @@
     <Compile Include="Assets\Scripts\Player Controller\PlayerGroundTrigger.cs" />
     <Compile Include="Assets\Scripts\CameraFollow.cs" />
     <Compile Include="Assets\Scripts\PatrolRoute.cs" />
+    <Compile Include="Assets\Scripts\Player Controller\PlayerJumpManager.cs" />
     <Compile Include="Assets\Scripts\Player Controller\PlayerSpriteManager.cs" />
     <Compile Include="Assets\Scripts\SnapToGrid.cs" />
   </ItemGroup>

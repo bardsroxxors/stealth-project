@@ -875,6 +875,7 @@ GameObject:
   m_Component:
   - component: {fileID: 808550040}
   - component: {fileID: 808550039}
+  - component: {fileID: 808550045}
   - component: {fileID: 808550042}
   - component: {fileID: 808550043}
   - component: {fileID: 808550044}
@@ -905,13 +906,6 @@ MonoBehaviour:
   inputVector: {x: 0, y: 0}
   movementVector: {x: 0, y: 0}
   gravityVector: {x: 0, y: 0}
-  jumpForce: 10
-  selfLayerMask:
-    serializedVersion: 2
-    m_Bits: 64
-  gravityAccel: 15
-  jumpPeakGravityScale: 0.5
-  maxFallSpeed: 20
   collisionDirections: {x: 0, y: 0}
   collisionLayers:
   - Ground
@@ -1012,6 +1006,34 @@ MonoBehaviour:
   m_DefaultActionMap: PlayerMain
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
+--- !u!114 &808550045
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 808550038}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 436996c13dffdaf47baaf2b32f3fb488, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  f_reduceGravityAtPeak: 1
+  f_stopOnKeyRelease: 1
+  f_peakSpeedBoost: 1
+  jumpForce: 14
+  selfLayerMask:
+    serializedVersion: 2
+    m_Bits: 0
+  gravityAccel: 28
+  jumpPeakGravityScale: 0.5
+  maxFallSpeed: 10
+  velocityFactor: 0.75
+  peakGravityFactor: 0.7
+  peakGravitySpeedWindow: 0.5
+  peakBoostFactor: 1.2
+  peakBoostSpeedWindow: 5
+  f_jumped: 0
 --- !u!1 &996427624
 GameObject:
   m_ObjectHideFlags: 0
@@ -9439,6 +9461,26 @@ Tilemap:
       serializedVersion: 2
       m_TileIndex: 3
       m_TileSpriteIndex: 1
+      m_TileMatrixIndex: 0
+      m_TileColorIndex: 0
+      m_TileObjectToInstantiateIndex: 65535
+      dummyAlignment: 0
+      m_AllTileFlags: 1073741825
+  - first: {x: 28, y: 3, z: 0}
+    second:
+      serializedVersion: 2
+      m_TileIndex: 0
+      m_TileSpriteIndex: 0
+      m_TileMatrixIndex: 0
+      m_TileColorIndex: 0
+      m_TileObjectToInstantiateIndex: 65535
+      dummyAlignment: 0
+      m_AllTileFlags: 1073741825
+  - first: {x: 29, y: 3, z: 0}
+    second:
+      serializedVersion: 2
+      m_TileIndex: 0
+      m_TileSpriteIndex: 0
       m_TileMatrixIndex: 0
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
@@ -22016,7 +22058,7 @@ Tilemap:
       m_AllTileFlags: 1073741825
   m_AnimatedTiles: {}
   m_TileAssetArray:
-  - m_RefCount: 35
+  - m_RefCount: 37
     m_Data: {fileID: 11400000, guid: d385538f9b2804941a54032785a0f6e4, type: 2}
   - m_RefCount: 0
     m_Data: {fileID: 0}
@@ -22029,7 +22071,7 @@ Tilemap:
   - m_RefCount: 33
     m_Data: {fileID: 11400000, guid: 5570f6aa393d74c4bb43ae791361667a, type: 2}
   m_TileSpriteArray:
-  - m_RefCount: 35
+  - m_RefCount: 37
     m_Data: {fileID: 949842400, guid: 247f4805d2a70d14294b3712298646e5, type: 3}
   - m_RefCount: 1991
     m_Data: {fileID: 1097211759, guid: 247f4805d2a70d14294b3712298646e5, type: 3}
@@ -22042,7 +22084,7 @@ Tilemap:
   - m_RefCount: 33
     m_Data: {fileID: 1898819426, guid: 247f4805d2a70d14294b3712298646e5, type: 3}
   m_TileMatrixArray:
-  - m_RefCount: 2059
+  - m_RefCount: 2061
     m_Data:
       e00: 1
       e01: 0
@@ -22061,7 +22103,7 @@ Tilemap:
       e32: 0
       e33: 1
   m_TileColorArray:
-  - m_RefCount: 2059
+  - m_RefCount: 2061
     m_Data: {r: 1, g: 1, b: 1, a: 1}
   - m_RefCount: 0
     m_Data: {r: NaN, g: NaN, b: NaN, a: NaN}
@@ -22418,6 +22460,14 @@ CompositeCollider2D:
         Y: -49915000
     - - X: 330000000
         Y: 29949000
+      - X: 300000000
+        Y: 29949000
+      - X: 300000000
+        Y: 39932000
+      - X: 280000000
+        Y: 39932000
+      - X: 280000000
+        Y: 29949000
       - X: 250000000
         Y: 29949000
       - X: 250000000
@@ -22510,6 +22560,10 @@ CompositeCollider2D:
       - {x: -3.999971, y: 4.9915004}
     - - {x: 32.999973, y: 2.49575}
       - {x: 32.999973, y: 2.9949}
+      - {x: 30, y: 2.9949296}
+      - {x: 29.999971, y: 3.9932}
+      - {x: 28, y: 3.9931707}
+      - {x: 27.999971, y: 2.9949}
       - {x: 25, y: 2.994871}
       - {x: 25.000029, y: 2.49575}
   m_VertexDistance: 0.0005

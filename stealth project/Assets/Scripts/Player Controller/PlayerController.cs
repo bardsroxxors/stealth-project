@@ -7,19 +7,16 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 
 
-public enum PlayerControllerStates
+public enum e_PlayerControllerStates
 {
     FreeMove,
     Attacking,
-    //GrappleCast,
-    //zipToTarget,
-    //Dash,
     Hover,
     Hurt,
     Dead
 }
 
-public enum ControlSchemes
+public enum e_ControlSchemes
 {
     MouseKeyboard,
     Gamepad
@@ -31,11 +28,11 @@ public class PlayerController : MonoBehaviour
     
 
     [SerializeField]
-    private PlayerControllerStates CurrentPlayerState = PlayerControllerStates.FreeMove;
-    private PlayerControllerStates previousPlayerState = PlayerControllerStates.FreeMove;
+    private e_PlayerControllerStates CurrentPlayerState = e_PlayerControllerStates.FreeMove;
+    private e_PlayerControllerStates previousPlayerState = e_PlayerControllerStates.FreeMove;
 
     [SerializeField]
-    private ControlSchemes controlScheme = ControlSchemes.MouseKeyboard;
+    private e_ControlSchemes controlScheme = e_ControlSchemes.MouseKeyboard;
 
     private PlayerAttackManager playerAttacks;
 
@@ -52,14 +49,14 @@ public class PlayerController : MonoBehaviour
     private Vector2 playerFacingVector = new Vector2(1, 0); // used to aim abilities if there is no input, and used to determine sprite facing
     public Vector2 gravityVector = Vector2.zero;
     
-
+    /*
     [Header("Jump")]
     public float jumpForce = 5;
     public LayerMask selfLayerMask;
     public float gravityAccel = 1;
     public float jumpPeakGravityScale = 0.5f;
     public float maxFallSpeed = 10;
-
+    */
 
     [Header("Collisions")]
     public Vector2 collisionDirections = Vector2.zero; // set to 0 for no collision, -1 for left, 1 for right
@@ -74,24 +71,22 @@ public class PlayerController : MonoBehaviour
 
     private BoxCollider2D collider;
     public GameObject colliderObject;
+    private PlayerJumpManager jumpManager;
 
 
 
 
     void Start()
     {
-        //grappleLineRenderer = grappleLineObject.GetComponent<GrappleLineRenderer>();
-        //swordHitboxScript = SwordSwingObject.GetComponent<SwordHitboxScript>();
-        playerAttacks = GetComponent<PlayerAttackManager>();
-
         collider = colliderObject.GetComponent<BoxCollider2D>();
+        jumpManager = GetComponent<PlayerJumpManager>();
     }
 
-    // Update is called once per frame
+
     void FixedUpdate()
     {
         ApplyMovement();
-        if (controlScheme == ControlSchemes.MouseKeyboard) aimStickVector = GetVectorToMouse();
+        if (controlScheme == e_ControlSchemes.MouseKeyboard) aimStickVector = GetVectorToMouse();
 
 
 
@@ -100,12 +95,10 @@ public class PlayerController : MonoBehaviour
     private void Update()
     {
 
-
-
         // Process the current state
         switch (CurrentPlayerState)
         {
-            case PlayerControllerStates.FreeMove:
+            case e_PlayerControllerStates.FreeMove:
                 ProcessFreeMove();
                 break;
 
@@ -136,10 +129,9 @@ public class PlayerController : MonoBehaviour
         */
 
         // apply gravity if not grounded
-        if (collisionDirections.y != -1 && CurrentPlayerState == PlayerControllerStates.FreeMove)
+        if (collisionDirections.y != -1 && CurrentPlayerState == e_PlayerControllerStates.FreeMove)
         {
-            gravityVector.y -= gravityAccel * Time.deltaTime;
-            if (gravityVector.y < -maxFallSpeed) gravityVector.y = -maxFallSpeed;
+            jumpManager.ApplyGravity();
         }
         else if (collisionDirections.y == -1) gravityVector.y = 0;
 
@@ -149,11 +141,6 @@ public class PlayerController : MonoBehaviour
 
         collisionDirections = Vector2.zero;
     }
-
-
-
-
-
 
 
 
@@ -196,85 +183,25 @@ public class PlayerController : MonoBehaviour
 
 
 
-    public void ChangeState(PlayerControllerStates state)
+    public void ChangeState(e_PlayerControllerStates state)
     {
         previousPlayerState = CurrentPlayerState;
         CurrentPlayerState = state;
     }
 
-    // Returns a normalised vector of the direction from the player to the mouse position
-    Vector2 GetVectorToMouse()
-    {
-        Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        Vector3 direction = mousePosition - (Vector2)transform.position;
-        return direction.normalized;
-    }
+    
 
-
-    // Get variable methods
-    public Vector2 GetVector2Input(string type)
-    {
-        switch (type) {
-            case "aimStick":
-                return aimStickVector;
-        }
-        return Vector2.zero;
-    }
-
-    public Vector2 GetPlayerFacing()
-    {
-        return playerFacingVector;
-    }
-
-
-
-    private void ClampMovementForCollisions()
-    {
-        if (collisionDirections.y > 0) movementVector.y = Mathf.Clamp(movementVector.y, -100, 0);
-        else if (collisionDirections.y < 0) movementVector.y = Mathf.Clamp(movementVector.y, 0, 100);
-
-        if (collisionDirections.x > 0) movementVector.x = Mathf.Clamp(movementVector.x, -100, 0);
-        else if (collisionDirections.x < 0) movementVector.x = Mathf.Clamp(movementVector.x, 0, 100);
-    }
-
-
-    // Input Listener Methods
-
-    void OnMove(InputValue value)
-    {
-        moveStickVector.x = value.Get<Vector2>().x;
-    }
-
-    void OnJump(InputValue value)
-    {
-        Debug.Log("Jump");
-
-        if ( collisionDirections.y == -1)
-        {
-            gravityVector.y = jumpForce;
-            collisionDirections.y = 0;
-        }
-        
-    }
 
     
 
-    private void CheckSlopeRaycast()
+    /*public Vector2 GetPlayerFacing()
     {
-        RaycastHit2D ray = Physics2D.Raycast(
-            collider.bounds.center + new Vector3(0, -collider.bounds.extents.y, 0),
-            Vector2.down,
-            slopeRaycastDistance,
-            slopeMask
+        return playerFacingVector;
+    }*/
 
-            );
 
-        slopeCheckRaycast = ray;
 
-        if(ray) groundNormal = ray.normal;
-        else groundNormal = Vector2.up;
-
-    }
+    
 
     private void OnCollisionStay2D(Collision2D collision)
     {
@@ -290,12 +217,13 @@ public class PlayerController : MonoBehaviour
                 if(Vector2.Angle(normal, Vector2.up) < 45f)
                 {
                     collisionDirections.y = -1;
-                    gravityVector.y = 0;
+                    //gravityVector.y = 0;
                 }
                 // if surface faces down
                 else if (Vector2.Angle(normal, Vector2.down) < 45f)
                 {
                     collisionDirections.y = 1;
+                    //gravityVector.y = 0;
                 }
                 // if surface faces left
                 else if (Vector2.Angle(normal, Vector2.left) < 45f)
@@ -313,10 +241,9 @@ public class PlayerController : MonoBehaviour
 
         }
     }
-    /*
-    private void OnCollisionExit2D(Collision2D collision)
+
+    private void OnCollisionEnter2D(Collision2D collision)
     {
-        
         if (collisionLayers.Contains(collision.collider.gameObject.tag))
         {
             Vector2 normal;
@@ -328,32 +255,44 @@ public class PlayerController : MonoBehaviour
                 // if surface faces up
                 if (Vector2.Angle(normal, Vector2.up) < 45f)
                 {
-                    collisionDirections.y = 0;
+                    gravityVector.y = 0;
+                    jumpManager.f_jumped = false;
                 }
                 // if surface faces down
                 else if (Vector2.Angle(normal, Vector2.down) < 45f)
                 {
-                    collisionDirections.y = 0;
+                    gravityVector.y = 0;
                 }
-                // if surface faces left
-                else if (Vector2.Angle(normal, Vector2.left) < 45f)
-                {
-                    collisionDirections.x = 0;
-                }
-                // if surface faces right
-                else if (Vector2.Angle(normal, Vector2.right) < 45f)
-                {
-                    collisionDirections.x = 0;
-                }
+
 
 
             }
+
         }
+    }
 
-    }*/
+    // Get variable methods
+    public Vector2 GetVector2Input(string type)
+    {
+        switch (type)
+        {
+            case "aimStick":
+                return aimStickVector;
+        }
+        return Vector2.zero;
+    }
+
+    // Returns a normalised vector of the direction from the player to the mouse position
+    Vector2 GetVectorToMouse()
+    {
+        Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        Vector3 direction = mousePosition - (Vector2)transform.position;
+        return direction.normalized;
+    }
 
 
-    private void OnTriggerEnter2D(Collider2D collision)
+
+    private void OnTriggerStay2D(Collider2D collision)
     {
         if (collision.gameObject.tag == "Light") lit = true;
     }
@@ -364,28 +303,72 @@ public class PlayerController : MonoBehaviour
     }
 
 
+    private void CheckSlopeRaycast()
+    {
+        RaycastHit2D ray = Physics2D.Raycast(
+            collider.bounds.center + new Vector3(0, -collider.bounds.extents.y, 0),
+            Vector2.down,
+            slopeRaycastDistance,
+            slopeMask
+
+            );
+
+        slopeCheckRaycast = ray;
+
+        if (ray) groundNormal = ray.normal;
+        else groundNormal = Vector2.up;
+
+    }
+
+    private void ClampMovementForCollisions()
+    {
+        if (collisionDirections.y > 0) movementVector.y = Mathf.Clamp(movementVector.y, -100, 0);
+        else if (collisionDirections.y < 0) movementVector.y = Mathf.Clamp(movementVector.y, 0, 100);
+
+        if (collisionDirections.x > 0) movementVector.x = Mathf.Clamp(movementVector.x, -100, 0);
+        else if (collisionDirections.x < 0) movementVector.x = Mathf.Clamp(movementVector.x, 0, 100);
+    }
 
 
 
 
 
 
+    // Input Listener Methods
+
+    void OnMove(InputValue value)
+    {
+        moveStickVector.x = value.Get<Vector2>().x;
+    }
+
+    /*
+    void OnJump(InputValue value)
+    {
+        Debug.Log("Jump");
+
+        if (collisionDirections.y == -1)
+        {
+            collisionDirections.y = 0;
+            jumpManager.Jump();
+        }
+
+    }*/
 
 
     void OnAim(InputValue value)
     {
-        if (controlScheme == ControlSchemes.Gamepad) aimStickVector = value.Get<Vector2>().normalized;
+        if (controlScheme == e_ControlSchemes.Gamepad) aimStickVector = value.Get<Vector2>().normalized;
     }
 
 
     void OnGamepadAny(InputValue value)
     {
-        if (controlScheme != ControlSchemes.Gamepad) controlScheme = ControlSchemes.Gamepad;
+        if (controlScheme != e_ControlSchemes.Gamepad) controlScheme = e_ControlSchemes.Gamepad;
     }
 
     void OnKeyboardAny(InputValue value)
     {
-        if (controlScheme != ControlSchemes.MouseKeyboard) controlScheme = ControlSchemes.MouseKeyboard;
+        if (controlScheme != e_ControlSchemes.MouseKeyboard) controlScheme = e_ControlSchemes.MouseKeyboard;
     }
 
 
