@@ -918,6 +918,8 @@ MonoBehaviour:
     m_Bits: 256
   slopeRaycastDistance: 1
   colliderObject: {fileID: 580699819}
+  gracetimePostCollide: 0.08
+  gracetimePreCollide: 0.25
 --- !u!4 &808550040
 Transform:
   m_ObjectHideFlags: 0
@@ -1028,12 +1030,13 @@ MonoBehaviour:
   gravityAccel: 28
   jumpPeakGravityScale: 0.5
   maxFallSpeed: 10
-  velocityFactor: 0.75
+  releaseVelocityFactor: 0.5
   peakGravityFactor: 0.7
   peakGravitySpeedWindow: 0.5
   peakBoostFactor: 1.2
   peakBoostSpeedWindow: 5
   f_jumped: 0
+  f_jumpKeyDown: 0
 --- !u!1 &996427624
 GameObject:
   m_ObjectHideFlags: 0
@@ -23198,6 +23201,7 @@ MonoBehaviour:
   soundAwareIncrease: 0.5
   awarenessDecaySpeed: 0.2
   alertDecaySpeed: 0.05
+  alertDecayDelay: 0.5
 --- !u!1 &1734265701
 GameObject:
   m_ObjectHideFlags: 0

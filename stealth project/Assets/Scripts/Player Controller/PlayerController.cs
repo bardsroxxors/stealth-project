@@ -73,6 +73,13 @@ public class PlayerController : MonoBehaviour
     public GameObject colliderObject;
     private PlayerJumpManager jumpManager;
 
+    [Header("Grace Timers")]
+    public float gracetimePostCollide = 0.2f;
+    public float gracetimePreCollide = 0.2f;
+    private float t_gracetimePostCollide = 0f;
+    private float t_gracetimePreCollide = 0f;
+
+
 
 
 
@@ -101,10 +108,12 @@ public class PlayerController : MonoBehaviour
             case e_PlayerControllerStates.FreeMove:
                 ProcessFreeMove();
                 break;
-
         }
 
         
+        // manage timers
+        if (t_gracetimePostCollide > 0) t_gracetimePostCollide -= Time.deltaTime;
+        if (t_gracetimePreCollide > 0) t_gracetimePreCollide -= Time.deltaTime;
     }
 
     void ApplyMovement()
@@ -217,6 +226,7 @@ public class PlayerController : MonoBehaviour
                 if(Vector2.Angle(normal, Vector2.up) < 45f)
                 {
                     collisionDirections.y = -1;
+                    t_gracetimePostCollide = gracetimePostCollide;
                     //gravityVector.y = 0;
                 }
                 // if surface faces down
@@ -257,6 +267,12 @@ public class PlayerController : MonoBehaviour
                 {
                     gravityVector.y = 0;
                     jumpManager.f_jumped = false;
+
+                    if (t_gracetimePreCollide > 0)
+                    {
+                        collisionDirections.y = 0;
+                        jumpManager.Jump();
+                    }
                 }
                 // if surface faces down
                 else if (Vector2.Angle(normal, Vector2.down) < 45f)
@@ -271,24 +287,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    // Get variable methods
-    public Vector2 GetVector2Input(string type)
-    {
-        switch (type)
-        {
-            case "aimStick":
-                return aimStickVector;
-        }
-        return Vector2.zero;
-    }
-
-    // Returns a normalised vector of the direction from the player to the mouse position
-    Vector2 GetVectorToMouse()
-    {
-        Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        Vector3 direction = mousePosition - (Vector2)transform.position;
-        return direction.normalized;
-    }
+   
 
 
 
@@ -341,19 +340,25 @@ public class PlayerController : MonoBehaviour
         moveStickVector.x = value.Get<Vector2>().x;
     }
 
-    /*
+
+
     void OnJump(InputValue value)
     {
         Debug.Log("Jump");
 
-        if (collisionDirections.y == -1)
+        jumpManager.f_jumpKeyDown = true;
+
+        if (collisionDirections.y == -1 || t_gracetimePostCollide > 0)
         {
             collisionDirections.y = 0;
             jumpManager.Jump();
         }
+        else
+        {
+            t_gracetimePreCollide = gracetimePreCollide;
+        }
 
-    }*/
-
+    }
 
     void OnAim(InputValue value)
     {
@@ -369,6 +374,29 @@ public class PlayerController : MonoBehaviour
     void OnKeyboardAny(InputValue value)
     {
         if (controlScheme != e_ControlSchemes.MouseKeyboard) controlScheme = e_ControlSchemes.MouseKeyboard;
+    }
+
+
+
+
+
+    // Get variable methods
+    public Vector2 GetVector2Input(string type)
+    {
+        switch (type)
+        {
+            case "aimStick":
+                return aimStickVector;
+        }
+        return Vector2.zero;
+    }
+
+    // Returns a normalised vector of the direction from the player to the mouse position
+    Vector2 GetVectorToMouse()
+    {
+        Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        Vector3 direction = mousePosition - (Vector2)transform.position;
+        return direction.normalized;
     }
 
 

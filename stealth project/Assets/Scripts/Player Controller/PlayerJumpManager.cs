@@ -22,7 +22,7 @@ public class PlayerJumpManager : MonoBehaviour
     public float maxFallSpeed = 10;
 
     [Header("Stop on Release Options")]
-    public float velocityFactor = 0.5f;
+    public float releaseVelocityFactor = 0.5f;
 
     [Header("Reduce Gravity at Peak Options")]
     public float peakGravityFactor = 0.5f;
@@ -34,6 +34,13 @@ public class PlayerJumpManager : MonoBehaviour
 
     // used while airborne to check if we started a jump from the ground
     public bool f_jumped = false;
+
+    public bool f_jumpKeyDown = false;
+
+
+
+
+
 
     // Start is called before the first frame update
     void Start()
@@ -55,9 +62,11 @@ public class PlayerJumpManager : MonoBehaviour
 
     public void JumpReleased()
     {
+        f_jumpKeyDown = false;
+
         if (f_jumped && f_stopOnKeyRelease)
         {
-            pc.gravityVector.y = pc.gravityVector.y * velocityFactor;
+            pc.gravityVector.y = pc.gravityVector.y * releaseVelocityFactor;
         }
     }
 
@@ -94,17 +103,7 @@ public class PlayerJumpManager : MonoBehaviour
 
     // input listener methods
 
-    void OnJump(InputValue value)
-    {
-        Debug.Log("Jump");
-
-        if (pc.collisionDirections.y == -1)
-        {
-            pc.collisionDirections.y = 0;
-            Jump();
-        }
-
-    }
+    
 
     void OnJumpRelease(InputValue value)
     {

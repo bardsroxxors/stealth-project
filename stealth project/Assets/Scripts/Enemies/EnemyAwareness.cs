@@ -30,6 +30,8 @@ public class EnemyAwareness : MonoBehaviour
     public float soundAwareIncrease = 0.5f;
     public float awarenessDecaySpeed = 0.2f;
     public float alertDecaySpeed = 0.15f;
+    public float alertDecayDelay = 0.5f;
+    private float t_alertDecayDelay = 0f;
 
     //[Header("Unaware")]
 
@@ -68,6 +70,7 @@ public class EnemyAwareness : MonoBehaviour
         }
 
 
+        if (t_alertDecayDelay > 0) t_alertDecayDelay -= Time.deltaTime;
 
         alertPercent = Mathf.Clamp(alertPercent, 0, 1);
     }
@@ -79,6 +82,7 @@ public class EnemyAwareness : MonoBehaviour
         if (playerInSight)
         {
             alertPercent = alertPercent + sightAwareIncreaseSpeed * Time.deltaTime;
+            t_alertDecayDelay = alertDecayDelay;
         }
 
         if (alertPercent > 0f)
@@ -106,10 +110,11 @@ public class EnemyAwareness : MonoBehaviour
         {
             lastKnownPosition = playerObject.transform.position;
             alertPercent = alertPercent + sightAwareIncreaseSpeed * Time.deltaTime;
+            t_alertDecayDelay = alertDecayDelay;
         }
 
 
-        else if (alertPercent > 0f)
+        else if (alertPercent > 0f && t_alertDecayDelay <= 0)
         {
             alertPercent -= awarenessDecaySpeed * Time.deltaTime;
 
@@ -130,10 +135,11 @@ public class EnemyAwareness : MonoBehaviour
         {
             lastKnownPosition = playerObject.transform.position;
             alertPercent = alertPercent + sightAwareIncreaseSpeed * Time.deltaTime;
+            t_alertDecayDelay = alertDecayDelay;
         }
 
 
-        else if (alertPercent > 0f)
+        else if (alertPercent > 0f && t_alertDecayDelay <= 0)
         {
             alertPercent -= alertDecaySpeed * Time.deltaTime;
 
