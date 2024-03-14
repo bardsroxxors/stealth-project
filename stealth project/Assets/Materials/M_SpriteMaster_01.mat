@@ -48,7 +48,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: 4e7cc45b74845e2439fa61d32a0cc644, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
@@ -68,11 +68,11 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _SpriteMask:
-        m_Texture: {fileID: 2800000, guid: 067003e06dfb4b94faa979cbe7bd5074, type: 3}
+        m_Texture: {fileID: 2800000, guid: bcaa8ced317eb0f4cb4ed896f131637e, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _SpriteNormal:
-        m_Texture: {fileID: 2800000, guid: d8c9c1a2e3b6c4246940c8f0b78bd0b9, type: 3}
+        m_Texture: {fileID: 2800000, guid: c197e77762f0617429053bf48f9c1836, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - unity_Lightmaps:
@@ -126,7 +126,7 @@ Material:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _Shadow1_Colour: {r: 0.835979, g: 0, b: 1, a: 0}
-    - _Shadow2_Colour: {r: 0, g: 0.62021875, b: 1, a: 1}
+    - _Shadow2_Colour: {r: 8.6356145e+17, g: 0, b: 0, a: 1}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
   m_BuildTextureStacks: []
 --- !u!114 &6727006440890717084
