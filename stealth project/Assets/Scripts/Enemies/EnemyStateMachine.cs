@@ -2,7 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Pathfinding;
-
+using static UnityEngine.GraphicsBuffer;
+using System;
+using System.Runtime.InteropServices;
 
 public enum EnemyStates
 {
@@ -17,12 +19,14 @@ public class EnemyStateMachine : MonoBehaviour
     public EnemyStates currentState = EnemyStates.patrolling;
 
     [Header("Movement")]
-    public float moveSpeed = 5;
+    public float patrolSpeed = 5;
+    public float pursueSpeed = 8;
     public float moveDecay = 0.5f;
     public float gravity = 5;
     public Vector2 inputVector = Vector2.zero;
     public Vector2 movementVector = Vector2.zero;
     public float facingDirection = 1;
+
 
     [Header("Patrolling")]
     public GameObject patrolRouteObject;
@@ -45,6 +49,10 @@ public class EnemyStateMachine : MonoBehaviour
     [Header("Sight Cone")]
     public GameObject sightCone;
     public Vector2 sightConePosition = Vector2.zero;
+    public float coneTrackingSpeed = 1;
+    public Vector3 targetLookPosition = Vector3.zero;
+    public GameObject defaultLookTarget;
+    private Vector3 fuckyou = Vector3.zero;
 
 
     private Path path;
@@ -71,6 +79,7 @@ public class EnemyStateMachine : MonoBehaviour
 
         InvokeRepeating("UpdatePath", 0f, pathUpdateSeconds);
 
+        fuckyou = new Vector3(facingDirection, 1, 1);
 
         patrolRoute = patrolRouteObject.GetComponent<PatrolRoute>();
         if (patrolRoute != null)
@@ -86,13 +95,7 @@ public class EnemyStateMachine : MonoBehaviour
 
         inputVector = Vector3.zero;
 
-        if (sightCone != null)
-        {
-            sightCone.transform.localPosition = sightConePosition;
-
-            // change the direction of sight cone
-            if (facingDirection != sightCone.transform.localScale.x) sightCone.transform.localScale = new Vector3(facingDirection, 1, 1);
-        }
+        
 
         switch (currentState)
         {
@@ -114,7 +117,26 @@ public class EnemyStateMachine : MonoBehaviour
         ApplyMovement();
 
         // update facing direction
-        if (movementVector.x != 0) facingDirection = Mathf.Sign(movementVector.x);
+        if (movementVector.x != 0)  facingDirection = Mathf.Sign(movementVector.x);
+
+        fuckyou = new Vector3(facingDirection, 1, 1);
+
+        if (sightCone != null)
+        {
+            sightCone.transform.localPosition = sightConePosition;
+
+            // change the direction of sight cone
+            //if (facingDirection != sightCone.transform.localScale.x) sightCone.transform.localScale = new Vector3(facingDirection, 1, 1);
+
+
+
+            
+
+
+
+        }
+
+
 
     }
 
@@ -129,6 +151,9 @@ public class EnemyStateMachine : MonoBehaviour
             currentState = EnemyStates.waiting;
             //inputVector = Vector3.zero;
         }
+
+        targetLookPosition = transform.position + Vector3.Scale(defaultLookTarget.transform.localPosition, fuckyou);
+        SightConeTrack();
 
 
         pathfindTarget = patrolRoute.nodes[currentNodeIndex].position;
@@ -145,12 +170,20 @@ public class EnemyStateMachine : MonoBehaviour
         if (currentWaitTimer <= 0) currentState = EnemyStates.patrolling;
 
         else currentWaitTimer -= Time.deltaTime;
+
+        //targetLookPosition = Vector3.Scale( defaultLookTarget.transform.localPosition, fuckyou );
+        SightConeTrack();
     }
+
 
     private void ProcessInvestigate()
     {
         float dist = (awareScript.lastKnownPosition - transform.position).magnitude;
-        if(dist > investigateDistance)
+
+        targetLookPosition = awareScript.lastKnownPosition;
+        SightConeTrack();
+
+        if (dist > investigateDistance)
         {
             pathfindTarget = awareScript.lastKnownPosition;
 
@@ -236,8 +269,10 @@ public class EnemyStateMachine : MonoBehaviour
         else if (direction.x < 0) direction.x = -1;
 
         direction.y = 0;
-        inputVector = direction * moveSpeed;
-
+        if(currentState == EnemyStates.patrolling)
+            inputVector = direction * patrolSpeed;
+        else if(currentState != EnemyStates.patrolling)
+            inputVector = direction * pursueSpeed;
 
 
         // next waypoint
@@ -248,6 +283,28 @@ public class EnemyStateMachine : MonoBehaviour
         }
 
     }
+
+
+
+    // move sight cone towards target
+    private void SightConeTrack()
+    {
+        if (targetLookPosition != null)
+        {
+            Vector2 direction = targetLookPosition - transform.position;
+
+            float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+
+            Quaternion targetRotation = Quaternion.AngleAxis(angle, Vector3.forward);
+
+
+            //if (Mathf.Abs(angle) < 100)
+            sightCone.transform.rotation = Quaternion.Slerp(sightCone.transform.rotation, targetRotation, coneTrackingSpeed * Time.deltaTime);
+            //else
+            //    sightCone.transform.rotation = targetRotation;
+        }
+    }
+
 
     // set the index for the next patrol route node
     private void SetNextNodeIndex()
