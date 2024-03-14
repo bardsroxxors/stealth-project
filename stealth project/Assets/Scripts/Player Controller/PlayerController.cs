@@ -72,6 +72,10 @@ public class PlayerController : MonoBehaviour
     private BoxCollider2D collider;
     public GameObject colliderObject;
     private PlayerJumpManager jumpManager;
+    public GameObject graphicsObject;
+    private SpriteRenderer spriteRenderer;
+    private Color defaultColour;
+    public Color darkColour;
 
     [Header("Grace Timers")]
     public float gracetimePostCollide = 0.2f;
@@ -87,6 +91,8 @@ public class PlayerController : MonoBehaviour
     {
         collider = colliderObject.GetComponent<BoxCollider2D>();
         jumpManager = GetComponent<PlayerJumpManager>();
+        spriteRenderer = graphicsObject.GetComponent<SpriteRenderer>();
+        defaultColour = spriteRenderer.color;
     }
 
 
@@ -114,6 +120,9 @@ public class PlayerController : MonoBehaviour
         // manage timers
         if (t_gracetimePostCollide > 0) t_gracetimePostCollide -= Time.deltaTime;
         if (t_gracetimePreCollide > 0) t_gracetimePreCollide -= Time.deltaTime;
+
+        if (lit) spriteRenderer.color = defaultColour;
+        else spriteRenderer.color = darkColour;
     }
 
     void ApplyMovement()

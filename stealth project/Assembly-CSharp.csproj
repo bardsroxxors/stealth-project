@@ -936,6 +936,10 @@
       <Project>{2026AABF-9D47-37C6-2C4C-2015EB37C5C5}</Project>
       <Name>Unity.2D.PixelPerfect.Editor</Name>
     </ProjectReference>
+    <ProjectReference Include="Adobe.SubstanceEditor.csproj">
+      <Project>{EA053611-EB8A-BBB6-46E8-A5858BD07BA2}</Project>
+      <Name>Adobe.SubstanceEditor</Name>
+    </ProjectReference>
     <ProjectReference Include="Unity.Rider.Editor.csproj">
       <Project>{6C2B886D-0646-C4BF-9538-8FFC50C763B6}</Project>
       <Name>Unity.Rider.Editor</Name>
@@ -1056,9 +1060,9 @@
       <Project>{5BB11AF1-D2D1-7B76-CF3F-E3F0347A6C3D}</Project>
       <Name>Unity.2D.Animation.Runtime</Name>
     </ProjectReference>
-    <ProjectReference Include="Unity.2D.Tilemap.Extras.csproj">
-      <Project>{E0F1A463-4860-A07A-BC8D-7FB2A491839F}</Project>
-      <Name>Unity.2D.Tilemap.Extras</Name>
+    <ProjectReference Include="Adobe.Substance.csproj">
+      <Project>{64C760FD-D95F-79FE-D551-186AA8DE9E93}</Project>
+      <Name>Adobe.Substance</Name>
     </ProjectReference>
     <ProjectReference Include="Unity.VisualScripting.Core.Editor.csproj">
       <Project>{9D1E8B4B-E4D5-5227-DB5D-0B79BC89C2F9}</Project>
@@ -1067,6 +1071,10 @@
     <ProjectReference Include="UnityEngine.UI.csproj">
       <Project>{454252F5-2A2E-1F1C-E85D-636202A17BC5}</Project>
       <Name>UnityEngine.UI</Name>
+    </ProjectReference>
+    <ProjectReference Include="Unity.2D.Tilemap.Extras.csproj">
+      <Project>{E0F1A463-4860-A07A-BC8D-7FB2A491839F}</Project>
+      <Name>Unity.2D.Tilemap.Extras</Name>
     </ProjectReference>
     <ProjectReference Include="Unity.InternalAPIEditorBridge.005.csproj">
       <Project>{5630D235-F927-7E17-7A78-4F4EDF23C7AD}</Project>
@@ -1095,6 +1103,10 @@
     <ProjectReference Include="Unity.InputSystem.csproj">
       <Project>{D5F5594F-358D-42E8-A052-61D3775D50DA}</Project>
       <Name>Unity.InputSystem</Name>
+    </ProjectReference>
+    <ProjectReference Include="Adobe.Substance.Runtime.csproj">
+      <Project>{BBEA3B06-DABF-FD66-2248-F4CAA304B822}</Project>
+      <Name>Adobe.Substance.Runtime</Name>
     </ProjectReference>
     <ProjectReference Include="Unity.InputSystem.ForUI.csproj">
       <Project>{C6E737C7-68AE-14B4-E5DA-0D5270E39EF4}</Project>

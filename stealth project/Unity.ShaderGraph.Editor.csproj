@@ -147,9 +147,9 @@
     <Compile Include="Library\PackageCache\com.unity.shadergraph@14.0.10\Editor\Drawing\Views\Slots\PropertyConnectionStateSlotControlView.cs" />
     <Compile Include="Library\PackageCache\com.unity.shadergraph@14.0.10\Editor\Util\TypeMapper.cs" />
     <Compile Include="Library\PackageCache\com.unity.shadergraph@14.0.10\Editor\Data\Graphs\Vector2MaterialSlot.cs" />
-    <Compile Include="Library\PackageCache\com.unity.shadergraph@14.0.10\Editor\Generation\Processors\PropertyCollector.cs" />
     <Compile Include="Library\PackageCache\com.unity.shadergraph@14.0.10\Editor\Data\Graphs\BitangentMaterialSlot.cs" />
     <Compile Include="Library\PackageCache\com.unity.shadergraph@14.0.10\Editor\Generation\Processors\ActiveFields.cs" />
+    <Compile Include="Library\PackageCache\com.unity.shadergraph@14.0.10\Editor\Generation\Processors\PropertyCollector.cs" />
     <Compile Include="Library\PackageCache\com.unity.shadergraph@14.0.10\Editor\Generation\Collections\KeywordCollection.cs" />
     <Compile Include="Library\PackageCache\com.unity.shadergraph@14.0.10\Editor\Data\Interfaces\GenerationMode.cs" />
     <Compile Include="Library\PackageCache\com.unity.shadergraph@14.0.10\Editor\Data\Nodes\Input\Scene\CameraNode.cs" />
