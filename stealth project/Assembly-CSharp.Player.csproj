@@ -908,13 +908,17 @@
       <Project>{F60A9C23-26F0-1FA8-98DA-9B829BAF0BA2}</Project>
       <Name>Unity.2D.Animation.Runtime.Player</Name>
     </ProjectReference>
-    <ProjectReference Include="Unity.2D.Tilemap.Extras.Player.csproj">
-      <Project>{84C87F2F-5E3A-79DE-14DE-3D5C5A85A0D0}</Project>
-      <Name>Unity.2D.Tilemap.Extras.Player</Name>
+    <ProjectReference Include="Adobe.Substance.Player.csproj">
+      <Project>{E1D2954D-B778-FBC3-5116-58DD1784257A}</Project>
+      <Name>Adobe.Substance.Player</Name>
     </ProjectReference>
     <ProjectReference Include="UnityEngine.UI.Player.csproj">
       <Project>{14C71EEF-259E-7380-8FE2-5383A331D494}</Project>
       <Name>UnityEngine.UI.Player</Name>
+    </ProjectReference>
+    <ProjectReference Include="Unity.2D.Tilemap.Extras.Player.csproj">
+      <Project>{84C87F2F-5E3A-79DE-14DE-3D5C5A85A0D0}</Project>
+      <Name>Unity.2D.Tilemap.Extras.Player</Name>
     </ProjectReference>
     <ProjectReference Include="Unity.InternalAPIEngineBridge.001.Player.csproj">
       <Project>{2B8ED3B5-378B-4FE3-B03E-523D16555FF8}</Project>
@@ -935,6 +939,10 @@
     <ProjectReference Include="Unity.InputSystem.Player.csproj">
       <Project>{3F8468FA-9D87-AD36-0001-C90C7E7B6ECC}</Project>
       <Name>Unity.InputSystem.Player</Name>
+    </ProjectReference>
+    <ProjectReference Include="Adobe.Substance.Runtime.Player.csproj">
+      <Project>{9F994AB3-9CA2-ADC2-059D-79BA387A38BF}</Project>
+      <Name>Adobe.Substance.Runtime.Player</Name>
     </ProjectReference>
     <ProjectReference Include="Unity.InputSystem.ForUI.Player.csproj">
       <Project>{8DAF2ED4-8BF1-A288-FE9C-A60D87AC1FAA}</Project>
