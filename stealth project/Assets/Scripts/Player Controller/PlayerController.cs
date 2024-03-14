@@ -99,14 +99,8 @@ public class PlayerController : MonoBehaviour
     void FixedUpdate()
     {
         ApplyMovement();
+
         if (controlScheme == e_ControlSchemes.MouseKeyboard) aimStickVector = GetVectorToMouse();
-
-
-
-    }
-
-    private void Update()
-    {
 
         // Process the current state
         switch (CurrentPlayerState)
@@ -116,51 +110,23 @@ public class PlayerController : MonoBehaviour
                 break;
         }
 
-        
+
         // manage timers
         if (t_gracetimePostCollide > 0) t_gracetimePostCollide -= Time.deltaTime;
         if (t_gracetimePreCollide > 0) t_gracetimePreCollide -= Time.deltaTime;
 
+    }
+
+    private void Update()
+    {
         if (lit) spriteRenderer.color = defaultColour;
         else spriteRenderer.color = darkColour;
     }
 
-    void ApplyMovement()
-    {
-        movementVector.x = inputVector.x;
-        movementVector.y = gravityVector.y;
 
-        /*
-        Vector2 groundDirection = Vector2.Perpendicular(groundNormal) * -1 * inputVector.x;
+    
 
-        if (Vector2.Angle(groundNormal, Vector2.up) >= 20 && slopeCheckRaycast)
-        {
-
-            movementVector.x = groundDirection.x;
-            if(movementVector.y <= jumpForce/4)
-                movementVector.y = groundDirection.y - gravityVector.y;
-
-            
-        }
-
-        normalIndicator.transform.right = groundDirection;
-        */
-
-        // apply gravity if not grounded
-        if (collisionDirections.y != -1 && CurrentPlayerState == e_PlayerControllerStates.FreeMove)
-        {
-            jumpManager.ApplyGravity();
-        }
-        else if (collisionDirections.y == -1) gravityVector.y = 0;
-
-        ClampMovementForCollisions();
-
-        transform.position += (Vector3) movementVector * Time.deltaTime;
-
-        collisionDirections = Vector2.zero;
-    }
-
-
+    // Update Functions for States
 
     void ProcessFreeMove()
     {
@@ -181,9 +147,6 @@ public class PlayerController : MonoBehaviour
         // clamp to zero when its close
         if (inputVector.magnitude <= 0.1) inputVector = Vector2.zero;
 
-        
-
-
     }
 
 
@@ -192,12 +155,36 @@ public class PlayerController : MonoBehaviour
 
     }
 
-
-
     void ProcessDead()
     {
 
     }
+
+
+
+
+
+    void ApplyMovement()
+    {
+        movementVector.x = inputVector.x;
+        movementVector.y = gravityVector.y;
+
+
+        // apply gravity if not grounded
+        if (collisionDirections.y != -1 && CurrentPlayerState == e_PlayerControllerStates.FreeMove)
+        {
+            jumpManager.ApplyGravity();
+        }
+        else if (collisionDirections.y == -1) gravityVector.y = 0;
+
+        ClampMovementForCollisions();
+
+        transform.position += (Vector3)movementVector * Time.deltaTime;
+
+        collisionDirections = Vector2.zero;
+    }
+
+
 
 
 
@@ -210,16 +197,8 @@ public class PlayerController : MonoBehaviour
     
 
 
-    
 
-    /*public Vector2 GetPlayerFacing()
-    {
-        return playerFacingVector;
-    }*/
-
-
-
-    
+    // Collisions and Triggers
 
     private void OnCollisionStay2D(Collision2D collision)
     {
@@ -297,9 +276,6 @@ public class PlayerController : MonoBehaviour
     }
 
    
-
-
-
     private void OnTriggerStay2D(Collider2D collision)
     {
         if (collision.gameObject.tag == "Light") lit = true;
@@ -342,14 +318,14 @@ public class PlayerController : MonoBehaviour
 
 
 
-    // Input Listener Methods
 
+
+
+    // Input Listener Methods
     void OnMove(InputValue value)
     {
         moveStickVector.x = value.Get<Vector2>().x;
     }
-
-
 
     void OnJump(InputValue value)
     {
@@ -374,7 +350,6 @@ public class PlayerController : MonoBehaviour
         if (controlScheme == e_ControlSchemes.Gamepad) aimStickVector = value.Get<Vector2>().normalized;
     }
 
-
     void OnGamepadAny(InputValue value)
     {
         if (controlScheme != e_ControlSchemes.Gamepad) controlScheme = e_ControlSchemes.Gamepad;
@@ -384,6 +359,11 @@ public class PlayerController : MonoBehaviour
     {
         if (controlScheme != e_ControlSchemes.MouseKeyboard) controlScheme = e_ControlSchemes.MouseKeyboard;
     }
+
+
+
+
+
 
 
 

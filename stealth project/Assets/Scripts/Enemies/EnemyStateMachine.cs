@@ -72,7 +72,6 @@ public class EnemyStateMachine : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
         seeker = GetComponent<Seeker>();
         rb = GetComponent<Rigidbody2D>();
         awareScript = GetComponent<EnemyAwareness>();
@@ -89,13 +88,12 @@ public class EnemyStateMachine : MonoBehaviour
 
     }
 
+
+
     // Update is called once per frame
     void FixedUpdate()
-    {
-
+    { 
         inputVector = Vector3.zero;
-
-        
 
         switch (currentState)
         {
@@ -110,9 +108,7 @@ public class EnemyStateMachine : MonoBehaviour
                 break;
         }
 
-
-
-        if (awareScript.currentAwareness == AwarenessLevel.curious) currentState = EnemyStates.investigate;
+        //if (awareScript.currentAwareness == AwarenessLevel.curious) currentState = EnemyStates.investigate;
 
         ApplyMovement();
 
@@ -121,26 +117,22 @@ public class EnemyStateMachine : MonoBehaviour
 
         fuckyou = new Vector3(facingDirection, 1, 1);
 
-        if (sightCone != null)
-        {
-            sightCone.transform.localPosition = sightConePosition;
-
-            // change the direction of sight cone
-            //if (facingDirection != sightCone.transform.localScale.x) sightCone.transform.localScale = new Vector3(facingDirection, 1, 1);
 
 
-
-            
-
-
-
-        }
-
+        if (sightCone != null)  sightCone.transform.localPosition = sightConePosition;
 
 
     }
 
 
+
+
+
+
+
+
+
+    // Update Functions for States
     private void ProcessPatrolling()
     {
         float nodeDistance = (currentPatrolDestination.position - transform.position).magnitude;
@@ -160,21 +152,15 @@ public class EnemyStateMachine : MonoBehaviour
 
         PathFollow();
 
-        
-
     }
 
     private void ProcessWaiting()
     {
-
         if (currentWaitTimer <= 0) currentState = EnemyStates.patrolling;
-
         else currentWaitTimer -= Time.deltaTime;
 
-        //targetLookPosition = Vector3.Scale( defaultLookTarget.transform.localPosition, fuckyou );
         SightConeTrack();
     }
-
 
     private void ProcessInvestigate()
     {
@@ -191,8 +177,13 @@ public class EnemyStateMachine : MonoBehaviour
         }
         else inputVector = Vector3.zero;
 
-
     }
+
+
+
+
+
+
 
 
 
@@ -216,22 +207,17 @@ public class EnemyStateMachine : MonoBehaviour
     }
 
 
-
-
-    // called periodically to update A* path based on target
-    private void UpdatePath()
+    // move sight cone towards target
+    private void SightConeTrack()
     {
-        if (seeker.IsDone() && pathfindTarget != null)
+        if (targetLookPosition != null)
         {
-            seeker.StartPath(rb.position, pathfindTarget, OnPathComplete);
-        }
-    }
+            Vector2 direction = targetLookPosition - transform.position;
+            float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+            Quaternion targetRotation = Quaternion.AngleAxis(angle, Vector3.forward);
 
-    // called when A* path is finished
-    private void OnPathComplete(Path p)
-    {
-        path = p;
-        currentWaypoint = 0;
+            sightCone.transform.rotation = Quaternion.Slerp(sightCone.transform.rotation, targetRotation, coneTrackingSpeed * Time.deltaTime);
+        }
     }
 
 
@@ -247,9 +233,39 @@ public class EnemyStateMachine : MonoBehaviour
         else if (newState == AwarenessLevel.unaware) currentState = EnemyStates.patrolling;
     }
 
+    // set the index for the next patrol route node
+    private void SetNextNodeIndex()
+    {
+        // change the index properly
+        if (patrolRoute.boomerang)
+        {
+            if (currentNodeIndex == patrolRoute.nodes.Length - 1) boomerangBackwards = true;
 
 
-    // follows the current A* path
+            else if (currentNodeIndex == 0) boomerangBackwards = false;
+
+
+            if (boomerangBackwards) currentNodeIndex--;
+            else currentNodeIndex++;
+        }
+
+        currentPatrolDestination = patrolRoute.nodes[currentNodeIndex];
+
+
+    }
+
+
+
+
+
+
+
+
+
+
+    // Pathfinding Methods
+
+    // Moves along the current A* path
     private void PathFollow()
     {
         if (path == null) return;
@@ -285,45 +301,24 @@ public class EnemyStateMachine : MonoBehaviour
     }
 
 
-
-    // move sight cone towards target
-    private void SightConeTrack()
+    // called periodically to update A* path based on target
+    private void UpdatePath()
     {
-        if (targetLookPosition != null)
+        if (seeker.IsDone() && pathfindTarget != null)
         {
-            Vector2 direction = targetLookPosition - transform.position;
-
-            float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-
-            Quaternion targetRotation = Quaternion.AngleAxis(angle, Vector3.forward);
-
-
-            //if (Mathf.Abs(angle) < 100)
-            sightCone.transform.rotation = Quaternion.Slerp(sightCone.transform.rotation, targetRotation, coneTrackingSpeed * Time.deltaTime);
-            //else
-            //    sightCone.transform.rotation = targetRotation;
+            seeker.StartPath(rb.position, pathfindTarget, OnPathComplete);
         }
     }
 
-
-    // set the index for the next patrol route node
-    private void SetNextNodeIndex()
+    // called when A* path is finished
+    private void OnPathComplete(Path p)
     {
-        // change the index properly
-        if (patrolRoute.boomerang)
-        {
-            if (currentNodeIndex == patrolRoute.nodes.Length - 1) boomerangBackwards = true;
-
-
-            else if (currentNodeIndex == 0) boomerangBackwards = false;
-
-
-            if (boomerangBackwards) currentNodeIndex--;
-            else currentNodeIndex++;
-        }
-
-        currentPatrolDestination = patrolRoute.nodes[currentNodeIndex];
-
-
+        path = p;
+        currentWaypoint = 0;
     }
+
+    
+
+
+
 }

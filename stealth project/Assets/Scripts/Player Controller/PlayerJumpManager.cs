@@ -48,11 +48,7 @@ public class PlayerJumpManager : MonoBehaviour
         pc = GetComponent<PlayerController>();
     }
 
-    // Update is called once per frame
-    void FixedUpdate()
-    {
-        
-    }
+
 
     public void Jump()
     {
@@ -69,6 +65,7 @@ public class PlayerJumpManager : MonoBehaviour
             pc.gravityVector.y = pc.gravityVector.y * releaseVelocityFactor;
         }
     }
+
 
     public void ApplyGravity()
     {
@@ -101,10 +98,7 @@ public class PlayerJumpManager : MonoBehaviour
 
 
 
-    // input listener methods
-
-    
-
+    // Input Listener methods
     void OnJumpRelease(InputValue value)
     {
         Debug.Log("jump release");
