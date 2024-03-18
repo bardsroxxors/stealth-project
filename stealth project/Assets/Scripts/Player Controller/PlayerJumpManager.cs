@@ -21,6 +21,9 @@ public class PlayerJumpManager : MonoBehaviour
     public float jumpPeakGravityScale = 0.5f;
     public float maxFallSpeed = 10;
 
+    [Header("Wall Jump")]
+    public Vector2 wallJumpForceVector = Vector2.zero;
+
     [Header("Stop on Release Options")]
     public float releaseVelocityFactor = 0.5f;
 
@@ -53,6 +56,16 @@ public class PlayerJumpManager : MonoBehaviour
     public void Jump()
     {
         pc.gravityVector.y = jumpForce;
+        //pc.transform.position += new Vector3(-1f * pc.collisionDirections.x, 0, 0);
+
+        f_jumped = true;
+    }
+
+    public void WallJump()
+    {
+        pc.ChangeState(e_PlayerControllerStates.FreeMove);
+        pc.gravityVector.y = wallJumpForceVector.y;
+        pc.inputVector.x = wallJumpForceVector.x * (pc.collisionDirections.x * -1);
         f_jumped = true;
     }
 
@@ -69,27 +82,32 @@ public class PlayerJumpManager : MonoBehaviour
 
     public void ApplyGravity()
     {
-        // if we're using peak speed boost
-        if(f_peakSpeedBoost && Mathf.Abs(pc.gravityVector.y) <= peakBoostSpeedWindow)
+
+        if(pc.CurrentPlayerState != e_PlayerControllerStates.WallMove)
         {
-            pc.movementVector.x = pc.movementVector.x * peakBoostFactor;
-        }
+            // if we're using peak speed boost
+            if (f_peakSpeedBoost && Mathf.Abs(pc.gravityVector.y) <= peakBoostSpeedWindow)
+            {
+                pc.movementVector.x = pc.movementVector.x * peakBoostFactor;
+            }
 
 
-        // if we need to use peak reduced gravity
-        if(f_reduceGravityAtPeak && Mathf.Abs(pc.gravityVector.y) <= peakGravitySpeedWindow)
-        {
-            pc.gravityVector.y -= (gravityAccel * peakGravityFactor) * Time.deltaTime;
-        }
-        else
-        {
-            pc.gravityVector.y -= gravityAccel * Time.deltaTime;
-        }
+            // if we need to use peak reduced gravity
+            if (f_reduceGravityAtPeak && Mathf.Abs(pc.gravityVector.y) <= peakGravitySpeedWindow)
+            {
+                pc.gravityVector.y -= (gravityAccel * peakGravityFactor) * Time.deltaTime;
+            }
+            else
+            {
+                pc.gravityVector.y -= gravityAccel * Time.deltaTime;
+            }
 
+
+
+            // keep fall speed below the max
+            if (pc.gravityVector.y < -maxFallSpeed) pc.gravityVector.y = -maxFallSpeed;
+        }
         
-
-        // keep fall speed below the max
-        if (pc.gravityVector.y < -maxFallSpeed) pc.gravityVector.y = -maxFallSpeed;
     }
 
 

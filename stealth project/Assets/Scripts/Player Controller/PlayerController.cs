@@ -5,12 +5,13 @@ using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
-
+using UnityEngine.Rendering;
 
 public enum e_PlayerControllerStates
 {
     FreeMove,
     Attacking,
+    WallMove,
     Hover,
     Hurt,
     Dead
@@ -25,10 +26,10 @@ public enum e_ControlSchemes
 public class PlayerController : MonoBehaviour
 {
 
-    
+
 
     [SerializeField]
-    private e_PlayerControllerStates CurrentPlayerState = e_PlayerControllerStates.FreeMove;
+    public e_PlayerControllerStates CurrentPlayerState = e_PlayerControllerStates.FreeMove;
     private e_PlayerControllerStates previousPlayerState = e_PlayerControllerStates.FreeMove;
 
     [SerializeField]
@@ -37,7 +38,7 @@ public class PlayerController : MonoBehaviour
     private PlayerAttackManager playerAttacks;
 
     public bool lit = false;
-    
+
 
     [Header("Free Move")]
     public float moveSpeed = 1;
@@ -48,15 +49,12 @@ public class PlayerController : MonoBehaviour
     private Vector2 aimStickVector = new Vector2(0, 0); // raw input from right stick
     private Vector2 playerFacingVector = new Vector2(1, 0); // used to aim abilities if there is no input, and used to determine sprite facing
     public Vector2 gravityVector = Vector2.zero;
-    
-    /*
-    [Header("Jump")]
-    public float jumpForce = 5;
-    public LayerMask selfLayerMask;
-    public float gravityAccel = 1;
-    public float jumpPeakGravityScale = 0.5f;
-    public float maxFallSpeed = 10;
-    */
+
+    [Header("Wall Climbing")]
+    public bool canWallClimb = true;
+    public float climbSpeed = 3f;
+    public Vector2 wallJumpForce = Vector2.zero;
+
 
     [Header("Collisions")]
     public Vector2 collisionDirections = Vector2.zero; // set to 0 for no collision, -1 for left, 1 for right
@@ -98,7 +96,7 @@ public class PlayerController : MonoBehaviour
 
     void FixedUpdate()
     {
-        ApplyMovement();
+        
 
         if (controlScheme == e_ControlSchemes.MouseKeyboard) aimStickVector = GetVectorToMouse();
 
@@ -108,7 +106,12 @@ public class PlayerController : MonoBehaviour
             case e_PlayerControllerStates.FreeMove:
                 ProcessFreeMove();
                 break;
+            case e_PlayerControllerStates.WallMove:
+                ProcessWallMove();
+                break;
         }
+
+        ApplyMovement();
 
 
         // manage timers
@@ -124,13 +127,12 @@ public class PlayerController : MonoBehaviour
     }
 
 
-    
+
 
     // Update Functions for States
 
     void ProcessFreeMove()
     {
-        //Vector2 joystickVector = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
 
         CheckSlopeRaycast();
 
@@ -147,6 +149,40 @@ public class PlayerController : MonoBehaviour
         // clamp to zero when its close
         if (inputVector.magnitude <= 0.1) inputVector = Vector2.zero;
 
+
+
+        // change to wall move under right conditions
+        if (collisionDirections.x != 0 && collisionDirections.y != -1)
+        {
+            CurrentPlayerState = e_PlayerControllerStates.WallMove;
+        }
+
+    }
+
+    private void ProcessWallMove()
+    {
+        if (moveStickVector.magnitude >= 0.25)
+        {
+            inputVector.x = moveStickVector.normalized.x * moveSpeed;
+            if(collisionDirections.x != 0)
+                gravityVector.y = moveStickVector.normalized.y * moveSpeed;
+
+            playerFacingVector = moveStickVector.normalized;
+        }
+
+        // if there is no input then apply movement decay
+        else if (inputVector.magnitude > 0)
+        {
+            inputVector.x = inputVector.x - (inputVector.x * moveDecay * Time.deltaTime);
+            if (collisionDirections.x != 0)
+                gravityVector.y = gravityVector.y - (gravityVector.y * moveDecay * Time.deltaTime);
+        }
+        // clamp to zero when its close
+        if (inputVector.magnitude <= 0.1) inputVector = Vector2.zero;
+        if (gravityVector.magnitude <= 0.1) gravityVector = Vector2.zero;
+
+        // change to free move under right conditions
+        if (collisionDirections.x == 0 || collisionDirections.y == -1) CurrentPlayerState = e_PlayerControllerStates.FreeMove;
     }
 
 
@@ -170,11 +206,15 @@ public class PlayerController : MonoBehaviour
         movementVector.y = gravityVector.y;
 
 
+
         // apply gravity if not grounded
         if (collisionDirections.y != -1 && CurrentPlayerState == e_PlayerControllerStates.FreeMove)
         {
             jumpManager.ApplyGravity();
         }
+        else if (CurrentPlayerState == e_PlayerControllerStates.WallMove)
+            gravityVector.y = gravityVector.y - (gravityVector.y * moveDecay * Time.deltaTime);
+
         else if (collisionDirections.y == -1) gravityVector.y = 0;
 
         ClampMovementForCollisions();
@@ -325,6 +365,7 @@ public class PlayerController : MonoBehaviour
     void OnMove(InputValue value)
     {
         moveStickVector.x = value.Get<Vector2>().x;
+        moveStickVector.y = value.Get<Vector2>().y;
     }
 
     void OnJump(InputValue value)
@@ -336,6 +377,11 @@ public class PlayerController : MonoBehaviour
         if (collisionDirections.y == -1 || t_gracetimePostCollide > 0)
         {
             collisionDirections.y = 0;
+            jumpManager.Jump();
+        }
+        else if (CurrentPlayerState == e_PlayerControllerStates.WallMove)
+        {
+            collisionDirections.x = 0;
             jumpManager.Jump();
         }
         else

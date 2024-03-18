@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-public enum PlayerAttacks
+public enum e_PlayerAttacks
 {
     ThreeHitCombo,
     ChargeUp,
@@ -17,7 +17,7 @@ public class PlayerAttackManager : MonoBehaviour
 {
 
     private PlayerController playerController;
-    public PlayerAttacks currentAttack = PlayerAttacks.None;
+    public e_PlayerAttacks currentAttack = e_PlayerAttacks.None;
 
     [Header("General")]
     // can attack flag
@@ -93,16 +93,16 @@ public class PlayerAttackManager : MonoBehaviour
     {
         switch (currentAttack)
         {
-            case PlayerAttacks.ThreeHitCombo:
+            case e_PlayerAttacks.ThreeHitCombo:
                 ProcessThreeHit();
                 break;
-            case PlayerAttacks.ChargeUp:
+            case e_PlayerAttacks.ChargeUp:
                 ProcessChargeUp();
                 break;
-            case PlayerAttacks.HeavySlash:
+            case e_PlayerAttacks.HeavySlash:
                 ProcessHeavySlash();
                 break;
-            case PlayerAttacks.Kick:
+            case e_PlayerAttacks.Kick:
                 ProcessKick();
                 break;
         }
@@ -166,7 +166,7 @@ public class PlayerAttackManager : MonoBehaviour
         {
             InitFlag3Hit = false;
             playerController.ChangeState(e_PlayerControllerStates.FreeMove);
-            currentAttack = PlayerAttacks.None;
+            currentAttack = e_PlayerAttacks.None;
             TimerMeleeAttackCooldown = meleeAttackCooldownTime;
             FlagCanMeleeAttack = false;
             currentConsecutive = 0;
@@ -192,7 +192,7 @@ public class PlayerAttackManager : MonoBehaviour
             FlagChargeReleaseInput = false;
             InitFlagChargeUp = false;
             playerController.ChangeState(e_PlayerControllerStates.Attacking);
-            currentAttack = PlayerAttacks.HeavySlash;
+            currentAttack = e_PlayerAttacks.HeavySlash;
             Debug.Log("heavy slash");
         }
 
@@ -202,7 +202,7 @@ public class PlayerAttackManager : MonoBehaviour
             FlagChargeReleaseInput= false;
             InitFlagChargeUp = false;
             playerController.ChangeState(e_PlayerControllerStates.FreeMove);
-            currentAttack = PlayerAttacks.None;
+            currentAttack = e_PlayerAttacks.None;
             currentConsecutive = 0;
             Debug.Log("early release");
         }
@@ -225,7 +225,7 @@ public class PlayerAttackManager : MonoBehaviour
         {
             InitFlagKick = false;
             playerController.ChangeState(e_PlayerControllerStates.FreeMove);
-            currentAttack = PlayerAttacks.None;
+            currentAttack = e_PlayerAttacks.None;
         }
     }
 
@@ -247,7 +247,7 @@ public class PlayerAttackManager : MonoBehaviour
         if(FlagHoldAttackTriggered && TimerHeavySlashLifetime > heavyComboMinTime && currentConsecutive <= heavyMaxConsecutive)
         {
             InitFlagHeavySlash = false;
-            currentAttack = PlayerAttacks.ChargeUp;
+            currentAttack = e_PlayerAttacks.ChargeUp;
             Debug.Log("consec charge");
         }
 
@@ -256,7 +256,7 @@ public class PlayerAttackManager : MonoBehaviour
         {
             InitFlagHeavySlash = false;
             playerController.ChangeState(e_PlayerControllerStates.FreeMove);
-            currentAttack = PlayerAttacks.None;
+            currentAttack = e_PlayerAttacks.None;
             currentConsecutive = 0;
             Debug.Log("heavy slash done");
         }
