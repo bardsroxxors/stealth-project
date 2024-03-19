@@ -81,6 +81,9 @@ public class PlayerController : MonoBehaviour
     private float t_gracetimePostCollide = 0f;
     private float t_gracetimePreCollide = 0f;
 
+    public float wallJumpNoGrabTime = 0.5f;
+    private float t_wallJumpNoGrabTime = 0f;
+
 
 
 
@@ -96,8 +99,6 @@ public class PlayerController : MonoBehaviour
 
     void FixedUpdate()
     {
-        
-
         if (controlScheme == e_ControlSchemes.MouseKeyboard) aimStickVector = GetVectorToMouse();
 
         // Process the current state
@@ -117,7 +118,7 @@ public class PlayerController : MonoBehaviour
         // manage timers
         if (t_gracetimePostCollide > 0) t_gracetimePostCollide -= Time.deltaTime;
         if (t_gracetimePreCollide > 0) t_gracetimePreCollide -= Time.deltaTime;
-
+        if (t_wallJumpNoGrabTime > 0) t_wallJumpNoGrabTime -= Time.deltaTime;
     }
 
     private void Update()
@@ -136,23 +137,29 @@ public class PlayerController : MonoBehaviour
 
         CheckSlopeRaycast();
 
+        // get inputVector from raw input, set player facing
         if (moveStickVector.magnitude >= 0.25)
         {
             inputVector.x = moveStickVector.normalized.x * moveSpeed;
+            inputVector.y = 0;
             playerFacingVector = moveStickVector.normalized;
         }
+
         // if there is no input then apply movement decay
         else if (inputVector.magnitude > 0)
         {
             inputVector.x = inputVector.x - (inputVector.x * moveDecay * Time.deltaTime);
         }
+
         // clamp to zero when its close
         if (inputVector.magnitude <= 0.1) inputVector = Vector2.zero;
 
 
 
         // change to wall move under right conditions
-        if (collisionDirections.x != 0 && collisionDirections.y != -1)
+        // if we are colliding with a wall and not the ground we are in wallMove state
+        // and the wall jump grace timer has depleted
+        if (collisionDirections.x != 0 && collisionDirections.y != -1 && t_wallJumpNoGrabTime <= 0)
         {
             CurrentPlayerState = e_PlayerControllerStates.WallMove;
         }
@@ -161,11 +168,12 @@ public class PlayerController : MonoBehaviour
 
     private void ProcessWallMove()
     {
+        // get inputVector from raw input, set player facing 
         if (moveStickVector.magnitude >= 0.25)
         {
             inputVector.x = moveStickVector.normalized.x * moveSpeed;
             if(collisionDirections.x != 0)
-                gravityVector.y = moveStickVector.normalized.y * moveSpeed;
+                inputVector.y = moveStickVector.normalized.y * moveSpeed;
 
             playerFacingVector = moveStickVector.normalized;
         }
@@ -175,13 +183,14 @@ public class PlayerController : MonoBehaviour
         {
             inputVector.x = inputVector.x - (inputVector.x * moveDecay * Time.deltaTime);
             if (collisionDirections.x != 0)
-                gravityVector.y = gravityVector.y - (gravityVector.y * moveDecay * Time.deltaTime);
+                inputVector.y = inputVector.y - (inputVector.y * moveDecay * Time.deltaTime);
         }
         // clamp to zero when its close
         if (inputVector.magnitude <= 0.1) inputVector = Vector2.zero;
-        if (gravityVector.magnitude <= 0.1) gravityVector = Vector2.zero;
+
 
         // change to free move under right conditions
+        // if we are not olliding with a wall or we're colliding with the ground we are in freeMove
         if (collisionDirections.x == 0 || collisionDirections.y == -1) CurrentPlayerState = e_PlayerControllerStates.FreeMove;
     }
 
@@ -203,24 +212,26 @@ public class PlayerController : MonoBehaviour
     void ApplyMovement()
     {
         movementVector.x = inputVector.x;
-        movementVector.y = gravityVector.y;
-
+        movementVector.y = inputVector.y;
 
 
         // apply gravity if not grounded
         if (collisionDirections.y != -1 && CurrentPlayerState == e_PlayerControllerStates.FreeMove)
         {
-            jumpManager.ApplyGravity();
+            //movementVector.x += gravityVector.x;
+            movementVector.y = gravityVector.y;
+            
         }
-        else if (CurrentPlayerState == e_PlayerControllerStates.WallMove)
-            gravityVector.y = gravityVector.y - (gravityVector.y * moveDecay * Time.deltaTime);
-
+        // else set gravity to zero
         else if (collisionDirections.y == -1) gravityVector.y = 0;
+
+        jumpManager.CalculateGravity();
 
         ClampMovementForCollisions();
 
         transform.position += (Vector3)movementVector * Time.deltaTime;
 
+        // reset collision flags
         collisionDirections = Vector2.zero;
     }
 
@@ -381,8 +392,11 @@ public class PlayerController : MonoBehaviour
         }
         else if (CurrentPlayerState == e_PlayerControllerStates.WallMove)
         {
+            
+            ChangeState(e_PlayerControllerStates.FreeMove);
+            t_wallJumpNoGrabTime = wallJumpNoGrabTime;
+            jumpManager.WallJump();
             collisionDirections.x = 0;
-            jumpManager.Jump();
         }
         else
         {

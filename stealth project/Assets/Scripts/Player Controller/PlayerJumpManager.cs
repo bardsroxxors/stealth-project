@@ -55,17 +55,21 @@ public class PlayerJumpManager : MonoBehaviour
 
     public void Jump()
     {
-        pc.gravityVector.y = jumpForce;
-        //pc.transform.position += new Vector3(-1f * pc.collisionDirections.x, 0, 0);
+        if(pc.CurrentPlayerState == e_PlayerControllerStates.FreeMove)
+            pc.gravityVector.y = jumpForce;
+
+
 
         f_jumped = true;
     }
 
     public void WallJump()
     {
-        pc.ChangeState(e_PlayerControllerStates.FreeMove);
+        pc.inputVector.x += wallJumpForceVector.x * (pc.collisionDirections.x * -1);
+        Debug.Log(wallJumpForceVector.x * (pc.collisionDirections.x * -1));
         pc.gravityVector.y = wallJumpForceVector.y;
-        pc.inputVector.x = wallJumpForceVector.x * (pc.collisionDirections.x * -1);
+
+
         f_jumped = true;
     }
 
@@ -80,12 +84,13 @@ public class PlayerJumpManager : MonoBehaviour
     }
 
 
-    public void ApplyGravity()
+    public void CalculateGravity()
     {
 
         if(pc.CurrentPlayerState != e_PlayerControllerStates.WallMove)
         {
             // if we're using peak speed boost
+            // then apply it
             if (f_peakSpeedBoost && Mathf.Abs(pc.gravityVector.y) <= peakBoostSpeedWindow)
             {
                 pc.movementVector.x = pc.movementVector.x * peakBoostFactor;
@@ -93,6 +98,7 @@ public class PlayerJumpManager : MonoBehaviour
 
 
             // if we need to use peak reduced gravity
+            // then apply it
             if (f_reduceGravityAtPeak && Mathf.Abs(pc.gravityVector.y) <= peakGravitySpeedWindow)
             {
                 pc.gravityVector.y -= (gravityAccel * peakGravityFactor) * Time.deltaTime;
@@ -106,6 +112,16 @@ public class PlayerJumpManager : MonoBehaviour
 
             // keep fall speed below the max
             if (pc.gravityVector.y < -maxFallSpeed) pc.gravityVector.y = -maxFallSpeed;
+
+
+            // decay x component as well
+            //pc.gravityVector.x = pc.gravityVector.x - (pc.gravityVector.x * (pc.moveDecay/2) * Time.deltaTime);
+            // clamp x to zero when its close
+            if (Mathf.Abs(pc.gravityVector.x) <= 0.1) pc.gravityVector.x = 0;
+        }
+        else if (pc.CurrentPlayerState == e_PlayerControllerStates.WallMove)
+        {
+            pc.gravityVector.y = 0;
         }
         
     }
