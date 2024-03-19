@@ -114,7 +114,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 224
+        y: 301
         width: 32
         height: 32
       alignment: 0
@@ -135,7 +135,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 32
-        y: 224
+        y: 301
         width: 32
         height: 32
       alignment: 0
@@ -156,7 +156,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 64
-        y: 224
+        y: 301
         width: 32
         height: 32
       alignment: 0
@@ -177,7 +177,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 96
-        y: 224
+        y: 301
         width: 32
         height: 32
       alignment: 0
@@ -198,7 +198,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 128
-        y: 224
+        y: 301
         width: 32
         height: 32
       alignment: 0
@@ -219,7 +219,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 160
-        y: 224
+        y: 301
         width: 32
         height: 32
       alignment: 0
@@ -239,8 +239,8 @@ TextureImporter:
       name: jungle brick tileset_6
       rect:
         serializedVersion: 2
-        x: 224
-        y: 224
+        x: 0
+        y: 269
         width: 32
         height: 32
       alignment: 0
@@ -260,8 +260,8 @@ TextureImporter:
       name: jungle brick tileset_7
       rect:
         serializedVersion: 2
-        x: 256
-        y: 224
+        x: 64
+        y: 269
         width: 32
         height: 32
       alignment: 0
@@ -281,8 +281,8 @@ TextureImporter:
       name: jungle brick tileset_8
       rect:
         serializedVersion: 2
-        x: 288
-        y: 224
+        x: 96
+        y: 269
         width: 32
         height: 32
       alignment: 0
@@ -302,8 +302,8 @@ TextureImporter:
       name: jungle brick tileset_9
       rect:
         serializedVersion: 2
-        x: 0
-        y: 192
+        x: 128
+        y: 269
         width: 32
         height: 32
       alignment: 0
@@ -323,8 +323,8 @@ TextureImporter:
       name: jungle brick tileset_10
       rect:
         serializedVersion: 2
-        x: 64
-        y: 192
+        x: 160
+        y: 269
         width: 32
         height: 32
       alignment: 0
@@ -344,8 +344,8 @@ TextureImporter:
       name: jungle brick tileset_11
       rect:
         serializedVersion: 2
-        x: 96
-        y: 192
+        x: 0
+        y: 237
         width: 32
         height: 32
       alignment: 0
@@ -365,8 +365,8 @@ TextureImporter:
       name: jungle brick tileset_12
       rect:
         serializedVersion: 2
-        x: 160
-        y: 192
+        x: 32
+        y: 237
         width: 32
         height: 32
       alignment: 0
@@ -386,8 +386,8 @@ TextureImporter:
       name: jungle brick tileset_13
       rect:
         serializedVersion: 2
-        x: 224
-        y: 192
+        x: 64
+        y: 237
         width: 32
         height: 32
       alignment: 0
@@ -407,8 +407,8 @@ TextureImporter:
       name: jungle brick tileset_14
       rect:
         serializedVersion: 2
-        x: 256
-        y: 192
+        x: 96
+        y: 237
         width: 32
         height: 32
       alignment: 0
@@ -428,8 +428,8 @@ TextureImporter:
       name: jungle brick tileset_15
       rect:
         serializedVersion: 2
-        x: 288
-        y: 192
+        x: 128
+        y: 237
         width: 32
         height: 32
       alignment: 0
@@ -449,8 +449,8 @@ TextureImporter:
       name: jungle brick tileset_16
       rect:
         serializedVersion: 2
-        x: 0
-        y: 160
+        x: 160
+        y: 237
         width: 32
         height: 32
       alignment: 0
@@ -470,8 +470,8 @@ TextureImporter:
       name: jungle brick tileset_17
       rect:
         serializedVersion: 2
-        x: 32
-        y: 160
+        x: 0
+        y: 205
         width: 32
         height: 32
       alignment: 0
@@ -491,8 +491,8 @@ TextureImporter:
       name: jungle brick tileset_18
       rect:
         serializedVersion: 2
-        x: 64
-        y: 160
+        x: 32
+        y: 205
         width: 32
         height: 32
       alignment: 0
@@ -512,8 +512,8 @@ TextureImporter:
       name: jungle brick tileset_19
       rect:
         serializedVersion: 2
-        x: 96
-        y: 160
+        x: 64
+        y: 205
         width: 32
         height: 32
       alignment: 0
@@ -533,8 +533,8 @@ TextureImporter:
       name: jungle brick tileset_20
       rect:
         serializedVersion: 2
-        x: 128
-        y: 160
+        x: 96
+        y: 205
         width: 32
         height: 32
       alignment: 0
@@ -554,8 +554,8 @@ TextureImporter:
       name: jungle brick tileset_21
       rect:
         serializedVersion: 2
-        x: 160
-        y: 160
+        x: 128
+        y: 205
         width: 32
         height: 32
       alignment: 0
@@ -575,8 +575,8 @@ TextureImporter:
       name: jungle brick tileset_22
       rect:
         serializedVersion: 2
-        x: 32
-        y: 128
+        x: 0
+        y: 173
         width: 32
         height: 32
       alignment: 0
@@ -596,8 +596,8 @@ TextureImporter:
       name: jungle brick tileset_23
       rect:
         serializedVersion: 2
-        x: 128
-        y: 128
+        x: 32
+        y: 173
         width: 32
         height: 32
       alignment: 0
@@ -617,8 +617,8 @@ TextureImporter:
       name: jungle brick tileset_24
       rect:
         serializedVersion: 2
-        x: 0
-        y: 96
+        x: 96
+        y: 173
         width: 32
         height: 32
       alignment: 0
@@ -638,8 +638,8 @@ TextureImporter:
       name: jungle brick tileset_25
       rect:
         serializedVersion: 2
-        x: 32
-        y: 96
+        x: 128
+        y: 173
         width: 32
         height: 32
       alignment: 0
@@ -659,8 +659,8 @@ TextureImporter:
       name: jungle brick tileset_26
       rect:
         serializedVersion: 2
-        x: 64
-        y: 96
+        x: 0
+        y: 141
         width: 32
         height: 32
       alignment: 0
@@ -680,8 +680,8 @@ TextureImporter:
       name: jungle brick tileset_27
       rect:
         serializedVersion: 2
-        x: 0
-        y: 64
+        x: 64
+        y: 141
         width: 32
         height: 32
       alignment: 0
@@ -701,8 +701,8 @@ TextureImporter:
       name: jungle brick tileset_28
       rect:
         serializedVersion: 2
-        x: 32
-        y: 64
+        x: 0
+        y: 109
         width: 32
         height: 32
       alignment: 0
@@ -722,8 +722,8 @@ TextureImporter:
       name: jungle brick tileset_29
       rect:
         serializedVersion: 2
-        x: 64
-        y: 64
+        x: 32
+        y: 109
         width: 32
         height: 32
       alignment: 0
@@ -743,8 +743,8 @@ TextureImporter:
       name: jungle brick tileset_30
       rect:
         serializedVersion: 2
-        x: 128
-        y: 64
+        x: 64
+        y: 109
         width: 32
         height: 32
       alignment: 0
@@ -765,7 +765,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 32
+        y: 77
         width: 32
         height: 32
       alignment: 0
@@ -785,8 +785,8 @@ TextureImporter:
       name: jungle brick tileset_32
       rect:
         serializedVersion: 2
-        x: 32
-        y: 32
+        x: 64
+        y: 77
         width: 32
         height: 32
       alignment: 0
@@ -806,8 +806,8 @@ TextureImporter:
       name: jungle brick tileset_33
       rect:
         serializedVersion: 2
-        x: 64
-        y: 32
+        x: 0
+        y: 45
         width: 32
         height: 32
       alignment: 0
@@ -827,8 +827,8 @@ TextureImporter:
       name: jungle brick tileset_34
       rect:
         serializedVersion: 2
-        x: 128
-        y: 32
+        x: 32
+        y: 45
         width: 32
         height: 32
       alignment: 0
@@ -848,8 +848,8 @@ TextureImporter:
       name: jungle brick tileset_35
       rect:
         serializedVersion: 2
-        x: 128
-        y: 0
+        x: 64
+        y: 45
         width: 32
         height: 32
       alignment: 0
@@ -861,6 +861,27 @@ TextureImporter:
       bones: []
       spriteID: a27205d6bd8a99342953bf2d233527c2
       internalID: -177544711
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: jungle brick tileset_36
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 13
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 21cf5a8789e390642858edd659329f3e
+      internalID: -1282442179
       vertices: []
       indices: 
       edges: []
@@ -906,6 +927,7 @@ TextureImporter:
       jungle brick tileset_33: 1355273699
       jungle brick tileset_34: 1273010104
       jungle brick tileset_35: -177544711
+      jungle brick tileset_36: -1282442179
       jungle brick tileset_4: -552185949
       jungle brick tileset_5: -688464353
       jungle brick tileset_6: 415090241
