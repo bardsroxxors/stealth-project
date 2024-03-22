@@ -20,6 +20,8 @@ public class EnemyAwareness : MonoBehaviour
     public Vector3 lastKnownPosition;
     public GameObject yellowIndicator;
     public GameObject redIndicator;
+    public GameObject sightCone;
+    public LayerMask layerMask;
 
     private SpriteRenderer yellowSprite;
     private SpriteRenderer redSprite;
@@ -52,7 +54,7 @@ public class EnemyAwareness : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-
+        Debug.DrawRay(sightCone.transform.position, (playerObject.transform.position - sightCone.transform.position));
         switch (currentAwareness)
         {
             case AwarenessLevel.unaware:
@@ -69,6 +71,7 @@ public class EnemyAwareness : MonoBehaviour
                 break;
         }
 
+        
 
         if (t_alertDecayDelay > 0) t_alertDecayDelay -= Time.deltaTime;
 
@@ -95,8 +98,6 @@ public class EnemyAwareness : MonoBehaviour
     {
 
         yellowIndicator.SetActive(true);
-
-
         yellowSprite.color = new Color(1f,1f,1f, alertPercent);
 
 
@@ -111,6 +112,7 @@ public class EnemyAwareness : MonoBehaviour
             lastKnownPosition = playerObject.transform.position;
             alertPercent = alertPercent + sightAwareIncreaseSpeed * Time.deltaTime;
             t_alertDecayDelay = alertDecayDelay;
+            if (!GetRayToPlayer()) playerInSight = false;
         }
 
 
@@ -136,6 +138,7 @@ public class EnemyAwareness : MonoBehaviour
             lastKnownPosition = playerObject.transform.position;
             alertPercent = alertPercent + sightAwareIncreaseSpeed * Time.deltaTime;
             t_alertDecayDelay = alertDecayDelay;
+            if (!GetRayToPlayer()) playerInSight = false;
         }
 
 
@@ -168,7 +171,7 @@ public class EnemyAwareness : MonoBehaviour
     // called when player has entered the sight cones
     public void PlayerInSight()
     {
-        playerInSight = true;
+        playerInSight = GetRayToPlayer();
     }
 
     // called when the player has left the sight cones
@@ -181,5 +184,17 @@ public class EnemyAwareness : MonoBehaviour
     public void NoiseDetected()
     {
         alertPercent += soundAwareIncrease;
+    }
+
+    private bool GetRayToPlayer()
+    {
+        Vector3 dir = playerObject.transform.position - sightCone.transform.position;
+        RaycastHit2D ray = Physics2D.Raycast(sightCone.transform.position, dir * 10, 10, layerMask);
+
+        
+
+        if (ray && ray.collider.gameObject.tag == "Player") return true;
+        else return false;
+
     }
 }

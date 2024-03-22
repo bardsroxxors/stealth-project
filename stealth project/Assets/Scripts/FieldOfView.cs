@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -12,15 +13,25 @@ public class FieldOfView : MonoBehaviour
     public LayerMask layerMask;
     public Vector3 origin;
     private float startingAngle;
+    private Mesh mesh;
+    private PolygonCollider2D collider;
+
+
+    private void Start()
+    {
+        mesh = new Mesh();
+        GetComponent<MeshFilter>().mesh = mesh;
+        collider = GetComponent<PolygonCollider2D>();
+
+        SetPolygonCollider();
+    }
 
 
     // Start is called before the first frame update
     void Update()
     {
 
-        Mesh mesh = new Mesh();
-        GetComponent<MeshFilter>().mesh = mesh;
-        GetComponent<MeshCollider>().sharedMesh = mesh;
+        
 
 
         SetAimDirection(transform.right);
@@ -81,6 +92,21 @@ public class FieldOfView : MonoBehaviour
         mesh.triangles = triangles;
 
 
+    }
+
+
+
+    // set up the polygon collider shape
+    // origin, transform.right + 
+    private void SetPolygonCollider()
+    {
+        Vector2[] points = new Vector2[3];
+
+        points[0] = Vector2.zero;
+        points[1] = GetVectorFromAngle((fov / 2)) * viewDistance;
+        points[2] = GetVectorFromAngle(-(fov / 2)) * viewDistance;
+
+        collider.SetPath(0, points);
     }
 
 
