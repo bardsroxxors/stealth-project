@@ -159,9 +159,9 @@ public class PlayerController : MonoBehaviour
         // change to wall move under right conditions
         // if we are colliding with a wall and not the ground we are in wallMove state
         // and the wall jump grace timer has depleted
-        if (collisionDirections.x != 0 && collisionDirections.y != -1 && t_wallJumpNoGrabTime <= 0)
+        if (collisionDirections.x != 0 && collisionDirections.y != -1 && t_wallJumpNoGrabTime <= 0 && canWallClimb)
         {
-            CurrentPlayerState = e_PlayerControllerStates.WallMove;
+            ChangeState(e_PlayerControllerStates.WallMove);
         }
 
     }
