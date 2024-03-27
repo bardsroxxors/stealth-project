@@ -43,6 +43,9 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: backdrop
+    uniqueID: 2957246957
+    locked: 0
   - name: Lights
     uniqueID: 242943887
     locked: 0
