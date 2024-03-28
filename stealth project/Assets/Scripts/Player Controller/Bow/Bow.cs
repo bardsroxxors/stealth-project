@@ -44,7 +44,7 @@ public class Bow : MonoBehaviour
         if (Input.GetMouseButtonDown(0))
         {
             buttonDown = true;
-            pathIndicator.SetActive(true);
+            //pathIndicator.SetActive(true);
         }
         else if (Input.GetMouseButtonUp(0))
         {

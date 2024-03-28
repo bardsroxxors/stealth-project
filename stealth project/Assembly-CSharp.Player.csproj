@@ -68,8 +68,8 @@
     <Compile Include="Assets\Scripts\Enemies\EnemyAwareness.cs" />
     <Compile Include="Assets\Scripts\Player Controller\PlayerController.cs" />
     <Compile Include="Assets\Scripts\HideSprite.cs" />
-    <Compile Include="Assets\Scripts\FieldOfView.cs" />
     <Compile Include="Assets\Scripts\LineRendererSmoother.cs" />
+    <Compile Include="Assets\Scripts\Enemies\LongSightCone.cs" />
     <Compile Include="Assets\Scripts\Player Controller\GrappleHitboxScript.cs" />
     <Compile Include="Assets\Scripts\Player Controller\SwordHitboxScript.cs" />
     <Compile Include="Assets\Scripts\Player Controller\GrappleLineRenderer.cs" />
@@ -78,7 +78,9 @@
     <Compile Include="Assets\Scripts\Arrow.cs" />
     <Compile Include="Assets\Scripts\FogOfWarScript.cs" />
     <Compile Include="Assets\Scripts\PatrolRoute.cs" />
+    <Compile Include="Assets\Scripts\Utilities.cs" />
     <Compile Include="Assets\Scripts\Player Controller\PlayerJumpManager.cs" />
+    <Compile Include="Assets\Scripts\Enemies\FieldOfView.cs" />
     <Compile Include="Assets\Scripts\Player Controller\PlayerSpriteManager.cs" />
     <Compile Include="Assets\Scripts\SnapToGrid.cs" />
     <Compile Include="Assets\Scripts\Player Controller\Bow\Bow.cs" />

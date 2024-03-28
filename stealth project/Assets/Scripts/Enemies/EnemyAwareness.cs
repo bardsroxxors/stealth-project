@@ -35,11 +35,8 @@ public class EnemyAwareness : MonoBehaviour
     public float alertDecayDelay = 0.5f;
     private float t_alertDecayDelay = 0f;
 
-    //[Header("Unaware")]
 
-    
 
-    // Start is called before the first frame update
     void Start()
     {
         playerObject = GameObject.Find("Player");
@@ -51,10 +48,10 @@ public class EnemyAwareness : MonoBehaviour
         mainScript = GetComponent<EnemyStateMachine>();
     }
 
-    // Update is called once per frame
+
     void FixedUpdate()
     {
-        Debug.DrawRay(sightCone.transform.position, (playerObject.transform.position - sightCone.transform.position));
+        //Debug.DrawRay(sightCone.transform.position, (playerObject.transform.position - sightCone.transform.position));
         switch (currentAwareness)
         {
             case AwarenessLevel.unaware:
@@ -70,8 +67,10 @@ public class EnemyAwareness : MonoBehaviour
                 ProcessSearching();
                 break;
         }
-
-        
+        /*
+        if (CheckForLitPlayer())
+            Debug.Log("Lit player");
+            PlayerInSight();*/
 
         if (t_alertDecayDelay > 0) t_alertDecayDelay -= Time.deltaTime;
 
@@ -168,13 +167,16 @@ public class EnemyAwareness : MonoBehaviour
     }
 
 
-    // called when player has entered the sight cones
+
+
+
+    // called when player has entered the sight cone
     public void PlayerInSight()
     {
         playerInSight = GetRayToPlayer();
     }
 
-    // called when the player has left the sight cones
+    // called when the player has left the sight cone
     public void PlayerSightLost()
     {
         playerInSight = false;
@@ -186,6 +188,29 @@ public class EnemyAwareness : MonoBehaviour
         alertPercent += soundAwareIncrease;
     }
 
+    /*
+    // checks to see if player is lit and within cone of vision
+    private bool CheckForLitPlayer()
+    {
+        // check if inside sight cone 
+        if (!GetRayWithinSight())
+            Debug.Log("not in sight cone");
+            return false;
+
+        // check if we have LOS
+        if (!GetRayToPlayer())
+            return false;
+
+        // check if lit
+        if (!playerObject.GetComponent<PlayerController>().lit)
+            return false;
+
+
+        return true;
+    }*/
+
+
+    // check if we have direct LOS to player
     private bool GetRayToPlayer()
     {
         Vector3 dir = playerObject.transform.position - sightCone.transform.position;
@@ -197,4 +222,23 @@ public class EnemyAwareness : MonoBehaviour
         else return false;
 
     }
+
+    /*
+    // check if we have LOS within the FOV angle of the sight cone
+    private bool GetRayWithinSight()
+    {
+        Vector3 playerDir = (playerObject.transform.position - sightCone.transform.position).normalized;
+        // get the angle from sightcone.transform.right to the player 
+
+        // check if its less than fov/2
+
+        float angle = Vector3.Angle(sightCone.transform.right, playerDir);
+
+        Debug.DrawRay(sightCone.transform.position, sightCone.transform.right);
+
+        if (angle < (45f / 2))
+            return true;
+        else return false;
+
+    }*/
 }

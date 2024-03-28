@@ -22,7 +22,7 @@ public class EnemySightCone : MonoBehaviour
         }
         
     }
-
+    /*
     private void OnTriggerStay2D(Collider2D collision)
     {
         if (collision.gameObject.tag == "Player")
@@ -39,5 +39,5 @@ public class EnemySightCone : MonoBehaviour
             parent.SendMessage("PlayerSightLost");
         }
 
-    }
+    }*/
 }
