@@ -15,7 +15,7 @@ public enum e_PlayerAttacks
 
 public class PlayerAttackManager : MonoBehaviour
 {
-
+    /*
     private PlayerController playerController;
     public e_PlayerAttacks currentAttack = e_PlayerAttacks.None;
 
@@ -191,7 +191,7 @@ public class PlayerAttackManager : MonoBehaviour
         {
             FlagChargeReleaseInput = false;
             InitFlagChargeUp = false;
-            playerController.ChangeState(e_PlayerControllerStates.Attacking);
+            //playerController.ChangeState(e_PlayerControllerStates.Attacking);
             currentAttack = e_PlayerAttacks.HeavySlash;
             Debug.Log("heavy slash");
         }
@@ -263,5 +263,5 @@ public class PlayerAttackManager : MonoBehaviour
 
     }
 
-
+    */
 }

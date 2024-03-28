@@ -10,7 +10,7 @@ using UnityEngine.Rendering;
 public enum e_PlayerControllerStates
 {
     FreeMove,
-    Attacking,
+    SwordSwing,
     WallMove,
     Hover,
     Hurt,
@@ -56,6 +56,15 @@ public class PlayerController : MonoBehaviour
     public Vector2 wallJumpForce = Vector2.zero;
 
 
+    [Header("Sword Swing")]
+    public GameObject swordObject;
+    public float attackCooldown = 0.5f;
+    private float t_attackCooldown = 0;
+    private bool f_init_swordSwing = false;
+    public float swingMoveSpeed = 5f;
+    public float swingMoveDecay = 5f;
+
+
     [Header("Collisions")]
     public Vector2 collisionDirections = Vector2.zero; // set to 0 for no collision, -1 for left, 1 for right
     public string[] collisionLayers;
@@ -67,8 +76,8 @@ public class PlayerController : MonoBehaviour
     public float slopeRaycastDistance = 1;
 
 
-    private BoxCollider2D collider;
-    public GameObject colliderObject;
+    //private BoxCollider2D collider;
+    //public GameObject colliderObject;
     private PlayerJumpManager jumpManager;
     public GameObject graphicsObject;
     private SpriteRenderer spriteRenderer;
@@ -90,12 +99,17 @@ public class PlayerController : MonoBehaviour
 
     void Start()
     {
-        collider = colliderObject.GetComponent<BoxCollider2D>();
+        //collider = colliderObject.GetComponent<BoxCollider2D>();
         jumpManager = GetComponent<PlayerJumpManager>();
         spriteRenderer = graphicsObject.GetComponent<SpriteRenderer>();
         defaultColour = spriteRenderer.color;
     }
 
+
+    private void LateUpdate()
+    {
+        graphicsObject.transform.localScale = new Vector3(playerFacingVector.x, 1, 1);
+    }
 
     void FixedUpdate()
     {
@@ -110,21 +124,26 @@ public class PlayerController : MonoBehaviour
             case e_PlayerControllerStates.WallMove:
                 ProcessWallMove();
                 break;
+            case e_PlayerControllerStates.SwordSwing:
+                ProcessSwordSwing();
+                break;
         }
 
         ApplyMovement();
+
 
 
         // manage timers
         if (t_gracetimePostCollide > 0) t_gracetimePostCollide -= Time.deltaTime;
         if (t_gracetimePreCollide > 0) t_gracetimePreCollide -= Time.deltaTime;
         if (t_wallJumpNoGrabTime > 0) t_wallJumpNoGrabTime -= Time.deltaTime;
+        if (t_attackCooldown > 0) t_attackCooldown -= Time.deltaTime;
     }
 
     private void Update()
     {
-        if (lit) spriteRenderer.color = defaultColour;
-        else spriteRenderer.color = darkColour;
+        //if (lit) spriteRenderer.color = defaultColour;
+        //else spriteRenderer.color = darkColour;
     }
 
 
@@ -135,7 +154,7 @@ public class PlayerController : MonoBehaviour
     void ProcessFreeMove()
     {
 
-        CheckSlopeRaycast();
+        //CheckSlopeRaycast();
 
         // get inputVector from raw input, set player facing
         if (moveStickVector.magnitude >= 0.25)
@@ -195,6 +214,42 @@ public class PlayerController : MonoBehaviour
     }
 
 
+    private void ProcessSwordSwing()
+    {
+        if (!f_init_swordSwing)
+        {
+            swordObject.SetActive(true);
+            swordObject.transform.position = transform.position;
+            swordObject.transform.localScale = new Vector3( playerFacingVector.x, 1, 1 );
+            swordObject.GetComponentInChildren<Animator>().SetTrigger("swing");
+            swordObject.GetComponentInChildren<SwordScript>().animating = true;
+            swordObject.transform.GetChild(0).transform.localPosition = new Vector3 (0.75f,0,0);
+
+            inputVector.x = swingMoveSpeed * playerFacingVector.x;
+
+            t_attackCooldown = attackCooldown;
+
+            f_init_swordSwing = true;
+        }
+
+
+
+        if (inputVector.magnitude > 0)
+        {
+            inputVector.x = inputVector.x - (inputVector.x * swingMoveDecay * Time.deltaTime);
+        }
+
+        gravityVector.y = 0;
+
+        if (!swordObject.GetComponentInChildren<SwordScript>().animating)
+        {
+            swordObject.SetActive(false);
+            ChangeState(e_PlayerControllerStates.FreeMove);
+        }
+
+    }
+
+
     void ProcessHurt()
     {
 
@@ -243,6 +298,9 @@ public class PlayerController : MonoBehaviour
     {
         previousPlayerState = CurrentPlayerState;
         CurrentPlayerState = state;
+
+        if (previousPlayerState == e_PlayerControllerStates.SwordSwing)
+            f_init_swordSwing = false;
     }
 
     
@@ -337,7 +395,7 @@ public class PlayerController : MonoBehaviour
         if (collision.gameObject.tag == "Light") lit = false;
     }
 
-
+    /*
     private void CheckSlopeRaycast()
     {
         RaycastHit2D ray = Physics2D.Raycast(
@@ -354,7 +412,7 @@ public class PlayerController : MonoBehaviour
         else groundNormal = Vector2.up;
 
     }
-
+    */
     private void ClampMovementForCollisions()
     {
         if (collisionDirections.y > 0) movementVector.y = Mathf.Clamp(movementVector.y, -100, 0);
@@ -403,6 +461,12 @@ public class PlayerController : MonoBehaviour
             t_gracetimePreCollide = gracetimePreCollide;
         }
 
+    }
+
+    void OnAttack(InputValue value)
+    {
+        if (t_attackCooldown <= 0)
+            ChangeState(e_PlayerControllerStates.SwordSwing);
     }
 
     void OnAim(InputValue value)
