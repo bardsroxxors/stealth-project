@@ -55,3 +55,6 @@ TagManager:
   - name: Player
     uniqueID: 295606343
     locked: 0
+  - name: FOW
+    uniqueID: 1285648281
+    locked: 0

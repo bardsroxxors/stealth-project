@@ -60,11 +60,13 @@
     <Analyzer Include="F:\Unity\2022.3.20f1\Editor\Data\Tools\Unity.SourceGenerators\Unity.Properties.SourceGenerator.dll" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\AOSFogWar\Shadowcaster.cs" />
     <Compile Include="Assets\Scripts\Enemies\EnemySightCone.cs" />
     <Compile Include="Assets\Scripts\Player Controller\Bow\ShotIndicatorCollision.cs" />
     <Compile Include="Assets\Scripts\Enemies\EnemyStateMachine.cs" />
     <Compile Include="Assets\Scripts\SmallObjectScript.cs" />
     <Compile Include="Assets\Scripts\Player Controller\PlayerAttackManager.cs" />
+    <Compile Include="Assets\AOSFogWar\csFogWar.cs" />
     <Compile Include="Assets\Scripts\Enemies\EnemyAwareness.cs" />
     <Compile Include="Assets\Scripts\Player Controller\PlayerAnimationManager.cs" />
     <Compile Include="Assets\Scripts\ShadowCaster2DTileMap.cs" />
@@ -72,6 +74,7 @@
     <Compile Include="Assets\Scripts\HideSprite.cs" />
     <Compile Include="Assets\Scripts\LineRendererSmoother.cs" />
     <Compile Include="Assets\Scripts\Enemies\LongSightCone.cs" />
+    <Compile Include="Assets\AOSFogWar\Demo\Scripts\csEyeController.cs" />
     <Compile Include="Assets\Scripts\Player Controller\GrappleHitboxScript.cs" />
     <Compile Include="Assets\Scripts\Player Controller\SwordHitboxScript.cs" />
     <Compile Include="Assets\Scripts\Player Controller\GrappleLineRenderer.cs" />
@@ -84,11 +87,17 @@
     <Compile Include="Assets\Scripts\PatrolRoute.cs" />
     <Compile Include="Assets\Scripts\Utilities.cs" />
     <Compile Include="Assets\Scripts\Player Controller\PlayerJumpManager.cs" />
+    <Compile Include="Assets\AOSFogWar\Examples\csFogVisibilityAgent.cs" />
     <Compile Include="Assets\Scripts\Enemies\FieldOfView.cs" />
     <Compile Include="Assets\Scripts\Player Controller\PlayerSpriteManager.cs" />
     <Compile Include="Assets\Scripts\SnapToGrid.cs" />
     <Compile Include="Assets\Scripts\Player Controller\Bow\Bow.cs" />
     <Compile Include="Assets\Scripts\BezierCurve.cs" />
+    <Compile Include="Assets\AOSFogWar\Examples\csRevealerSpawner.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Assets\AOSFogWar\README.txt" />
+    <None Include="Assets\AOSFogWar\Shaders\FogPlane.shader" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">
