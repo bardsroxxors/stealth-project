@@ -5,18 +5,20 @@ using Pathfinding;
 using static UnityEngine.GraphicsBuffer;
 using System;
 using System.Runtime.InteropServices;
+using Random = UnityEngine.Random;
 
-public enum EnemyStates
+public enum e_EnemyStates
 {
-    patrolling,
-    waiting,
-    investigate
+    patrolling, // walking to next patrol point
+    waiting,    // waiting at patrpol point
+    investigate,// walking to last known position
+    headSwivel  // looking around
 }
 
 public class EnemyStateMachine : MonoBehaviour
 {
 
-    public EnemyStates currentState = EnemyStates.patrolling;
+    public e_EnemyStates currentState = e_EnemyStates.patrolling;
 
     [Header("Movement")]
     public float patrolSpeed = 5;
@@ -35,10 +37,22 @@ public class EnemyStateMachine : MonoBehaviour
     public float nodeCompleteDistance = 0.5f;
 
     [Header("Waiting")]
-    public float currentWaitTimer = 0f;
+    public float t_currentWaitTimer = 0f;
 
     [Header("Investigate")]
     public float investigateDistance = 1f;
+
+    [Header("Head Swivel")]
+    public float swivelStateTime = 1.45f;
+    public float swivelChangeTime = 0.5f;
+    private float t_swivelStateTime = 0f;
+    private float t_swivelChangeTime = 0f;
+    //public float swivelWalkSpeed = 2f;
+    //public float swivelWalkTime = 0.5f;
+    private float t_swivelWalkTime = 0f;
+    private bool f_init_swivel = false;
+    public float randomPointDistance = 2f;
+    public float[] lookAngles;
 
 
     [Header("Pathfinding")]
@@ -60,6 +74,7 @@ public class EnemyStateMachine : MonoBehaviour
     Seeker seeker;
     Rigidbody2D rb;
     private EnemyAwareness awareScript;
+    private Utilities utils = new Utilities();
 
 
 
@@ -97,18 +112,21 @@ public class EnemyStateMachine : MonoBehaviour
 
         switch (currentState)
         {
-            case EnemyStates.patrolling:
+            case e_EnemyStates.patrolling:
                 ProcessPatrolling();
                 break;
-            case EnemyStates.waiting:
+            case e_EnemyStates.waiting:
                 ProcessWaiting();
                 break;
-            case EnemyStates.investigate:
+            case e_EnemyStates.investigate:
                 ProcessInvestigate();
+                break;
+            case e_EnemyStates.headSwivel:
+                ProcessHeadSwivel();
                 break;
         }
 
-        //if (awareScript.currentAwareness == AwarenessLevel.curious) currentState = EnemyStates.investigate;
+        //if (awareScript.currentAwareness == AwarenessLevel.curious) currentState = e_EnemyStates.investigate;
 
         ApplyMovement();
 
@@ -121,7 +139,11 @@ public class EnemyStateMachine : MonoBehaviour
 
         if (sightCone != null)  sightCone.transform.localPosition = sightConePosition;
 
-
+        // manage timers
+        if(t_swivelChangeTime > 0) t_swivelChangeTime -= Time.deltaTime;
+        if (t_swivelStateTime > 0) t_swivelStateTime -= Time.deltaTime;
+        if (t_swivelWalkTime > 0) t_swivelWalkTime -= Time.deltaTime;
+        if (t_currentWaitTimer > 0) t_currentWaitTimer -= Time.deltaTime;
     }
 
 
@@ -138,9 +160,9 @@ public class EnemyStateMachine : MonoBehaviour
         float nodeDistance = (currentPatrolDestination.position - transform.position).magnitude;
         if (nodeDistance <= nodeCompleteDistance)
         {
-            currentWaitTimer = patrolRoute.waitTimes[currentNodeIndex];
+            t_currentWaitTimer = patrolRoute.waitTimes[currentNodeIndex];
             SetNextNodeIndex();
-            currentState = EnemyStates.waiting;
+            ChangeState(e_EnemyStates.headSwivel);
             //inputVector = Vector3.zero;
         }
 
@@ -156,8 +178,7 @@ public class EnemyStateMachine : MonoBehaviour
 
     private void ProcessWaiting()
     {
-        if (currentWaitTimer <= 0) currentState = EnemyStates.patrolling;
-        else currentWaitTimer -= Time.deltaTime;
+        if (t_currentWaitTimer <= 0) ChangeState(e_EnemyStates.patrolling);
 
         SightConeTrack();
     }
@@ -179,6 +200,50 @@ public class EnemyStateMachine : MonoBehaviour
 
     }
 
+
+    private void ProcessHeadSwivel()
+    {
+        if (!f_init_swivel)
+        {
+            f_init_swivel = true;
+            t_swivelStateTime = swivelStateTime;
+            t_swivelChangeTime = 0;
+        }
+
+        Vector3 lookTarget = Vector3.zero;
+
+        // pathfind target = random vector normalised * distance
+
+        if(t_swivelChangeTime <= 0)
+        {
+            t_swivelChangeTime = swivelChangeTime;
+            float angle = lookAngles[Random.Range(0, lookAngles.Length)];
+
+            lookTarget = utils.GetVectorFromAngle(angle) * randomPointDistance;
+            lookTarget = transform.TransformPoint(lookTarget);
+
+            targetLookPosition = lookTarget;
+        }
+
+
+        float dist = (lookTarget - transform.position).magnitude;
+        SightConeTrack();
+        /*
+        if (dist > investigateDistance)
+        {
+            pathfindTarget = lookTarget;
+            PathFollow();
+        }
+        else*/ inputVector = Vector3.zero;
+
+        if (t_swivelStateTime <= 0)
+        {
+            f_init_swivel = false;
+            ChangeState(e_EnemyStates.patrolling);
+        }
+
+
+    }
 
 
 
@@ -206,6 +271,11 @@ public class EnemyStateMachine : MonoBehaviour
         transform.position += (Vector3)movementVector * Time.deltaTime;
     }
 
+    public void ChangeState(e_EnemyStates state)
+    {
+        currentState = state;
+    }
+
 
     // move sight cone towards target
     private void SightConeTrack()
@@ -227,10 +297,10 @@ public class EnemyStateMachine : MonoBehaviour
     {
         if (newState == AwarenessLevel.curious || newState == AwarenessLevel.alert)
         {
-            currentState = EnemyStates.investigate;
+            ChangeState(e_EnemyStates.investigate);
         }
 
-        else if (newState == AwarenessLevel.unaware) currentState = EnemyStates.patrolling;
+        else if (newState == AwarenessLevel.unaware) ChangeState(e_EnemyStates.patrolling);
     }
 
     // set the index for the next patrol route node
@@ -285,9 +355,9 @@ public class EnemyStateMachine : MonoBehaviour
         else if (direction.x < 0) direction.x = -1;
 
         direction.y = 0;
-        if(currentState == EnemyStates.patrolling)
+        if(currentState == e_EnemyStates.patrolling)
             inputVector = direction * patrolSpeed;
-        else if(currentState != EnemyStates.patrolling)
+        else if(currentState != e_EnemyStates.patrolling)
             inputVector = direction * pursueSpeed;
 
 

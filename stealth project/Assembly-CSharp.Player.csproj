@@ -67,6 +67,7 @@
     <Compile Include="Assets\Scripts\Player Controller\PlayerAttackManager.cs" />
     <Compile Include="Assets\Scripts\Enemies\EnemyAwareness.cs" />
     <Compile Include="Assets\Scripts\Player Controller\PlayerAnimationManager.cs" />
+    <Compile Include="Assets\Scripts\ShadowCaster2DTileMap.cs" />
     <Compile Include="Assets\Scripts\Player Controller\PlayerController.cs" />
     <Compile Include="Assets\Scripts\HideSprite.cs" />
     <Compile Include="Assets\Scripts\LineRendererSmoother.cs" />
@@ -78,6 +79,7 @@
     <Compile Include="Assets\Scripts\CameraFollow.cs" />
     <Compile Include="Assets\Scripts\Arrow.cs" />
     <Compile Include="Assets\Scripts\FogOfWarScript.cs" />
+    <Compile Include="Assets\Scripts\ShadowCastersGeneratorEditor.cs" />
     <Compile Include="Assets\Scripts\Player Controller\Sword\SwordScript.cs" />
     <Compile Include="Assets\Scripts\PatrolRoute.cs" />
     <Compile Include="Assets\Scripts\Utilities.cs" />

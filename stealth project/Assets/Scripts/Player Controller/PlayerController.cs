@@ -35,7 +35,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private e_ControlSchemes controlScheme = e_ControlSchemes.MouseKeyboard;
 
-    private PlayerAttackManager playerAttacks;
+    //private PlayerAttackManager playerAttacks;
 
     public bool lit = false;
 
@@ -79,6 +79,7 @@ public class PlayerController : MonoBehaviour
     //private BoxCollider2D collider;
     //public GameObject colliderObject;
     private PlayerJumpManager jumpManager;
+    private Animator animator;
     public GameObject graphicsObject;
     private SpriteRenderer spriteRenderer;
     private Color defaultColour;
@@ -103,6 +104,7 @@ public class PlayerController : MonoBehaviour
         jumpManager = GetComponent<PlayerJumpManager>();
         spriteRenderer = graphicsObject.GetComponent<SpriteRenderer>();
         defaultColour = spriteRenderer.color;
+        animator = graphicsObject.GetComponent<Animator>();
     }
 
 
@@ -144,6 +146,7 @@ public class PlayerController : MonoBehaviour
     {
         //if (lit) spriteRenderer.color = defaultColour;
         //else spriteRenderer.color = darkColour;
+        UpdateAnimator();
     }
 
 
@@ -425,6 +428,16 @@ public class PlayerController : MonoBehaviour
 
 
 
+
+    // manage animator variables
+    private void UpdateAnimator()
+    {
+        if (collisionDirections.y == -1) animator.SetBool("grounded", true);
+        else animator.SetBool("grounded", false);
+
+        if (Mathf.Abs(moveStickVector.x) <= 0.5f) animator.SetBool("not moving", true);
+        else animator.SetBool("not moving", false);
+    }
 
 
 
