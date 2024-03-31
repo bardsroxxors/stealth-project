@@ -66,7 +66,7 @@ public class PlayerJumpManager : MonoBehaviour
     public void WallJump()
     {
         pc.inputVector.x += wallJumpForceVector.x * (pc.collisionDirections.x * -1);
-        Debug.Log(wallJumpForceVector.x * (pc.collisionDirections.x * -1));
+        //Debug.Log(wallJumpForceVector.x * (pc.collisionDirections.x * -1));
         pc.gravityVector.y = wallJumpForceVector.y;
 
 
@@ -135,7 +135,6 @@ public class PlayerJumpManager : MonoBehaviour
     // Input Listener methods
     void OnJumpRelease(InputValue value)
     {
-        Debug.Log("jump release");
         JumpReleased();
     }
 }

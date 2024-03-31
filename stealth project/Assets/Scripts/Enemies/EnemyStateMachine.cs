@@ -12,13 +12,23 @@ public enum e_EnemyStates
     patrolling, // walking to next patrol point
     waiting,    // waiting at patrpol point
     investigate,// walking to last known position
-    headSwivel  // looking around
+    headSwivel, // looking around
+    reaction    // reacting to new information
+}
+
+public enum e_EnemyConditions
+{
+    vigilant // Looks around frequently
+
 }
 
 public class EnemyStateMachine : MonoBehaviour
 {
 
     public e_EnemyStates currentState = e_EnemyStates.patrolling;
+    public GameObject graphicsObject;
+    private Animator animator;
+    public List<e_EnemyConditions> conditions = new List<e_EnemyConditions>();
 
     [Header("Movement")]
     public float patrolSpeed = 5;
@@ -41,6 +51,8 @@ public class EnemyStateMachine : MonoBehaviour
 
     [Header("Investigate")]
     public float investigateDistance = 1f;
+    public float timeBeforeLookAround = 3f;
+    private float t_timeBeforeLookAround = 0f;
 
     [Header("Head Swivel")]
     public float swivelStateTime = 1.45f;
@@ -68,6 +80,13 @@ public class EnemyStateMachine : MonoBehaviour
     public GameObject defaultLookTarget;
     private Vector3 fuckyou = Vector3.zero;
 
+    [Header("Reactions")]
+    public float reactionTime = 1f;
+    private float t_reactionTime = 0f;
+    private e_EnemyStates reactNextState;
+    public float reactionCooldown = 4f;
+    private float t_reactionCooldown = 0f;
+
 
     private Path path;
     private int currentWaypoint = 0;
@@ -90,6 +109,8 @@ public class EnemyStateMachine : MonoBehaviour
         seeker = GetComponent<Seeker>();
         rb = GetComponent<Rigidbody2D>();
         awareScript = GetComponent<EnemyAwareness>();
+        animator = graphicsObject.GetComponent<Animator>();
+
 
         InvokeRepeating("UpdatePath", 0f, pathUpdateSeconds);
 
@@ -103,7 +124,12 @@ public class EnemyStateMachine : MonoBehaviour
 
     }
 
+    private void Update()
+    {
+        UpdateAnimator();
 
+        if (graphicsObject.transform.localScale.x != facingDirection) graphicsObject.transform.localScale = new Vector3(facingDirection, 1, 1);
+    }
 
     // Update is called once per frame
     void FixedUpdate()
@@ -123,6 +149,9 @@ public class EnemyStateMachine : MonoBehaviour
                 break;
             case e_EnemyStates.headSwivel:
                 ProcessHeadSwivel();
+                break;
+            case e_EnemyStates.reaction:
+                ProcessReaction();
                 break;
         }
 
@@ -144,6 +173,9 @@ public class EnemyStateMachine : MonoBehaviour
         if (t_swivelStateTime > 0) t_swivelStateTime -= Time.deltaTime;
         if (t_swivelWalkTime > 0) t_swivelWalkTime -= Time.deltaTime;
         if (t_currentWaitTimer > 0) t_currentWaitTimer -= Time.deltaTime;
+        if (t_reactionTime > 0) t_reactionTime -= Time.deltaTime;
+        if (t_reactionCooldown > 0) t_reactionCooldown -= Time.deltaTime;
+        if (t_timeBeforeLookAround > 0) t_timeBeforeLookAround -= Time.deltaTime;
     }
 
 
@@ -162,7 +194,11 @@ public class EnemyStateMachine : MonoBehaviour
         {
             t_currentWaitTimer = patrolRoute.waitTimes[currentNodeIndex];
             SetNextNodeIndex();
-            ChangeState(e_EnemyStates.headSwivel);
+
+            if (conditions.Contains(e_EnemyConditions.vigilant))
+                ChangeState(e_EnemyStates.headSwivel);
+            else
+                ChangeState(e_EnemyStates.waiting);
             //inputVector = Vector3.zero;
         }
 
@@ -197,6 +233,11 @@ public class EnemyStateMachine : MonoBehaviour
             PathFollow();
         }
         else inputVector = Vector3.zero;
+
+        if (!awareScript.f_playerInSight && t_timeBeforeLookAround <= 0) 
+        {
+            ChangeState(e_EnemyStates.headSwivel);
+        }
 
     }
 
@@ -239,10 +280,22 @@ public class EnemyStateMachine : MonoBehaviour
         if (t_swivelStateTime <= 0)
         {
             f_init_swivel = false;
-            ChangeState(e_EnemyStates.patrolling);
+            if (awareScript.currentAwareness == AwarenessLevel.unaware)
+                ChangeState(e_EnemyStates.patrolling);
+            else
+                ChangeState(e_EnemyStates.investigate);
         }
 
 
+    }
+
+    private void ProcessReaction()
+    {
+        if (t_reactionTime <= 0)
+            ChangeState(reactNextState);
+
+        targetLookPosition = awareScript.lastKnownPosition;
+        SightConeTrack();
     }
 
 
@@ -276,6 +329,24 @@ public class EnemyStateMachine : MonoBehaviour
         currentState = state;
     }
 
+    public void TriggerReaction(e_EnemyStates state)
+    {
+        reactNextState = state;
+        t_reactionTime = reactionTime;
+        
+        
+        if (t_reactionCooldown <= 0)
+        {
+            Debug.Log("Reaction!");
+            ChangeState(e_EnemyStates.reaction);
+        }
+            
+        else
+            ChangeState(state);
+
+        t_reactionCooldown = reactionCooldown;
+    }
+
 
     // move sight cone towards target
     private void SightConeTrack()
@@ -290,14 +361,20 @@ public class EnemyStateMachine : MonoBehaviour
         }
     }
 
-
+    // triggered by awareness script when sight is lost
+    public void PlayerSightLost()
+    {
+        if(t_timeBeforeLookAround <= 0)
+            t_timeBeforeLookAround = timeBeforeLookAround;
+    }
 
     // called by the awareness script when the state chanegs
     public void AwarenessChange(AwarenessLevel newState)
     {
-        if (newState == AwarenessLevel.curious || newState == AwarenessLevel.alert)
+        if (newState == AwarenessLevel.alert)
         {
-            ChangeState(e_EnemyStates.investigate);
+            if (!conditions.Contains(e_EnemyConditions.vigilant))
+                conditions.Add(e_EnemyConditions.vigilant);
         }
 
         else if (newState == AwarenessLevel.unaware) ChangeState(e_EnemyStates.patrolling);
@@ -326,7 +403,13 @@ public class EnemyStateMachine : MonoBehaviour
 
 
 
+    // manage animator variables
+    private void UpdateAnimator()
+    {
 
+        if (Mathf.Abs(movementVector.x) <= 1f) animator.SetBool("moving", false);
+        else animator.SetBool("moving", true);
+    }
 
 
 

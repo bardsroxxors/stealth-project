@@ -452,7 +452,6 @@ public class PlayerController : MonoBehaviour
 
     void OnJump(InputValue value)
     {
-        Debug.Log("Jump");
 
         jumpManager.f_jumpKeyDown = true;
 

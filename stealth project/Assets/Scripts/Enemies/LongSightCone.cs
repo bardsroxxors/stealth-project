@@ -55,7 +55,6 @@ public class LongSightCone : MonoBehaviour
             {
                 if (player.lit)
                 {
-                    Debug.Log("lit long sight");
                     EnemyObject.SendMessage("PlayerInSight");
                 }
                 else EnemyObject.SendMessage("PlayerSightLost");
