@@ -110,7 +110,8 @@ public class PlayerController : MonoBehaviour
 
     private void LateUpdate()
     {
-        graphicsObject.transform.localScale = new Vector3(playerFacingVector.x, 1, 1);
+        if(playerFacingVector.x != 0)
+            graphicsObject.transform.localScale = new Vector3(Mathf.Sign(playerFacingVector.x), 1, 1);
     }
 
     void FixedUpdate()
@@ -283,7 +284,7 @@ public class PlayerController : MonoBehaviour
         // else set gravity to zero
         else if (collisionDirections.y == -1) gravityVector.y = 0;
 
-        jumpManager.CalculateGravity();
+        if (collisionDirections.y != -1) jumpManager.CalculateGravity();
 
         ClampMovementForCollisions();
 

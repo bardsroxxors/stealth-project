@@ -409,6 +409,9 @@ public class EnemyStateMachine : MonoBehaviour
 
         if (Mathf.Abs(movementVector.x) <= 1f) animator.SetBool("moving", false);
         else animator.SetBool("moving", true);
+
+        if ( awareScript.currentAwareness != AwarenessLevel.alert ) animator.SetBool("alert", false);
+        else animator.SetBool("alert", true);
     }
 
 

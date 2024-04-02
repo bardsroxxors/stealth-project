@@ -115,7 +115,7 @@ TextureImporter:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 80
+        width: 120
         height: 80
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -134,9 +134,9 @@ TextureImporter:
       name: spear guy anims_1
       rect:
         serializedVersion: 2
-        x: 80
+        x: 120
         y: 0
-        width: 80
+        width: 120
         height: 80
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -155,9 +155,9 @@ TextureImporter:
       name: spear guy anims_2
       rect:
         serializedVersion: 2
-        x: 160
+        x: 240
         y: 0
-        width: 80
+        width: 120
         height: 80
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -176,9 +176,9 @@ TextureImporter:
       name: spear guy anims_3
       rect:
         serializedVersion: 2
-        x: 240
+        x: 360
         y: 0
-        width: 80
+        width: 120
         height: 80
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -197,9 +197,9 @@ TextureImporter:
       name: spear guy anims_4
       rect:
         serializedVersion: 2
-        x: 320
+        x: 480
         y: 0
-        width: 80
+        width: 120
         height: 80
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -218,9 +218,9 @@ TextureImporter:
       name: spear guy anims_5
       rect:
         serializedVersion: 2
-        x: 400
+        x: 600
         y: 0
-        width: 80
+        width: 120
         height: 80
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -239,9 +239,9 @@ TextureImporter:
       name: spear guy anims_6
       rect:
         serializedVersion: 2
-        x: 480
+        x: 720
         y: 0
-        width: 80
+        width: 120
         height: 80
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -260,9 +260,9 @@ TextureImporter:
       name: spear guy anims_7
       rect:
         serializedVersion: 2
-        x: 560
+        x: 840
         y: 0
-        width: 80
+        width: 120
         height: 80
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -281,9 +281,9 @@ TextureImporter:
       name: spear guy anims_8
       rect:
         serializedVersion: 2
-        x: 640
+        x: 960
         y: 0
-        width: 80
+        width: 120
         height: 80
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -294,6 +294,195 @@ TextureImporter:
       bones: []
       spriteID: bff00019bfa6ef54d90a9d0620e9beb5
       internalID: -681260585
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spear guy anims_9
+      rect:
+        serializedVersion: 2
+        x: 1080
+        y: 0
+        width: 120
+        height: 80
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 13065cf58e80eda41935fead1f8c2885
+      internalID: 1095724273
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spear guy anims_10
+      rect:
+        serializedVersion: 2
+        x: 1200
+        y: 0
+        width: 120
+        height: 80
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f8633fda93eb2cf498597a298e299deb
+      internalID: 7211671
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spear guy anims_11
+      rect:
+        serializedVersion: 2
+        x: 1320
+        y: 0
+        width: 120
+        height: 80
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 59d014d5f99614a4cb5179f132effc28
+      internalID: 673555489
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spear guy anims_12
+      rect:
+        serializedVersion: 2
+        x: 1440
+        y: 0
+        width: 120
+        height: 80
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2cbea854f9d9a5347bf41c08a372e042
+      internalID: -1481392380
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spear guy anims_13
+      rect:
+        serializedVersion: 2
+        x: 1560
+        y: 0
+        width: 120
+        height: 80
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6ddfa9cc4f3760e4085e266b5f8fcf09
+      internalID: -872757041
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spear guy anims_14
+      rect:
+        serializedVersion: 2
+        x: 1680
+        y: 0
+        width: 120
+        height: 80
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fff1cc2b40f25ea4ca6ad22413a2deed
+      internalID: -586213046
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spear guy anims_15
+      rect:
+        serializedVersion: 2
+        x: 1800
+        y: 0
+        width: 120
+        height: 80
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b13bf26d096924f4ba1a899451a0eed4
+      internalID: -1808733923
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spear guy anims_16
+      rect:
+        serializedVersion: 2
+        x: 1920
+        y: 0
+        width: 120
+        height: 80
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e9532ac091e3f3843b90ac9b85ab8b10
+      internalID: 671145848
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spear guy anims_17
+      rect:
+        serializedVersion: 2
+        x: 2040
+        y: 0
+        width: 120
+        height: 80
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 726e1f866759a754c83bed3dea4799a4
+      internalID: 496195407
       vertices: []
       indices: 
       edges: []
@@ -311,6 +500,14 @@ TextureImporter:
     nameFileIdTable:
       spear guy anims_0: -676746250
       spear guy anims_1: -283081007
+      spear guy anims_10: 7211671
+      spear guy anims_11: 673555489
+      spear guy anims_12: -1481392380
+      spear guy anims_13: -872757041
+      spear guy anims_14: -586213046
+      spear guy anims_15: -1808733923
+      spear guy anims_16: 671145848
+      spear guy anims_17: 496195407
       spear guy anims_2: -789592077
       spear guy anims_3: -2014094899
       spear guy anims_4: 168887124
@@ -318,6 +515,7 @@ TextureImporter:
       spear guy anims_6: -1507532102
       spear guy anims_7: 1290372061
       spear guy anims_8: -681260585
+      spear guy anims_9: 1095724273
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
