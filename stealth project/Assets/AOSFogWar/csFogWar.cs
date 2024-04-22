@@ -199,7 +199,7 @@ namespace FischlWorks_FogWar
 
         [BigHeader("Fog Properties")]
         [SerializeField]
-        [Range(0, 100)]
+        [Range(-10, 100)]
         private float fogPlaneHeight = 1;
         [SerializeField]
         private Material fogPlaneMaterial = null;

@@ -6,6 +6,7 @@ using static UnityEngine.GraphicsBuffer;
 using System;
 using System.Runtime.InteropServices;
 using Random = UnityEngine.Random;
+using System.Linq;
 
 public enum e_EnemyStates
 {
@@ -13,7 +14,8 @@ public enum e_EnemyStates
     waiting,    // waiting at patrpol point
     investigate,// walking to last known position
     headSwivel, // looking around
-    reaction    // reacting to new information
+    reaction,   // reacting to new information
+    damageFlinch// reacting to minor damage
 }
 
 public enum e_EnemyConditions
@@ -26,6 +28,9 @@ public class EnemyStateMachine : MonoBehaviour
 {
 
     public e_EnemyStates currentState = e_EnemyStates.patrolling;
+    private e_EnemyStates previousState;
+    public int currentHP = 10;
+    public int maxHP = 10;
     public GameObject graphicsObject;
     private Animator animator;
     public List<e_EnemyConditions> conditions = new List<e_EnemyConditions>();
@@ -86,6 +91,10 @@ public class EnemyStateMachine : MonoBehaviour
     private e_EnemyStates reactNextState;
     public float reactionCooldown = 4f;
     private float t_reactionCooldown = 0f;
+
+    [Header("Flinch")]
+    public float flinchTime = 0.2f;
+    private float t_flinchTime = 0;
 
 
     private Path path;
@@ -153,6 +162,9 @@ public class EnemyStateMachine : MonoBehaviour
             case e_EnemyStates.reaction:
                 ProcessReaction();
                 break;
+            case e_EnemyStates.damageFlinch:
+                ProcessFlinch();
+                break;
         }
 
         //if (awareScript.currentAwareness == AwarenessLevel.curious) currentState = e_EnemyStates.investigate;
@@ -165,6 +177,12 @@ public class EnemyStateMachine : MonoBehaviour
         fuckyou = new Vector3(facingDirection, 1, 1);
 
 
+        if(t_flinchTime > 0 && currentState != e_EnemyStates.damageFlinch)
+        {
+            previousState = currentState;
+            ChangeState(e_EnemyStates.damageFlinch);
+        }
+
 
         if (sightCone != null)  sightCone.transform.localPosition = sightConePosition;
 
@@ -176,6 +194,7 @@ public class EnemyStateMachine : MonoBehaviour
         if (t_reactionTime > 0) t_reactionTime -= Time.deltaTime;
         if (t_reactionCooldown > 0) t_reactionCooldown -= Time.deltaTime;
         if (t_timeBeforeLookAround > 0) t_timeBeforeLookAround -= Time.deltaTime;
+        if (t_flinchTime > 0) t_flinchTime -= Time.deltaTime;
     }
 
 
@@ -298,7 +317,11 @@ public class EnemyStateMachine : MonoBehaviour
         SightConeTrack();
     }
 
-
+    private void ProcessFlinch()
+    {
+        if (t_flinchTime <= 0)
+            ChangeState(previousState);
+    }
 
 
 
@@ -412,6 +435,9 @@ public class EnemyStateMachine : MonoBehaviour
 
         if ( awareScript.currentAwareness != AwarenessLevel.alert ) animator.SetBool("alert", false);
         else animator.SetBool("alert", true);
+
+        if (currentState == e_EnemyStates.damageFlinch) animator.SetBool("flinch", true);
+        else animator.SetBool("flinch", false);
     }
 
 
@@ -473,7 +499,27 @@ public class EnemyStateMachine : MonoBehaviour
         currentWaypoint = 0;
     }
 
-    
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if(collision.gameObject.tag == "PlayerProjectile")
+        {
+            
+            DamageSource dmg = collision.gameObject.GetComponent<DamageSource>();
+            if (dmg != null)
+            {
+                if(dmg.applyToTags.Contains(gameObject.tag) && !dmg.hasHit)
+                {
+                    dmg.hasHit = true;
+                    currentHP -= dmg.damageAmount;
+                    t_flinchTime = flinchTime;
+                    Debug.Log("oof ouch");
+                }
+            }
+        }
+    }
+
+
 
 
 

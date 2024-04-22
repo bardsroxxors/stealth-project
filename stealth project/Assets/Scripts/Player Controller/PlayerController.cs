@@ -73,6 +73,7 @@ public class PlayerController : MonoBehaviour
     public GameObject normalIndicator;
     public bool slopeCheckRaycast = false;
     public LayerMask slopeMask;
+    public LayerMask collisionMask;
     public float slopeRaycastDistance = 1;
 
 
@@ -82,6 +83,7 @@ public class PlayerController : MonoBehaviour
     private Animator animator;
     public GameObject graphicsObject;
     private SpriteRenderer spriteRenderer;
+    private BoxCollider2D collider;
     private Color defaultColour;
     public Color darkColour;
 
@@ -94,6 +96,8 @@ public class PlayerController : MonoBehaviour
     public float wallJumpNoGrabTime = 0.5f;
     private float t_wallJumpNoGrabTime = 0f;
 
+    private bool f_groundClose = false;
+
 
 
 
@@ -105,6 +109,7 @@ public class PlayerController : MonoBehaviour
         spriteRenderer = graphicsObject.GetComponent<SpriteRenderer>();
         defaultColour = spriteRenderer.color;
         animator = graphicsObject.GetComponent<Animator>();
+        collider = GetComponent<BoxCollider2D>();
     }
 
 
@@ -228,7 +233,7 @@ public class PlayerController : MonoBehaviour
             swordObject.GetComponentInChildren<Animator>().SetTrigger("swing");
             swordObject.GetComponentInChildren<SwordScript>().animating = true;
             swordObject.transform.GetChild(0).transform.localPosition = new Vector3 (0.75f,0,0);
-
+            swordObject.transform.GetChild(0).GetComponent<DamageSource>().RefreshDamageSource();
             inputVector.x = swingMoveSpeed * playerFacingVector.x;
 
             t_attackCooldown = attackCooldown;
@@ -273,6 +278,21 @@ public class PlayerController : MonoBehaviour
         movementVector.x = inputVector.x;
         movementVector.y = inputVector.y;
 
+
+        RaycastHit2D hit = Physics2D.BoxCast(
+            collider.bounds.center, 
+            new Vector2(collider.size.x, collider.size.y), 
+            0, 
+            Vector3.down, 
+            0.1f,
+            collisionMask
+            );
+        
+        if (hit)
+        {
+            f_groundClose = true;
+        }
+        else f_groundClose = false;
 
         // apply gravity if not grounded
         if (collisionDirections.y != -1 && CurrentPlayerState == e_PlayerControllerStates.FreeMove)
@@ -399,24 +419,8 @@ public class PlayerController : MonoBehaviour
         if (collision.gameObject.tag == "Light") lit = false;
     }
 
-    /*
-    private void CheckSlopeRaycast()
-    {
-        RaycastHit2D ray = Physics2D.Raycast(
-            collider.bounds.center + new Vector3(0, -collider.bounds.extents.y, 0),
-            Vector2.down,
-            slopeRaycastDistance,
-            slopeMask
 
-            );
 
-        slopeCheckRaycast = ray;
-
-        if (ray) groundNormal = ray.normal;
-        else groundNormal = Vector2.up;
-
-    }
-    */
     private void ClampMovementForCollisions()
     {
         if (collisionDirections.y > 0) movementVector.y = Mathf.Clamp(movementVector.y, -100, 0);
@@ -433,7 +437,7 @@ public class PlayerController : MonoBehaviour
     // manage animator variables
     private void UpdateAnimator()
     {
-        if (collisionDirections.y == -1) animator.SetBool("grounded", true);
+        if (collisionDirections.y == -1 || f_groundClose) animator.SetBool("grounded", true);
         else animator.SetBool("grounded", false);
 
         if (Mathf.Abs(moveStickVector.x) <= 0.5f) animator.SetBool("not moving", true);
@@ -524,6 +528,21 @@ public class PlayerController : MonoBehaviour
         Vector3 direction = mousePosition - (Vector2)transform.position;
         return direction.normalized;
     }
+
+
+
+    /*
+    void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+
+
+        //Draw a cube at the maximum distance
+        Gizmos.DrawWireCube(collider.bounds.center + Vector3.down * 0.1f, new Vector2(collider.size.x, collider.size.y));
+
+
+
+    }*/
 
 
 }

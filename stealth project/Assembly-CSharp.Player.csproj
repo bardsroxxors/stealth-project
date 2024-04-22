@@ -73,6 +73,7 @@
     <Compile Include="Assets\Scripts\Enemies\EnemyFogVisiblity.cs" />
     <Compile Include="Assets\Scripts\Player Controller\PlayerController.cs" />
     <Compile Include="Assets\Scripts\HideSprite.cs" />
+    <Compile Include="Assets\Scripts\DamageSource.cs" />
     <Compile Include="Assets\Scripts\LineRendererSmoother.cs" />
     <Compile Include="Assets\Scripts\Enemies\LongSightCone.cs" />
     <Compile Include="Assets\AOSFogWar\Demo\Scripts\csEyeController.cs" />
