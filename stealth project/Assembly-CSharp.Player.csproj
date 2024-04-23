@@ -68,6 +68,7 @@
     <Compile Include="Assets\Scripts\Player Controller\PlayerAttackManager.cs" />
     <Compile Include="Assets\AOSFogWar\csFogWar.cs" />
     <Compile Include="Assets\Scripts\Enemies\EnemyAwareness.cs" />
+    <Compile Include="Assets\Scripts\Enemies\AttackTriggerZone.cs" />
     <Compile Include="Assets\Scripts\Player Controller\PlayerAnimationManager.cs" />
     <Compile Include="Assets\Scripts\ShadowCaster2DTileMap.cs" />
     <Compile Include="Assets\Scripts\Enemies\EnemyFogVisiblity.cs" />

@@ -15,7 +15,8 @@ public enum e_EnemyStates
     investigate,// walking to last known position
     headSwivel, // looking around
     reaction,   // reacting to new information
-    damageFlinch// reacting to minor damage
+    damageFlinch,// reacting to minor damage
+    attacking   // normal attack
 }
 
 public enum e_EnemyConditions
@@ -43,6 +44,8 @@ public class EnemyStateMachine : MonoBehaviour
     public Vector2 inputVector = Vector2.zero;
     public Vector2 movementVector = Vector2.zero;
     public float facingDirection = 1;
+    public float facingSwitchTimer = 0.2f;
+    private float t_facingSwitchTimer = 0;
 
 
     [Header("Patrolling")]
@@ -96,6 +99,14 @@ public class EnemyStateMachine : MonoBehaviour
     public float flinchTime = 0.2f;
     private float t_flinchTime = 0;
 
+    [Header("Attack")]
+    public float attackCooldown = 1f;
+    private float t_attackCooldown = 0;
+    public GameObject swordObject;
+    public GameObject attackTrigger;
+    private bool f_attackInit = false;
+    public bool f_playerInAttackZone = false;
+
 
     private Path path;
     private int currentWaypoint = 0;
@@ -137,7 +148,11 @@ public class EnemyStateMachine : MonoBehaviour
     {
         UpdateAnimator();
 
-        if (graphicsObject.transform.localScale.x != facingDirection) graphicsObject.transform.localScale = new Vector3(facingDirection, 1, 1);
+        if (graphicsObject.transform.localScale.x != facingDirection)
+        {
+            graphicsObject.transform.localScale = new Vector3(facingDirection, 1, 1);
+            attackTrigger.transform.localPosition = new Vector3(facingDirection, 0, 0);
+        }
     }
 
     // Update is called once per frame
@@ -165,6 +180,9 @@ public class EnemyStateMachine : MonoBehaviour
             case e_EnemyStates.damageFlinch:
                 ProcessFlinch();
                 break;
+            case e_EnemyStates.attacking:
+                ProcessAttack();
+                break;
         }
 
         //if (awareScript.currentAwareness == AwarenessLevel.curious) currentState = e_EnemyStates.investigate;
@@ -172,7 +190,7 @@ public class EnemyStateMachine : MonoBehaviour
         ApplyMovement();
 
         // update facing direction
-        if (movementVector.x != 0)  facingDirection = Mathf.Sign(movementVector.x);
+        if (Mathf.Abs(movementVector.x) > 0.1)  SwitchFacing(Mathf.Sign(movementVector.x));
 
         fuckyou = new Vector3(facingDirection, 1, 1);
 
@@ -181,6 +199,11 @@ public class EnemyStateMachine : MonoBehaviour
         {
             previousState = currentState;
             ChangeState(e_EnemyStates.damageFlinch);
+        }
+
+        if(f_playerInAttackZone && t_attackCooldown <= 0)
+        {
+            ChangeState(e_EnemyStates.attacking);
         }
 
 
@@ -195,6 +218,8 @@ public class EnemyStateMachine : MonoBehaviour
         if (t_reactionCooldown > 0) t_reactionCooldown -= Time.deltaTime;
         if (t_timeBeforeLookAround > 0) t_timeBeforeLookAround -= Time.deltaTime;
         if (t_flinchTime > 0) t_flinchTime -= Time.deltaTime;
+        if (t_attackCooldown > 0) t_attackCooldown -= Time.deltaTime;
+        if (t_facingSwitchTimer > 0) t_facingSwitchTimer -= Time.deltaTime;
     }
 
 
@@ -245,6 +270,12 @@ public class EnemyStateMachine : MonoBehaviour
         targetLookPosition = awareScript.lastKnownPosition;
         SightConeTrack();
 
+        if (Mathf.Sign(targetLookPosition.x - transform.position.x) != facingDirection)
+        {
+            //facingDirection = Mathf.Sign(targetLookPosition.x - transform.position.x);
+            SwitchFacing(Mathf.Sign(targetLookPosition.x - transform.position.x));
+        }
+
         if (dist > investigateDistance)
         {
             pathfindTarget = awareScript.lastKnownPosition;
@@ -285,6 +316,12 @@ public class EnemyStateMachine : MonoBehaviour
             targetLookPosition = lookTarget;
         }
 
+        if (Mathf.Sign(targetLookPosition.x - transform.position.x) != facingDirection)
+        {
+            //facingDirection = Mathf.Sign(targetLookPosition.x - transform.position.x);
+            SwitchFacing(Mathf.Sign(targetLookPosition.x - transform.position.x));
+        }
+
 
         float dist = (lookTarget - transform.position).magnitude;
         SightConeTrack();
@@ -323,6 +360,32 @@ public class EnemyStateMachine : MonoBehaviour
             ChangeState(previousState);
     }
 
+
+    private void ProcessAttack()
+    {
+        if (!f_attackInit)
+        {
+            f_attackInit = true;
+            swordObject.SetActive(true);
+            //swordObject.transform.position = transform.position;
+            swordObject.transform.localScale = new Vector3(facingDirection, 1, 1);
+            swordObject.GetComponentInChildren<Animator>().SetTrigger("swing");
+            swordObject.GetComponentInChildren<SwordScript>().animating = true;
+            swordObject.transform.GetChild(0).transform.localPosition = new Vector3(0.8f, 0, 0);
+            swordObject.transform.GetChild(0).GetComponent<DamageSource>().RefreshDamageSource();
+            //inputVector.x = swingMoveSpeed * playerFacingVector.x;
+
+            t_attackCooldown = attackCooldown;
+
+        }
+
+        if (!swordObject.GetComponentInChildren<SwordScript>().animating)
+        {
+            swordObject.SetActive(false);
+            f_attackInit = false;
+            ChangeState(e_EnemyStates.investigate);
+        }
+    }
 
 
 
@@ -442,6 +505,15 @@ public class EnemyStateMachine : MonoBehaviour
 
 
 
+    private void SwitchFacing(float newFacing)
+    {
+        if(t_facingSwitchTimer <= 0)
+        {
+            facingDirection = newFacing;
+            t_facingSwitchTimer = facingSwitchTimer;
+        }
+    }
+
 
 
 
@@ -512,11 +584,24 @@ public class EnemyStateMachine : MonoBehaviour
                 {
                     dmg.hasHit = true;
                     currentHP -= dmg.damageAmount;
+                    // trigger flinch state
                     t_flinchTime = flinchTime;
                     Debug.Log("oof ouch");
                 }
             }
         }
+    }
+
+
+
+    // called by attack trigger 
+    public void AttackTriggerEnter()
+    {
+        f_playerInAttackZone = true;
+    }
+    public void AttackTriggerExit()
+    {
+        f_playerInAttackZone = false;
     }
 
 

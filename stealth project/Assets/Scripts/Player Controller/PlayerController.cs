@@ -38,7 +38,7 @@ public class PlayerController : MonoBehaviour
     //private PlayerAttackManager playerAttacks;
 
     public bool lit = false;
-
+    public int currentHP = 10;
 
     [Header("Free Move")]
     public float moveSpeed = 1;
@@ -189,7 +189,11 @@ public class PlayerController : MonoBehaviour
         // and the wall jump grace timer has depleted
         if (collisionDirections.x != 0 && collisionDirections.y != -1 && t_wallJumpNoGrabTime <= 0 && canWallClimb)
         {
-            ChangeState(e_PlayerControllerStates.WallMove);
+            if(Mathf.Sign(moveStickVector.x) == Mathf.Sign(collisionDirections.x))
+            {
+                ChangeState(e_PlayerControllerStates.WallMove);
+            }
+            
         }
 
     }
@@ -197,7 +201,7 @@ public class PlayerController : MonoBehaviour
     private void ProcessWallMove()
     {
         // get inputVector from raw input, set player facing 
-        if (moveStickVector.magnitude >= 0.25)
+        if (Mathf.Abs( moveStickVector.y) >= 0.25)
         {
             inputVector.x = moveStickVector.normalized.x * moveSpeed;
             if(collisionDirections.x != 0)
@@ -219,7 +223,8 @@ public class PlayerController : MonoBehaviour
 
         // change to free move under right conditions
         // if we are not olliding with a wall or we're colliding with the ground we are in freeMove
-        if (collisionDirections.x == 0 || collisionDirections.y == -1) CurrentPlayerState = e_PlayerControllerStates.FreeMove;
+        if (collisionDirections.x == 0 || collisionDirections.y == -1 
+            || movementVector.x == 0) CurrentPlayerState = e_PlayerControllerStates.FreeMove;
     }
 
 
@@ -375,6 +380,9 @@ public class PlayerController : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
+
+        
+
         if (collisionLayers.Contains(collision.collider.gameObject.tag))
         {
             Vector2 normal;
@@ -406,9 +414,31 @@ public class PlayerController : MonoBehaviour
             }
 
         }
+
+        
     }
 
-   
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "EnemyProjectile")
+        {
+            
+            DamageSource dmg = collision.gameObject.GetComponent<DamageSource>();
+            if (dmg != null)
+            {
+
+                if (dmg.applyToTags.Contains(gameObject.tag) && !dmg.hasHit)
+                {
+                    Debug.Log("youch");
+                    dmg.hasHit = true;
+                    currentHP -= dmg.damageAmount;
+
+                }
+            }
+        }
+    }
+
     private void OnTriggerStay2D(Collider2D collision)
     {
         if (collision.gameObject.tag == "Light") lit = true;
