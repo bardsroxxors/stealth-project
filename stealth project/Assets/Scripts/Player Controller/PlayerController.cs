@@ -26,7 +26,7 @@ public enum e_ControlSchemes
 public class PlayerController : MonoBehaviour
 {
 
-
+    public Material material;
 
     [SerializeField]
     public e_PlayerControllerStates CurrentPlayerState = e_PlayerControllerStates.FreeMove;
@@ -116,7 +116,15 @@ public class PlayerController : MonoBehaviour
     private void LateUpdate()
     {
         if(playerFacingVector.x != 0)
+        {
             graphicsObject.transform.localScale = new Vector3(Mathf.Sign(playerFacingVector.x), 1, 1);
+
+            if (playerFacingVector.x < 0) material.SetFloat("_Facing_Right", 0);
+            else
+            if (playerFacingVector.x > 0) material.SetFloat("_Facing_Right", 1);
+
+        }
+            
     }
 
     void FixedUpdate()

@@ -118,6 +118,7 @@ Material:
     - _DstBlendAlpha: 0
     - _EnableExternalAlpha: 0
     - _EnvironmentReflections: 1
+    - _Facing_Right: 1
     - _Fade_Value: 1
     - _GlossMapScale: 0
     - _Glossiness: 0
