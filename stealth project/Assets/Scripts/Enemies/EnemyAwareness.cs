@@ -28,12 +28,15 @@ public class EnemyAwareness : MonoBehaviour
     private EnemyStateMachine mainScript;
 
     [Header("Awareness Numbers")]
-    public float sightAwareIncreaseSpeed = 0.3f;
+    public float sightAwareIncreaseSpeedMin = 0.3f;
+    public float sightAwareIncreaseSpeedMax = 0.9f;
     public float soundAwareIncrease = 0.5f;
     public float awarenessDecaySpeed = 0.2f;
     public float alertDecaySpeed = 0.15f;
     public float alertDecayDelay = 0.5f;
     private float t_alertDecayDelay = 0f;
+    public float minAwareIncreaseDistance = 10f;
+    public float vigilanceMultiplier = 2f;
 
     private bool previousFrame_playerInSight = false;
 
@@ -98,7 +101,7 @@ public class EnemyAwareness : MonoBehaviour
     {
         if (f_playerInSight)
         {
-            alertPercent = alertPercent + sightAwareIncreaseSpeed * Time.deltaTime;
+            alertPercent = alertPercent + GetIncreaseSpeed() * Time.deltaTime;
             t_alertDecayDelay = alertDecayDelay;
         }
 
@@ -124,7 +127,7 @@ public class EnemyAwareness : MonoBehaviour
         if(f_playerInSight && playerObject != null)
         {
             lastKnownPosition = playerObject.transform.position;
-            alertPercent = alertPercent + sightAwareIncreaseSpeed * Time.deltaTime;
+            alertPercent = alertPercent + GetIncreaseSpeed() * Time.deltaTime;
             t_alertDecayDelay = alertDecayDelay;
             if (!GetRayToPlayer()) f_playerInSight = false;
         }
@@ -150,7 +153,7 @@ public class EnemyAwareness : MonoBehaviour
         if (f_playerInSight && playerObject != null)
         {
             lastKnownPosition = playerObject.transform.position;
-            alertPercent = alertPercent + sightAwareIncreaseSpeed * Time.deltaTime;
+            alertPercent = alertPercent + GetIncreaseSpeed() * Time.deltaTime;
             t_alertDecayDelay = alertDecayDelay;
             if (!GetRayToPlayer()) f_playerInSight = false;
         }
@@ -182,8 +185,26 @@ public class EnemyAwareness : MonoBehaviour
         currentAwareness = newState;
     }
 
+    // get the awareness increase speed based on distance
+    private float GetIncreaseSpeed()
+    {
+        float multiplier = 1f;
+        if (mainScript.conditions.Contains(e_EnemyConditions.vigilant)) multiplier = vigilanceMultiplier;
+
+        float dist = (transform.position - lastKnownPosition).magnitude;
+        float num;
+        if(dist < minAwareIncreaseDistance)
+        {
+            num = Mathf.Lerp(sightAwareIncreaseSpeedMax, sightAwareIncreaseSpeedMin, (dist / minAwareIncreaseDistance)) * multiplier;
+        }
+        else
+        {
+            num = sightAwareIncreaseSpeedMin * multiplier;
+        }
 
 
+        return num;
+    }
 
 
     // called when player has entered the sight cone

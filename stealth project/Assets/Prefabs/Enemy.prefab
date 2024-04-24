@@ -228,9 +228,9 @@ GameObject:
   - component: {fileID: 3611927281121009297}
   - component: {fileID: 5973690690471799179}
   - component: {fileID: 4654415973292762687}
-  m_Layer: 6
+  m_Layer: 7
   m_Name: sword sprite
-  m_TagString: PlayerProjectile
+  m_TagString: EnemyProjectile
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -412,7 +412,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damageAmount: 5
   applyToTags:
-  - Enemy
+  - Player
   hasHit: 0
 --- !u!1 &2070814919857865915
 GameObject:
@@ -594,6 +594,7 @@ GameObject:
   - component: {fileID: 3516725855220935185}
   - component: {fileID: 8660616763821652369}
   - component: {fileID: 5778068149147716328}
+  - component: {fileID: 813173809781086749}
   m_Layer: 0
   m_Name: LongFieldOfView
   m_TagString: Untagged
@@ -705,6 +706,41 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 7
+--- !u!58 &813173809781086749
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3284364119708538534}
+  m_Enabled: 0
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 1.58
 --- !u!1 &3662010039264906175
 GameObject:
   m_ObjectHideFlags: 0
@@ -788,13 +824,13 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6827026529070254516}
-  m_Layer: 6
+  m_Layer: 7
   m_Name: Sword
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &6827026529070254516
 Transform:
   m_ObjectHideFlags: 0
@@ -959,6 +995,7 @@ Transform:
   - {fileID: 7965160239081708986}
   - {fileID: 13495088799426282}
   - {fileID: 9118414621803950300}
+  - {fileID: 735889123276092395}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &8101851710404939037
@@ -985,11 +1022,12 @@ MonoBehaviour:
   inputVector: {x: 0, y: 0}
   movementVector: {x: 0, y: 0}
   facingDirection: 1
+  facingSwitchTimer: 0.2
   patrolRouteObject: {fileID: 0}
   currentNodeIndex: 0
-  nodeCompleteDistance: 0.5
+  nodeCompleteDistance: 0.8
   t_currentWaitTimer: 0
-  investigateDistance: 3
+  investigateDistance: 2
   timeBeforeLookAround: 3
   swivelStateTime: 5
   swivelChangeTime: 1
@@ -1014,6 +1052,8 @@ MonoBehaviour:
   flinchTime: 0.3
   attackCooldown: 1
   swordObject: {fileID: 4248111003316377240}
+  attackTrigger: {fileID: 8200466295216942089}
+  f_playerInAttackZone: 0
 --- !u!114 &2881394861468808388
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1255,6 +1295,86 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &8200466295216942089
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 735889123276092395}
+  - component: {fileID: 2659301709267358753}
+  - component: {fileID: 1895236418458283378}
+  m_Layer: 7
+  m_Name: attack zone
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &735889123276092395
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8200466295216942089}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0.7071068, w: 0.7071068}
+  m_LocalPosition: {x: 1.29, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 424716216733633221}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
+--- !u!70 &2659301709267358753
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8200466295216942089}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_Size: {x: 1.31, y: 2.73}
+  m_Direction: 0
+--- !u!114 &1895236418458283378
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8200466295216942089}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9f07882dbbb75824287d3aafd415896b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &9146450282806222122
 GameObject:
   m_ObjectHideFlags: 0
