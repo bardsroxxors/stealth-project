@@ -32,11 +32,12 @@ public class LongSightCone : MonoBehaviour
     // origin, transform.right + 
     private void SetPolygonCollider()
     {
-        Vector2[] points = new Vector2[3];
+        Vector2[] points = new Vector2[4];
 
-        points[0] = Vector2.zero;
-        points[1] = utils.GetVectorFromAngle((fov / 2)) * viewDistance;
-        points[2] = utils.GetVectorFromAngle(-(fov / 2)) * viewDistance;
+        points[0] = new Vector2(0, -1);
+        points[1] = new Vector2(0, 1);
+        points[2] = utils.GetVectorFromAngle((fov / 2)) * viewDistance;
+        points[3] = utils.GetVectorFromAngle(-(fov / 2)) * viewDistance;
 
         collider.SetPath(0, points);
     }
@@ -46,9 +47,6 @@ public class LongSightCone : MonoBehaviour
     {
         if (collision.gameObject.tag == "Player")
         {
-
-            
-
             PlayerController player = collision.gameObject.GetComponent<PlayerController>();
 
             if(player != null)

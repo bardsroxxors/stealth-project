@@ -207,6 +207,15 @@ public class EnemyStateMachine : MonoBehaviour
         }
 
 
+        // turn off attack sprite when its done
+        if (swordObject.active && !swordObject.GetComponentInChildren<SwordScript>().animating)
+        {
+            swordObject.SetActive(false);
+            f_attackInit = false;
+            ChangeState(e_EnemyStates.investigate);
+        }
+
+
         if (sightCone != null)  sightCone.transform.localPosition = sightConePosition;
 
         // manage timers
@@ -300,6 +309,8 @@ public class EnemyStateMachine : MonoBehaviour
             t_swivelStateTime = swivelStateTime;
             t_swivelChangeTime = 0;
         }
+
+        if (inputVector != Vector2.zero) inputVector = Vector2.zero;
 
         Vector3 lookTarget = Vector3.zero;
 
@@ -504,7 +515,7 @@ public class EnemyStateMachine : MonoBehaviour
     }
 
 
-
+    // use this to change facing, it uses a timer to prevent jettery behaviour
     private void SwitchFacing(float newFacing)
     {
         if(t_facingSwitchTimer <= 0)
@@ -586,7 +597,7 @@ public class EnemyStateMachine : MonoBehaviour
                     currentHP -= dmg.damageAmount;
                     // trigger flinch state
                     t_flinchTime = flinchTime;
-                    Debug.Log("oof ouch");
+                    awareScript.alertPercent += 0.3f;
                 }
             }
         }

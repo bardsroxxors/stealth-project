@@ -197,7 +197,7 @@ public class PlayerController : MonoBehaviour
         // and the wall jump grace timer has depleted
         if (collisionDirections.x != 0 && collisionDirections.y != -1 && t_wallJumpNoGrabTime <= 0 && canWallClimb)
         {
-            if(Mathf.Sign(moveStickVector.x) == Mathf.Sign(collisionDirections.x))
+            if(Mathf.Sign(moveStickVector.x) == Mathf.Sign(collisionDirections.x) && moveStickVector.x != 0)
             {
                 ChangeState(e_PlayerControllerStates.WallMove);
             }
