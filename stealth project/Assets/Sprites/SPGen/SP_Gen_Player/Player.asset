@@ -101,7 +101,12 @@ MonoBehaviour:
   CurrentStatePreset: " <sbspreset pkgurl=\"pkg://A\" label=\"\" >\n  <presetinput
     identifier=\"$outputsize\" uid=\"3182604835\" type=\"8\" value=\"9,9\" />\n 
     <presetinput identifier=\"Shadows_AreaSelect_Position\" uid=\"3739989546\" type=\"0\"
-    value=\"0\" />\n  <presetinput identifier=\"Hightlights_AreaSelect_Position\"
+    value=\"0.677\" />\n  <presetinput identifier=\"Shadows_AreaSelect_Range\" uid=\"3739995466\"
+    type=\"0\" value=\"0.685\" />\n  <presetinput identifier=\"Shadows_Distance\"
+    uid=\"3739999993\" type=\"0\" value=\"0.211\" />\n  <presetinput identifier=\"Shadows_Power\"
+    uid=\"3740003936\" type=\"0\" value=\"0.291\" />\n  <presetinput identifier=\"Shadows_Contrast\"
+    uid=\"3740003963\" type=\"0\" value=\"0.006\" />\n  <presetinput identifier=\"Shadows_CheckerBlend\"
+    uid=\"3740003782\" type=\"0\" value=\"0\" />\n  <presetinput identifier=\"Hightlights_AreaSelect_Position\"
     uid=\"3739910174\" type=\"0\" value=\"0.714\" />\n  <presetinput identifier=\"Highlights_AreaSelect_Range\"
     uid=\"3739917189\" type=\"0\" value=\"1\" />\n  <presetinput identifier=\"Highlights_AreaInvert\"
     uid=\"3739916445\" type=\"4\" value=\"1\" />\n  <presetinput identifier=\"Highlights_lightangle\"
@@ -186,7 +191,7 @@ MonoBehaviour:
           GuiDescription: 
           Type: 0
           WidgetType: 1
-        Data: 0
+        Data: 0.677
         NumericalDescription:
           DefaultValue: 0.86
           MinValue: 0
@@ -206,7 +211,7 @@ MonoBehaviour:
           GuiDescription: 
           Type: 0
           WidgetType: 1
-        Data: 0.36
+        Data: 0.685
         NumericalDescription:
           DefaultValue: 0.36
           MinValue: 0
@@ -268,7 +273,7 @@ MonoBehaviour:
           GuiDescription: 
           Type: 0
           WidgetType: 1
-        Data: 0.09
+        Data: 0.211
         NumericalDescription:
           DefaultValue: 0.09
           MinValue: 0
@@ -308,7 +313,7 @@ MonoBehaviour:
           GuiDescription: 
           Type: 0
           WidgetType: 1
-        Data: 0.45
+        Data: 0.291
         NumericalDescription:
           DefaultValue: 0.45
           MinValue: 0
@@ -328,7 +333,7 @@ MonoBehaviour:
           GuiDescription: 
           Type: 0
           WidgetType: 1
-        Data: 0.54
+        Data: 0.006
         NumericalDescription:
           DefaultValue: 0.54
           MinValue: 0
@@ -348,7 +353,7 @@ MonoBehaviour:
           GuiDescription: 
           Type: 0
           WidgetType: 1
-        Data: 0.15
+        Data: 0
         NumericalDescription:
           DefaultValue: 0.15
           MinValue: 0
