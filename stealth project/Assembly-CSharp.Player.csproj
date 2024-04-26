@@ -66,6 +66,7 @@
     <Compile Include="Assets\Scripts\Enemies\EnemyStateMachine.cs" />
     <Compile Include="Assets\Scripts\SmallObjectScript.cs" />
     <Compile Include="Assets\Scripts\Player Controller\PlayerAttackManager.cs" />
+    <Compile Include="Assets\Scripts\Navmesh Generation\NavmeshGenerator.cs" />
     <Compile Include="Assets\AOSFogWar\csFogWar.cs" />
     <Compile Include="Assets\Scripts\Enemies\EnemyAwareness.cs" />
     <Compile Include="Assets\Scripts\Enemies\AttackTriggerZone.cs" />
@@ -76,8 +77,10 @@
     <Compile Include="Assets\Scripts\HideSprite.cs" />
     <Compile Include="Assets\Scripts\DamageSource.cs" />
     <Compile Include="Assets\Scripts\LineRendererSmoother.cs" />
+    <Compile Include="Assets\Scripts\Navmesh Generation\NavPoint.cs" />
     <Compile Include="Assets\Scripts\Enemies\LongSightCone.cs" />
     <Compile Include="Assets\AOSFogWar\Demo\Scripts\csEyeController.cs" />
+    <Compile Include="Assets\Scripts\Navmesh Generation\NavmeshGenEditor.cs" />
     <Compile Include="Assets\Scripts\Player Controller\GrappleHitboxScript.cs" />
     <Compile Include="Assets\Scripts\Player Controller\SwordHitboxScript.cs" />
     <Compile Include="Assets\Scripts\Player Controller\GrappleLineRenderer.cs" />

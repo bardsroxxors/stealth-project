@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 2515881402724411211}
   - component: {fileID: 5862153693673842082}
   - component: {fileID: 4725256142805405739}
+  - component: {fileID: 7833590975880104862}
   m_Layer: 0
   m_Name: FieldOfView
   m_TagString: Untagged
@@ -83,7 +84,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: b7dcc59d3cf4ce34582cf93b17be479e, type: 2}
+  - {fileID: 2100000, guid: 5cbec782bb6a55c40acfe1eecfd5d86e, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -180,6 +181,41 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 7
+--- !u!58 &7833590975880104862
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 570347527869292258}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.65
 --- !u!1 &771223635454232878
 GameObject:
   m_ObjectHideFlags: 0
@@ -858,6 +894,7 @@ GameObject:
   - component: {fileID: 7965160239081708986}
   - component: {fileID: 4082859024710872093}
   - component: {fileID: 73759672323113181}
+  - component: {fileID: 6404534548833369032}
   m_Layer: 0
   m_Name: p_graphics
   m_TagString: Untagged
@@ -874,7 +911,7 @@ Transform:
   m_GameObject: {fileID: 4627374472030742646}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.6, z: 0}
+  m_LocalPosition: {x: 0, y: 0.35, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -953,6 +990,19 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &6404534548833369032
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4627374472030742646}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bcf6bf7a873f8e9498ee44c92cc20054, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attackTrigger: 0
 --- !u!1 &5883861301094141281
 GameObject:
   m_ObjectHideFlags: 0
@@ -1022,7 +1072,7 @@ MonoBehaviour:
   inputVector: {x: 0, y: 0}
   movementVector: {x: 0, y: 0}
   facingDirection: 1
-  facingSwitchTimer: 0.2
+  facingSwitchTimer: 0.15
   patrolRouteObject: {fileID: 0}
   currentNodeIndex: 0
   nodeCompleteDistance: 0.8
@@ -1033,10 +1083,8 @@ MonoBehaviour:
   swivelChangeTime: 1
   randomPointDistance: 5
   lookAngles:
-  - 30
-  - 150
-  - 45
-  - 135
+  - 15
+  - 165
   - -15
   - -165
   pathfindTarget: {x: 0, y: 0, z: 0}
@@ -1047,12 +1095,13 @@ MonoBehaviour:
   coneTrackingSpeed: 15
   targetLookPosition: {x: 0, y: 0, z: 0}
   defaultLookTarget: {fileID: 6709828392235593733}
-  reactionTime: 0.8
-  reactionCooldown: 3
+  reactionTime: 0.4
+  reactionCooldown: 2
   flinchTime: 0.3
   attackCooldown: 1
   swordObject: {fileID: 4248111003316377240}
   attackTrigger: {fileID: 8200466295216942089}
+  f_triggerAttack: 0
   f_playerInAttackZone: 0
 --- !u!114 &2881394861468808388
 MonoBehaviour:
@@ -1077,11 +1126,14 @@ MonoBehaviour:
   layerMask:
     serializedVersion: 2
     m_Bits: 72
-  sightAwareIncreaseSpeed: 0.8
+  sightAwareIncreaseSpeedMin: 0.2
+  sightAwareIncreaseSpeedMax: 2.5
   soundAwareIncrease: 0.5
   awarenessDecaySpeed: 0.05
   alertDecaySpeed: 0.05
   alertDecayDelay: 0.5
+  minAwareIncreaseDistance: 5
+  vigilanceMultiplier: 2
 --- !u!61 &4278924528542880356
 BoxCollider2D:
   m_ObjectHideFlags: 0

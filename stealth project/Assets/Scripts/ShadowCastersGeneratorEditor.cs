@@ -2,7 +2,9 @@
 using UnityEngine;
 using UnityEditor;
 
+
 [CustomEditor(typeof(ShadowCaster2DTileMap))]
+
 public class ShadowCastersGeneratorEditor : Editor
 {
 
