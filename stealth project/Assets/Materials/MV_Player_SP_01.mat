@@ -27,8 +27,20 @@ Material:
         m_Texture: {fileID: 2800000, guid: 865c9b28ddfe58744938074b98518e2b, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _SampleTexture2D_bc5cc037dcc046ccb912c36576e1709e_Texture_1_Texture2D:
+        m_Texture: {fileID: 2800000, guid: 8f97d69b5482b734a9a70d1c5f42a6ee, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _SpriteMask:
         m_Texture: {fileID: 2800000, guid: f6a112e07e706ff4983eb76def699bea, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SpriteMask1:
+        m_Texture: {fileID: 2800000, guid: f6a112e07e706ff4983eb76def699bea, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SpriteMask2:
+        m_Texture: {fileID: 2800000, guid: 4274f7ba0e446e94894b9a1878963651, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _SpriteNormal:
