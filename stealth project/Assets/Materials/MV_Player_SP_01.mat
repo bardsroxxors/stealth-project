@@ -28,11 +28,11 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _SpriteMask:
-        m_Texture: {fileID: 2800000, guid: 63dd8032133bc1f4e89433760453d5c2, type: 3}
+        m_Texture: {fileID: 2800000, guid: f6a112e07e706ff4983eb76def699bea, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _SpriteNormal:
-        m_Texture: {fileID: 2800000, guid: f0405dfdb92901d4ea945be1deecc49b, type: 3}
+        m_Texture: {fileID: 2800000, guid: 5da3cf2d9a0614947a9ced9edd620ad1, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Ints: []
@@ -40,7 +40,7 @@ Material:
     - _Facing_Right: 1
     - _Normal_Strength: 1
     m_Colors:
-    - _Highlight1_Colour: {r: 0, g: 9.494971e+29, b: 7.2089765e+29, a: 0}
+    - _Highlight1_Colour: {r: 1.4980392, g: 0.17215732, b: 0, a: 0}
   m_BuildTextureStacks: []
 --- !u!114 &7617579040072855149
 MonoBehaviour:
