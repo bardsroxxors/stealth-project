@@ -19,7 +19,7 @@ public class NavmeshGenEditor : Editor
         if (GUILayout.Button("Generate"))
         {
 
-            generator.Generate(generator.map);
+            generator.Generate();
             Debug.Log("generate!");
 
         }
