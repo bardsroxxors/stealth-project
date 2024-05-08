@@ -18,9 +18,9 @@ public class NavmeshGenEditor : Editor
 
         if (GUILayout.Button("Generate"))
         {
-
+            Debug.Log("Generate!");
             generator.Generate();
-            Debug.Log("generate!");
+            Debug.Log("Done!");
 
         }
 

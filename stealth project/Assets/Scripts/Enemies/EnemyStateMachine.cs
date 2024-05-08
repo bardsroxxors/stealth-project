@@ -16,7 +16,8 @@ public enum e_EnemyStates
     headSwivel, // looking around
     reaction,   // reacting to new information
     damageFlinch,// reacting to minor damage
-    attacking   // normal attack
+    attacking,   // normal attack
+    jump
 }
 
 public enum e_EnemyConditions
@@ -46,6 +47,8 @@ public class EnemyStateMachine : MonoBehaviour
     public float facingDirection = 1;
     public float facingSwitchTimer = 0.2f;
     private float t_facingSwitchTimer = 0;
+    public string[] collisionLayers;
+    public Vector2 collisionDirections = Vector2.zero;
 
 
     [Header("Patrolling")]
@@ -98,6 +101,14 @@ public class EnemyStateMachine : MonoBehaviour
     [Header("Flinch")]
     public float flinchTime = 0.2f;
     private float t_flinchTime = 0;
+
+    [Header("Jump")]
+    public float lerpSpeedBase = 1;
+    private bool f_jumpInit = false;
+    private Vector3 jumpTarget = Vector3.zero;
+    private Vector3 jumpStartPos = Vector3.zero;
+    private float jumpLerp = 0;
+    private float lerpSpeedCurrent = 0;
 
     [Header("Attack")]
     public float attackCooldown = 1f;
@@ -160,6 +171,7 @@ public class EnemyStateMachine : MonoBehaviour
     void FixedUpdate()
     { 
         inputVector = Vector3.zero;
+        
 
         switch (currentState)
         {
@@ -183,6 +195,9 @@ public class EnemyStateMachine : MonoBehaviour
                 break;
             case e_EnemyStates.attacking:
                 ProcessAttack();
+                break;
+            case e_EnemyStates.jump:
+                ProcessJump();
                 break;
         }
 
@@ -220,6 +235,7 @@ public class EnemyStateMachine : MonoBehaviour
         if (sightCone != null)  sightCone.transform.localPosition = sightConePosition;
 
         ManageTimers();
+        collisionDirections = Vector2.zero;
     }
 
 
@@ -362,6 +378,32 @@ public class EnemyStateMachine : MonoBehaviour
             ChangeState(previousState);
     }
 
+    private void ProcessJump()
+    {
+        if (!f_jumpInit)
+        {
+            jumpStartPos = transform.position;
+            jumpLerp = 0;
+            jumpTarget = path.vectorPath[currentWaypoint];
+
+
+            float distance = (jumpTarget - transform.position).magnitude;
+            lerpSpeedCurrent = lerpSpeedBase / distance;
+
+            RaycastHit2D landing = Physics2D.BoxCast(jumpTarget, new Vector2(1,1), 0, Vector2.down);
+            if (landing) jumpTarget = landing.centroid;
+
+            f_jumpInit = true;
+        }
+
+        jumpLerp += Time.deltaTime * lerpSpeedCurrent;
+        transform.position = Vector3.Lerp(jumpStartPos, jumpTarget, jumpLerp);
+
+        if(jumpLerp >= 1)
+        {
+            ChangeState(previousState);
+        }
+    }
 
 
     // to attack, in update we get put into attack state
@@ -404,6 +446,9 @@ public class EnemyStateMachine : MonoBehaviour
 
 
 
+
+
+
     private void ApplyMovement()
     {
         // apply input
@@ -425,6 +470,8 @@ public class EnemyStateMachine : MonoBehaviour
 
     public void ChangeState(e_EnemyStates state)
     {
+        if (currentState == e_EnemyStates.jump) f_jumpInit = false;
+
         if(currentState != e_EnemyStates.attacking || 
             (currentState == e_EnemyStates.attacking && f_attackInit == false))
         {
@@ -550,7 +597,12 @@ public class EnemyStateMachine : MonoBehaviour
             return;
         }
 
-
+        // check if we need to jump
+        float heightDelta = path.vectorPath[currentWaypoint].y - transform.position.y;
+        if (heightDelta >= 2 && currentState != e_EnemyStates.jump && collisionDirections.y == -1)
+        {
+            ChangeState(e_EnemyStates.jump);
+        }
 
         // direction calculation
         Vector2 direction = ((Vector2)path.vectorPath[currentWaypoint] - rb.position).normalized;
@@ -635,6 +687,44 @@ public class EnemyStateMachine : MonoBehaviour
         }
     }
 
+    private void OnCollisionStay2D(Collision2D collision)
+    {
+        if (collisionLayers.Contains(collision.collider.gameObject.tag))
+        {
+            Vector2 normal;
+
+            for (int i = 0; i < collision.contacts.Length; i++)
+            {
+                normal = collision.contacts[i].normal;
+
+                // if surface faces up
+                if (Vector2.Angle(normal, Vector2.up) < 45f)
+                {
+                    collisionDirections.y = -1;
+                    //gravityVector.y = 0;
+                }
+                // if surface faces down
+                else if (Vector2.Angle(normal, Vector2.down) < 45f)
+                {
+                    collisionDirections.y = 1;
+                    //gravityVector.y = 0;
+                }
+                // if surface faces left
+                else if (Vector2.Angle(normal, Vector2.left) < 45f)
+                {
+                    collisionDirections.x = 1;
+                }
+                // if surface faces right
+                else if (Vector2.Angle(normal, Vector2.right) < 45f)
+                {
+                    collisionDirections.x = -1;
+                }
+
+
+            }
+
+        }
+    }
 
 
     // called by attack trigger 

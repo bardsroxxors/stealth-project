@@ -1075,7 +1075,7 @@ MonoBehaviour:
   facingSwitchTimer: 0.15
   patrolRouteObject: {fileID: 0}
   currentNodeIndex: 0
-  nodeCompleteDistance: 0.8
+  nodeCompleteDistance: 1
   t_currentWaitTimer: 0
   investigateDistance: 2
   timeBeforeLookAround: 3
