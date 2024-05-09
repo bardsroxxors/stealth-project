@@ -1078,7 +1078,7 @@ MonoBehaviour:
   collisionDirections: {x: 0, y: 0}
   patrolRouteObject: {fileID: 0}
   currentNodeIndex: 0
-  nodeCompleteDistance: 0.5
+  nodeCompleteDistance: 1
   t_currentWaitTimer: 0
   investigateDistance: 2
   timeBeforeLookAround: 3

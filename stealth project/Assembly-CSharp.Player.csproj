@@ -82,6 +82,7 @@
     <Compile Include="Assets\AOSFogWar\Demo\Scripts\csEyeController.cs" />
     <Compile Include="Assets\Scripts\Navmesh Generation\NavmeshGenEditor.cs" />
     <Compile Include="Assets\Scripts\Player Controller\GrappleHitboxScript.cs" />
+    <Compile Include="Assets\Scripts\LightScript.cs" />
     <Compile Include="Assets\Scripts\Player Controller\SwordHitboxScript.cs" />
     <Compile Include="Assets\Scripts\Player Controller\GrappleLineRenderer.cs" />
     <Compile Include="Assets\Scripts\Player Controller\PlayerGroundTrigger.cs" />
