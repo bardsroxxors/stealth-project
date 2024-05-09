@@ -1073,9 +1073,12 @@ MonoBehaviour:
   movementVector: {x: 0, y: 0}
   facingDirection: 1
   facingSwitchTimer: 0.15
+  collisionLayers:
+  - Ground
+  collisionDirections: {x: 0, y: 0}
   patrolRouteObject: {fileID: 0}
   currentNodeIndex: 0
-  nodeCompleteDistance: 1
+  nodeCompleteDistance: 0.5
   t_currentWaitTimer: 0
   investigateDistance: 2
   timeBeforeLookAround: 3
@@ -1098,6 +1101,8 @@ MonoBehaviour:
   reactionTime: 0.4
   reactionCooldown: 2
   flinchTime: 0.3
+  lerpSpeedBase: 5
+  jumpMinDistance: 2
   attackCooldown: 1
   swordObject: {fileID: 4248111003316377240}
   attackTrigger: {fileID: 8200466295216942089}
@@ -1358,7 +1363,7 @@ GameObject:
   - component: {fileID: 735889123276092395}
   - component: {fileID: 2659301709267358753}
   - component: {fileID: 1895236418458283378}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: attack zone
   m_TagString: Untagged
   m_Icon: {fileID: 0}

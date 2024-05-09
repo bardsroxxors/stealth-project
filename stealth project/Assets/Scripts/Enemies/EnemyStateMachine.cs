@@ -7,6 +7,8 @@ using System;
 using System.Runtime.InteropServices;
 using Random = UnityEngine.Random;
 using System.Linq;
+using static UnityEditor.PlayerSettings;
+using UnityEditor;
 
 public enum e_EnemyStates
 {
@@ -17,7 +19,8 @@ public enum e_EnemyStates
     reaction,   // reacting to new information
     damageFlinch,// reacting to minor damage
     attacking,   // normal attack
-    jump
+    jump,
+    fall
 }
 
 public enum e_EnemyConditions
@@ -109,6 +112,8 @@ public class EnemyStateMachine : MonoBehaviour
     private Vector3 jumpStartPos = Vector3.zero;
     private float jumpLerp = 0;
     private float lerpSpeedCurrent = 0;
+    public float jumpMinDistance = 2;
+    private bool f_fallInit = false;
 
     [Header("Attack")]
     public float attackCooldown = 1f;
@@ -199,6 +204,9 @@ public class EnemyStateMachine : MonoBehaviour
             case e_EnemyStates.jump:
                 ProcessJump();
                 break;
+            case e_EnemyStates.fall:
+                ProcessFall();
+                break;
         }
 
 
@@ -216,9 +224,16 @@ public class EnemyStateMachine : MonoBehaviour
         }
 
         // attack is triggered right away, doesn't ask permission from current state, which is quite rude
-        if(f_playerInAttackZone && t_attackCooldown <= 0 && awareScript.currentAwareness == AwarenessLevel.alert && awareScript.f_playerInSight)
+        if(f_playerInAttackZone && t_attackCooldown <= 0 && awareScript.currentAwareness == AwarenessLevel.alert && awareScript.f_playerInSight
+            && currentState != e_EnemyStates.jump)
         {
             ChangeState(e_EnemyStates.attacking);
+        }
+
+        // check if we need to fall
+        if(collisionDirections.y != -1 && currentState != e_EnemyStates.jump)
+        {
+            ChangeState(e_EnemyStates.fall);
         }
 
 
@@ -235,7 +250,7 @@ public class EnemyStateMachine : MonoBehaviour
         if (sightCone != null)  sightCone.transform.localPosition = sightConePosition;
 
         ManageTimers();
-        collisionDirections = Vector2.zero;
+        
     }
 
 
@@ -396,11 +411,34 @@ public class EnemyStateMachine : MonoBehaviour
             f_jumpInit = true;
         }
 
+        targetLookPosition = jumpTarget;
+        SightConeTrack();
+
         jumpLerp += Time.deltaTime * lerpSpeedCurrent;
         transform.position = Vector3.Lerp(jumpStartPos, jumpTarget, jumpLerp);
 
         if(jumpLerp >= 1)
         {
+            f_jumpInit = false;
+            jumpLerp = 0;
+            ChangeState(previousState);
+        }
+    }
+
+    private void ProcessFall()
+    {
+        float xMomentum = 0;
+        if (f_fallInit)
+        {
+            xMomentum = inputVector.x;
+            f_fallInit = true;
+        }
+
+        inputVector = new Vector2(xMomentum, 0);
+
+        if(collisionDirections.y == -1)
+        {
+            f_fallInit = false;
             ChangeState(previousState);
         }
     }
@@ -470,11 +508,13 @@ public class EnemyStateMachine : MonoBehaviour
 
     public void ChangeState(e_EnemyStates state)
     {
-        if (currentState == e_EnemyStates.jump) f_jumpInit = false;
+        //if (currentState == e_EnemyStates.jump) f_jumpInit = false;
 
         if(currentState != e_EnemyStates.attacking || 
             (currentState == e_EnemyStates.attacking && f_attackInit == false))
         {
+            if(currentState != e_EnemyStates.fall &&
+                currentState != e_EnemyStates.jump)
             previousState = currentState;
             currentState = state;
         }
@@ -491,7 +531,7 @@ public class EnemyStateMachine : MonoBehaviour
         UpdatePath();
 
 
-        if (t_reactionCooldown <= 0)
+        if (t_reactionCooldown <= 0 && currentState != e_EnemyStates.jump && currentState != e_EnemyStates.fall)
         {
             ChangeState(e_EnemyStates.reaction);
         }
@@ -598,8 +638,12 @@ public class EnemyStateMachine : MonoBehaviour
         }
 
         // check if we need to jump
+        float nodeDistance = (path.vectorPath[currentWaypoint] - transform.position).magnitude;
         float heightDelta = path.vectorPath[currentWaypoint].y - transform.position.y;
-        if (heightDelta >= 2 && currentState != e_EnemyStates.jump && collisionDirections.y == -1)
+        if (nodeDistance >= jumpMinDistance 
+            && currentState != e_EnemyStates.jump 
+            && collisionDirections.y == -1 
+            && heightDelta >= 1)
         {
             ChangeState(e_EnemyStates.jump);
         }
@@ -726,6 +770,14 @@ public class EnemyStateMachine : MonoBehaviour
         }
     }
 
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        if (collisionLayers.Contains(collision.collider.gameObject.tag))
+        {
+            collisionDirections = Vector2.zero;
+        }
+    }
+
 
     // called by attack trigger 
     public void AttackTriggerEnter()
@@ -742,8 +794,16 @@ public class EnemyStateMachine : MonoBehaviour
         f_triggerAttack = true;
     }
 
+    /*
+    private void OnDrawGizmos()
+    {
 
+        Handles.color = UnityEngine.Color.cyan;
 
+        if(path.vectorPath[currentWaypoint] != null)
+            Handles.DrawWireCube(path.vectorPath[currentWaypoint], new Vector3(0.25f, 0.25f, 0.25f));
+    }
+    */
 
 
 }
