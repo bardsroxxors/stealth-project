@@ -99,22 +99,21 @@ MonoBehaviour:
   Thumbnail: 
   HasThumbnail: 0
   CurrentStatePreset: " <sbspreset pkgurl=\"pkg://A\" label=\"\" >\n  <presetinput
-    identifier=\"Shadows_AreaSelect_Position\" uid=\"3739989546\" type=\"0\" value=\"0.637\"
+    identifier=\"Shadows_AreaSelect_Position\" uid=\"3739989546\" type=\"0\" value=\"0.805\"
     />\n  <presetinput identifier=\"Shadows_AreaSelect_Range\" uid=\"3739995466\"
-    type=\"0\" value=\"0.275\" />\n  <presetinput identifier=\"Shadows_Distance\"
-    uid=\"3739999993\" type=\"0\" value=\"0.211\" />\n  <presetinput identifier=\"Shadows_Power\"
-    uid=\"3740003936\" type=\"0\" value=\"0.291\" />\n  <presetinput identifier=\"Shadows_Contrast\"
-    uid=\"3740003963\" type=\"0\" value=\"0.006\" />\n  <presetinput identifier=\"Shadows_CheckerBlend\"
+    type=\"0\" value=\"0.72\" />\n  <presetinput identifier=\"Shadows_Distance\"
+    uid=\"3739999993\" type=\"0\" value=\"0.316\" />\n  <presetinput identifier=\"Shadows_Power\"
+    uid=\"3740003936\" type=\"0\" value=\"0.15\" />\n  <presetinput identifier=\"Shadows_Contrast\"
+    uid=\"3740003963\" type=\"0\" value=\"0.335\" />\n  <presetinput identifier=\"Shadows_CheckerBlend\"
     uid=\"3740003782\" type=\"0\" value=\"0\" />\n  <presetinput identifier=\"Hightlights_AreaSelect_Position\"
-    uid=\"3739910174\" type=\"0\" value=\"0.266\" />\n  <presetinput identifier=\"Highlights_AreaSelect_Range\"
-    uid=\"3739917189\" type=\"0\" value=\"0.564\" />\n  <presetinput identifier=\"Highlights_AreaInvert\"
+    uid=\"3739910174\" type=\"0\" value=\"0.696\" />\n  <presetinput identifier=\"Highlights_AreaSelect_Range\"
+    uid=\"3739917189\" type=\"0\" value=\"0.68\" />\n  <presetinput identifier=\"Highlights_AreaInvert\"
     uid=\"3739916445\" type=\"4\" value=\"1\" />\n  <presetinput identifier=\"Highlights_lightangle\"
-    uid=\"3741265997\" type=\"0\" value=\"9.24\" />\n  <presetinput identifier=\"Highlights_invertlightangle\"
-    uid=\"3735242653\" type=\"4\" value=\"0\" />\n  <presetinput identifier=\"Highlights_ShadowShift\"
-    uid=\"3739926415\" type=\"0\" value=\"1.327\" />\n  <presetinput identifier=\"Highlights_Distance\"
-    uid=\"3739915647\" type=\"0\" value=\"0.602\" />\n  <presetinput identifier=\"Highlights_EdgeSoftness\"
-    uid=\"3739918967\" type=\"0\" value=\"0.578\" />\n  <presetinput identifier=\"Highlights_power\"
-    uid=\"3739925955\" type=\"0\" value=\"0.706\" />\n </sbspreset>\n"
+    uid=\"3741265997\" type=\"0\" value=\"17.5\" />\n  <presetinput identifier=\"Highlights_ShadowShift\"
+    uid=\"3739926415\" type=\"0\" value=\"0\" />\n  <presetinput identifier=\"Highlights_Distance\"
+    uid=\"3739915647\" type=\"0\" value=\"0.635\" />\n  <presetinput identifier=\"Highlights_power\"
+    uid=\"3739925955\" type=\"0\" value=\"0.96\" />\n  <presetinput identifier=\"Highlights_Contrast\"
+    uid=\"3739925973\" type=\"0\" value=\"0.385\" />\n </sbspreset>\n"
   IsRuntimeOnly: 0
   GenerateAllOutputs: 1
   GenerateAllMipmaps: 0
@@ -205,7 +204,7 @@ MonoBehaviour:
           GuiDescription: 
           Type: 0
           WidgetType: 1
-        Data: 0.637
+        Data: 0.805
         NumericalDescription:
           DefaultValue: 0.86
           MinValue: 0
@@ -225,7 +224,7 @@ MonoBehaviour:
           GuiDescription: 
           Type: 0
           WidgetType: 1
-        Data: 0.275
+        Data: 0.72
         NumericalDescription:
           DefaultValue: 0.36
           MinValue: 0
@@ -287,7 +286,7 @@ MonoBehaviour:
           GuiDescription: 
           Type: 0
           WidgetType: 1
-        Data: 0.211
+        Data: 0.316
         NumericalDescription:
           DefaultValue: 0.09
           MinValue: 0
@@ -327,7 +326,7 @@ MonoBehaviour:
           GuiDescription: 
           Type: 0
           WidgetType: 1
-        Data: 0.291
+        Data: 0.15
         NumericalDescription:
           DefaultValue: 0.45
           MinValue: 0
@@ -347,7 +346,7 @@ MonoBehaviour:
           GuiDescription: 
           Type: 0
           WidgetType: 1
-        Data: 0.006
+        Data: 0.335
         NumericalDescription:
           DefaultValue: 0.54
           MinValue: 0
@@ -409,7 +408,7 @@ MonoBehaviour:
           GuiDescription: 
           Type: 0
           WidgetType: 1
-        Data: 0.266
+        Data: 0.696
         NumericalDescription:
           DefaultValue: 0.68
           MinValue: 0
@@ -429,7 +428,7 @@ MonoBehaviour:
           GuiDescription: 
           Type: 0
           WidgetType: 1
-        Data: 0.564
+        Data: 0.68
         NumericalDescription:
           DefaultValue: 0.96
           MinValue: 0
@@ -471,7 +470,7 @@ MonoBehaviour:
           GuiDescription: 
           Type: 0
           WidgetType: 2
-        Data: 9.24
+        Data: 17.5
         NumericalDescription:
           DefaultValue: 0.79
           MinValue: 0
@@ -491,7 +490,7 @@ MonoBehaviour:
           GuiDescription: 
           Type: 4
           WidgetType: 4
-        Data: 0
+        Data: 1
         NumericalDescription:
           DefaultValue: 1
           MinValue: 0
@@ -513,7 +512,7 @@ MonoBehaviour:
           GuiDescription: 
           Type: 0
           WidgetType: 1
-        Data: 1.327
+        Data: 0
         NumericalDescription:
           DefaultValue: 0.13
           MinValue: 0
@@ -533,7 +532,7 @@ MonoBehaviour:
           GuiDescription: 
           Type: 0
           WidgetType: 1
-        Data: 0.602
+        Data: 0.635
         NumericalDescription:
           DefaultValue: 0.12
           MinValue: 0
@@ -553,7 +552,7 @@ MonoBehaviour:
           GuiDescription: 
           Type: 0
           WidgetType: 1
-        Data: 0.578
+        Data: 1
         NumericalDescription:
           DefaultValue: 1
           MinValue: 0
@@ -573,7 +572,7 @@ MonoBehaviour:
           GuiDescription: 
           Type: 0
           WidgetType: 1
-        Data: 0.706
+        Data: 0.96
         NumericalDescription:
           DefaultValue: 0.27
           MinValue: 0
@@ -593,7 +592,7 @@ MonoBehaviour:
           GuiDescription: 
           Type: 0
           WidgetType: 1
-        Data: 1
+        Data: 0.385
         NumericalDescription:
           DefaultValue: 1
           MinValue: 0
