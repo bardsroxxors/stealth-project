@@ -38,10 +38,12 @@ public class PlayerController : MonoBehaviour
     //private PlayerAttackManager playerAttacks;
 
     public bool lit = false;
+    public bool sneaking = false;
     public int currentHP = 10;
 
     [Header("Free Move")]
     public float moveSpeed = 1;
+    public float sneakSpeed = 1;
     public float moveDecay = 10;
     public Vector2 inputVector = new Vector2(0, 0); // the vector being used as a handle from the user input to the movement vector
     public Vector2 movementVector = new Vector2(0, 0); // vector that is used to store the desired movement, before any checks
@@ -177,7 +179,8 @@ public class PlayerController : MonoBehaviour
         // get inputVector from raw input, set player facing
         if (moveStickVector.magnitude >= 0.25)
         {
-            inputVector.x = moveStickVector.normalized.x * moveSpeed;
+            if(!sneaking) inputVector.x = moveStickVector.normalized.x * moveSpeed;
+            else inputVector.x = moveStickVector.normalized.x * sneakSpeed;
             inputVector.y = 0;
             playerFacingVector = moveStickVector.normalized;
         }
@@ -492,6 +495,8 @@ public class PlayerController : MonoBehaviour
 
         if (Mathf.Abs(moveStickVector.x) <= 0.5f) animator.SetBool("not moving", true);
         else animator.SetBool("not moving", false);
+
+        animator.SetBool("sneaking", sneaking);
     }
 
 
@@ -549,6 +554,14 @@ public class PlayerController : MonoBehaviour
     void OnKeyboardAny(InputValue value)
     {
         if (controlScheme != e_ControlSchemes.MouseKeyboard) controlScheme = e_ControlSchemes.MouseKeyboard;
+    }
+
+    void OnToggleSneak(InputValue value)
+    {
+        if(CurrentPlayerState == e_PlayerControllerStates.FreeMove)
+        {
+            sneaking = !sneaking;
+        }
     }
 
 

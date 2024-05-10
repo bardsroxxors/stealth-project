@@ -51,6 +51,15 @@
                     "initialStateCheck": true
                 },
                 {
+                    "name": "ToggleSneak",
+                    "type": "PassThrough",
+                    "id": "d770cafb-f3be-4313-b6b1-1db41f61b625",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "Press",
+                    "initialStateCheck": true
+                },
+                {
                     "name": "AttackHold",
                     "type": "PassThrough",
                     "id": "7b6a6b59-7f9e-49b4-843a-b9bc4e0d9b1c",
@@ -616,6 +625,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "JumpRelease",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "c8fa464d-071a-4853-b1eb-5ec7f321a776",
+                    "path": "<Keyboard>/leftShift",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ToggleSneak",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
