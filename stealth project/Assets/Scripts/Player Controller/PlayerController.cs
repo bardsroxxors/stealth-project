@@ -74,6 +74,7 @@ public class PlayerController : MonoBehaviour
     public bool slopeCheckRaycast = false;
     public LayerMask slopeMask;
     public LayerMask collisionMask;
+    public LayerMask lightCheckMask;
     public float slopeRaycastDistance = 1;
 
 
@@ -449,7 +450,18 @@ public class PlayerController : MonoBehaviour
 
     private void OnTriggerStay2D(Collider2D collision)
     {
-        if (collision.gameObject.tag == "Light") lit = true;
+        if (collision.gameObject.tag == "Light")
+        {
+            Vector2 origin = collision.gameObject.transform.position;
+            Vector2 direction = (transform.position - collision.gameObject.transform.position).normalized;
+
+            Debug.DrawRay(origin, direction);
+
+            RaycastHit2D ray = Physics2D.Raycast(origin, direction, 100, lightCheckMask);
+
+            if (ray.transform.gameObject.tag == "Player")
+                lit = true;
+        }
     }
 
     private void OnTriggerExit2D(Collider2D collision)
