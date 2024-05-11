@@ -22,7 +22,7 @@ TagManager:
   - Slopes
   - PlayerProjectile
   - Soft Platform
-  - 
+  - DamagePlayer
   - 
   - 
   - 
@@ -58,4 +58,7 @@ TagManager:
     locked: 0
   - name: FOW
     uniqueID: 1285648281
+    locked: 0
+  - name: UI
+    uniqueID: 1730196465
     locked: 0

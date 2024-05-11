@@ -264,7 +264,7 @@ GameObject:
   - component: {fileID: 3611927281121009297}
   - component: {fileID: 5973690690471799179}
   - component: {fileID: 4654415973292762687}
-  m_Layer: 7
+  m_Layer: 11
   m_Name: sword sprite
   m_TagString: EnemyProjectile
   m_Icon: {fileID: 0}
@@ -446,7 +446,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f40a86fa831583045b9470b5a0b71c29, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damageAmount: 5
+  damageAmount: 2
   applyToTags:
   - Player
   hasHit: 0
