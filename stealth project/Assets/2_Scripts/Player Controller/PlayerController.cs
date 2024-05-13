@@ -90,6 +90,10 @@ public class PlayerController : MonoBehaviour
     private BoxCollider2D collider;
     private Color defaultColour;
     public Color darkColour;
+    public GameObject noisePrefab;
+    public float noiseInterval = 1;
+    private float t_noiseInterval = 0;
+    public bool f_noiseAnimationTrigger = false;
 
     [Header("Grace Timers")]
     public float gracetimePostCollide = 0.2f;
@@ -168,6 +172,7 @@ public class PlayerController : MonoBehaviour
         if (t_wallJumpNoGrabTime > 0) t_wallJumpNoGrabTime -= Time.deltaTime;
         if (t_attackCooldown > 0) t_attackCooldown -= Time.deltaTime;
         if (t_knockTime > 0) t_knockTime -= Time.deltaTime;
+        if (t_noiseInterval > 0) t_noiseInterval -= Time.deltaTime;
     }
 
     private void Update()
@@ -186,7 +191,12 @@ public class PlayerController : MonoBehaviour
     {
 
         //CheckSlopeRaycast();
-
+        if(f_noiseAnimationTrigger)
+        {
+            //t_noiseInterval = noiseInterval;
+            f_noiseAnimationTrigger = false;
+            Instantiate(noisePrefab, transform.position, Quaternion.identity);
+        }
         // get inputVector from raw input, set player facing
         if (moveStickVector.magnitude >= 0.25)
         {

@@ -1133,7 +1133,7 @@ MonoBehaviour:
     m_Bits: 72
   sightAwareIncreaseSpeedMin: 0.2
   sightAwareIncreaseSpeedMax: 2.5
-  soundAwareIncrease: 0.5
+  soundAwareIncrease: 0.15
   awarenessDecaySpeed: 0.05
   alertDecaySpeed: 0.05
   alertDecayDelay: 0.5

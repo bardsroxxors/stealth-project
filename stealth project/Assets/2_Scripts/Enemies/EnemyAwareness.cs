@@ -30,7 +30,7 @@ public class EnemyAwareness : MonoBehaviour
     [Header("Awareness Numbers")]
     public float sightAwareIncreaseSpeedMin = 0.3f;
     public float sightAwareIncreaseSpeedMax = 0.9f;
-    public float soundAwareIncrease = 0.5f;
+    //public float soundAwareIncrease = 0.5f;
     public float awarenessDecaySpeed = 0.2f;
     public float alertDecaySpeed = 0.15f;
     public float alertDecayDelay = 0.5f;
@@ -228,7 +228,7 @@ public class EnemyAwareness : MonoBehaviour
     // called when the entity is inside a noise trigger
     public void NoiseDetected()
     {
-        alertPercent += soundAwareIncrease;
+        //alertPercent += soundAwareIncrease;
     }
 
 

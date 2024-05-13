@@ -729,6 +729,16 @@ public class EnemyStateMachine : MonoBehaviour
                 }
             }
         }
+        if(collision.gameObject.tag == "NoiseTrigger")
+        {
+            awareScript.lastKnownPosition = collision.gameObject.transform.position;
+            NoiseScript noise = collision.gameObject.GetComponent<NoiseScript>();
+            if(noise != null)
+                awareScript.alertPercent += noise.awarenessIncrease;
+
+            if (awareScript.currentAwareness == AwarenessLevel.unaware)
+                TriggerReaction(e_EnemyStates.investigate);
+        }
     }
 
     private void OnCollisionStay2D(Collision2D collision)

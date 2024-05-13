@@ -82,6 +82,7 @@
     <Compile Include="Assets\2_Scripts\Player Controller\Sword\SwordScript.cs" />
     <Compile Include="Assets\2_Scripts\HideSprite.cs" />
     <Compile Include="Assets\2_Scripts\Enemies\EnemyAnimationTrigger.cs" />
+    <Compile Include="Assets\2_Scripts\NoiseScript.cs" />
     <Compile Include="Assets\AOSFogWar\Demo\Scripts\csEyeController.cs" />
     <Compile Include="Assets\2_Scripts\Player Controller\PlayerGroundTrigger.cs" />
     <Compile Include="Assets\2_Scripts\Player Controller\GrappleHitboxScript.cs" />
