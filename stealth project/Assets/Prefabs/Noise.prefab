@@ -46,8 +46,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cdfc372e8a96c2c459e87431fc2cd5c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lifetime: 0.15
-  scaleAtDeath: 3
+  awarenessIncrease: 0.15
+  soundSO: {fileID: 0}
 --- !u!58 &6912767439673218660
 CircleCollider2D:
   m_ObjectHideFlags: 0

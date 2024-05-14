@@ -1065,6 +1065,8 @@ MonoBehaviour:
   maxHP: 10
   graphicsObject: {fileID: 4627374472030742646}
   conditions: 
+  noisePrefab: {fileID: 2674792170459540541, guid: a7c9de3869cd3494d9a78b003448acb0, type: 3}
+  soundSO: {fileID: 11400000, guid: b3f1cad38de077443ba2e311a1dd3901, type: 2}
   patrolSpeed: 2
   pursueSpeed: 4
   moveDecay: 5
@@ -1101,6 +1103,7 @@ MonoBehaviour:
   reactionTime: 0.4
   reactionCooldown: 2
   flinchTime: 0.3
+  bloodPrefab: {fileID: 6797198346645744022, guid: fd9afede63ce4444a8788b9b38c234a1, type: 3}
   lerpSpeedBase: 5
   jumpMinDistance: 2
   attackCooldown: 1
@@ -1133,7 +1136,6 @@ MonoBehaviour:
     m_Bits: 72
   sightAwareIncreaseSpeedMin: 0.2
   sightAwareIncreaseSpeedMax: 2.5
-  soundAwareIncrease: 0.15
   awarenessDecaySpeed: 0.05
   alertDecaySpeed: 0.05
   alertDecayDelay: 0.5

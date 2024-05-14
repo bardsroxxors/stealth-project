@@ -246,5 +246,12 @@ public class EnemyAwareness : MonoBehaviour
 
     }
 
+    public void Die()
+    {
+        redIndicator.SetActive(false);
+        yellowIndicator.SetActive(false);
+        this.enabled = false;
+    }
+
 
 }

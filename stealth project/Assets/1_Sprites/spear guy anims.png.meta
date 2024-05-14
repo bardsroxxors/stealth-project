@@ -550,6 +550,27 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: spear guy anims_21
+      rect:
+        serializedVersion: 2
+        x: 640
+        y: 832
+        width: 128
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cfd8dec35c375bc41a32acf7d7a72958
+      internalID: 539045433
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -575,6 +596,7 @@ TextureImporter:
       spear guy anims_19: 1987439061
       spear guy anims_2: -789592077
       spear guy anims_20: 1759951975
+      spear guy anims_21: 539045433
       spear guy anims_3: -2014094899
       spear guy anims_4: 168887124
       spear guy anims_5: -484732789

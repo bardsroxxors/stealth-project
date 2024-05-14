@@ -79,6 +79,7 @@ public class PlayerController : MonoBehaviour
     public LayerMask collisionMask;
     public LayerMask lightCheckMask;
     public float slopeRaycastDistance = 1;
+    public Sound footstepSound;
 
 
     //private BoxCollider2D collider;
@@ -195,7 +196,8 @@ public class PlayerController : MonoBehaviour
         {
             //t_noiseInterval = noiseInterval;
             f_noiseAnimationTrigger = false;
-            Instantiate(noisePrefab, transform.position, Quaternion.identity);
+            GameObject noise = Instantiate(noisePrefab, transform.position, Quaternion.identity);
+            noise.SendMessage("SetProfile", footstepSound);
         }
         // get inputVector from raw input, set player facing
         if (moveStickVector.magnitude >= 0.25)

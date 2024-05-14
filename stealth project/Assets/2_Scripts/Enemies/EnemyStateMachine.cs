@@ -20,7 +20,8 @@ public enum e_EnemyStates
     damageFlinch,// reacting to minor damage
     attacking,   // normal attack
     jump,
-    fall
+    fall,
+    dead
 }
 
 public enum e_EnemyConditions
@@ -39,6 +40,8 @@ public class EnemyStateMachine : MonoBehaviour
     public GameObject graphicsObject;
     private Animator animator;
     public List<e_EnemyConditions> conditions = new List<e_EnemyConditions>();
+    public GameObject noisePrefab;
+    public Sound soundSO;
 
     [Header("Movement")]
     public float patrolSpeed = 5;
@@ -104,6 +107,7 @@ public class EnemyStateMachine : MonoBehaviour
     [Header("Flinch")]
     public float flinchTime = 0.2f;
     private float t_flinchTime = 0;
+    public GameObject bloodPrefab;
 
     [Header("Jump")]
     public float lerpSpeedBase = 1;
@@ -176,7 +180,11 @@ public class EnemyStateMachine : MonoBehaviour
     void FixedUpdate()
     { 
         inputVector = Vector3.zero;
-        
+
+        if (currentHP <= 0 && currentState != e_EnemyStates.dead)
+        {
+            Die();
+        }
 
         switch (currentState)
         {
@@ -225,7 +233,8 @@ public class EnemyStateMachine : MonoBehaviour
 
         // attack is triggered right away, doesn't ask permission from current state, which is quite rude
         if(f_playerInAttackZone && t_attackCooldown <= 0 && awareScript.currentAwareness == AwarenessLevel.alert && awareScript.f_playerInSight
-            && currentState != e_EnemyStates.jump)
+            && currentState != e_EnemyStates.jump
+            && currentState != e_EnemyStates.dead)
         {
             ChangeState(e_EnemyStates.attacking);
         }
@@ -570,6 +579,8 @@ public class EnemyStateMachine : MonoBehaviour
         {
             if (!conditions.Contains(e_EnemyConditions.vigilant))
                 conditions.Add(e_EnemyConditions.vigilant);
+            GameObject s = Instantiate(noisePrefab, transform.position, Quaternion.identity);
+            s.SendMessage("SetProfile", soundSO);
         }
 
         else if (newState == AwarenessLevel.unaware) ChangeState(e_EnemyStates.patrolling);
@@ -593,6 +604,15 @@ public class EnemyStateMachine : MonoBehaviour
 
         if (currentState == e_EnemyStates.attacking) animator.SetBool("attack windup", true);
         else animator.SetBool("attack windup", false);
+
+        if (currentState == e_EnemyStates.dead)
+        {
+            animator.SetBool("dead", true);
+            animator.SetBool("attack windup", false);
+            animator.SetBool("flinch", false);
+            animator.SetBool("alert", false);
+            animator.SetBool("moving", false);
+        }
     }
 
     // use this to change facing, it uses a timer to prevent jettery behaviour
@@ -712,7 +732,7 @@ public class EnemyStateMachine : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.gameObject.tag == "PlayerProjectile")
+        if(collision.gameObject.tag == "PlayerProjectile" && currentState != e_EnemyStates.dead)
         {
             
             DamageSource dmg = collision.gameObject.GetComponent<DamageSource>();
@@ -725,11 +745,13 @@ public class EnemyStateMachine : MonoBehaviour
                     // trigger flinch state
                     t_flinchTime = flinchTime;
                     awareScript.alertPercent += 0.3f;
+                    Instantiate(bloodPrefab, transform.position, Quaternion.identity);
                     //awareScript.lastKnownPosition = collision.transform.position;
+                    if (currentHP <= 0) Die();
                 }
             }
         }
-        if(collision.gameObject.tag == "NoiseTrigger")
+        if(collision.gameObject.tag == "NoiseTrigger" && currentState != e_EnemyStates.dead)
         {
             awareScript.lastKnownPosition = collision.gameObject.transform.position;
             NoiseScript noise = collision.gameObject.GetComponent<NoiseScript>();
@@ -814,6 +836,14 @@ public class EnemyStateMachine : MonoBehaviour
             Handles.DrawWireCube(path.vectorPath[currentWaypoint], new Vector3(0.25f, 0.25f, 0.25f));
     }
     */
+
+    private void Die()
+    {
+        sightCone.SetActive(false);
+        ChangeState(e_EnemyStates.dead);
+        awareScript.Die();
+        UpdateAnimator();
+    }
 
 
 }

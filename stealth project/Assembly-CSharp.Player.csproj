@@ -85,6 +85,7 @@
     <Compile Include="Assets\2_Scripts\NoiseScript.cs" />
     <Compile Include="Assets\AOSFogWar\Demo\Scripts\csEyeController.cs" />
     <Compile Include="Assets\2_Scripts\Player Controller\PlayerGroundTrigger.cs" />
+    <Compile Include="Assets\Scriptable Objects\Sound.cs" />
     <Compile Include="Assets\2_Scripts\Player Controller\GrappleHitboxScript.cs" />
     <Compile Include="Assets\2_Scripts\Player Controller\PlayerAttackManager.cs" />
     <Compile Include="Assets\2_Scripts\ShadowCastersGeneratorEditor.cs" />
@@ -101,6 +102,7 @@
     <Compile Include="Assets\2_Scripts\Enemies\EnemyStateMachine.cs" />
     <Compile Include="Assets\2_Scripts\Player Controller\PlayerController.cs" />
     <Compile Include="Assets\2_Scripts\Player Controller\GrappleLineRenderer.cs" />
+    <Compile Include="Assets\2_Scripts\Effects\OneShotParticle.cs" />
     <Compile Include="Assets\2_Scripts\Player Controller\Bow\Bow.cs" />
     <Compile Include="Assets\AOSFogWar\Examples\csRevealerSpawner.cs" />
     <Compile Include="Assets\2_Scripts\BezierCurve.cs" />
