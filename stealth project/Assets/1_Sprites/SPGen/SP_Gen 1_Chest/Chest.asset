@@ -1,0 +1,830 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eed5864476f84ce4b85454db09ca4eaa, type: 3}
+  m_Name: Chest
+  m_EditorClassIdentifier: 
+  AssetPath: Assets/1_Sprites/SPGen/SP_Gen 1.sbsar
+  RawData: {fileID: -244192453324840774, guid: efeafcb036f02c845b1d9222fbf491a0, type: 3}
+  Name: Chest
+  IsRoot: 0
+  FlagedForDelete: 0
+  GUID: 6af28f60-20b3-4d8a-bcf3-ce5f064e39a1
+  Index: 0
+  Input:
+  - rid: 1169878520847139418
+  - rid: 1169878520847139419
+  - rid: 1169878520847139420
+  - rid: 1169878520847139421
+  - rid: 1169878520847139422
+  - rid: 1169878520847139423
+  - rid: 1169878520847139424
+  - rid: 1169878520847139425
+  - rid: 1169878520847139426
+  - rid: 1169878520847139427
+  - rid: 1169878520847139428
+  - rid: 1169878520847139429
+  - rid: 1169878520847139430
+  - rid: 1169878520847139431
+  - rid: 1169878520847139432
+  - rid: 1169878520847139433
+  - rid: 1169878520847139434
+  - rid: 1169878520847139435
+  - rid: 1169878520847139436
+  - rid: 1169878520847139437
+  - rid: 1169878520847139438
+  - rid: 1169878520847139439
+  - rid: 1169878520847139440
+  - rid: 1169878520847139441
+  - rid: 1169878520847139442
+  - rid: 1169878520847139443
+  - rid: 1169878520847139444
+  - rid: 1169878520847139445
+  - rid: 1169878520847139446
+  - rid: 1169878520847139447
+  - rid: 1169878520847139448
+  - rid: 1169878520847139449
+  Output:
+  - Index: 0
+    VirtualOutputIndex: 5
+    Description:
+      Identifier: N_01
+      Label: N_01
+      Index: 0
+      Type: 8
+      Channel: normal
+    OutputTexture: {fileID: 2800000, guid: 9e71946ab8c18974fb9c22c432d3e50f, type: 3}
+    sRGB: 0
+    IsVirtual: 0
+    IsAlphaAssignable: 0
+    AlphaChannel: 
+    InvertAssignedAlpha: 0
+    Flags: 0
+    MaterialTextureTarget: _BumpMap
+  - Index: 1
+    VirtualOutputIndex: 6
+    Description:
+      Identifier: M_01
+      Label: M_01
+      Index: 1
+      Type: 8
+      Channel: mask
+    OutputTexture: {fileID: 2800000, guid: 9a41c2361814fb04198d49c929426d25, type: 3}
+    sRGB: 0
+    IsVirtual: 0
+    IsAlphaAssignable: 1
+    AlphaChannel: 
+    InvertAssignedAlpha: 0
+    Flags: 0
+    MaterialTextureTarget: _MaskMap
+  - Index: 2
+    VirtualOutputIndex: 7
+    Description:
+      Identifier: M_02
+      Label: M_02
+      Index: 2
+      Type: 8
+      Channel: mask
+    OutputTexture: {fileID: 2800000, guid: 743a45920bc69b8479988e833d3fd8fa, type: 3}
+    sRGB: 0
+    IsVirtual: 0
+    IsAlphaAssignable: 1
+    AlphaChannel: 
+    InvertAssignedAlpha: 0
+    Flags: 0
+    MaterialTextureTarget: _MaskMap
+  - Index: 3
+    VirtualOutputIndex: 8
+    Description:
+      Identifier: ShadowAreaPreview_1
+      Label: ShadowAreaPreview_1
+      Index: 3
+      Type: 8
+      Channel: mask
+    OutputTexture: {fileID: 2800000, guid: 56ca0bf0796c1c244a12b660ac3723c2, type: 3}
+    sRGB: 0
+    IsVirtual: 0
+    IsAlphaAssignable: 1
+    AlphaChannel: 
+    InvertAssignedAlpha: 0
+    Flags: 0
+    MaterialTextureTarget: _MaskMap
+  - Index: 4
+    VirtualOutputIndex: 9
+    Description:
+      Identifier: HighlightAreaPreview_2
+      Label: HighlightAreaPreview_2
+      Index: 4
+      Type: 8
+      Channel: mask
+    OutputTexture: {fileID: 2800000, guid: 0de0536f91d2cc945974c065ae323c19, type: 3}
+    sRGB: 0
+    IsVirtual: 0
+    IsAlphaAssignable: 1
+    AlphaChannel: 
+    InvertAssignedAlpha: 0
+    Flags: 0
+    MaterialTextureTarget: _MaskMap
+  HasPhysicalSize: 0
+  PhysicalSize: {x: 0, y: 0, z: 0}
+  EnablePhysicalSize: 0
+  Thumbnail: 
+  HasThumbnail: 0
+  CurrentStatePreset: " <sbspreset pkgurl=\"pkg://A\" label=\"\" >\n  <presetinput
+    identifier=\"Shadows_AreaSelect_Position\" uid=\"3736252795\" type=\"0\" value=\"0.218\"
+    />\n  <presetinput identifier=\"Shadows_AreaSelect_Range\" uid=\"3736253679\"
+    type=\"0\" value=\"0.369\" />\n  <presetinput identifier=\"Shadows_AreaSelect_Invert\"
+    uid=\"3736260409\" type=\"4\" value=\"1\" />\n  <presetinput identifier=\"Shadows_AreaMask_Postion\"
+    uid=\"3736258415\" type=\"0\" value=\"0.782\" />\n  <presetinput identifier=\"Shadows_AreaMask_Range\"
+    uid=\"3736263395\" type=\"0\" value=\"0\" />\n  <presetinput identifier=\"Shadows_Add_Sub\"
+    uid=\"3736945724\" type=\"4\" value=\"0\" />\n  <presetinput identifier=\"Shadows_LightAngle\"
+    uid=\"3739993185\" type=\"0\" value=\"4.22\" />\n  <presetinput identifier=\"Shadows_Distance\"
+    uid=\"3739999993\" type=\"0\" value=\"0.368\" />\n  <presetinput identifier=\"Shadows_Power\"
+    uid=\"3740003936\" type=\"0\" value=\"0.653\" />\n  <presetinput identifier=\"Shadows_Contrast\"
+    uid=\"3740003963\" type=\"0\" value=\"0.295\" />\n  <presetinput identifier=\"Shadows_CheckerBlend\"
+    uid=\"3740003782\" type=\"0\" value=\"0\" />\n  <presetinput identifier=\"Hightlights_AreaSelect_Position\"
+    uid=\"3739910174\" type=\"0\" value=\"0.953\" />\n  <presetinput identifier=\"Highlights_AreaSelect_Range\"
+    uid=\"3739917189\" type=\"0\" value=\"0.259\" />\n  <presetinput identifier=\"Highlights_AreaMask_Select\"
+    uid=\"3736929467\" type=\"0\" value=\"0.451\" />\n  <presetinput identifier=\"Highlights_AreaMask_Range\"
+    uid=\"3736934444\" type=\"0\" value=\"0.715\" />\n  <presetinput identifier=\"Highlights_AreaMask_Invert\"
+    uid=\"3736932515\" type=\"4\" value=\"1\" />\n  <presetinput identifier=\"Highlights_lightangle\"
+    uid=\"3741265997\" type=\"0\" value=\"96.3\" />\n  <presetinput identifier=\"Highlights_invertlightangle\"
+    uid=\"3735242653\" type=\"4\" value=\"0\" />\n  <presetinput identifier=\"Highlights_ShadowShift\"
+    uid=\"3739926415\" type=\"0\" value=\"0\" />\n  <presetinput identifier=\"Highlights_Distance\"
+    uid=\"3739915647\" type=\"0\" value=\"0.192\" />\n  <presetinput identifier=\"Highlights_power\"
+    uid=\"3739925955\" type=\"0\" value=\"0.632\" />\n  <presetinput identifier=\"Highlights_Contrast\"
+    uid=\"3739925973\" type=\"0\" value=\"0\" />\n </sbspreset>\n"
+  IsRuntimeOnly: 0
+  GenerateAllOutputs: 1
+  GenerateAllMipmaps: 0
+  OutputMaterial: {fileID: 2100000, guid: 75e73ccc51d111c4faddd6819e51f7a7, type: 2}
+  DefaultPreset: " <sbspreset pkgurl=\"pkg://A\" label=\"\" >\n  <presetinput identifier=\"$outputsize\"
+    uid=\"3182604835\" type=\"8\" value=\"10,10\" />\n  <presetinput identifier=\"Highlights_lightangle\"
+    uid=\"3741265997\" type=\"0\" value=\"10.81\" />\n  <presetinput identifier=\"Highlights_ShadowShift\"
+    uid=\"3739926415\" type=\"0\" value=\"0\" />\n </sbspreset>\n"
+  MaterialShader: Universal Render Pipeline/Lit
+  RenderTextures: 0
+  OutputRemaped: 0
+  Presets: []
+  references:
+    version: 2
+    RefIds:
+    - rid: 1169878520847139418
+      type: {class: SubstanceInputInt2, ns: Adobe.Substance.Input, asm: Adobe.Substance}
+      data:
+        Index: 0
+        Description:
+          Identifier: $outputsize
+          Label: $outputsize
+          GuiGroup: 
+          GuiDescription: 
+          Type: 5
+          WidgetType: 0
+        Data: {x: 8, y: 8}
+        NumericalDescription:
+          DefaultValue: {x: 8, y: 8}
+          MinValue: {x: 0, y: 0}
+          MaxValue: {x: 1, y: 1}
+          SliderClamp: 0
+          EnumValueCount: 0
+          EnumValues: []
+    - rid: 1169878520847139419
+      type: {class: SubstanceInputInt, ns: Adobe.Substance.Input, asm: Adobe.Substance}
+      data:
+        Index: 1
+        Description:
+          Identifier: $randomseed
+          Label: $randomseed
+          GuiGroup: 
+          GuiDescription: 
+          Type: 4
+          WidgetType: 0
+        Data: 0
+        NumericalDescription:
+          DefaultValue: 0
+          MinValue: 0
+          MaxValue: 1
+          SliderStep: 0.01
+          SliderClamp: 0
+          LabelFalse: 
+          LabelTrue: 
+          EnumValueCount: 0
+          EnumValues: []
+    - rid: 1169878520847139420
+      type: {class: SubstanceInputTexture, ns: Adobe.Substance.Input, asm: Adobe.Substance}
+      data:
+        Index: 2
+        Description:
+          Identifier: Input_SpriteSheet
+          Label: Input_SpriteSheet
+          GuiGroup: 
+          GuiDescription: 
+          Type: 8
+          WidgetType: 7
+        Data: {fileID: 2800000, guid: c9326d528a6d1db4999e889ab2f58e30, type: 3}
+    - rid: 1169878520847139421
+      type: {class: SubstanceInputFloat, ns: Adobe.Substance.Input, asm: Adobe.Substance}
+      data:
+        Index: 3
+        Description:
+          Identifier: Shadows_AreaSelect_Position
+          Label: Area Select Position
+          GuiGroup: Shadows
+          GuiDescription: 
+          Type: 0
+          WidgetType: 1
+        Data: 0.218
+        NumericalDescription:
+          DefaultValue: 0.79
+          MinValue: 0
+          MaxValue: 1
+          SliderStep: 0.01
+          SliderClamp: 1
+          EnumValueCount: 0
+          EnumValues: []
+    - rid: 1169878520847139422
+      type: {class: SubstanceInputFloat, ns: Adobe.Substance.Input, asm: Adobe.Substance}
+      data:
+        Index: 4
+        Description:
+          Identifier: Shadows_AreaSelect_Range
+          Label: Area Select Range
+          GuiGroup: Shadows
+          GuiDescription: 
+          Type: 0
+          WidgetType: 1
+        Data: 0.369
+        NumericalDescription:
+          DefaultValue: 0.61
+          MinValue: 0
+          MaxValue: 1
+          SliderStep: 0.01
+          SliderClamp: 1
+          EnumValueCount: 0
+          EnumValues: []
+    - rid: 1169878520847139423
+      type: {class: SubstanceInputInt, ns: Adobe.Substance.Input, asm: Adobe.Substance}
+      data:
+        Index: 5
+        Description:
+          Identifier: Shadows_AreaSelect_Invert
+          Label: Area Select Invert
+          GuiGroup: Shadows
+          GuiDescription: 
+          Type: 4
+          WidgetType: 4
+        Data: 1
+        NumericalDescription:
+          DefaultValue: 0
+          MinValue: 0
+          MaxValue: 0
+          SliderStep: 0
+          SliderClamp: 0
+          LabelFalse: 
+          LabelTrue: 
+          EnumValueCount: 0
+          EnumValues: []
+    - rid: 1169878520847139424
+      type: {class: SubstanceInputFloat, ns: Adobe.Substance.Input, asm: Adobe.Substance}
+      data:
+        Index: 6
+        Description:
+          Identifier: Shadows_AreaMask_Postion
+          Label: Area Mask Postion
+          GuiGroup: Shadows
+          GuiDescription: 
+          Type: 0
+          WidgetType: 1
+        Data: 0.782
+        NumericalDescription:
+          DefaultValue: 0.5
+          MinValue: 0
+          MaxValue: 1
+          SliderStep: 0.01
+          SliderClamp: 1
+          EnumValueCount: 0
+          EnumValues: []
+    - rid: 1169878520847139425
+      type: {class: SubstanceInputFloat, ns: Adobe.Substance.Input, asm: Adobe.Substance}
+      data:
+        Index: 7
+        Description:
+          Identifier: Shadows_AreaMask_Range
+          Label: Area Mask Range
+          GuiGroup: Shadows
+          GuiDescription: 
+          Type: 0
+          WidgetType: 1
+        Data: 0
+        NumericalDescription:
+          DefaultValue: 0.25
+          MinValue: 0
+          MaxValue: 1
+          SliderStep: 0.01
+          SliderClamp: 0
+          EnumValueCount: 0
+          EnumValues: []
+    - rid: 1169878520847139426
+      type: {class: SubstanceInputInt, ns: Adobe.Substance.Input, asm: Adobe.Substance}
+      data:
+        Index: 8
+        Description:
+          Identifier: Shadows_AreaMask_Invert
+          Label: Area Mask Invert
+          GuiGroup: Shadows
+          GuiDescription: 
+          Type: 4
+          WidgetType: 4
+        Data: 0
+        NumericalDescription:
+          DefaultValue: 0
+          MinValue: 0
+          MaxValue: 0
+          SliderStep: 0
+          SliderClamp: 0
+          LabelFalse: 
+          LabelTrue: 
+          EnumValueCount: 0
+          EnumValues: []
+    - rid: 1169878520847139427
+      type: {class: SubstanceInputInt, ns: Adobe.Substance.Input, asm: Adobe.Substance}
+      data:
+        Index: 9
+        Description:
+          Identifier: Shadows_Add_Sub
+          Label: Area Add or Sub?
+          GuiGroup: Shadows
+          GuiDescription: 
+          Type: 4
+          WidgetType: 4
+        Data: 0
+        NumericalDescription:
+          DefaultValue: 1
+          MinValue: 0
+          MaxValue: 0
+          SliderStep: 0
+          SliderClamp: 0
+          LabelFalse: 
+          LabelTrue: 
+          EnumValueCount: 0
+          EnumValues: []
+    - rid: 1169878520847139428
+      type: {class: SubstanceInputFloat, ns: Adobe.Substance.Input, asm: Adobe.Substance}
+      data:
+        Index: 10
+        Description:
+          Identifier: Shadows_LightAngle
+          Label: Light Angle
+          GuiGroup: Shadows
+          GuiDescription: 
+          Type: 0
+          WidgetType: 2
+        Data: 4.22
+        NumericalDescription:
+          DefaultValue: 0.2
+          MinValue: 0
+          MaxValue: 1
+          SliderStep: 0
+          SliderClamp: 1
+          EnumValueCount: 0
+          EnumValues: []
+    - rid: 1169878520847139429
+      type: {class: SubstanceInputFloat, ns: Adobe.Substance.Input, asm: Adobe.Substance}
+      data:
+        Index: 11
+        Description:
+          Identifier: Shadows_Distance
+          Label: Distance
+          GuiGroup: Shadows
+          GuiDescription: 
+          Type: 0
+          WidgetType: 1
+        Data: 0.368
+        NumericalDescription:
+          DefaultValue: 0.09
+          MinValue: 0
+          MaxValue: 1
+          SliderStep: 0.01
+          SliderClamp: 0
+          EnumValueCount: 0
+          EnumValues: []
+    - rid: 1169878520847139430
+      type: {class: SubstanceInputFloat, ns: Adobe.Substance.Input, asm: Adobe.Substance}
+      data:
+        Index: 12
+        Description:
+          Identifier: Shadows_EdgeSoftness
+          Label: Edge Softness
+          GuiGroup: Shadows
+          GuiDescription: 
+          Type: 0
+          WidgetType: 1
+        Data: 1
+        NumericalDescription:
+          DefaultValue: 1
+          MinValue: 0
+          MaxValue: 1
+          SliderStep: 0.01
+          SliderClamp: 0
+          EnumValueCount: 0
+          EnumValues: []
+    - rid: 1169878520847139431
+      type: {class: SubstanceInputFloat, ns: Adobe.Substance.Input, asm: Adobe.Substance}
+      data:
+        Index: 13
+        Description:
+          Identifier: Shadows_Power
+          Label: Power
+          GuiGroup: Shadows
+          GuiDescription: 
+          Type: 0
+          WidgetType: 1
+        Data: 0.653
+        NumericalDescription:
+          DefaultValue: 0.45
+          MinValue: 0
+          MaxValue: 1
+          SliderStep: 0.01
+          SliderClamp: 1
+          EnumValueCount: 0
+          EnumValues: []
+    - rid: 1169878520847139432
+      type: {class: SubstanceInputFloat, ns: Adobe.Substance.Input, asm: Adobe.Substance}
+      data:
+        Index: 14
+        Description:
+          Identifier: Shadows_Contrast
+          Label: Contrast
+          GuiGroup: Shadows
+          GuiDescription: 
+          Type: 0
+          WidgetType: 1
+        Data: 0.295
+        NumericalDescription:
+          DefaultValue: 0.54
+          MinValue: 0
+          MaxValue: 1
+          SliderStep: 0.01
+          SliderClamp: 1
+          EnumValueCount: 0
+          EnumValues: []
+    - rid: 1169878520847139433
+      type: {class: SubstanceInputFloat, ns: Adobe.Substance.Input, asm: Adobe.Substance}
+      data:
+        Index: 15
+        Description:
+          Identifier: Shadows_CheckerBlend
+          Label: Checker Blend
+          GuiGroup: Shadows
+          GuiDescription: 
+          Type: 0
+          WidgetType: 1
+        Data: 0
+        NumericalDescription:
+          DefaultValue: 0.15
+          MinValue: 0
+          MaxValue: 1
+          SliderStep: 0.01
+          SliderClamp: 0
+          EnumValueCount: 0
+          EnumValues: []
+    - rid: 1169878520847139434
+      type: {class: SubstanceInputInt, ns: Adobe.Substance.Input, asm: Adobe.Substance}
+      data:
+        Index: 16
+        Description:
+          Identifier: Shadows_ConfineSprite
+          Label: Confine to Sprite?
+          GuiGroup: Shadows
+          GuiDescription: 
+          Type: 4
+          WidgetType: 4
+        Data: 1
+        NumericalDescription:
+          DefaultValue: 1
+          MinValue: 0
+          MaxValue: 0
+          SliderStep: 0
+          SliderClamp: 0
+          LabelFalse: 
+          LabelTrue: 
+          EnumValueCount: 0
+          EnumValues: []
+    - rid: 1169878520847139435
+      type: {class: SubstanceInputFloat, ns: Adobe.Substance.Input, asm: Adobe.Substance}
+      data:
+        Index: 17
+        Description:
+          Identifier: Hightlights_AreaSelect_Position
+          Label: Area Select Position
+          GuiGroup: Highlights
+          GuiDescription: 
+          Type: 0
+          WidgetType: 1
+        Data: 0.953
+        NumericalDescription:
+          DefaultValue: 0.68
+          MinValue: 0
+          MaxValue: 1
+          SliderStep: 0.01
+          SliderClamp: 1
+          EnumValueCount: 0
+          EnumValues: []
+    - rid: 1169878520847139436
+      type: {class: SubstanceInputFloat, ns: Adobe.Substance.Input, asm: Adobe.Substance}
+      data:
+        Index: 18
+        Description:
+          Identifier: Highlights_AreaSelect_Range
+          Label: Area Select Range
+          GuiGroup: Highlights
+          GuiDescription: 
+          Type: 0
+          WidgetType: 1
+        Data: 0.259
+        NumericalDescription:
+          DefaultValue: 0.96
+          MinValue: 0
+          MaxValue: 1
+          SliderStep: 0.01
+          SliderClamp: 1
+          EnumValueCount: 0
+          EnumValues: []
+    - rid: 1169878520847139437
+      type: {class: SubstanceInputInt, ns: Adobe.Substance.Input, asm: Adobe.Substance}
+      data:
+        Index: 19
+        Description:
+          Identifier: Highlights_AreaInvert
+          Label: Area Invert
+          GuiGroup: Highlights
+          GuiDescription: 
+          Type: 4
+          WidgetType: 4
+        Data: 0
+        NumericalDescription:
+          DefaultValue: 0
+          MinValue: 0
+          MaxValue: 0
+          SliderStep: 0
+          SliderClamp: 0
+          LabelFalse: 
+          LabelTrue: 
+          EnumValueCount: 0
+          EnumValues: []
+    - rid: 1169878520847139438
+      type: {class: SubstanceInputFloat, ns: Adobe.Substance.Input, asm: Adobe.Substance}
+      data:
+        Index: 20
+        Description:
+          Identifier: Highlights_AreaMask_Select
+          Label: Area Mask Select
+          GuiGroup: Highlights
+          GuiDescription: 
+          Type: 0
+          WidgetType: 1
+        Data: 0.451
+        NumericalDescription:
+          DefaultValue: 0.5
+          MinValue: 0
+          MaxValue: 1
+          SliderStep: 0.01
+          SliderClamp: 1
+          EnumValueCount: 0
+          EnumValues: []
+    - rid: 1169878520847139439
+      type: {class: SubstanceInputFloat, ns: Adobe.Substance.Input, asm: Adobe.Substance}
+      data:
+        Index: 21
+        Description:
+          Identifier: Highlights_AreaMask_Range
+          Label: Area Mask Range
+          GuiGroup: Highlights
+          GuiDescription: 
+          Type: 0
+          WidgetType: 1
+        Data: 0.715
+        NumericalDescription:
+          DefaultValue: 0.25
+          MinValue: 0
+          MaxValue: 1
+          SliderStep: 0.01
+          SliderClamp: 1
+          EnumValueCount: 0
+          EnumValues: []
+    - rid: 1169878520847139440
+      type: {class: SubstanceInputInt, ns: Adobe.Substance.Input, asm: Adobe.Substance}
+      data:
+        Index: 22
+        Description:
+          Identifier: Highlights_AreaMask_Invert
+          Label: Area Mask Invert
+          GuiGroup: Highlights
+          GuiDescription: 
+          Type: 4
+          WidgetType: 4
+        Data: 1
+        NumericalDescription:
+          DefaultValue: 0
+          MinValue: 0
+          MaxValue: 0
+          SliderStep: 0
+          SliderClamp: 0
+          LabelFalse: 
+          LabelTrue: 
+          EnumValueCount: 0
+          EnumValues: []
+    - rid: 1169878520847139441
+      type: {class: SubstanceInputInt, ns: Adobe.Substance.Input, asm: Adobe.Substance}
+      data:
+        Index: 23
+        Description:
+          Identifier: Highlights_Add_Sub
+          Label: Area Add or Sub?
+          GuiGroup: Highlights
+          GuiDescription: 
+          Type: 4
+          WidgetType: 4
+        Data: 1
+        NumericalDescription:
+          DefaultValue: 1
+          MinValue: 0
+          MaxValue: 0
+          SliderStep: 0
+          SliderClamp: 0
+          LabelFalse: 
+          LabelTrue: 
+          EnumValueCount: 0
+          EnumValues: []
+    - rid: 1169878520847139442
+      type: {class: SubstanceInputFloat, ns: Adobe.Substance.Input, asm: Adobe.Substance}
+      data:
+        Index: 24
+        Description:
+          Identifier: Highlights_lightangle
+          Label: Light Angle
+          GuiGroup: Highlights
+          GuiDescription: 
+          Type: 0
+          WidgetType: 2
+        Data: 96.3
+        NumericalDescription:
+          DefaultValue: 0.79
+          MinValue: 0
+          MaxValue: 1
+          SliderStep: 0
+          SliderClamp: 1
+          EnumValueCount: 0
+          EnumValues: []
+    - rid: 1169878520847139443
+      type: {class: SubstanceInputInt, ns: Adobe.Substance.Input, asm: Adobe.Substance}
+      data:
+        Index: 25
+        Description:
+          Identifier: Highlights_invertlightangle
+          Label: Invert Light Angle?
+          GuiGroup: Highlights
+          GuiDescription: 
+          Type: 4
+          WidgetType: 4
+        Data: 0
+        NumericalDescription:
+          DefaultValue: 1
+          MinValue: 0
+          MaxValue: 0
+          SliderStep: 0
+          SliderClamp: 0
+          LabelFalse: 
+          LabelTrue: 
+          EnumValueCount: 0
+          EnumValues: []
+    - rid: 1169878520847139444
+      type: {class: SubstanceInputFloat, ns: Adobe.Substance.Input, asm: Adobe.Substance}
+      data:
+        Index: 26
+        Description:
+          Identifier: Highlights_ShadowShift
+          Label: Shadow Shift
+          GuiGroup: Highlights
+          GuiDescription: 
+          Type: 0
+          WidgetType: 1
+        Data: 0
+        NumericalDescription:
+          DefaultValue: 0.13
+          MinValue: 0
+          MaxValue: 2
+          SliderStep: 0.01
+          SliderClamp: 0
+          EnumValueCount: 0
+          EnumValues: []
+    - rid: 1169878520847139445
+      type: {class: SubstanceInputFloat, ns: Adobe.Substance.Input, asm: Adobe.Substance}
+      data:
+        Index: 27
+        Description:
+          Identifier: Highlights_Distance
+          Label: Distance
+          GuiGroup: Highlights
+          GuiDescription: 
+          Type: 0
+          WidgetType: 1
+        Data: 0.192
+        NumericalDescription:
+          DefaultValue: 0.12
+          MinValue: 0
+          MaxValue: 1
+          SliderStep: 0.01
+          SliderClamp: 0
+          EnumValueCount: 0
+          EnumValues: []
+    - rid: 1169878520847139446
+      type: {class: SubstanceInputFloat, ns: Adobe.Substance.Input, asm: Adobe.Substance}
+      data:
+        Index: 28
+        Description:
+          Identifier: Highlights_EdgeSoftness
+          Label: Edge Softness
+          GuiGroup: Highlights
+          GuiDescription: 
+          Type: 0
+          WidgetType: 1
+        Data: 1
+        NumericalDescription:
+          DefaultValue: 1
+          MinValue: 0
+          MaxValue: 1
+          SliderStep: 0.01
+          SliderClamp: 0
+          EnumValueCount: 0
+          EnumValues: []
+    - rid: 1169878520847139447
+      type: {class: SubstanceInputFloat, ns: Adobe.Substance.Input, asm: Adobe.Substance}
+      data:
+        Index: 29
+        Description:
+          Identifier: Highlights_power
+          Label: Power
+          GuiGroup: Highlights
+          GuiDescription: 
+          Type: 0
+          WidgetType: 1
+        Data: 0.632
+        NumericalDescription:
+          DefaultValue: 0.27
+          MinValue: 0
+          MaxValue: 1
+          SliderStep: 0.01
+          SliderClamp: 1
+          EnumValueCount: 0
+          EnumValues: []
+    - rid: 1169878520847139448
+      type: {class: SubstanceInputFloat, ns: Adobe.Substance.Input, asm: Adobe.Substance}
+      data:
+        Index: 30
+        Description:
+          Identifier: Highlights_Contrast
+          Label: Contrast
+          GuiGroup: Highlights
+          GuiDescription: 
+          Type: 0
+          WidgetType: 1
+        Data: 0
+        NumericalDescription:
+          DefaultValue: 1
+          MinValue: 0
+          MaxValue: 1
+          SliderStep: 0.01
+          SliderClamp: 1
+          EnumValueCount: 0
+          EnumValues: []
+    - rid: 1169878520847139449
+      type: {class: SubstanceInputInt, ns: Adobe.Substance.Input, asm: Adobe.Substance}
+      data:
+        Index: 31
+        Description:
+          Identifier: Highlights_ConfineSprite
+          Label: Confine to Sprite?
+          GuiGroup: Highlights
+          GuiDescription: 
+          Type: 4
+          WidgetType: 4
+        Data: 1
+        NumericalDescription:
+          DefaultValue: 1
+          MinValue: 0
+          MaxValue: 0
+          SliderStep: 0
+          SliderClamp: 0
+          LabelFalse: 
+          LabelTrue: 
+          EnumValueCount: 0
+          EnumValues: []
