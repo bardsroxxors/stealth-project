@@ -36,15 +36,15 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _SpriteMask1:
-        m_Texture: {fileID: 2800000, guid: ae297d43d341f0c459163b731fdef0ad, type: 3}
+        m_Texture: {fileID: 2800000, guid: a40752dabd4a58349b351d6f0a710947, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _SpriteMask2:
-        m_Texture: {fileID: 2800000, guid: cc8347f68e7083e449e508252e75cf28, type: 3}
+        m_Texture: {fileID: 2800000, guid: edc6c8fcb9c08dc499f711fd5ffb04a8, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _SpriteNormal:
-        m_Texture: {fileID: 2800000, guid: 4d95d5190aa560d43bc47badc37fac23, type: 3}
+        m_Texture: {fileID: 2800000, guid: 2e699aa2d656a55429b059f345b9b546, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Ints: []
