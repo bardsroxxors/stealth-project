@@ -11,7 +11,7 @@ public enum e_PlayerControllerStates
 {
     FreeMove,
     SwordSwing,
-    WallMove,
+    WallGrab,
     Hover,
     Hurt,
     Dead
@@ -53,10 +53,11 @@ public class PlayerController : MonoBehaviour
     private Vector2 playerFacingVector = new Vector2(1, 0); // used to aim abilities if there is no input, and used to determine sprite facing
     public Vector2 gravityVector = Vector2.zero;
 
-    [Header("Wall Climbing")]
-    public bool canWallClimb = true;
-    public float climbSpeed = 3f;
+    [Header("Wall Grabbing")]
+    public bool canWallGrab = true;
+    //public float climbSpeed = 3f;
     public Vector2 wallJumpForce = Vector2.zero;
+    public int grabbedDirection = 0;
 
 
     [Header("Sword Swing")]
@@ -152,8 +153,8 @@ public class PlayerController : MonoBehaviour
             case e_PlayerControllerStates.FreeMove:
                 ProcessFreeMove();
                 break;
-            case e_PlayerControllerStates.WallMove:
-                ProcessWallMove();
+            case e_PlayerControllerStates.WallGrab:
+                ProcessWallGrab();
                 break;
             case e_PlayerControllerStates.SwordSwing:
                 ProcessSwordSwing();
@@ -219,47 +220,51 @@ public class PlayerController : MonoBehaviour
 
 
 
-        // change to wall move under right conditions
+        // change to wall grab under right conditions
         // if we are colliding with a wall and not the ground we are in wallMove state
         // and the wall jump grace timer has depleted
-        if (collisionDirections.x != 0 && collisionDirections.y != -1 && t_wallJumpNoGrabTime <= 0 && canWallClimb)
+        if (collisionDirections.x != 0 && 
+            collisionDirections.y != -1 && 
+            t_wallJumpNoGrabTime <= 0 && 
+            jumpManager.f_jumpKeyDown &&
+            jumpManager.f_wallGrabReady &&
+            canWallGrab)
         {
-            if(Mathf.Sign(moveStickVector.x) == Mathf.Sign(collisionDirections.x) && moveStickVector.x != 0)
-            {
-                ChangeState(e_PlayerControllerStates.WallMove);
-            }
+            //if(Mathf.Sign(moveStickVector.x) == Mathf.Sign(collisionDirections.x) && moveStickVector.x != 0)
+            
+            ChangeState(e_PlayerControllerStates.WallGrab);
+            
             
         }
 
     }
 
-    private void ProcessWallMove()
+
+    private void ProcessWallGrab()
     {
-        // get inputVector from raw input, set player facing 
-        if (Mathf.Abs( moveStickVector.y) >= 0.25)
+        inputVector = Vector2.zero;
+        // set player facing based on collision direction
+        if(collisionDirections.x != 0)
         {
-            inputVector.x = moveStickVector.normalized.x * moveSpeed;
-            if(collisionDirections.x != 0)
-                inputVector.y = moveStickVector.normalized.y * moveSpeed;
-
-            playerFacingVector = moveStickVector.normalized;
+            playerFacingVector = new Vector2(collisionDirections.x, 0);
+            grabbedDirection = (int)collisionDirections.x;
         }
-
-        // if there is no input then apply movement decay
-        else if (inputVector.magnitude > 0)
-        {
-            inputVector.x = inputVector.x - (inputVector.x * moveDecay * Time.deltaTime);
-            if (collisionDirections.x != 0)
-                inputVector.y = inputVector.y - (inputVector.y * moveDecay * Time.deltaTime);
-        }
-        // clamp to zero when its close
-        if (inputVector.magnitude <= 0.1) inputVector = Vector2.zero;
+            
 
 
-        // change to free move under right conditions
-        // if we are not olliding with a wall or we're colliding with the ground we are in freeMove
-        if (collisionDirections.x == 0 || collisionDirections.y == -1 
-            || movementVector.x == 0) CurrentPlayerState = e_PlayerControllerStates.FreeMove;
+        RaycastHit2D wallCheck = Physics2D.BoxCast(transform.position,
+                                                    new Vector2(0.5f, 0.5f),
+                                                    0, 
+                                                    new Vector2(collisionDirections.x*0.2f, 0));
+
+        if (!wallCheck) ChangeState(e_PlayerControllerStates.FreeMove);
+
+
+        if (collisionDirections.y != 0) ChangeState(e_PlayerControllerStates.FreeMove);
+
+        //if (jumpManager.f_jumpKeyDown) ChangeState(e_PlayerControllerStates.FreeMove);
+
+        
     }
 
 
@@ -323,7 +328,7 @@ public class PlayerController : MonoBehaviour
 
         RaycastHit2D hit = Physics2D.BoxCast(
             collider.bounds.center, 
-            new Vector2(collider.size.x, collider.size.y), 
+            new Vector2(collider.size.x*0.8f, collider.size.y), 
             0, 
             Vector3.down, 
             0.1f,
@@ -339,7 +344,7 @@ public class PlayerController : MonoBehaviour
         // apply gravity if not grounded
         if ((collisionDirections.y != -1 && CurrentPlayerState == e_PlayerControllerStates.FreeMove) || CurrentPlayerState == e_PlayerControllerStates.Hurt)
         {
-            //movementVector.x += gravityVector.x;
+            movementVector.x = gravityVector.x + inputVector.x;
             movementVector.y = gravityVector.y;
             
         }
@@ -381,6 +386,7 @@ public class PlayerController : MonoBehaviour
         {
             Vector2 normal;
             
+            // these values get reset every frame, so checked again every frame
             for(int i = 0; i < collision.contacts.Length; i++)
             {
                 normal = collision.contacts[i].normal;
@@ -418,8 +424,6 @@ public class PlayerController : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D collision)
     {
 
-        
-
         if (collisionLayers.Contains(collision.collider.gameObject.tag))
         {
             Vector2 normal;
@@ -449,7 +453,6 @@ public class PlayerController : MonoBehaviour
 
 
             }
-
         }
 
         
@@ -557,14 +560,15 @@ public class PlayerController : MonoBehaviour
 
         jumpManager.f_jumpKeyDown = true;
 
+        // if we're on the ground
         if (collisionDirections.y == -1 || t_gracetimePostCollide > 0)
         {
             collisionDirections.y = 0;
             jumpManager.Jump();
         }
-        else if (CurrentPlayerState == e_PlayerControllerStates.WallMove)
+        // else if in wall grab
+        else if (CurrentPlayerState == e_PlayerControllerStates.WallGrab)
         {
-            
             ChangeState(e_PlayerControllerStates.FreeMove);
             t_wallJumpNoGrabTime = wallJumpNoGrabTime;
             jumpManager.WallJump();
@@ -579,7 +583,7 @@ public class PlayerController : MonoBehaviour
 
     void OnAttack(InputValue value)
     {
-        if (t_attackCooldown <= 0)
+        if (t_attackCooldown <= 0 && CurrentPlayerState != e_PlayerControllerStates.WallGrab)
             ChangeState(e_PlayerControllerStates.SwordSwing);
     }
 

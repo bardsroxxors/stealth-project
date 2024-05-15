@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 39be465fd09cb5e4181bcfd91e82f9ab, type: 3}
   m_Name: SoundAlertEnemy
   m_EditorClassIdentifier: 
-  lifetime: 0.15
-  scaleAtDeath: 3
-  initialScale: 2.5
-  awarenessIncrease: 0.15
+  lifetime: 0.3
+  scaleAtDeath: 3.5
+  initialScale: 3
+  awarenessIncrease: 0.4

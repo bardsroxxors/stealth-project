@@ -39,6 +39,7 @@ public class PlayerJumpManager : MonoBehaviour
     public bool f_jumped = false;
 
     public bool f_jumpKeyDown = false;
+    public bool f_wallGrabReady = false;
 
 
 
@@ -61,11 +62,12 @@ public class PlayerJumpManager : MonoBehaviour
 
 
         f_jumped = true;
+        f_wallGrabReady = false;
     }
 
     public void WallJump()
     {
-        pc.inputVector.x += wallJumpForceVector.x * (pc.collisionDirections.x * -1);
+        pc.gravityVector.x = wallJumpForceVector.x * (pc.grabbedDirection * -1);
         //Debug.Log(wallJumpForceVector.x * (pc.collisionDirections.x * -1));
         pc.gravityVector.y = wallJumpForceVector.y;
 
@@ -76,6 +78,7 @@ public class PlayerJumpManager : MonoBehaviour
     public void JumpReleased()
     {
         f_jumpKeyDown = false;
+        f_wallGrabReady = true;
 
         if (f_jumped && f_stopOnKeyRelease)
         {
@@ -87,7 +90,7 @@ public class PlayerJumpManager : MonoBehaviour
     public void CalculateGravity()
     {
 
-        if(pc.CurrentPlayerState != e_PlayerControllerStates.WallMove)
+        if(pc.CurrentPlayerState != e_PlayerControllerStates.WallGrab)
         {
             // if we're using peak speed boost
             // then apply it
@@ -115,11 +118,11 @@ public class PlayerJumpManager : MonoBehaviour
 
 
             // decay x component as well
-            //pc.gravityVector.x = pc.gravityVector.x - (pc.gravityVector.x * (pc.moveDecay/2) * Time.deltaTime);
+            pc.gravityVector.x = pc.gravityVector.x - (pc.gravityVector.x * (pc.moveDecay/2) * Time.deltaTime);
             // clamp x to zero when its close
             if (Mathf.Abs(pc.gravityVector.x) <= 0.1) pc.gravityVector.x = 0;
         }
-        else if (pc.CurrentPlayerState == e_PlayerControllerStates.WallMove)
+        else if (pc.CurrentPlayerState == e_PlayerControllerStates.WallGrab)
         {
             pc.gravityVector.y = 0;
         }

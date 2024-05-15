@@ -13,12 +13,17 @@ public class NoiseScript : MonoBehaviour
 
     public Sound soundSO;
 
+    private SpriteRenderer sprite;
+    private float initialAlpha = 0;
+
     // Start is called before the first frame update
     void Start()
     {
         t_lifetime = soundSO.lifetime;
         transform.localScale = new Vector3(soundSO.initialScale, soundSO.initialScale, 1);
         awarenessIncrease = soundSO.awarenessIncrease;
+        sprite = GetComponent<SpriteRenderer>();
+        if (sprite) initialAlpha = sprite.color.a;
     }
 
     // Update is called once per frame
@@ -34,6 +39,10 @@ public class NoiseScript : MonoBehaviour
 
         float scale = Mathf.Lerp(soundSO.scaleAtDeath, soundSO.initialScale, (t_lifetime / soundSO.lifetime));
         transform.localScale = new Vector3(scale, scale, 1);
+
+        float alpha = Mathf.Lerp(0, initialAlpha, (t_lifetime / soundSO.lifetime));
+        sprite.color = new Color(sprite.color.r, sprite.color.g, sprite.color.b, alpha);
+        
 
     }
 
