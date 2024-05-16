@@ -43,6 +43,7 @@ public class PlayerController : MonoBehaviour
     public int maxHP = 10;
 
     [Header("Free Move")]
+    public bool f_holdToRun = true;
     public float moveSpeed = 1;
     public float sneakSpeed = 1;
     public float moveDecay = 10;
