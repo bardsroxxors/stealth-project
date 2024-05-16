@@ -66,6 +66,7 @@
     <Compile Include="Assets\2_Scripts\ShadowCaster2DTileMap.cs" />
     <Compile Include="Assets\2_Scripts\UI\UI_PlayerHealth.cs" />
     <Compile Include="Assets\2_Scripts\Navmesh Generation\NavPoint.cs" />
+    <Compile Include="Assets\2_Scripts\Player Controller\Equipment\EquipmentManager.cs" />
     <Compile Include="Assets\2_Scripts\Player Controller\PlayerAnimationManager.cs" />
     <Compile Include="Assets\2_Scripts\Player Controller\PlayerSpriteManager.cs" />
     <Compile Include="Assets\2_Scripts\Enemies\LongSightCone.cs" />
@@ -77,6 +78,7 @@
     <Compile Include="Assets\2_Scripts\PatrolRoute.cs" />
     <Compile Include="Assets\2_Scripts\SnapToGrid.cs" />
     <Compile Include="Assets\2_Scripts\Enemies\FieldOfView.cs" />
+    <Compile Include="Assets\Scriptable Objects\Sounds\Sound.cs" />
     <Compile Include="Assets\2_Scripts\CameraFollow.cs" />
     <Compile Include="Assets\2_Scripts\SmallObjectScript.cs" />
     <Compile Include="Assets\2_Scripts\Player Controller\Sword\SwordScript.cs" />
@@ -85,8 +87,6 @@
     <Compile Include="Assets\2_Scripts\NoiseScript.cs" />
     <Compile Include="Assets\AOSFogWar\Demo\Scripts\csEyeController.cs" />
     <Compile Include="Assets\2_Scripts\Player Controller\PlayerGroundTrigger.cs" />
-    <Compile Include="Assets\Scriptable Objects\Sound.cs" />
-    <Compile Include="Assets\2_Scripts\Player Controller\GrappleHitboxScript.cs" />
     <Compile Include="Assets\2_Scripts\Player Controller\PlayerAttackManager.cs" />
     <Compile Include="Assets\2_Scripts\ShadowCastersGeneratorEditor.cs" />
     <Compile Include="Assets\2_Scripts\Navmesh Generation\NavmeshGenEditor.cs" />

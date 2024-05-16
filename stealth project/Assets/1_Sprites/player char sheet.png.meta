@@ -408,7 +408,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 256
-        y: 256
+        y: 320
         width: 64
         height: 64
       alignment: 0
@@ -428,7 +428,7 @@ TextureImporter:
       name: player char sheet_15
       rect:
         serializedVersion: 2
-        x: 320
+        x: 256
         y: 256
         width: 64
         height: 64
@@ -449,7 +449,7 @@ TextureImporter:
       name: player char sheet_16
       rect:
         serializedVersion: 2
-        x: 384
+        x: 320
         y: 256
         width: 64
         height: 64
@@ -470,7 +470,7 @@ TextureImporter:
       name: player char sheet_17
       rect:
         serializedVersion: 2
-        x: 448
+        x: 384
         y: 256
         width: 64
         height: 64
@@ -483,6 +483,27 @@ TextureImporter:
       bones: []
       spriteID: b1af076260c25f24fa4acc9e060ea77e
       internalID: -1700834238
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: player char sheet_18
+      rect:
+        serializedVersion: 2
+        x: 448
+        y: 256
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 19b84e301d2e9554a804ed3f53d2b5aa
+      internalID: -577942485
       vertices: []
       indices: 
       edges: []
@@ -510,6 +531,7 @@ TextureImporter:
       player char sheet_15: 1620056482
       player char sheet_16: 1661451516
       player char sheet_17: -1700834238
+      player char sheet_18: -577942485
       player char sheet_2: -2013999186
       player char sheet_3: -1942616017
       player char sheet_4: 491930158

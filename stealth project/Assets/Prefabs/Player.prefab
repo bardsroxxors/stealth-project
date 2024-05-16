@@ -51,19 +51,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 099afa925d0b9da478d161ca68537283, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  material: {fileID: 2100000, guid: c01f89b2867153e4184ca17c8428e8a0, type: 2}
+  material: {fileID: 2100000, guid: b6c8c48d3b9c0384a906dc1ebadac474, type: 2}
   CurrentPlayerState: 0
   controlScheme: 0
   lit: 0
+  sneaking: 1
   currentHP: 10
-  moveSpeed: 5.5
+  maxHP: 10
+  f_holdToRun: 1
+  moveSpeed: 7
+  sneakSpeed: 4.8
   moveDecay: 8
   inputVector: {x: 0, y: 0}
   movementVector: {x: 0, y: 0}
+  playerFacingVector: {x: 1, y: 0}
   gravityVector: {x: 0, y: 0}
-  canWallClimb: 1
-  climbSpeed: 3
+  canWallGrab: 1
   wallJumpForce: {x: 3, y: 14}
+  grabbedDirection: 0
   swordObject: {fileID: 2461149477072334440}
   attackCooldown: 0.3
   swingMoveSpeed: 6
@@ -80,13 +85,22 @@ MonoBehaviour:
     m_Bits: 256
   collisionMask:
     serializedVersion: 2
-    m_Bits: 136
+    m_Bits: 8
+  lightCheckMask:
+    serializedVersion: 2
+    m_Bits: 72
   slopeRaycastDistance: 1
+  footstepSound: {fileID: 11400000, guid: 96d27fd9c74f3964c928323169ee44da, type: 2}
   graphicsObject: {fileID: 4303097109374225259}
   darkColour: {r: 0.6509434, g: 0.6509434, b: 0.6509434, a: 1}
+  noisePrefab: {fileID: 2674792170459540541, guid: a7c9de3869cd3494d9a78b003448acb0, type: 3}
+  noiseInterval: 0.75
+  f_noiseAnimationTrigger: 0
   gracetimePostCollide: 0.08
   gracetimePreCollide: 0.25
   wallJumpNoGrabTime: 0.5
+  knockTime: 0.5
+  knockVector: {x: 7, y: 4}
 --- !u!114 &2008444443937729533
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -102,14 +116,14 @@ MonoBehaviour:
   f_reduceGravityAtPeak: 1
   f_stopOnKeyRelease: 1
   f_peakSpeedBoost: 1
-  jumpForce: 14
+  jumpForce: 14.75
   selfLayerMask:
     serializedVersion: 2
     m_Bits: 0
   gravityAccel: 28
   jumpPeakGravityScale: 0.5
   maxFallSpeed: 25
-  wallJumpForceVector: {x: 8, y: 12}
+  wallJumpForceVector: {x: 4, y: 14}
   releaseVelocityFactor: 0.5
   peakGravityFactor: 0.7
   peakGravitySpeedWindow: 0.5
@@ -117,6 +131,7 @@ MonoBehaviour:
   peakBoostSpeedWindow: 5
   f_jumped: 0
   f_jumpKeyDown: 0
+  f_wallGrabReady: 0
 --- !u!50 &2414699154181914587
 Rigidbody2D:
   serializedVersion: 4
@@ -336,7 +351,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: c01f89b2867153e4184ca17c8428e8a0, type: 2}
+  - {fileID: 2100000, guid: b6c8c48d3b9c0384a906dc1ebadac474, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -357,12 +372,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 540326400, guid: 4e7cc45b74845e2439fa61d32a0cc644, type: 3}
+  m_Sprite: {fileID: -1857873572, guid: 865c9b28ddfe58744938074b98518e2b, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1.625, y: 1.84375}
+  m_Size: {x: 2, y: 2}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -401,6 +416,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a447e6d9fb805a408b86543d284c8ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  noiseTrigger: 0
 --- !u!1 &4979579703447725109
 GameObject:
   m_ObjectHideFlags: 0

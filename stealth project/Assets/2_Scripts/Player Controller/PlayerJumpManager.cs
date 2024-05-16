@@ -70,6 +70,7 @@ public class PlayerJumpManager : MonoBehaviour
         pc.gravityVector.x = wallJumpForceVector.x * (pc.grabbedDirection * -1);
         //Debug.Log(wallJumpForceVector.x * (pc.collisionDirections.x * -1));
         pc.gravityVector.y = wallJumpForceVector.y;
+        //pc.playerFacingVector = new Vector2(wallJumpForceVector.x, 0);
 
 
         f_jumped = true;

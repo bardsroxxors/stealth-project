@@ -51,7 +51,7 @@ public class PlayerController : MonoBehaviour
     public Vector2 movementVector = new Vector2(0, 0); // vector that is used to store the desired movement, before any checks
     private Vector2 moveStickVector = new Vector2(0, 0); // raw input from left stick / wasd
     private Vector2 aimStickVector = new Vector2(0, 0); // raw input from right stick
-    private Vector2 playerFacingVector = new Vector2(1, 0); // used to aim abilities if there is no input, and used to determine sprite facing
+    public Vector2 playerFacingVector = new Vector2(1, 0); // used to aim abilities if there is no input, and used to determine sprite facing
     public Vector2 gravityVector = Vector2.zero;
 
     [Header("Wall Grabbing")]
@@ -59,6 +59,7 @@ public class PlayerController : MonoBehaviour
     //public float climbSpeed = 3f;
     public Vector2 wallJumpForce = Vector2.zero;
     public int grabbedDirection = 0;
+    public float climbSpeed = 0.5f;
 
 
     [Header("Sword Swing")]
@@ -243,29 +244,46 @@ public class PlayerController : MonoBehaviour
 
     private void ProcessWallGrab()
     {
-        inputVector = Vector2.zero;
+        inputVector.x = 0;
         // set player facing based on collision direction
         if(collisionDirections.x != 0)
         {
             playerFacingVector = new Vector2(collisionDirections.x, 0);
-            grabbedDirection = (int)collisionDirections.x;
+            grabbedDirection = (int)Mathf.Sign(collisionDirections.x);
         }
             
 
 
         RaycastHit2D wallCheck = Physics2D.BoxCast(transform.position,
-                                                    new Vector2(0.5f, 0.5f),
+                                                    new Vector2(0.2f, 0.2f),
                                                     0, 
-                                                    new Vector2(collisionDirections.x*0.2f, 0));
+                                                    new Vector2(grabbedDirection*0.2f, 0), 
+                                                    1,
+                                                    collisionMask);
 
         if (!wallCheck) ChangeState(e_PlayerControllerStates.FreeMove);
 
 
         if (collisionDirections.y != 0) ChangeState(e_PlayerControllerStates.FreeMove);
 
-        //if (jumpManager.f_jumpKeyDown) ChangeState(e_PlayerControllerStates.FreeMove);
 
-        
+
+        // get inputVector from raw input, set player facing
+        if (moveStickVector.magnitude >= 0.25)
+        {
+            inputVector.y = moveStickVector.normalized.y * climbSpeed;
+        }
+
+        // if there is no input then apply movement decay
+        else if (inputVector.magnitude > 0)
+        {
+            inputVector.y = inputVector.y - (inputVector.y * moveDecay * Time.deltaTime);
+        }
+
+        // clamp to zero when its close
+        if (inputVector.magnitude <= 0.1) inputVector = Vector2.zero;
+
+
     }
 
 
@@ -543,6 +561,9 @@ public class PlayerController : MonoBehaviour
         else animator.SetBool("not moving", false);
 
         animator.SetBool("sneaking", sneaking);
+
+        if(CurrentPlayerState == e_PlayerControllerStates.WallGrab) animator.SetBool("wall grab", true);
+        else animator.SetBool("wall grab", false);
     }
 
 
@@ -584,7 +605,9 @@ public class PlayerController : MonoBehaviour
 
     void OnAttack(InputValue value)
     {
-        if (t_attackCooldown <= 0 && CurrentPlayerState != e_PlayerControllerStates.WallGrab)
+        if (t_attackCooldown <= 0 && 
+            CurrentPlayerState == e_PlayerControllerStates.FreeMove)
+
             ChangeState(e_PlayerControllerStates.SwordSwing);
     }
 
@@ -607,7 +630,19 @@ public class PlayerController : MonoBehaviour
     {
         if(CurrentPlayerState == e_PlayerControllerStates.FreeMove)
         {
-            sneaking = !sneaking;
+            if(f_holdToRun) sneaking = false;
+            else sneaking = !sneaking;
+        }
+
+
+    }
+
+    void OnSneakRelease(InputValue value)
+    {
+        if (CurrentPlayerState == e_PlayerControllerStates.FreeMove && f_holdToRun)
+        {
+            sneaking = true;
+            
         }
     }
 
