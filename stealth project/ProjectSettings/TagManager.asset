@@ -11,6 +11,8 @@ TagManager:
   - PlayerProjectile
   - EnemyProjectile
   - NoiseTrigger
+  - StealthKillZone
+  - HidingPlace
   layers:
   - Default
   - TransparentFX
@@ -24,8 +26,8 @@ TagManager:
   - PlayerProjectile
   - Soft Platform
   - DamagePlayer
-  - 
-  - 
+  - HidingPlace
+  - LightTriggers
   - 
   - 
   - 

@@ -127,7 +127,12 @@ public class FieldOfView : MonoBehaviour
     {
         if (collision.gameObject.tag == "Player")
         {
-            EnemyObject.SendMessage("PlayerInSight");
+            PlayerController pc = collision.gameObject.GetComponent<PlayerController>();
+            if (pc && pc.CurrentPlayerState != e_PlayerControllerStates.Hiding)
+            {
+                EnemyObject.SendMessage("PlayerInSight");
+            }
+            
         }
 
     }
@@ -136,7 +141,12 @@ public class FieldOfView : MonoBehaviour
     {
         if (collision.gameObject.tag == "Player")
         {
-            EnemyObject.SendMessage("PlayerSightLost");
+            PlayerController pc = collision.gameObject.GetComponent<PlayerController>();
+            if (pc && pc.CurrentPlayerState != e_PlayerControllerStates.Hiding)
+            {
+                EnemyObject.SendMessage("PlayerSightLost");
+            }
+            
         }
 
     }

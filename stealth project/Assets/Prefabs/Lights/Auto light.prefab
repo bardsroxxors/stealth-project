@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 7803420683139653563}
   - component: {fileID: 6766894824622527374}
   - component: {fileID: 4106639620893991449}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Auto light
   m_TagString: Light
   m_Icon: {fileID: 0}

@@ -60,6 +60,15 @@
                     "initialStateCheck": true
                 },
                 {
+                    "name": "Interact",
+                    "type": "PassThrough",
+                    "id": "d917afbf-6af7-4deb-83eb-ce9ff1e9469e",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "Press",
+                    "initialStateCheck": true
+                },
+                {
                     "name": "SneakRelease",
                     "type": "PassThrough",
                     "id": "670ae0c4-3d13-4dcb-bcb7-5cab7e1ddaea",
@@ -656,6 +665,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "SneakRelease",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "2335ef9e-186b-4b20-bfea-75f04a84770b",
+                    "path": "<Keyboard>/e",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Interact",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

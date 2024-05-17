@@ -12,7 +12,7 @@ public enum e_PlayerControllerStates
     FreeMove,
     SwordSwing,
     WallGrab,
-    Hover,
+    Hiding,
     Hurt,
     Dead
 }
@@ -62,6 +62,9 @@ public class PlayerController : MonoBehaviour
     public float climbSpeed = 0.5f;
 
 
+    [Header("Hiding")]
+    public GameObject hidingPlace;
+
     [Header("Sword Swing")]
     public GameObject swordObject;
     public float attackCooldown = 0.5f;
@@ -70,6 +73,7 @@ public class PlayerController : MonoBehaviour
     public float swingMoveSpeed = 5f;
     public float swingMoveDecay = 5f;
 
+    private bool f_canHide = false;
 
     [Header("Collisions")]
     public Vector2 collisionDirections = Vector2.zero; // set to 0 for no collision, -1 for left, 1 for right
@@ -83,6 +87,7 @@ public class PlayerController : MonoBehaviour
     public LayerMask lightCheckMask;
     public float slopeRaycastDistance = 1;
     public Sound footstepSound;
+
 
 
     //private BoxCollider2D collider;
@@ -115,6 +120,8 @@ public class PlayerController : MonoBehaviour
     private float t_knockTime = 0;
     public Vector2 knockVector = Vector2.zero;
     private int knockDirection = 0;
+
+    public GameObject contextButton;
 
 
 
@@ -164,9 +171,13 @@ public class PlayerController : MonoBehaviour
             case e_PlayerControllerStates.Hurt:
                 ProcessHurt();
                 break;
+            case e_PlayerControllerStates.Hiding:
+                ProcessHiding();
+                break;
         }
 
-        ApplyMovement();
+        if(CurrentPlayerState != e_PlayerControllerStates.Hiding)
+            ApplyMovement();
 
 
 
@@ -194,8 +205,11 @@ public class PlayerController : MonoBehaviour
     void ProcessFreeMove()
     {
 
+        if (f_canHide && !contextButton.active) contextButton.SetActive(true);
+        else if (!f_canHide && contextButton.active) contextButton.SetActive(false);
+
         //CheckSlopeRaycast();
-        if(f_noiseAnimationTrigger)
+        if (f_noiseAnimationTrigger)
         {
             //t_noiseInterval = noiseInterval;
             f_noiseAnimationTrigger = false;
@@ -322,6 +336,13 @@ public class PlayerController : MonoBehaviour
 
     }
 
+    private void ProcessHiding()
+    {
+        inputVector = Vector2.zero;
+        gravityVector = Vector2.zero;
+        movementVector = Vector2.zero;
+        lit = false;
+    }
 
     void ProcessHurt()
     {
@@ -502,11 +523,13 @@ public class PlayerController : MonoBehaviour
                 }
             }
         }
+
+        else if (collision.gameObject.tag == "HidingPlace") f_canHide = true;
     }
 
     private void OnTriggerStay2D(Collider2D collision)
     {
-        if (collision.gameObject.tag == "Light")
+        if (collision.gameObject.tag == "Light" && CurrentPlayerState != e_PlayerControllerStates.Hiding)
         {
             Vector2 origin = collision.gameObject.transform.position;
             Vector2 direction = (transform.position - collision.gameObject.transform.position).normalized;
@@ -519,11 +542,14 @@ public class PlayerController : MonoBehaviour
                 lit = true;
             else lit = false;
         }
+        
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
         if (collision.gameObject.tag == "Light") lit = false;
+
+        if (collision.gameObject.tag == "HidingPlace") f_canHide = false;
     }
 
 
@@ -565,6 +591,9 @@ public class PlayerController : MonoBehaviour
         if(CurrentPlayerState == e_PlayerControllerStates.WallGrab) animator.SetBool("wall grab", true);
         else animator.SetBool("wall grab", false);
     }
+
+
+
 
 
 
@@ -616,15 +645,19 @@ public class PlayerController : MonoBehaviour
         if (controlScheme == e_ControlSchemes.Gamepad) aimStickVector = value.Get<Vector2>().normalized;
     }
 
-    void OnGamepadAny(InputValue value)
+    void OnInteract()
     {
-        if (controlScheme != e_ControlSchemes.Gamepad) controlScheme = e_ControlSchemes.Gamepad;
+        if(f_canHide && CurrentPlayerState == e_PlayerControllerStates.FreeMove)
+        {
+            ChangeState(e_PlayerControllerStates.Hiding);
+            lit = false;
+        }
+        else if(CurrentPlayerState == e_PlayerControllerStates.Hiding)
+        {
+            ChangeState(e_PlayerControllerStates.FreeMove);
+        }
     }
-
-    void OnKeyboardAny(InputValue value)
-    {
-        if (controlScheme != e_ControlSchemes.MouseKeyboard) controlScheme = e_ControlSchemes.MouseKeyboard;
-    }
+    
 
     void OnToggleSneak(InputValue value)
     {
@@ -633,7 +666,6 @@ public class PlayerController : MonoBehaviour
             if(f_holdToRun) sneaking = false;
             else sneaking = !sneaking;
         }
-
 
     }
 
@@ -646,7 +678,15 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    void OnGamepadAny(InputValue value)
+    {
+        if (controlScheme != e_ControlSchemes.Gamepad) controlScheme = e_ControlSchemes.Gamepad;
+    }
 
+    void OnKeyboardAny(InputValue value)
+    {
+        if (controlScheme != e_ControlSchemes.MouseKeyboard) controlScheme = e_ControlSchemes.MouseKeyboard;
+    }
 
 
 
@@ -675,19 +715,6 @@ public class PlayerController : MonoBehaviour
     }
 
 
-
-    /*
-    void OnDrawGizmos()
-    {
-        Gizmos.color = Color.red;
-
-
-        //Draw a cube at the maximum distance
-        Gizmos.DrawWireCube(collider.bounds.center + Vector3.down * 0.1f, new Vector2(collider.size.x, collider.size.y));
-
-
-
-    }*/
 
 
 }

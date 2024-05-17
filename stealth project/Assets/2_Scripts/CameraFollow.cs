@@ -12,8 +12,12 @@ public class CameraFollow : MonoBehaviour
     private PlayerController playerController;
     private Vector2 playerMovementVector = Vector2.zero;
 
+    [Range(0, 1)]
     public float leadingFactor = 1.5f;
     public float smoothing = 5f; // The speed with which the camera catches up with the target
+
+    public Vector2 mousePullStrength = Vector2.zero;
+    //public Vector2 maxMouseDrag = new Vector2(5, 5);
 
     public Vector2 offset = new Vector2(0, 1);
     public Vector2 targetPos = new Vector2(0, 0);
@@ -22,10 +26,13 @@ public class CameraFollow : MonoBehaviour
 
     public float playerHeightCutoff = 3;
 
+    [Range(16, 100)]
     public float gridSize = 64;
 
+    private Vector2Int screenSize = new Vector2Int(Screen.width, Screen.height);
+    private Vector2Int screenCenter = new Vector2Int(0, 0);
+    private Vector3 mousePosition = Vector3.zero;
 
-    //public UniversalRenderPipelineAsset pipeline;
 
     private Camera cameraComponent;
 
@@ -36,27 +43,44 @@ public class CameraFollow : MonoBehaviour
         cameraComponent = GetComponent<Camera>();
         target = playerObject.transform;
         playerController = playerObject.GetComponent<PlayerController>();
-        /*var rendererFeatures = pipeline.scriptableRenderer.GetType()
-        .GetProperty("rendererFeatures", BindingFlags.NonPublic | BindingFlags.Instance)
-        ?.GetValue(pipeline.scriptableRenderer, null) as List<ScriptableRendererFeature>;*/
 
+        screenCenter.x = screenSize.x / 2;
+        screenCenter.y = screenSize.y / 2;
+    }
 
-        //UpdateScreenHeight();
+    private void Update()
+    {
+        mousePosition = Input.mousePosition;
     }
 
     void FixedUpdate()
     {
-        playerMovementVector = playerController.inputVector;
+        playerMovementVector = playerController.movementVector;
 
         Vector3 targetCamPos = (Vector2)target.position + offset + (playerMovementVector * leadingFactor);
-        float newX = Mathf.Lerp(transform.position.x, targetCamPos.x, smoothing * Time.deltaTime);
-        float newY = Mathf.Lerp(transform.position.y, targetCamPos.y, smoothing * Time.deltaTime);
+        targetCamPos = targetCamPos + GetMousePosVector();
+        float newX = Mathf.Lerp(transform.position.x, targetCamPos.x, xSmoothing * Time.deltaTime);
+        float newY = Mathf.Lerp(transform.position.y, targetCamPos.y, ySmoothing * Time.deltaTime);
         transform.position = new Vector3(newX, newY, transform.position.z);
 
-        //SnapToGrid();
+        
+
+        SnapToGrid();
 
     }
 
+    // gets the vector from the screen center to mouse position
+    Vector3 GetMousePosVector()
+    {
+        Vector3 center = new Vector3(screenCenter.x, screenCenter.y, 0);
+        Vector3 mouseNormalised = new Vector3(  mousePosition.x / screenSize.x,
+                                                mousePosition.y / screenSize.y,
+                                                0);
+
+        Vector3 centerToMouse = mouseNormalised - new Vector3(0.5f, 0.5f, 0);
+
+        return centerToMouse * mousePullStrength;
+    }
 
     private void UpdateScreenHeight()
     {
@@ -72,7 +96,7 @@ public class CameraFollow : MonoBehaviour
 
         float gridDistance = 1 / gridSize;
 
-        Vector3 snap = new Vector4(transform.position.x - (transform.position.x % gridDistance),
+        Vector3 snap = new Vector3(transform.position.x - (transform.position.x % gridDistance),
                                     transform.position.y - (transform.position.y % gridDistance), -10);
         transform.position = snap;
     }
