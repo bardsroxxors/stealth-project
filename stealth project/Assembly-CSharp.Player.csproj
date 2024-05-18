@@ -66,6 +66,7 @@
     <Compile Include="Assets\2_Scripts\ShadowCaster2DTileMap.cs" />
     <Compile Include="Assets\2_Scripts\UI\UI_PlayerHealth.cs" />
     <Compile Include="Assets\2_Scripts\Navmesh Generation\NavPoint.cs" />
+    <Compile Include="Assets\2_Scripts\Tilemap Gemeration\LevelGenEditor.cs" />
     <Compile Include="Assets\2_Scripts\Player Controller\Equipment\EquipmentManager.cs" />
     <Compile Include="Assets\2_Scripts\Player Controller\PlayerAnimationManager.cs" />
     <Compile Include="Assets\2_Scripts\Player Controller\PlayerSpriteManager.cs" />
@@ -77,6 +78,7 @@
     <Compile Include="Assets\2_Scripts\Enemies\EnemyAwareness.cs" />
     <Compile Include="Assets\2_Scripts\PatrolRoute.cs" />
     <Compile Include="Assets\2_Scripts\SnapToGrid.cs" />
+    <Compile Include="Assets\2_Scripts\Tilemap Gemeration\LevelGen.cs" />
     <Compile Include="Assets\2_Scripts\Enemies\FieldOfView.cs" />
     <Compile Include="Assets\Scriptable Objects\Sounds\Sound.cs" />
     <Compile Include="Assets\2_Scripts\CameraFollow.cs" />

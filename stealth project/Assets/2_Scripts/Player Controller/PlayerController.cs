@@ -239,19 +239,27 @@ public class PlayerController : MonoBehaviour
         // change to wall grab under right conditions
         // if we are colliding with a wall and not the ground we are in wallMove state
         // and the wall jump grace timer has depleted
-        if (collisionDirections.x != 0 && 
-            collisionDirections.y != -1 && 
-            t_wallJumpNoGrabTime <= 0 && 
-            jumpManager.f_jumpKeyDown &&
-            jumpManager.f_wallGrabReady &&
-            canWallGrab)
+        if (collisionDirections.x != 0)
         {
-            //if(Mathf.Sign(moveStickVector.x) == Mathf.Sign(collisionDirections.x) && moveStickVector.x != 0)
-            
-            ChangeState(e_PlayerControllerStates.WallGrab);
-            
-            
+            RaycastHit2D wallCheck = Physics2D.BoxCast(transform.position,
+                                                    new Vector2(0.2f, 0.2f),
+                                                    0,
+                                                    new Vector2(collisionDirections.x * 0.2f, 0),
+                                                    1,
+                                                    collisionMask);
+            if (wallCheck &&
+                collisionDirections.y != -1 &&
+                t_wallJumpNoGrabTime <= 0 &&
+                jumpManager.f_jumpKeyDown &&
+                jumpManager.f_wallGrabReady &&
+                canWallGrab)
+            {
+                ChangeState(e_PlayerControllerStates.WallGrab);
+            }
         }
+
+        
+        
 
     }
 
@@ -278,7 +286,7 @@ public class PlayerController : MonoBehaviour
         if (!wallCheck) ChangeState(e_PlayerControllerStates.FreeMove);
 
 
-        if (collisionDirections.y != 0) ChangeState(e_PlayerControllerStates.FreeMove);
+        if (collisionDirections.y == -1) ChangeState(e_PlayerControllerStates.FreeMove);
 
 
 

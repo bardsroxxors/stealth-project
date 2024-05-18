@@ -150,8 +150,8 @@ Camera:
   m_LensShift: {x: 0, y: 0}
   m_NormalizedViewPortRect:
     serializedVersion: 2
-    x: 0.100697905
-    y: 0.14539006
+    x: 0.3220339
+    y: -0.101063825
     width: 0.7976072
     height: 0.7092198
   near clip plane: 0.3
@@ -195,11 +195,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerObject: {fileID: 0}
-  leadingFactor: 0.12
+  leadingFactor: 0.3
   smoothing: 4
+  mousePullStrength: {x: 5, y: 6}
   offset: {x: 0, y: 1}
   targetPos: {x: 0, y: 0}
-  xSmoothing: 5
+  xSmoothing: 3.5
   ySmoothing: 3
   playerHeightCutoff: 3
   gridSize: 32
