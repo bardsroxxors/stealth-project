@@ -237,8 +237,6 @@ public class PlayerController : MonoBehaviour
 
 
         // change to wall grab under right conditions
-        // if we are colliding with a wall and not the ground we are in wallMove state
-        // and the wall jump grace timer has depleted
         if (collisionDirections.x != 0)
         {
             RaycastHit2D wallCheck = Physics2D.BoxCast(transform.position,

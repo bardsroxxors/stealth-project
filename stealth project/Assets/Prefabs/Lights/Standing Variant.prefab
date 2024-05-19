@@ -51,7 +51,7 @@ PrefabInstance:
     - target: {fileID: 6904610473279681453, guid: 16c0a8fc400e2c6408355c5be90da9b6, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: -870053144, guid: f0dfc807e72925c48b828b4be0935d56, type: 3}
+      objectReference: {fileID: -853585027, guid: 0d862bc1dd5f095428a5897b9b57999d, type: 3}
     - target: {fileID: 7096206616592607590, guid: 16c0a8fc400e2c6408355c5be90da9b6, type: 3}
       propertyPath: m_Name
       value: Standing Variant

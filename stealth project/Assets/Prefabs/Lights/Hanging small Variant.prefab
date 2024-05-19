@@ -26,11 +26,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4106639620893991449, guid: 1a772846e97c2a44e9ef6441278e4a79, type: 3}
       propertyPath: m_SpriteTilingProperty.oldSize.x
-      value: 0.78125
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4106639620893991449, guid: 1a772846e97c2a44e9ef6441278e4a79, type: 3}
       propertyPath: m_SpriteTilingProperty.oldSize.y
-      value: 0.71875
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4106639620893991449, guid: 1a772846e97c2a44e9ef6441278e4a79, type: 3}
       propertyPath: m_SpriteTilingProperty.adaptiveTilingThreshold
@@ -146,7 +146,7 @@ SpriteRenderer:
   m_SortingLayerID: -1337720339
   m_SortingLayer: -2
   m_SortingOrder: 0
-  m_Sprite: {fileID: -51933165, guid: f0dfc807e72925c48b828b4be0935d56, type: 3}
+  m_Sprite: {fileID: -1692275857, guid: 0d862bc1dd5f095428a5897b9b57999d, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
