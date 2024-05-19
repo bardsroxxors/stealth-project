@@ -158,6 +158,10 @@ public class EnemyStateMachine : MonoBehaviour
 
         fuckyou = new Vector3(facingDirection, 1, 1);
 
+        
+
+        FindNearestPatrolRoute();
+
         patrolRoute = patrolRouteObject.GetComponent<PatrolRoute>();
         if (patrolRoute != null)
         {
@@ -299,7 +303,7 @@ public class EnemyStateMachine : MonoBehaviour
     private void ProcessWaiting()
     {
         if (t_currentWaitTimer <= 0) ChangeState(e_EnemyStates.patrolling);
-
+        inputVector = Vector2.zero;
         SightConeTrack();
     }
 
@@ -502,11 +506,11 @@ public class EnemyStateMachine : MonoBehaviour
         if (inputVector.x != 0) movementVector.x = inputVector.x;
         if (inputVector.y != 0) movementVector.y = inputVector.y;
 
+
         // apply decay
         if (inputVector.x == 0) movementVector.x = movementVector.x - (movementVector.x * moveDecay * Time.deltaTime);
         if (inputVector.y == 0) movementVector.y = movementVector.y - (movementVector.y * moveDecay * Time.deltaTime);
 
-        //inputVector - (inputVector * moveDecay * Time.deltaTime)
 
         // clamp to zero
         if (Mathf.Abs(inputVector.x) <= 0.2) inputVector.x = 0;
@@ -845,5 +849,26 @@ public class EnemyStateMachine : MonoBehaviour
         UpdateAnimator();
     }
 
+    void FindNearestPatrolRoute()
+    {
+        Debug.Log("Finding nearest route");
+        GameObject[] routes = GameObject.FindGameObjectsWithTag("PatrolRoute");
+        float minDist = 1000f;
+        GameObject nearest = null;
+
+        if(routes != null)
+            foreach (GameObject route in routes)
+            {
+                float dist = Vector3.Distance(transform.position, route.transform.position);
+                if (dist < minDist)
+                {
+                    nearest = route;
+                    minDist = dist;
+                }
+                    
+            }
+
+        patrolRouteObject = nearest;
+    }
 
 }

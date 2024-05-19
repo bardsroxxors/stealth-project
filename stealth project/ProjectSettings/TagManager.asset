@@ -13,6 +13,7 @@ TagManager:
   - NoiseTrigger
   - StealthKillZone
   - HidingPlace
+  - PatrolRoute
   layers:
   - Default
   - TransparentFX

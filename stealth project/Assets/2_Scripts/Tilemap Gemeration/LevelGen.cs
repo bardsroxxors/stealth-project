@@ -31,7 +31,7 @@ public class LevelGen : MonoBehaviour
         DestroyImmediate(lightsContainer);
 
         lightsContainer = new GameObject("Lights");
-        lightsContainer.transform.parent = frontMap.transform;
+        lightsContainer.transform.parent = this.transform;
 
         for (int y = 0; y < (int)frontTemplate.height; y++)
         {
@@ -60,7 +60,9 @@ public class LevelGen : MonoBehaviour
                                     frontMap.GetCellCenterWorld(new Vector3Int(x, y, 0)),
                                     Quaternion.identity,
                                     lightsContainer.transform);
-                    backMap.SetTile(new Vector3Int(x, y, 0), backWall);
+
+                    if(DetermineBackTile(x, y))
+                        backMap.SetTile(new Vector3Int(x, y, 0), backWall);
 
                 }
 
@@ -79,4 +81,32 @@ public class LevelGen : MonoBehaviour
         backdropPlane.transform.localScale = new Vector3(frontMap.cellBounds.xMax - frontMap.cellBounds.xMin, 
                                                         frontMap.cellBounds.yMax - frontMap.cellBounds.yMin, 1);
     }
+
+
+    // return true if we should place a back tile for a light
+    bool DetermineBackTile(int x, int y)
+    {
+        // how many adjacent tiles have a back tile
+        int adjacent = 0;
+
+        Vector2Int[] checkDirections = new Vector2Int[4];
+
+        checkDirections[0] = new Vector2Int(x + 1, y);
+        checkDirections[1] = new Vector2Int(x - 1, y);
+        checkDirections[2] = new Vector2Int(x, y + 1);
+        checkDirections[3] = new Vector2Int(x, y - 1);
+
+        for (int i = 0; i < 4; i++)
+        {
+            if (frontTemplate.GetPixel(checkDirections[i].x, checkDirections[i].y) == backLayerColor)
+                adjacent++;
+        }
+
+        if (adjacent >= 2) return true;
+        else return false;
+
+    }
+
+
+
 }

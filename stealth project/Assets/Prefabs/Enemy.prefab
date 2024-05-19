@@ -1094,7 +1094,7 @@ MonoBehaviour:
   - -165
   pathfindTarget: {x: 0, y: 0, z: 0}
   pathUpdateSeconds: 0.5
-  nextWaypointDistance: 1
+  nextWaypointDistance: 0.5
   sightCone: {fileID: 3662010039264906175}
   sightConePosition: {x: 0, y: 0.47}
   coneTrackingSpeed: 15
