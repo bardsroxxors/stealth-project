@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.Rendering;
 //using UnityEngine.Rendering.Universal;
 
@@ -17,7 +18,8 @@ public class CameraFollow : MonoBehaviour
     public float smoothing = 5f; // The speed with which the camera catches up with the target
 
     public Vector2 mousePullStrength = Vector2.zero;
-    //public Vector2 maxMouseDrag = new Vector2(5, 5);
+    public Vector2 extendedPullStrength = Vector2.zero;
+
 
     public Vector2 offset = new Vector2(0, 1);
     public Vector2 targetPos = new Vector2(0, 0);
@@ -35,6 +37,8 @@ public class CameraFollow : MonoBehaviour
 
 
     private Camera cameraComponent;
+
+    private bool f_viewExtend = false;
 
 
 
@@ -79,7 +83,9 @@ public class CameraFollow : MonoBehaviour
 
         Vector3 centerToMouse = mouseNormalised - new Vector3(0.5f, 0.5f, 0);
 
-        return centerToMouse * mousePullStrength;
+        if(f_viewExtend) return centerToMouse * extendedPullStrength;
+        else return centerToMouse * mousePullStrength;
+
     }
 
     private void UpdateScreenHeight()
@@ -99,5 +105,15 @@ public class CameraFollow : MonoBehaviour
         Vector3 snap = new Vector3(transform.position.x - (transform.position.x % gridDistance),
                                     transform.position.y - (transform.position.y % gridDistance), -10);
         transform.position = snap;
+    }
+
+
+    void OnExtendView(InputValue value)
+    {
+        f_viewExtend = true;
+    }
+    void OnExtendViewRelease(InputValue value)
+    {
+        f_viewExtend = false;
     }
 }

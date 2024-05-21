@@ -23,6 +23,7 @@ public class PlayerJumpManager : MonoBehaviour
 
     [Header("Wall Jump")]
     public Vector2 wallJumpForceVector = Vector2.zero;
+    public Vector2 downJumpVector = Vector2.zero;
 
     [Header("Stop on Release Options")]
     public float releaseVelocityFactor = 0.5f;
@@ -70,6 +71,17 @@ public class PlayerJumpManager : MonoBehaviour
         pc.gravityVector.x = wallJumpForceVector.x * (pc.grabbedDirection * -1);
         //Debug.Log(wallJumpForceVector.x * (pc.collisionDirections.x * -1));
         pc.gravityVector.y = wallJumpForceVector.y;
+        //pc.playerFacingVector = new Vector2(wallJumpForceVector.x, 0);
+
+
+        f_jumped = true;
+    }
+
+    public void WallJumpDown()
+    {
+        pc.gravityVector.x = downJumpVector.x * (pc.grabbedDirection * -1);
+        //Debug.Log(wallJumpForceVector.x * (pc.collisionDirections.x * -1));
+        pc.gravityVector.y = downJumpVector.y;
         //pc.playerFacingVector = new Vector2(wallJumpForceVector.x, 0);
 
 

@@ -148,6 +148,24 @@
                     "processors": "",
                     "interactions": "Press(behavior=1)",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "ExtendView",
+                    "type": "PassThrough",
+                    "id": "343d2174-33b9-46ab-aa8f-df08944d7b39",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "Press",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "ExtendViewRelease",
+                    "type": "PassThrough",
+                    "id": "571fc190-9135-4de3-ba61-be7a4f26fa8c",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "Press(behavior=1)",
+                    "initialStateCheck": true
                 }
             ],
             "bindings": [
@@ -676,6 +694,28 @@
                     "processors": "",
                     "groups": "",
                     "action": "Interact",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "88667185-56b5-484f-8b2e-227f877e06d3",
+                    "path": "<Keyboard>/leftAlt",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ExtendView",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "bdd3dd91-50ce-40e7-9ec5-cc5d8ff599ab",
+                    "path": "<Keyboard>/leftAlt",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ExtendViewRelease",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

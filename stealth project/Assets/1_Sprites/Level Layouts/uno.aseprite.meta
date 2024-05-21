@@ -130,7 +130,7 @@ ScriptedImporter:
       serializedVersion: 2
       x: 4
       y: 4
-      width: 74
+      width: 118
       height: 50
     spriteID: d77170dd062716f459dfb1bb01b894ab
     spriteBone: []
@@ -141,6 +141,26 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 4, y: 4}
+  - name: uno_Frame_1
+    originalName: 
+    pivot: {x: 0.5, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 62
+      width: 118
+      height: 50
+    spriteID: f726cbae56de01b4ca4428ac66edc533
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 62}
   spriteSheetImportData: []
   asepriteLayers:
   - layerIndex: 0
@@ -150,18 +170,26 @@ ScriptedImporter:
     layerType: 0
     blendMode: 0
     cells:
-    - name: uno
+    - name: uno_Frame_0
       frameIndex: 0
       cellRect:
         x: 0
         y: 0
-        width: 74
+        width: 118
         height: 50
       spriteId: d77170dd062716f459dfb1bb01b894ab
+    - name: uno_Frame_1
+      frameIndex: 1
+      cellRect:
+        x: 0
+        y: 0
+        width: 118
+        height: 50
+      spriteId: f726cbae56de01b4ca4428ac66edc533
     linkedCells: []
     parentIndex: -1
   platformSettings: []
   generatePhysicsShape: 0
   secondarySpriteTextures: []
   spritePackingTag: 
-  canvasSize: {x: 74, y: 50}
+  canvasSize: {x: 118, y: 50}

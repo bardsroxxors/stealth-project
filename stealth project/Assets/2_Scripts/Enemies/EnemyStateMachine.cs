@@ -95,7 +95,7 @@ public class EnemyStateMachine : MonoBehaviour
     public float coneTrackingSpeed = 1;
     public Vector3 targetLookPosition = Vector3.zero;
     public GameObject defaultLookTarget;
-    private Vector3 fuckyou = Vector3.zero;
+    private Vector3 facingVector = Vector3.zero;
 
     [Header("Reactions")]
     public float reactionTime = 1f;
@@ -156,7 +156,7 @@ public class EnemyStateMachine : MonoBehaviour
 
         InvokeRepeating("UpdatePath", 0f, pathUpdateSeconds);
 
-        fuckyou = new Vector3(facingDirection, 1, 1);
+        facingVector = new Vector3(facingDirection, 1, 1);
 
         
 
@@ -227,9 +227,9 @@ public class EnemyStateMachine : MonoBehaviour
         // update facing direction
         if (Mathf.Abs(movementVector.x) > 0.1)  SwitchFacing(Mathf.Sign(movementVector.x));
 
-        fuckyou = new Vector3(facingDirection, 1, 1);
+        facingVector = new Vector3(facingDirection, 1, 1);
 
-        // the flinch state is triggered by setting the its timer
+        // the flinch state is triggered by setting its timer
         if(t_flinchTime > 0 && currentState != e_EnemyStates.damageFlinch)
         {
             ChangeState(e_EnemyStates.damageFlinch);
@@ -277,6 +277,7 @@ public class EnemyStateMachine : MonoBehaviour
     // Update Functions for States
     private void ProcessPatrolling()
     {
+
         float nodeDistance = (currentPatrolDestination.position - transform.position).magnitude;
         if (nodeDistance <= nodeCompleteDistance)
         {
@@ -290,7 +291,16 @@ public class EnemyStateMachine : MonoBehaviour
             //inputVector = Vector3.zero;
         }
 
-        targetLookPosition = transform.position + Vector3.Scale(defaultLookTarget.transform.localPosition, fuckyou);
+        // look in the direction we're walking
+        float angle = 180;
+        if (facingDirection > 0) angle = 0;
+        Vector3 lookTarget = Vector3.zero;
+
+        lookTarget = utils.GetVectorFromAngle(angle) * randomPointDistance;
+        lookTarget = transform.TransformPoint(lookTarget);
+
+        targetLookPosition = lookTarget;
+        //targetLookPosition = transform.position + Vector3.Scale(defaultLookTarget.transform.localPosition, facingVector);
         SightConeTrack();
 
 
@@ -516,6 +526,9 @@ public class EnemyStateMachine : MonoBehaviour
         if (Mathf.Abs(inputVector.x) <= 0.2) inputVector.x = 0;
         if (Mathf.Abs(inputVector.y) <= 0.2) inputVector.y = 0;
 
+        if (Mathf.Abs(movementVector.x) <= 0.1) movementVector.x = 0;
+        if (Mathf.Abs(movementVector.y) <= 0.1) movementVector.y = 0;
+
         transform.position += (Vector3)movementVector * Time.deltaTime;
     }
 
@@ -655,11 +668,20 @@ public class EnemyStateMachine : MonoBehaviour
         if (path == null) return;
 
 
+
+        // next waypoint
+        float distance = Vector2.Distance(rb.position, path.vectorPath[currentWaypoint]);
+        if (distance < nextWaypointDistance)
+        {
+            currentWaypoint++;
+        }
+
         // reached end of path
         if (currentWaypoint >= path.vectorPath.Count)
         {
             return;
         }
+
 
         // check if we need to jump
         float nodeDistance = (path.vectorPath[currentWaypoint] - transform.position).magnitude;
@@ -683,13 +705,6 @@ public class EnemyStateMachine : MonoBehaviour
         else if(currentState != e_EnemyStates.patrolling)
             inputVector = direction * pursueSpeed;
 
-
-        // next waypoint
-        float distance = Vector2.Distance(rb.position, path.vectorPath[currentWaypoint]);
-        if (distance < nextWaypointDistance)
-        {
-            currentWaypoint++;
-        }
 
     }
 
@@ -869,6 +884,13 @@ public class EnemyStateMachine : MonoBehaviour
             }
 
         patrolRouteObject = nearest;
+    }
+
+
+    private void OnDrawGizmos()
+    {
+        Handles.color = UnityEngine.Color.red;
+        Handles.DrawWireCube(targetLookPosition, new Vector3(0.25f, 0.25f, 0.25f));
     }
 
 }

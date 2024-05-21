@@ -39,6 +39,7 @@ public class PlayerController : MonoBehaviour
 
     public bool lit = false;
     public bool sneaking = false;
+    public bool crouching = false;
     public int currentHP = 10;
     public int maxHP = 10;
 
@@ -46,6 +47,8 @@ public class PlayerController : MonoBehaviour
     public bool f_holdToRun = true;
     public float moveSpeed = 1;
     public float sneakSpeed = 1;
+    public float crouchSpeed = 1;
+    public float acceleration = 5;
     public float moveDecay = 10;
     public Vector2 inputVector = new Vector2(0, 0); // the vector being used as a handle from the user input to the movement vector
     public Vector2 movementVector = new Vector2(0, 0); // vector that is used to store the desired movement, before any checks
@@ -208,18 +211,25 @@ public class PlayerController : MonoBehaviour
         if (f_canHide && !contextButton.active) contextButton.SetActive(true);
         else if (!f_canHide && contextButton.active) contextButton.SetActive(false);
 
-        //CheckSlopeRaycast();
+        // check if we are crouching
+        if (moveStickVector.y < 0 && f_groundClose) crouching = true;
+        else crouching = false;
+
+        // create noise when triggered
         if (f_noiseAnimationTrigger)
         {
-            //t_noiseInterval = noiseInterval;
             f_noiseAnimationTrigger = false;
             GameObject noise = Instantiate(noisePrefab, transform.position, Quaternion.identity);
             noise.SendMessage("SetProfile", footstepSound);
         }
+
         // get inputVector from raw input, set player facing
         if (moveStickVector.magnitude >= 0.25)
         {
-            if(!sneaking) inputVector.x = moveStickVector.normalized.x * moveSpeed;
+            if(!sneaking && !crouching) 
+                inputVector.x = moveStickVector.normalized.x * moveSpeed;
+            else if (crouching) 
+                inputVector.x = moveStickVector.normalized.x * crouchSpeed;
             else inputVector.x = moveStickVector.normalized.x * sneakSpeed;
             inputVector.y = 0;
             playerFacingVector = moveStickVector.normalized;
@@ -281,10 +291,14 @@ public class PlayerController : MonoBehaviour
                                                     1,
                                                     collisionMask);
 
-        if (!wallCheck) ChangeState(e_PlayerControllerStates.FreeMove);
+        
 
 
-        if (collisionDirections.y == -1) ChangeState(e_PlayerControllerStates.FreeMove);
+        if (collisionDirections.y == -1)
+        {
+            playerFacingVector.x = playerFacingVector.x * -1;
+            ChangeState(e_PlayerControllerStates.FreeMove);
+        }
 
 
 
@@ -303,6 +317,29 @@ public class PlayerController : MonoBehaviour
         // clamp to zero when its close
         if (inputVector.magnitude <= 0.1) inputVector = Vector2.zero;
 
+        if (!wallCheck && inputVector.y > 0)
+        {
+            // get grid-snapped position, suedo grid position
+            // place at y+1, x+-1
+
+            float gridDistance = 1f / 2f;
+
+            Vector3 snap = new Vector3(transform.position.x - (transform.position.x % gridDistance),
+                                        transform.position.y - (transform.position.y % gridDistance),
+                                        transform.position.z);
+
+            snap.x += grabbedDirection * 0.5f;
+            snap.y += 0.5f;
+
+            transform.position = snap;
+
+            ChangeState(e_PlayerControllerStates.FreeMove);
+        }
+        else if (!wallCheck)
+        {
+            playerFacingVector.x *= -1;
+            ChangeState(e_PlayerControllerStates.FreeMove);
+        }
 
     }
 
@@ -368,7 +405,19 @@ public class PlayerController : MonoBehaviour
 
     void ApplyMovement()
     {
-        movementVector.x = inputVector.x;
+        float targetSpeed = inputVector.x;
+
+        if(movementVector.x != targetSpeed)
+        {
+            float delta = movementVector.x + targetSpeed;
+            movementVector.x += delta * acceleration * Time.deltaTime;
+        }
+
+        if(Mathf.Abs(movementVector.x) > Mathf.Abs(targetSpeed)) movementVector.x = targetSpeed;
+
+
+
+        //movementVector.x = inputVector.x;
         movementVector.y = inputVector.y;
 
 
@@ -592,7 +641,23 @@ public class PlayerController : MonoBehaviour
         if (Mathf.Abs(moveStickVector.x) <= 0.5f) animator.SetBool("not moving", true);
         else animator.SetBool("not moving", false);
 
-        animator.SetBool("sneaking", sneaking);
+
+        if (crouching)
+        {
+            animator.SetBool("crouching", true);
+            animator.SetBool("sneaking", false);
+        }
+        else if (sneaking)
+        {
+            animator.SetBool("sneaking", true);
+            animator.SetBool("crouching", false);
+        }
+        else
+        {
+            animator.SetBool("sneaking", false);
+            animator.SetBool("crouching", false);
+        }
+            
 
         if(CurrentPlayerState == e_PlayerControllerStates.WallGrab) animator.SetBool("wall grab", true);
         else animator.SetBool("wall grab", false);
@@ -628,8 +693,10 @@ public class PlayerController : MonoBehaviour
         {
             ChangeState(e_PlayerControllerStates.FreeMove);
             t_wallJumpNoGrabTime = wallJumpNoGrabTime;
-            jumpManager.WallJump();
+            if (inputVector.y >= 0) jumpManager.WallJump();
+            else if (inputVector.y < 0) jumpManager.WallJumpDown();
             collisionDirections.x = 0;
+            playerFacingVector.x *= -1;
         }
         else
         {

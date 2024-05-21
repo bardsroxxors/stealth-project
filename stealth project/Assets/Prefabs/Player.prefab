@@ -125,11 +125,14 @@ MonoBehaviour:
   controlScheme: 0
   lit: 0
   sneaking: 1
+  crouching: 0
   currentHP: 10
   maxHP: 10
   f_holdToRun: 1
   moveSpeed: 7
   sneakSpeed: 4.8
+  crouchSpeed: 3
+  acceleration: 18
   moveDecay: 8
   inputVector: {x: 0, y: 0}
   movementVector: {x: 0, y: 0}
@@ -196,6 +199,7 @@ MonoBehaviour:
   jumpPeakGravityScale: 0.5
   maxFallSpeed: 25
   wallJumpForceVector: {x: 4, y: 14}
+  downJumpVector: {x: 4, y: -8}
   releaseVelocityFactor: 0.5
   peakGravityFactor: 0.7
   peakGravitySpeedWindow: 0.5

@@ -50,8 +50,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fov: 45
-  rayCount: 10
-  viewDistance: 3.5
+  rayCount: 15
+  viewDistance: 2.5
   layerMask:
     serializedVersion: 2
     m_Bits: 8
