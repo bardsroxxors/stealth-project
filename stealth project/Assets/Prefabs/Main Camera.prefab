@@ -67,7 +67,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1587122397876100957
 Transform:
   m_ObjectHideFlags: 0
@@ -100,6 +100,7 @@ GameObject:
   - component: {fileID: 1576982681091140526}
   - component: {fileID: 6302656242235996591}
   - component: {fileID: 1925062346576430818}
+  - component: {fileID: 8447564158788107527}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -150,10 +151,10 @@ Camera:
   m_LensShift: {x: 0, y: 0}
   m_NormalizedViewPortRect:
     serializedVersion: 2
-    x: 0.3220339
-    y: -0.101063825
-    width: 0.7976072
-    height: 0.7092198
+    x: 0.30896688
+    y: -0.112651646
+    width: 0.82846004
+    height: 0.779896
   near clip plane: 0.3
   far clip plane: 1000
   field of view: 60
@@ -198,6 +199,7 @@ MonoBehaviour:
   leadingFactor: 0.3
   smoothing: 4
   mousePullStrength: {x: 5, y: 6}
+  extendedPullStrength: {x: 25, y: 16}
   offset: {x: 0, y: 1}
   targetPos: {x: 0, y: 0}
   xSmoothing: 3.5
@@ -262,8 +264,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_ComponentVersion: 1
   m_AssetsPPU: 32
-  m_RefResolutionX: 800
-  m_RefResolutionY: 400
+  m_RefResolutionX: 850
+  m_RefResolutionY: 450
   m_CropFrame: 3
   m_GridSnapping: 1
   m_FilterMode: 0
@@ -289,6 +291,36 @@ MonoBehaviour:
   blendDistance: 0
   weight: 1
   sharedProfile: {fileID: 11400000, guid: c72706c6d978b0a4e98f37f9646b72d1, type: 2}
+--- !u!114 &8447564158788107527
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8177068047171886065}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Actions: {fileID: -944628639613478452, guid: 68ba223547df0a5438b92e528cea2b97, type: 3}
+  m_NotificationBehavior: 0
+  m_UIInputModule: {fileID: 0}
+  m_DeviceLostEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_DeviceRegainedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ControlsChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ActionEvents: []
+  m_NeverAutoSwitchControlSchemes: 0
+  m_DefaultControlScheme: 
+  m_DefaultActionMap: PlayerMain
+  m_SplitScreenIndex: -1
+  m_Camera: {fileID: 0}
 --- !u!1 &8966668503395158426
 GameObject:
   m_ObjectHideFlags: 0

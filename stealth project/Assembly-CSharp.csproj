@@ -76,6 +76,7 @@
     <Compile Include="Assets\2_Scripts\LineRendererSmoother.cs" />
     <Compile Include="Assets\2_Scripts\Enemies\EnemyFogVisiblity.cs" />
     <Compile Include="Assets\2_Scripts\Enemies\EnemyAwareness.cs" />
+    <Compile Include="Assets\2_Scripts\Tilemap Gemeration\RoomNodeGen.cs" />
     <Compile Include="Assets\2_Scripts\PatrolRoute.cs" />
     <Compile Include="Assets\2_Scripts\SnapToGrid.cs" />
     <Compile Include="Assets\2_Scripts\Tilemap Gemeration\LevelGen.cs" />

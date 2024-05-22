@@ -1138,7 +1138,7 @@ MonoBehaviour:
   sightAwareIncreaseSpeedMax: 2.5
   awarenessDecaySpeed: 0.05
   alertDecaySpeed: 0.05
-  alertDecayDelay: 0.5
+  alertDecayDelay: 3
   minAwareIncreaseDistance: 5
   vigilanceMultiplier: 2
 --- !u!61 &4278924528542880356
