@@ -48,7 +48,7 @@ public class PlayerController : MonoBehaviour
     public float moveSpeed = 1;
     public float sneakSpeed = 1;
     public float crouchSpeed = 1;
-    public float acceleration = 5;
+    //public float acceleration = 5;
     public float moveDecay = 10;
     public Vector2 inputVector = new Vector2(0, 0); // the vector being used as a handle from the user input to the movement vector
     public Vector2 movementVector = new Vector2(0, 0); // vector that is used to store the desired movement, before any checks
@@ -77,6 +77,14 @@ public class PlayerController : MonoBehaviour
     public float swingMoveDecay = 5f;
 
     private bool f_canHide = false;
+
+    [Header("Stealth Kills")]
+    public float killChargeTime = 1f;
+    private float t_killChargeTime = 0f;
+    public float chargingMoveSpeed = 3f;
+    public bool f_isCharging = false;
+    public GameObject killzoneObject;
+    private StealthKillZone killZone;
 
     [Header("Collisions")]
     public Vector2 collisionDirections = Vector2.zero; // set to 0 for no collision, -1 for left, 1 for right
@@ -138,6 +146,7 @@ public class PlayerController : MonoBehaviour
         defaultColour = spriteRenderer.color;
         animator = graphicsObject.GetComponent<Animator>();
         collider = GetComponent<BoxCollider2D>();
+        killZone = killzoneObject.GetComponent<StealthKillZone>();
     }
 
 
@@ -182,15 +191,21 @@ public class PlayerController : MonoBehaviour
         if(CurrentPlayerState != e_PlayerControllerStates.Hiding)
             ApplyMovement();
 
-
+        if(CurrentPlayerState != e_PlayerControllerStates.FreeMove && f_isCharging)
+            f_isCharging = false;
 
         // manage timers
+
+        if (f_isCharging) t_killChargeTime += Time.deltaTime;
+        else t_killChargeTime = 0;
+
         if (t_gracetimePostCollide > 0) t_gracetimePostCollide -= Time.deltaTime;
         if (t_gracetimePreCollide > 0) t_gracetimePreCollide -= Time.deltaTime;
         if (t_wallJumpNoGrabTime > 0) t_wallJumpNoGrabTime -= Time.deltaTime;
         if (t_attackCooldown > 0) t_attackCooldown -= Time.deltaTime;
         if (t_knockTime > 0) t_knockTime -= Time.deltaTime;
         if (t_noiseInterval > 0) t_noiseInterval -= Time.deltaTime;
+        
     }
 
     private void Update()
@@ -226,8 +241,10 @@ public class PlayerController : MonoBehaviour
         // get inputVector from raw input, set player facing
         if (moveStickVector.magnitude >= 0.25)
         {
-            if(!sneaking && !crouching) 
+            if(!sneaking && !crouching && !f_isCharging) 
                 inputVector.x = moveStickVector.normalized.x * moveSpeed;
+            else if (f_isCharging)
+                inputVector.x = moveStickVector.normalized.x * chargingMoveSpeed;
             else if (crouching) 
                 inputVector.x = moveStickVector.normalized.x * crouchSpeed;
             else inputVector.x = moveStickVector.normalized.x * sneakSpeed;
@@ -405,6 +422,7 @@ public class PlayerController : MonoBehaviour
 
     void ApplyMovement()
     {
+        /*
         float targetSpeed = inputVector.x;
 
         if(movementVector.x != targetSpeed)
@@ -414,10 +432,10 @@ public class PlayerController : MonoBehaviour
         }
 
         if(Mathf.Abs(movementVector.x) > Mathf.Abs(targetSpeed)) movementVector.x = targetSpeed;
+        */
 
 
-
-        //movementVector.x = inputVector.x;
+        movementVector.x = inputVector.x;
         movementVector.y = inputVector.y;
 
 
@@ -457,7 +475,10 @@ public class PlayerController : MonoBehaviour
     }
 
 
-
+    void TriggerStealthKill()
+    {
+        Debug.Log(GetKillTarget().transform.position);
+    }
 
 
     public void ChangeState(e_PlayerControllerStates state)
@@ -761,10 +782,46 @@ public class PlayerController : MonoBehaviour
         if (controlScheme != e_ControlSchemes.MouseKeyboard) controlScheme = e_ControlSchemes.MouseKeyboard;
     }
 
+    void OnChargeUp(InputValue value)
+    {
+        if(CurrentPlayerState == e_PlayerControllerStates.FreeMove)
+            f_isCharging = true;
+    }
+
+    void OnChargeRelease(InputValue value)
+    {
+        f_isCharging = false;
+        if (t_killChargeTime > killChargeTime) TriggerStealthKill();
+        
+    }
 
 
 
+    GameObject GetKillTarget()
+    {
+        GameObject final = null;
+        if(killZone != null)
+        {
+            float shortestDistance = 1000f;
+            Debug.Log("wah wah wee wah!");
 
+            foreach (GameObject target in killZone.targets)
+            {
+                float distance = Vector2.Distance(transform.position, target.transform.position);
+                
+                if (distance < shortestDistance)
+                {
+                    shortestDistance = distance;
+                    final = target;
+                    
+                }
+            }
+        }
+
+        if(final != null) Debug.Log(final.transform.position);
+
+        return final;
+    }
 
 
 

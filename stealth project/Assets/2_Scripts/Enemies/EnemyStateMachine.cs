@@ -292,8 +292,8 @@ public class EnemyStateMachine : MonoBehaviour
         }
 
         // look in the direction we're walking
-        float angle = 180;
-        if (facingDirection > 0) angle = 0;
+        float angle = 190;
+        if (facingDirection > 0) angle = 350;
         Vector3 lookTarget = Vector3.zero;
 
         lookTarget = utils.GetVectorFromAngle(angle) * randomPointDistance;

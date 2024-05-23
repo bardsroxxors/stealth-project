@@ -15,33 +15,6 @@
                     "initialStateCheck": true
                 },
                 {
-                    "name": "Dash",
-                    "type": "PassThrough",
-                    "id": "ca72d24e-d9df-4a92-92cc-058be9cec728",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "Press",
-                    "initialStateCheck": true
-                },
-                {
-                    "name": "DashHold",
-                    "type": "PassThrough",
-                    "id": "492e43c9-89a0-46f6-9aee-e3f265acbdd7",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "Hold(duration=0.15)",
-                    "initialStateCheck": true
-                },
-                {
-                    "name": "UnDash",
-                    "type": "PassThrough",
-                    "id": "40b01d62-0141-41d2-9d43-c5c7409342b9",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "Press(behavior=1)",
-                    "initialStateCheck": true
-                },
-                {
                     "name": "Attack",
                     "type": "PassThrough",
                     "id": "0aa5a729-a802-4442-a152-b0ddadc3b7e4",
@@ -96,12 +69,21 @@
                     "initialStateCheck": true
                 },
                 {
-                    "name": "Grapple",
-                    "type": "Value",
+                    "name": "ChargeUp",
+                    "type": "PassThrough",
                     "id": "ed0722bd-2aec-4642-9728-5449b7b413bb",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "",
                     "processors": "",
-                    "interactions": "",
+                    "interactions": "Press",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "ChargeRelease",
+                    "type": "PassThrough",
+                    "id": "b3dc07aa-030e-4f2e-be99-a84b52126a84",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "Press(behavior=1)",
                     "initialStateCheck": true
                 },
                 {
@@ -237,28 +219,6 @@
                 },
                 {
                     "name": "",
-                    "id": "795eb961-6ec8-4a60-b1ee-8589fcad665f",
-                    "path": "<Keyboard>/space",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Dash",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "e1326816-3a03-42a1-bb4d-2ddd1d28cbef",
-                    "path": "<Gamepad>/rightShoulder",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Dash",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "e91864e3-6eaf-4bcb-9be5-640f1e616eb3",
                     "path": "<Mouse>/leftButton",
                     "interactions": "",
@@ -286,7 +246,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Grapple",
+                    "action": "ChargeUp",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -297,7 +257,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Grapple",
+                    "action": "ChargeUp",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -534,50 +494,6 @@
                 },
                 {
                     "name": "",
-                    "id": "5a069708-d292-434a-9183-834ccf0660ec",
-                    "path": "<Keyboard>/space",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "UnDash",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "a186654f-243d-40c6-98ce-e5f36e48f595",
-                    "path": "<Gamepad>/rightShoulder",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "UnDash",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "6ab01f9d-bdf4-43a5-a945-e7f0e561e61c",
-                    "path": "<Keyboard>/space",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "DashHold",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "f3979b0a-3557-4256-984c-85a331f0086f",
-                    "path": "<Gamepad>/rightShoulder",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "DashHold",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "d8274ee0-c719-4f3c-9acd-2b2fa710811f",
                     "path": "<Mouse>/leftButton",
                     "interactions": "",
@@ -716,6 +632,28 @@
                     "processors": "",
                     "groups": "",
                     "action": "ExtendViewRelease",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "4f8f4e7c-ee37-4daa-a476-a96d51d21f87",
+                    "path": "<Mouse>/rightButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ChargeRelease",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "ce6edecb-fcf8-489f-8ba9-404c2d593d2c",
+                    "path": "<Gamepad>/leftShoulder",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ChargeRelease",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

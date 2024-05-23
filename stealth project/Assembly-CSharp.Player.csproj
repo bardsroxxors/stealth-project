@@ -63,6 +63,7 @@
     <Compile Include="Assets\AOSFogWar\Shadowcaster.cs" />
     <Compile Include="Assets\2_Scripts\Enemies\EnemySightCone.cs" />
     <Compile Include="Assets\2_Scripts\Player Controller\Bow\ShotIndicatorCollision.cs" />
+    <Compile Include="Assets\2_Scripts\Player Controller\StealthKillZone.cs" />
     <Compile Include="Assets\2_Scripts\ShadowCaster2DTileMap.cs" />
     <Compile Include="Assets\2_Scripts\UI\UI_PlayerHealth.cs" />
     <Compile Include="Assets\2_Scripts\Navmesh Generation\NavPoint.cs" />
