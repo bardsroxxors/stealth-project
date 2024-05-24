@@ -14,6 +14,7 @@ public enum e_PlayerControllerStates
     WallGrab,
     Hiding,
     Hurt,
+    StealthKill,
     Dead
 }
 
@@ -85,6 +86,12 @@ public class PlayerController : MonoBehaviour
     public bool f_isCharging = false;
     public GameObject killzoneObject;
     private StealthKillZone killZone;
+    public float minZipDistance = 0.2f;
+    [Range(0,1)]
+    public float zipSpeed = 2f;
+    private bool f_init_stealthKill = false;
+    private GameObject currentTarget;
+    public GameObject koIndicator;
 
     [Header("Collisions")]
     public Vector2 collisionDirections = Vector2.zero; // set to 0 for no collision, -1 for left, 1 for right
@@ -96,6 +103,7 @@ public class PlayerController : MonoBehaviour
     public LayerMask slopeMask;
     public LayerMask collisionMask;
     public LayerMask lightCheckMask;
+    public LayerMask koCheckMask;
     public float slopeRaycastDistance = 1;
     public Sound footstepSound;
 
@@ -186,18 +194,40 @@ public class PlayerController : MonoBehaviour
             case e_PlayerControllerStates.Hiding:
                 ProcessHiding();
                 break;
+            case e_PlayerControllerStates.StealthKill:
+                ProcessStealthKill();
+                break;
         }
 
-        if(CurrentPlayerState != e_PlayerControllerStates.Hiding)
+        if (CurrentPlayerState != e_PlayerControllerStates.Hiding)
             ApplyMovement();
 
-        if(CurrentPlayerState != e_PlayerControllerStates.FreeMove && f_isCharging)
+        if(!(CurrentPlayerState == e_PlayerControllerStates.FreeMove ||
+            CurrentPlayerState == e_PlayerControllerStates.WallGrab ) && f_isCharging)
             f_isCharging = false;
 
         // manage timers
 
-        if (f_isCharging) t_killChargeTime += Time.deltaTime;
-        else t_killChargeTime = 0;
+        if (f_isCharging)
+        {
+            t_killChargeTime += Time.deltaTime;
+            float percent = t_killChargeTime / killChargeTime;
+            if (percent > 1) percent = 1;
+            koIndicator.GetComponent<KOIndicator>().animationPercent = percent;
+
+            currentTarget = GetKillTarget();
+            if (currentTarget != null && CheckTargetLOS(currentTarget))
+            {
+                koIndicator.transform.position = currentTarget.transform.position;
+            }
+            else koIndicator.transform.localPosition = new Vector3(0,1,0);
+
+        }
+        else
+        {
+            t_killChargeTime = 0;
+            koIndicator.SetActive(false);
+        }
 
         if (t_gracetimePostCollide > 0) t_gracetimePostCollide -= Time.deltaTime;
         if (t_gracetimePreCollide > 0) t_gracetimePreCollide -= Time.deltaTime;
@@ -404,6 +434,32 @@ public class PlayerController : MonoBehaviour
         lit = false;
     }
 
+
+    private void ProcessStealthKill()
+    {
+        if (currentTarget == null)
+            ChangeState(e_PlayerControllerStates.FreeMove);
+
+        if (!f_init_stealthKill && currentTarget != null)
+        {
+            
+            f_init_stealthKill = true;
+        }
+
+        Vector2 distance = currentTarget.transform.position - transform.position;
+        if (distance.magnitude > minZipDistance)
+        {
+            transform.Translate(distance.normalized * zipSpeed, Space.World);
+        }
+        else
+        {
+            currentTarget.SendMessage("StealthKilled");
+            ChangeState(e_PlayerControllerStates.FreeMove);
+        }
+
+
+    }
+
     void ProcessHurt()
     {
         if (t_knockTime <= 0) ChangeState(e_PlayerControllerStates.FreeMove);
@@ -477,7 +533,8 @@ public class PlayerController : MonoBehaviour
 
     void TriggerStealthKill()
     {
-        Debug.Log(GetKillTarget().transform.position);
+        currentTarget = GetKillTarget();
+        ChangeState(e_PlayerControllerStates.StealthKill);
     }
 
 
@@ -488,6 +545,8 @@ public class PlayerController : MonoBehaviour
 
         if (previousPlayerState == e_PlayerControllerStates.SwordSwing)
             f_init_swordSwing = false;
+        if (previousPlayerState == e_PlayerControllerStates.StealthKill)
+            f_init_stealthKill = false;
     }
 
     
@@ -585,7 +644,6 @@ public class PlayerController : MonoBehaviour
             {
                 if (dmg.applyToTags.Contains(gameObject.tag) && !dmg.hasHit)
                 {
-                    Debug.Log("youch");
                     dmg.hasHit = true;
                     currentHP -= dmg.damageAmount;
 
@@ -784,14 +842,30 @@ public class PlayerController : MonoBehaviour
 
     void OnChargeUp(InputValue value)
     {
-        if(CurrentPlayerState == e_PlayerControllerStates.FreeMove)
+        currentTarget = GetKillTarget();
+        if (CurrentPlayerState == e_PlayerControllerStates.FreeMove ||
+            CurrentPlayerState == e_PlayerControllerStates.WallGrab)
+        {
             f_isCharging = true;
+            koIndicator.SetActive(true);
+            if (currentTarget != null)
+            {
+                koIndicator.transform.position = currentTarget.transform.position;
+            }
+            else koIndicator.transform.localPosition = new Vector3(0, 1, 0);
+
+
+
+            koIndicator.GetComponent<KOIndicator>().animationPercent = 0;
+        }
+            
     }
 
     void OnChargeRelease(InputValue value)
     {
         f_isCharging = false;
-        if (t_killChargeTime > killChargeTime) TriggerStealthKill();
+        koIndicator.SetActive(false);
+        if (t_killChargeTime > killChargeTime && CheckTargetLOS(currentTarget)) TriggerStealthKill();
         
     }
 
@@ -802,8 +876,8 @@ public class PlayerController : MonoBehaviour
         GameObject final = null;
         if(killZone != null)
         {
+            killzoneObject.transform.localPosition = Vector3.zero;
             float shortestDistance = 1000f;
-            Debug.Log("wah wah wee wah!");
 
             foreach (GameObject target in killZone.targets)
             {
@@ -818,9 +892,28 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-        if(final != null) Debug.Log(final.transform.position);
+
 
         return final;
+    }
+
+    private bool CheckTargetLOS(GameObject target)
+    {
+
+        Vector2 origin = transform.position;
+        Vector2 direction = (target.transform.position - transform.position).normalized;
+
+        Debug.DrawRay(origin, direction);
+
+        RaycastHit2D ray = Physics2D.Raycast(origin, direction, 100, koCheckMask);
+
+        if (ray.transform.gameObject.tag == "Enemy")
+        {
+            return true;
+        }
+            
+        else return false;
+        
     }
 
 

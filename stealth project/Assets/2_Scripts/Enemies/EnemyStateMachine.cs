@@ -864,6 +864,11 @@ public class EnemyStateMachine : MonoBehaviour
         UpdateAnimator();
     }
 
+    private void StealthKilled()
+    {
+        if (awareScript.currentAwareness != AwarenessLevel.alert) Die();
+    }
+
     void FindNearestPatrolRoute()
     {
         Debug.Log("Finding nearest route");
