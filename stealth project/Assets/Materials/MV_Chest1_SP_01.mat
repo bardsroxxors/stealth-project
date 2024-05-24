@@ -50,7 +50,7 @@ Material:
     m_Ints: []
     m_Floats:
     - _Facing_Right: 1
-    - _Normal_Strength: 1
+    - _Normal_Strength: 2
     m_Colors:
     - _Highlight1_Colour: {r: 0, g: 1.4777459, b: 1.4980391, a: 1}
     - _Shadow1_Colour: {r: 0.12941177, g: 0.3019608, b: 0.32156864, a: 1}

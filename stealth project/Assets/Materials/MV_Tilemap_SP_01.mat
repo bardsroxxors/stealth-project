@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: MV_Spearguy_SP_01
+  m_Name: MV_Tilemap_SP_01
   m_Shader: {fileID: -6465566751694194690, guid: 97a83f2727d3c4b4381e4ebf86e60721, type: 3}
   m_Parent: {fileID: 2100000, guid: 9055e4efb09c94d4ea8d9254977d434f, type: 2}
   m_ModifiedSerializedProperties: 0
@@ -24,7 +24,7 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: e0a55acf60800db44af184e85ba01040, type: 3}
+        m_Texture: {fileID: 2800000, guid: fa0bda2d2de65874ea1db09a1204b202, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _SampleTexture2D_bc5cc037dcc046ccb912c36576e1709e_Texture_1_Texture2D:
@@ -32,29 +32,30 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _SpriteMask:
-        m_Texture: {fileID: 2800000, guid: ae297d43d341f0c459163b731fdef0ad, type: 3}
+        m_Texture: {fileID: 2800000, guid: f6a112e07e706ff4983eb76def699bea, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _SpriteMask1:
-        m_Texture: {fileID: 2800000, guid: a40752dabd4a58349b351d6f0a710947, type: 3}
+        m_Texture: {fileID: 2800000, guid: 35d5f843e0467e14ab8b81caba70ff6a, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _SpriteMask2:
-        m_Texture: {fileID: 2800000, guid: edc6c8fcb9c08dc499f711fd5ffb04a8, type: 3}
+        m_Texture: {fileID: 2800000, guid: 52a2198517c96de42a2f434bbbfc1b3e, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _SpriteNormal:
-        m_Texture: {fileID: 2800000, guid: 2e699aa2d656a55429b059f345b9b546, type: 3}
+        m_Texture: {fileID: 2800000, guid: 0ea3330f2f1f5e54581f68b06e3998bd, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
+    - _Facing_Right: 0
     - _Normal_Strength: 2
     m_Colors:
-    - _Highlight1_Colour: {r: 0.13873571, g: 0.12549028, b: 1.4980404, a: 0}
-    - _Shadow1_Colour: {r: 0.21783969, g: 0.020425422, b: 0.254717, a: 0}
+    - _Highlight1_Colour: {r: 0.33716366, g: 0.06847818, b: 0.090841725, a: 1}
+    - _Shadow1_Colour: {r: 0.73, g: 0.62123, b: 0.64014655, a: 1}
   m_BuildTextureStacks: []
---- !u!114 &2630785718890115086
+--- !u!114 &7617579040072855149
 MonoBehaviour:
   m_ObjectHideFlags: 11
   m_CorrespondingSourceObject: {fileID: 0}
