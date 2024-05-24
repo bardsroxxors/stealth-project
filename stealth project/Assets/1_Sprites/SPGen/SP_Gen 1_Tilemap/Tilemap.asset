@@ -77,7 +77,7 @@ MonoBehaviour:
       Index: 1
       Type: 8
       Channel: mask
-    OutputTexture: {fileID: 0}
+    OutputTexture: {fileID: 2800000, guid: 35d5f843e0467e14ab8b81caba70ff6a, type: 3}
     sRGB: 0
     IsVirtual: 0
     IsAlphaAssignable: 1
@@ -93,7 +93,7 @@ MonoBehaviour:
       Index: 2
       Type: 8
       Channel: mask
-    OutputTexture: {fileID: 0}
+    OutputTexture: {fileID: 2800000, guid: 52a2198517c96de42a2f434bbbfc1b3e, type: 3}
     sRGB: 0
     IsVirtual: 0
     IsAlphaAssignable: 1
@@ -109,7 +109,7 @@ MonoBehaviour:
       Index: 3
       Type: 8
       Channel: mask
-    OutputTexture: {fileID: 0}
+    OutputTexture: {fileID: 2800000, guid: 017512ce9579e224e9a3d2b8e8041c32, type: 3}
     sRGB: 0
     IsVirtual: 0
     IsAlphaAssignable: 1
@@ -125,7 +125,7 @@ MonoBehaviour:
       Index: 4
       Type: 8
       Channel: mask
-    OutputTexture: {fileID: 0}
+    OutputTexture: {fileID: 2800000, guid: 52643aba329cece4b9204ab8b2e11f0e, type: 3}
     sRGB: 0
     IsVirtual: 0
     IsAlphaAssignable: 1
@@ -138,10 +138,34 @@ MonoBehaviour:
   EnablePhysicalSize: 0
   Thumbnail: 
   HasThumbnail: 0
-  CurrentStatePreset: 
+  CurrentStatePreset: " <sbspreset pkgurl=\"pkg://A\" label=\"\" >\n  <presetinput
+    identifier=\"$outputsize\" uid=\"3182604835\" type=\"8\" value=\"9,9\" />\n 
+    <presetinput identifier=\"Shadows_AreaSelect_Position\" uid=\"3736252795\" type=\"0\"
+    value=\"0\" />\n  <presetinput identifier=\"Shadows_AreaSelect_Range\" uid=\"3736253679\"
+    type=\"0\" value=\"0\" />\n  <presetinput identifier=\"Shadows_AreaMask_Postion\"
+    uid=\"3736258415\" type=\"0\" value=\"0\" />\n  <presetinput identifier=\"Shadows_AreaMask_Range\"
+    uid=\"3736263395\" type=\"0\" value=\"0\" />\n  <presetinput identifier=\"Shadows_LightAngle\"
+    uid=\"3739993185\" type=\"0\" value=\"9.58\" />\n  <presetinput identifier=\"Shadows_Distance\"
+    uid=\"3739999993\" type=\"0\" value=\"0.039\" />\n  <presetinput identifier=\"Shadows_EdgeSoftness\"
+    uid=\"3739996502\" type=\"0\" value=\"0.399\" />\n  <presetinput identifier=\"Shadows_Power\"
+    uid=\"3740003936\" type=\"0\" value=\"0.054\" />\n  <presetinput identifier=\"Shadows_Contrast\"
+    uid=\"3740003963\" type=\"0\" value=\"0.093\" />\n  <presetinput identifier=\"Shadows_CheckerBlend\"
+    uid=\"3740003782\" type=\"0\" value=\"0\" />\n  <presetinput identifier=\"Hightlights_AreaSelect_Position\"
+    uid=\"3739910174\" type=\"0\" value=\"0.228\" />\n  <presetinput identifier=\"Highlights_AreaSelect_Range\"
+    uid=\"3739917189\" type=\"0\" value=\"0.325\" />\n  <presetinput identifier=\"Highlights_AreaMask_Select\"
+    uid=\"3736929467\" type=\"0\" value=\"1\" />\n  <presetinput identifier=\"Highlights_AreaMask_Range\"
+    uid=\"3736934444\" type=\"0\" value=\"0.253\" />\n  <presetinput identifier=\"Highlights_AreaMask_Invert\"
+    uid=\"3736932515\" type=\"4\" value=\"1\" />\n  <presetinput identifier=\"Highlights_lightangle\"
+    uid=\"3741265997\" type=\"0\" value=\"121.3\" />\n  <presetinput identifier=\"Highlights_invertlightangle\"
+    uid=\"3735242653\" type=\"4\" value=\"0\" />\n  <presetinput identifier=\"Highlights_ShadowShift\"
+    uid=\"3739926415\" type=\"0\" value=\"0\" />\n  <presetinput identifier=\"Highlights_Distance\"
+    uid=\"3739915647\" type=\"0\" value=\"0.071\" />\n  <presetinput identifier=\"Highlights_EdgeSoftness\"
+    uid=\"3739918967\" type=\"0\" value=\"0.37\" />\n  <presetinput identifier=\"Highlights_Contrast\"
+    uid=\"3739925973\" type=\"0\" value=\"0\" />\n  <presetinput identifier=\"Highlights_ConfineSprite\"
+    uid=\"3739925878\" type=\"4\" value=\"0\" />\n </sbspreset>\n"
   IsRuntimeOnly: 0
-  GenerateAllOutputs: 0
-  GenerateAllMipmaps: 1
+  GenerateAllOutputs: 1
+  GenerateAllMipmaps: 0
   OutputMaterial: {fileID: 2100000, guid: 1cb5298baf9e26549b77aefc6180e279, type: 2}
   DefaultPreset: " <sbspreset pkgurl=\"pkg://A\" label=\"\" >\n  <presetinput identifier=\"$outputsize\"
     uid=\"3182604835\" type=\"8\" value=\"10,10\" />\n  <presetinput identifier=\"Shadows_AreaSelect_Position\"
@@ -185,7 +209,7 @@ MonoBehaviour:
           GuiDescription: 
           Type: 5
           WidgetType: 0
-        Data: {x: 10, y: 10}
+        Data: {x: 9, y: 9}
         NumericalDescription:
           DefaultValue: {x: 8, y: 8}
           MinValue: {x: 0, y: 0}
@@ -226,7 +250,7 @@ MonoBehaviour:
           GuiDescription: 
           Type: 8
           WidgetType: 7
-        Data: {fileID: 0}
+        Data: {fileID: 2800000, guid: fa0bda2d2de65874ea1db09a1204b202, type: 3}
     - rid: 1169878719463686147
       type: {class: SubstanceInputFloat, ns: Adobe.Substance.Input, asm: Adobe.Substance}
       data:
@@ -238,7 +262,7 @@ MonoBehaviour:
           GuiDescription: 
           Type: 0
           WidgetType: 1
-        Data: 0.218
+        Data: 0
         NumericalDescription:
           DefaultValue: 0.79
           MinValue: 0
@@ -258,7 +282,7 @@ MonoBehaviour:
           GuiDescription: 
           Type: 0
           WidgetType: 1
-        Data: 0.369
+        Data: 0
         NumericalDescription:
           DefaultValue: 0.61
           MinValue: 0
@@ -278,7 +302,7 @@ MonoBehaviour:
           GuiDescription: 
           Type: 4
           WidgetType: 4
-        Data: 1
+        Data: 0
         NumericalDescription:
           DefaultValue: 0
           MinValue: 0
@@ -300,7 +324,7 @@ MonoBehaviour:
           GuiDescription: 
           Type: 0
           WidgetType: 1
-        Data: 0.782
+        Data: 0
         NumericalDescription:
           DefaultValue: 0.5
           MinValue: 0
@@ -362,7 +386,7 @@ MonoBehaviour:
           GuiDescription: 
           Type: 4
           WidgetType: 4
-        Data: 0
+        Data: 1
         NumericalDescription:
           DefaultValue: 1
           MinValue: 0
@@ -384,7 +408,7 @@ MonoBehaviour:
           GuiDescription: 
           Type: 0
           WidgetType: 2
-        Data: 4.22
+        Data: 9.58
         NumericalDescription:
           DefaultValue: 0.2
           MinValue: 0
@@ -404,7 +428,7 @@ MonoBehaviour:
           GuiDescription: 
           Type: 0
           WidgetType: 1
-        Data: 0.368
+        Data: 0.039
         NumericalDescription:
           DefaultValue: 0.09
           MinValue: 0
@@ -424,7 +448,7 @@ MonoBehaviour:
           GuiDescription: 
           Type: 0
           WidgetType: 1
-        Data: 1
+        Data: 0.399
         NumericalDescription:
           DefaultValue: 1
           MinValue: 0
@@ -444,7 +468,7 @@ MonoBehaviour:
           GuiDescription: 
           Type: 0
           WidgetType: 1
-        Data: 0.653
+        Data: 0.054
         NumericalDescription:
           DefaultValue: 0.45
           MinValue: 0
@@ -464,7 +488,7 @@ MonoBehaviour:
           GuiDescription: 
           Type: 0
           WidgetType: 1
-        Data: 0.295
+        Data: 0.093
         NumericalDescription:
           DefaultValue: 0.54
           MinValue: 0
@@ -526,7 +550,7 @@ MonoBehaviour:
           GuiDescription: 
           Type: 0
           WidgetType: 1
-        Data: 0.953
+        Data: 0.228
         NumericalDescription:
           DefaultValue: 0.68
           MinValue: 0
@@ -546,7 +570,7 @@ MonoBehaviour:
           GuiDescription: 
           Type: 0
           WidgetType: 1
-        Data: 0.259
+        Data: 0.325
         NumericalDescription:
           DefaultValue: 0.96
           MinValue: 0
@@ -588,7 +612,7 @@ MonoBehaviour:
           GuiDescription: 
           Type: 0
           WidgetType: 1
-        Data: 0.451
+        Data: 1
         NumericalDescription:
           DefaultValue: 0.5
           MinValue: 0
@@ -608,7 +632,7 @@ MonoBehaviour:
           GuiDescription: 
           Type: 0
           WidgetType: 1
-        Data: 0.715
+        Data: 0.253
         NumericalDescription:
           DefaultValue: 0.25
           MinValue: 0
@@ -672,7 +696,7 @@ MonoBehaviour:
           GuiDescription: 
           Type: 0
           WidgetType: 2
-        Data: 96.3
+        Data: 121.3
         NumericalDescription:
           DefaultValue: 0.79
           MinValue: 0
@@ -734,7 +758,7 @@ MonoBehaviour:
           GuiDescription: 
           Type: 0
           WidgetType: 1
-        Data: 0.192
+        Data: 0.071
         NumericalDescription:
           DefaultValue: 0.12
           MinValue: 0
@@ -754,7 +778,7 @@ MonoBehaviour:
           GuiDescription: 
           Type: 0
           WidgetType: 1
-        Data: 1
+        Data: 0.37
         NumericalDescription:
           DefaultValue: 1
           MinValue: 0
@@ -774,7 +798,7 @@ MonoBehaviour:
           GuiDescription: 
           Type: 0
           WidgetType: 1
-        Data: 0.632
+        Data: 0.27
         NumericalDescription:
           DefaultValue: 0.27
           MinValue: 0
@@ -814,7 +838,7 @@ MonoBehaviour:
           GuiDescription: 
           Type: 4
           WidgetType: 4
-        Data: 1
+        Data: 0
         NumericalDescription:
           DefaultValue: 1
           MinValue: 0
