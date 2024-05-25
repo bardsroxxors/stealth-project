@@ -50,6 +50,8 @@ public class CameraFollow : MonoBehaviour
 
         screenCenter.x = screenSize.x / 2;
         screenCenter.y = screenSize.y / 2;
+
+        playerObject = GameObject.Find("Player");
     }
 
     private void Update()

@@ -49,9 +49,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 046cdbc0736add048987bbd02fba3fc4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fov: 45
-  rayCount: 15
-  viewDistance: 2.5
+  fov: 35
+  rayCount: 12
+  viewDistance: 2.25
   layerMask:
     serializedVersion: 2
     m_Bits: 8
