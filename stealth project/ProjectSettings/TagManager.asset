@@ -14,6 +14,7 @@ TagManager:
   - StealthKillZone
   - HidingPlace
   - PatrolRoute
+  - OneWay
   layers:
   - Default
   - TransparentFX
