@@ -81,7 +81,6 @@
     <Compile Include="Assets\2_Scripts\Tilemap Gemeration\RoomNodeGen.cs" />
     <Compile Include="Assets\2_Scripts\PatrolRoute.cs" />
     <Compile Include="Assets\2_Scripts\SnapToGrid.cs" />
-    <Compile Include="Assets\2_Scripts\WFC\Cell.cs" />
     <Compile Include="Assets\2_Scripts\Parallax\ParallaxCamera.cs" />
     <Compile Include="Assets\2_Scripts\Tilemap Gemeration\LevelGen.cs" />
     <Compile Include="Assets\2_Scripts\Parallax\ParallaxBackground.cs" />
@@ -104,7 +103,6 @@
     <Compile Include="Assets\2_Scripts\DamageSource.cs" />
     <Compile Include="Assets\2_Scripts\FogOfWarScript.cs" />
     <Compile Include="Assets\2_Scripts\Player Controller\PlayerJumpManager.cs" />
-    <Compile Include="Assets\2_Scripts\WFC\Tile.cs" />
     <Compile Include="Assets\2_Scripts\Player Controller\SwordHitboxScript.cs" />
     <Compile Include="Assets\2_Scripts\Navmesh Generation\NavmeshGenerator.cs" />
     <Compile Include="Assets\2_Scripts\Player Controller\DijkFOW.cs" />

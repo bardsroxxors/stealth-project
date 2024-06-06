@@ -403,6 +403,111 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: dark blue background tileset_14
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 13
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 938116bbdc5b155468708532aabe2990
+      internalID: -231742436
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: dark blue background tileset_15
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 13
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1c6136521150a734fb7193f768d97c0a
+      internalID: -307008527
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: dark blue background tileset_16
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 13
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2e5177ba18084c0458e1e76f7f1ccf72
+      internalID: 492216197
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: dark blue background tileset_17
+      rect:
+        serializedVersion: 2
+        x: 160
+        y: 13
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 95cbc28fd84df1e46aac462f0c955628
+      internalID: 1870135094
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: dark blue background tileset_18
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 13
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e01c10aa2db97fd41b037a35390bdda1
+      internalID: -1938645134
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -420,6 +525,11 @@ TextureImporter:
       dark blue background tileset_11: -1120056999
       dark blue background tileset_12: -320447480
       dark blue background tileset_13: -1891409070
+      dark blue background tileset_14: -231742436
+      dark blue background tileset_15: -307008527
+      dark blue background tileset_16: 492216197
+      dark blue background tileset_17: 1870135094
+      dark blue background tileset_18: -1938645134
       dark blue background tileset_2: 579526298
       dark blue background tileset_3: -1317629055
       dark blue background tileset_4: 294690856

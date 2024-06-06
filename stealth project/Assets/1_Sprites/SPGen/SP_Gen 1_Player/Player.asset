@@ -143,7 +143,7 @@ MonoBehaviour:
     <presetinput identifier=\"Shadows_AreaSelect_Position\" uid=\"3736252795\" type=\"0\"
     value=\"1\" />\n  <presetinput identifier=\"Shadows_AreaSelect_Range\" uid=\"3736253679\"
     type=\"0\" value=\"0.39\" />\n  <presetinput identifier=\"Shadows_AreaMask_Postion\"
-    uid=\"3736258415\" type=\"0\" value=\"0.43\" />\n  <presetinput identifier=\"Hightlights_AreaSelect_Position\"
+    uid=\"3736258415\" type=\"0\" value=\"0.338\" />\n  <presetinput identifier=\"Hightlights_AreaSelect_Position\"
     uid=\"3739910174\" type=\"0\" value=\"0.285\" />\n  <presetinput identifier=\"Highlights_AreaSelect_Range\"
     uid=\"3739917189\" type=\"0\" value=\"0.834\" />\n  <presetinput identifier=\"Highlights_AreaMask_Select\"
     uid=\"3736929467\" type=\"0\" value=\"0.524\" />\n  <presetinput identifier=\"Highlights_AreaMask_Range\"
@@ -291,7 +291,7 @@ MonoBehaviour:
           GuiDescription: 
           Type: 0
           WidgetType: 1
-        Data: 0.43
+        Data: 0.338
         NumericalDescription:
           DefaultValue: 0.5
           MinValue: 0

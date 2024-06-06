@@ -81,6 +81,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7803420683139653563, guid: 1a772846e97c2a44e9ef6441278e4a79, type: 3}
+      propertyPath: m_Intensity
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 7803420683139653563, guid: 1a772846e97c2a44e9ef6441278e4a79, type: 3}
       propertyPath: m_PointLightInnerAngle
       value: 360
       objectReference: {fileID: 0}
@@ -146,7 +150,7 @@ SpriteRenderer:
   m_SortingLayerID: -1337720339
   m_SortingLayer: -2
   m_SortingOrder: 0
-  m_Sprite: {fileID: -1692275857, guid: 0d862bc1dd5f095428a5897b9b57999d, type: 3}
+  m_Sprite: {fileID: 1870135094, guid: 680e3961870b8b642a45e5ce9606691d, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
