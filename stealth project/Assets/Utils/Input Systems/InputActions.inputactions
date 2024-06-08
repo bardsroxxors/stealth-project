@@ -148,6 +148,15 @@
                     "processors": "",
                     "interactions": "Press(behavior=1)",
                     "initialStateCheck": true
+                },
+                {
+                    "name": "BagToggle",
+                    "type": "Button",
+                    "id": "6bfdd65d-159a-4e85-b41a-9814d96631b8",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -654,6 +663,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "ChargeRelease",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "ec9bfbfd-a70c-4498-858a-d824c12d0edf",
+                    "path": "<Keyboard>/tab",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "BagToggle",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

@@ -107,6 +107,8 @@ public class PlayerController : MonoBehaviour
     public float slopeRaycastDistance = 1;
     public Sound footstepSound;
 
+    public GameObject backpack;
+
 
 
     //private BoxCollider2D collider;
@@ -155,6 +157,7 @@ public class PlayerController : MonoBehaviour
         animator = graphicsObject.GetComponent<Animator>();
         collider = GetComponent<BoxCollider2D>();
         killZone = killzoneObject.GetComponent<StealthKillZone>();
+        backpack = GameObject.Find("Backpack");
     }
 
 
@@ -869,6 +872,10 @@ public class PlayerController : MonoBehaviour
         
     }
 
+    void OnBagToggle(InputValue value)
+    {
+        backpack.SendMessage("ToggleOpen");
+    }
 
 
     GameObject GetKillTarget()

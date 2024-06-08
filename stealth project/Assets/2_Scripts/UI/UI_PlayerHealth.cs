@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 public class UI_PlayerHealth : MonoBehaviour
@@ -23,10 +24,9 @@ public class UI_PlayerHealth : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        playerScript = GameObject.FindWithTag("Player").
-                        GetComponent<PlayerController>();
-        maxHealth = playerScript.maxHP;
+        
         InitSprites();
+        UpdateLit();
     }
 
     // Update is called once per frame
@@ -45,8 +45,9 @@ public class UI_PlayerHealth : MonoBehaviour
         healthChanged = false;
     }
 
-    private void UpdateHealth()
+    public void UpdateHealth()
     {
+        currentHealth = playerScript.currentHP;
         int tmp = currentHealth;
         foreach (GameObject heart in hearts)
         {
@@ -84,9 +85,24 @@ public class UI_PlayerHealth : MonoBehaviour
         }
     }
 
-    private void InitSprites()
+    public void InitSprites()
     {
-        if(maxHealth % 2 == 0) hearts = new GameObject[maxHealth/2];
+
+        // delete existing navPoint objects
+        int nbChildren = transform.childCount;
+        if (nbChildren > 0)
+        {
+            for (int i = nbChildren - 1; i >= 0; i--)
+            {
+                DestroyImmediate(transform.GetChild(i).gameObject);
+            }
+        }
+
+        playerScript = GameObject.FindWithTag("Player").
+                        GetComponent<PlayerController>();
+        maxHealth = playerScript.maxHP;
+
+        if (maxHealth % 2 == 0) hearts = new GameObject[maxHealth/2];
         else hearts = new GameObject[(maxHealth + 1) / 2];
 
         for (int i = 0; i < hearts.Length; i++)
@@ -96,4 +112,34 @@ public class UI_PlayerHealth : MonoBehaviour
             hearts[i] = Instantiate(heartPrefab, pos, Quaternion.identity, transform);
         }
     }
+}
+
+
+[CustomEditor(typeof(UI_PlayerHealth))]
+
+
+public class UI_PlayerHealthEditor : Editor
+{
+
+    public override void OnInspectorGUI()
+    {
+        DrawDefaultInspector();
+        UI_PlayerHealth generator = (UI_PlayerHealth)target;
+
+
+        EditorGUILayout.Space();
+
+        if (GUILayout.Button("Generate"))
+        {
+
+            
+
+            generator.InitSprites();
+            generator.UpdateHealth();
+        }
+
+        EditorGUILayout.Space();
+
+    }
+
 }

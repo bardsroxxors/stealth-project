@@ -101,11 +101,13 @@
     <Compile Include="Assets\2_Scripts\Parallax\ParallaxLayer.cs" />
     <Compile Include="Assets\2_Scripts\Utilities.cs" />
     <Compile Include="Assets\2_Scripts\DamageSource.cs" />
+    <Compile Include="Assets\2_Scripts\Player Controller\PaperdollSpriteManager.cs" />
     <Compile Include="Assets\2_Scripts\FogOfWarScript.cs" />
     <Compile Include="Assets\2_Scripts\Player Controller\PlayerJumpManager.cs" />
     <Compile Include="Assets\2_Scripts\Player Controller\SwordHitboxScript.cs" />
     <Compile Include="Assets\2_Scripts\Navmesh Generation\NavmeshGenerator.cs" />
     <Compile Include="Assets\2_Scripts\Player Controller\DijkFOW.cs" />
+    <Compile Include="Assets\2_Scripts\UI\UI_Backpack.cs" />
     <Compile Include="Assets\2_Scripts\Arrow.cs" />
     <Compile Include="Assets\AOSFogWar\Examples\csFogVisibilityAgent.cs" />
     <Compile Include="Assets\2_Scripts\Enemies\EnemyStateMachine.cs" />
