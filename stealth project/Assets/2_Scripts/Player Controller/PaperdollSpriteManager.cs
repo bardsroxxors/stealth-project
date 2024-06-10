@@ -28,4 +28,9 @@ public class PaperdollSpriteManager : MonoBehaviour
             facingLastFrame = (int)pc.playerFacingVector.x;
         }
     }
+
+    public void SetDollSprite(EquipSlot slot, Sprite sprite)
+    {
+
+    }
 }

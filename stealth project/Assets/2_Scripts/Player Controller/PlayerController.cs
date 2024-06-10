@@ -67,7 +67,10 @@ public class PlayerController : MonoBehaviour
 
 
     [Header("Hiding")]
-    public GameObject hidingPlace;
+    //public GameObject hidingPlace;
+
+    public GameObject interactTarget;
+    public GameObject hideTarget;
 
     [Header("Sword Swing")]
     public GameObject swordObject;
@@ -77,7 +80,7 @@ public class PlayerController : MonoBehaviour
     public float swingMoveSpeed = 5f;
     public float swingMoveDecay = 5f;
 
-    private bool f_canHide = false;
+    private bool f_canInteract = false;
 
     [Header("Stealth Kills")]
     public float killChargeTime = 1f;
@@ -107,7 +110,7 @@ public class PlayerController : MonoBehaviour
     public float slopeRaycastDistance = 1;
     public Sound footstepSound;
 
-    public GameObject backpack;
+    public UI_Backpack backpack;
 
 
 
@@ -157,7 +160,7 @@ public class PlayerController : MonoBehaviour
         animator = graphicsObject.GetComponent<Animator>();
         collider = GetComponent<BoxCollider2D>();
         killZone = killzoneObject.GetComponent<StealthKillZone>();
-        backpack = GameObject.Find("Backpack");
+        backpack = GameObject.Find("Backpack").GetComponent<UI_Backpack>();
     }
 
 
@@ -256,8 +259,8 @@ public class PlayerController : MonoBehaviour
     void ProcessFreeMove()
     {
 
-        if (f_canHide && !contextButton.active) contextButton.SetActive(true);
-        else if (!f_canHide && contextButton.active) contextButton.SetActive(false);
+        if (f_canInteract && !contextButton.active) contextButton.SetActive(true);
+        else if (!f_canInteract && contextButton.active) contextButton.SetActive(false);
 
         // check if we are crouching
         if (moveStickVector.y < 0 && f_groundClose) crouching = true;
@@ -431,10 +434,22 @@ public class PlayerController : MonoBehaviour
 
     private void ProcessHiding()
     {
-        inputVector = Vector2.zero;
-        gravityVector = Vector2.zero;
-        movementVector = Vector2.zero;
-        lit = false;
+        if (hideTarget == null)
+            ChangeState(e_PlayerControllerStates.FreeMove);
+        else
+        {
+            inputVector = Vector2.zero;
+            gravityVector = Vector2.zero;
+            movementVector = Vector2.zero;
+            lit = false;
+
+            Vector2 distance = hideTarget.transform.position - transform.position;
+            if (distance.magnitude > minZipDistance)
+            {
+                transform.Translate(distance.normalized * zipSpeed, Space.World);
+            }
+        }
+        
     }
 
 
@@ -641,7 +656,7 @@ public class PlayerController : MonoBehaviour
     {
         if (collision.gameObject.tag == "EnemyProjectile")
         {
-            
+
             DamageSource dmg = collision.gameObject.GetComponent<DamageSource>();
             if (dmg != null)
             {
@@ -661,7 +676,17 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-        else if (collision.gameObject.tag == "HidingPlace") f_canHide = true;
+        else if (collision.gameObject.tag == "HidingPlace")
+        {
+            f_canInteract = true;
+            interactTarget = collision.gameObject;
+        }
+
+        else if (collision.gameObject.tag == "GroundItem")
+        {
+            f_canInteract = true;
+            interactTarget = collision.gameObject;
+        }
     }
 
     private void OnTriggerStay2D(Collider2D collision)
@@ -686,7 +711,12 @@ public class PlayerController : MonoBehaviour
     {
         if (collision.gameObject.tag == "Light") lit = false;
 
-        if (collision.gameObject.tag == "HidingPlace") f_canHide = false;
+        if (collision.gameObject.tag == "HidingPlace" ||
+            collision.gameObject.tag == "GroundItem")
+        {
+            f_canInteract = false;
+            interactTarget = null;
+        }
     }
 
 
@@ -756,7 +786,9 @@ public class PlayerController : MonoBehaviour
     void OnMove(InputValue value)
     {
         moveStickVector.x = value.Get<Vector2>().x;
-        moveStickVector.y = value.Get<Vector2>().y;
+        if(!backpack.open)
+            moveStickVector.y = value.Get<Vector2>().y;
+
     }
 
     void OnJump(InputValue value)
@@ -802,13 +834,27 @@ public class PlayerController : MonoBehaviour
 
     void OnInteract()
     {
-        if(f_canHide && CurrentPlayerState == e_PlayerControllerStates.FreeMove)
-        {
-            ChangeState(e_PlayerControllerStates.Hiding);
-            lit = false;
+        if(f_canInteract && CurrentPlayerState == e_PlayerControllerStates.FreeMove)
+        { 
+            // bugs = false;
+            if (interactTarget.tag == "HidingPlace")
+            {
+                hideTarget = interactTarget;
+                ChangeState(e_PlayerControllerStates.Hiding);
+                lit = false; 
+            }
+
+            else if (interactTarget.tag == "GroundItem")
+            {
+                // do item pickup stuff
+                backpack.AddItem(interactTarget);
+            }
+
+
         }
         else if(CurrentPlayerState == e_PlayerControllerStates.Hiding)
         {
+            hideTarget = null;
             ChangeState(e_PlayerControllerStates.FreeMove);
         }
     }

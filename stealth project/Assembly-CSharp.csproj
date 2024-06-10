@@ -83,6 +83,7 @@
     <Compile Include="Assets\2_Scripts\SnapToGrid.cs" />
     <Compile Include="Assets\2_Scripts\Parallax\ParallaxCamera.cs" />
     <Compile Include="Assets\2_Scripts\Tilemap Gemeration\LevelGen.cs" />
+    <Compile Include="Assets\2_Scripts\Player Controller\GroundItem.cs" />
     <Compile Include="Assets\2_Scripts\Parallax\ParallaxBackground.cs" />
     <Compile Include="Assets\2_Scripts\Enemies\FieldOfView.cs" />
     <Compile Include="Assets\Scriptable Objects\Sounds\Sound.cs" />

@@ -6,6 +6,9 @@ using UnityEngine;
 public class UI_Backpack : MonoBehaviour
 {
     public bool open = false;
+    public int currentSelection = 0;
+    public bool selectorVisible = false;
+    public float selectorXPos = 0.2f;
     public int maxSlots = 4;
     public GameObject slotPrefab;
     public float slotSpacing = 1f;
@@ -13,14 +16,17 @@ public class UI_Backpack : MonoBehaviour
     public float bottomSpacing = 0.55f;
     public float topSpacing = 0.55f;
     public GameObject[] slots;
+    public int numberHeld = 0;
+    public GameObject selector;
     
-    public GameObject top;
+    //public GameObject top;
     public GameObject bottom;
 
     // Start is called before the first frame update
     void Start()
     {
         slots = new GameObject[maxSlots];
+
         PositionSlots();
         ToggleOpen();
     }
@@ -29,6 +35,41 @@ public class UI_Backpack : MonoBehaviour
     void Update()
     {
         
+    }
+
+
+    public bool AddItem(GameObject item)
+    {
+        if (numberHeld >= maxSlots) return false;
+
+        int index = maxSlots - numberHeld -1;
+        SpriteRenderer slotSprite = slots[index].transform.GetChild(0).GetComponent<SpriteRenderer>();
+
+        if (slotSprite) slotSprite.sprite = item.GetComponent<SpriteRenderer>().sprite;
+
+        item.transform.parent = slots[index].transform;
+        item.transform.localPosition = Vector3.zero;
+        item.SendMessage("PickedUp");
+        item.SetActive(false);
+        numberHeld++;
+
+        return true;
+    }
+
+    public void MoveSelection(int direction)
+    {
+        if(!selector.active)
+        {
+            selector.SetActive(true);
+            if (direction == 1) currentSelection = slots.Length -1;
+            else if (direction == -1) currentSelection = 0;
+        }
+
+        else
+        {
+            if(direction == 1 && currentSelection == slots.Length - 1) currentSelection = 0;
+            else if (direction == -1 && currentSelection == 0) currentSelection = slots.Length - 1;
+        }
     }
 
     public void ToggleOpen()
@@ -48,6 +89,8 @@ public class UI_Backpack : MonoBehaviour
 
         else
         {
+            
+
             int nbChildren = transform.childCount;
             if (nbChildren > 0)
             {
@@ -56,6 +99,7 @@ public class UI_Backpack : MonoBehaviour
                     transform.GetChild(i).gameObject.SetActive(true);
                 }
             }
+            selector.SetActive(false);
             open = true;
         }
     }
@@ -91,8 +135,8 @@ public class UI_Backpack : MonoBehaviour
             slots[i] = Instantiate(slotPrefab, pos, Quaternion.identity, transform);
         }
 
-        pos.y += topSpacing;
-        top.transform.position = pos;
+        //pos.y += topSpacing;
+        //top.transform.position = pos;
 
     }
 
