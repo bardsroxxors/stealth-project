@@ -676,17 +676,7 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-        else if (collision.gameObject.tag == "HidingPlace")
-        {
-            f_canInteract = true;
-            interactTarget = collision.gameObject;
-        }
-
-        else if (collision.gameObject.tag == "GroundItem")
-        {
-            f_canInteract = true;
-            interactTarget = collision.gameObject;
-        }
+        
     }
 
     private void OnTriggerStay2D(Collider2D collision)
@@ -704,7 +694,22 @@ public class PlayerController : MonoBehaviour
                 lit = true;
             else lit = false;
         }
-        
+
+
+        // Interactables
+
+        if (collision.gameObject.tag == "HidingPlace")
+        {
+            f_canInteract = true;
+            interactTarget = collision.gameObject;
+        }
+
+        else if (collision.gameObject.tag == "GroundItem")
+        {
+            f_canInteract = true;
+            interactTarget = collision.gameObject;
+        }
+
     }
 
     private void OnTriggerExit2D(Collider2D collision)

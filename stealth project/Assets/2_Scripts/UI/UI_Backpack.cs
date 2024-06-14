@@ -50,7 +50,7 @@ public class UI_Backpack : MonoBehaviour
         item.transform.parent = slots[index].transform;
         item.transform.localPosition = Vector3.zero;
         item.SendMessage("PickedUp");
-        item.SetActive(false);
+        
         numberHeld++;
 
         return true;

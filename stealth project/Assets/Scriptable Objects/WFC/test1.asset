@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b953b7ac5a402d14b8c3ff5f1b2eaade, type: 3}
+  m_Name: test1
+  m_EditorClassIdentifier: 
+  name: 
+  prefab: {fileID: 1211920643788175023, guid: 2728ab8ba6f19c548a734203a7fb4e93, type: 3}
+  f_createRotationClones: 0
+  f_isRotationClone: 0
+  Top: 0
+  Bottom: 0
+  Left: 0
+  Right: 0

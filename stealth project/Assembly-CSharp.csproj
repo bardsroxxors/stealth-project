@@ -64,6 +64,7 @@
     <Compile Include="Assets\2_Scripts\Enemies\EnemySightCone.cs" />
     <Compile Include="Assets\2_Scripts\Player Controller\Bow\ShotIndicatorCollision.cs" />
     <Compile Include="Assets\2_Scripts\Player Controller\KOIndicator.cs" />
+    <Compile Include="Assets\2_Scripts\WFC\WFCBuilder.cs" />
     <Compile Include="Assets\2_Scripts\Player Controller\StealthKillZone.cs" />
     <Compile Include="Assets\2_Scripts\ShadowCaster2DTileMap.cs" />
     <Compile Include="Assets\2_Scripts\UI\UI_PlayerHealth.cs" />
@@ -83,6 +84,7 @@
     <Compile Include="Assets\2_Scripts\SnapToGrid.cs" />
     <Compile Include="Assets\2_Scripts\Parallax\ParallaxCamera.cs" />
     <Compile Include="Assets\2_Scripts\Tilemap Gemeration\LevelGen.cs" />
+    <Compile Include="Assets\2_Scripts\WFC\WFCNode.cs" />
     <Compile Include="Assets\2_Scripts\Player Controller\GroundItem.cs" />
     <Compile Include="Assets\2_Scripts\Parallax\ParallaxBackground.cs" />
     <Compile Include="Assets\2_Scripts\Enemies\FieldOfView.cs" />

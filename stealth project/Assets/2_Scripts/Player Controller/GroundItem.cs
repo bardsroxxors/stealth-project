@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEditor.Progress;
 
 
 public enum ItemState
@@ -50,12 +51,13 @@ public class GroundItem : MonoBehaviour
 
     public void PickedUp()
     {
-
+        gameObject.SetActive(false);
+        state = ItemState.bag;
 
     }
 
     public void Dropped()
     {
-
+        state = ItemState.world;
     }
 }
