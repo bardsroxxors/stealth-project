@@ -9,7 +9,13 @@ using UnityEngine.Tilemaps;
 
 public enum TileSocket
 {
+    A,
+    B,
+    C,
+    D,
     X,
+    Y,
+    Z,
     T,
     L,
     none
@@ -21,18 +27,23 @@ public class WFCNode : ScriptableObject
 {
     public string name;
     public GameObject prefab;
+    public Sprite sprite;
+    public TileBase tile;
+
+    
 
     public bool f_createRotationClones = false;
     public bool f_isRotationClone = false;
 
 
-    public TileSocket Top       = TileSocket.X;
-    public TileSocket Bottom    = TileSocket.X;
-    public TileSocket Left      = TileSocket.X;
-    public TileSocket Right     = TileSocket.X;
+    public List<TileSocket> Top;
+    public List<TileSocket> Bottom;
+    public List<TileSocket> Left;
+    public List<TileSocket> Right;
 
 
-    public WFCNode(string name, GameObject prefab, bool f_createRotationClones, bool f_isRotationClone, TileSocket top, TileSocket bottom, TileSocket left, TileSocket right)
+    public WFCNode(string name, GameObject prefab, bool f_createRotationClones, bool f_isRotationClone, 
+        List<TileSocket> top, List<TileSocket> bottom, List<TileSocket> left, List<TileSocket> right)
     {
         this.name = name;
         this.prefab = prefab;
@@ -42,6 +53,8 @@ public class WFCNode : ScriptableObject
         Bottom = bottom;
         Left = left;
         Right = right;
+
+        
     }
 
 

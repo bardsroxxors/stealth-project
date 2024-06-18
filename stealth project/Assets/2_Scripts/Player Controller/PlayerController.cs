@@ -146,6 +146,7 @@ public class PlayerController : MonoBehaviour
     private int knockDirection = 0;
 
     public GameObject contextButton;
+    public GameObject paperSword;
 
 
 
@@ -170,9 +171,16 @@ public class PlayerController : MonoBehaviour
         {
             graphicsObject.transform.localScale = new Vector3(Mathf.Sign(playerFacingVector.x), 1, 1);
 
-            if (playerFacingVector.x < 0) material.SetFloat("_Facing_Right", 0);
-            else
-            if (playerFacingVector.x > 0) material.SetFloat("_Facing_Right", 1);
+            if (playerFacingVector.x < 0)
+            {
+                material.SetFloat("_Facing_Right", 0);
+                paperSword.GetComponent<SpriteRenderer>().sortingOrder = -1;
+            }
+            else if (playerFacingVector.x > 0 && CurrentPlayerState != e_PlayerControllerStates.WallGrab)
+            {
+                material.SetFloat("_Facing_Right", 1);
+                paperSword.GetComponent<SpriteRenderer>().sortingOrder = 1;
+            }
 
         }
             

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 
@@ -222,6 +223,7 @@ public class EnemyAwareness : MonoBehaviour
     // called when f_playerInSight has changed to true
     public void PlayerEnteredSight()
     {
+        lastKnownPosition = playerObject.transform.position;
         mainScript.TriggerReaction(e_EnemyStates.investigate);
     }
 
@@ -251,6 +253,13 @@ public class EnemyAwareness : MonoBehaviour
         redIndicator.SetActive(false);
         yellowIndicator.SetActive(false);
         this.enabled = false;
+    }
+
+
+    private void OnDrawGizmos()
+    {
+        Handles.color = UnityEngine.Color.white;
+        Handles.DrawWireCube(lastKnownPosition, new Vector3(0.2f, 0.2f, 0.2f));
     }
 
 

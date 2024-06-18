@@ -118,6 +118,7 @@ public class EnemyStateMachine : MonoBehaviour
     private float lerpSpeedCurrent = 0;
     public float jumpMinDistance = 2;
     private bool f_fallInit = false;
+    public float jumpForce = 15f;
 
     [Header("Attack")]
     public float attackCooldown = 1f;
@@ -319,6 +320,7 @@ public class EnemyStateMachine : MonoBehaviour
 
     private void ProcessInvestigate()
     {
+
         float dist = (awareScript.lastKnownPosition - transform.position).magnitude;
 
         targetLookPosition = awareScript.lastKnownPosition;
@@ -326,7 +328,12 @@ public class EnemyStateMachine : MonoBehaviour
 
         if (dist > investigateDistance)
         {
-            pathfindTarget = awareScript.lastKnownPosition;
+            if(pathfindTarget != awareScript.lastKnownPosition)
+            {
+                pathfindTarget = awareScript.lastKnownPosition;
+                UpdatePath();
+            }
+            
             PathFollow();
         }
         else inputVector = Vector3.zero;
@@ -542,8 +549,14 @@ public class EnemyStateMachine : MonoBehaviour
             if(currentState != e_EnemyStates.fall &&
                 currentState != e_EnemyStates.jump)
             previousState = currentState;
+
+            if (state == e_EnemyStates.patrolling ||
+                state == e_EnemyStates.investigate)
+                UpdatePath();
+
             currentState = state;
         }
+
         
     }
 
@@ -896,6 +909,9 @@ public class EnemyStateMachine : MonoBehaviour
     {
         Handles.color = UnityEngine.Color.red;
         Handles.DrawWireCube(targetLookPosition, new Vector3(0.25f, 0.25f, 0.25f));
+        Handles.color = UnityEngine.Color.green;
+        if(path != null && path.vectorPath.Count > 0 && Application.isPlaying)
+            Handles.DrawWireCube(path.vectorPath[currentWaypoint], new Vector3(0.25f, 0.25f, 0.25f));
     }
 
 }

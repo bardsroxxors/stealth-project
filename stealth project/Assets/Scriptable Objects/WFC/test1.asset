@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b953b7ac5a402d14b8c3ff5f1b2eaade, type: 3}
   m_Name: test1
   m_EditorClassIdentifier: 
-  name: 
+  name: 1
   prefab: {fileID: 1211920643788175023, guid: 2728ab8ba6f19c548a734203a7fb4e93, type: 3}
   f_createRotationClones: 0
   f_isRotationClone: 0
-  Top: 0
-  Bottom: 0
-  Left: 0
-  Right: 0
+  Top: 01000000
+  Bottom: 02000000
+  Left: 01000000
+  Right: 02000000
