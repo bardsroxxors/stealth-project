@@ -27,8 +27,20 @@ Material:
         m_Texture: {fileID: 2800000, guid: c9326d528a6d1db4999e889ab2f58e30, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _SampleTexture2D_8c1a04df2a084b03aa1f787b4c0fd7a7_Texture_1_Texture2D:
+        m_Texture: {fileID: 2800000, guid: 2162038e141467b479cf218d5ce15246, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SampleTexture2D_b4880d8342e8476a87576cbb2b3eeda7_Texture_1_Texture2D:
+        m_Texture: {fileID: 2800000, guid: 2162038e141467b479cf218d5ce15246, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _SampleTexture2D_bc5cc037dcc046ccb912c36576e1709e_Texture_1_Texture2D:
         m_Texture: {fileID: 2800000, guid: 8f97d69b5482b734a9a70d1c5f42a6ee, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SampleTexture2D_ee186b6d8d394b0fa9899bbead7ce87e_Texture_1_Texture2D:
+        m_Texture: {fileID: 2800000, guid: 2162038e141467b479cf218d5ce15246, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _SpriteMask:
