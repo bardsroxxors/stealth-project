@@ -1,12 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Tilemaps;
+using static UnityEditor.PlayerSettings;
 
 public class WFCBuilder : MonoBehaviour
 {
-
+    public float timer = 0.2f;
+    private float t_timer;
     public int width;
     public int height;
+
+    public Tilemap tilemap;
 
     // a list containing all possible nodes
     public List<WFCNode> allNodes = new List<WFCNode>();
@@ -36,10 +41,9 @@ public class WFCBuilder : MonoBehaviour
 
     private void Start()
     {
-        _finishedGrid = new WFCNode[width, height];
         
 
-        
+
 
         CollapseWorld();
 
@@ -48,6 +52,7 @@ public class WFCBuilder : MonoBehaviour
     private void CollapseWorld()
     {
         // initialise entropy grid
+        _finishedGrid = new WFCNode[width, height];
         _possibleGrid = new List<WFCNode>[width, height];
         for (int x = 0; x < width; x++)
         {
@@ -63,33 +68,71 @@ public class WFCBuilder : MonoBehaviour
         _finishedGrid[nextNode.x, nextNode.y] = allNodes[Random.Range(0, allNodes.Count)];
 
         Vector3 pos = new Vector3(nextNode.x, nextNode.y, 0);
-        Instantiate(_finishedGrid[nextNode.x, nextNode.y].prefab, pos, Quaternion.identity);
+        //Instantiate(_finishedGrid[nextNode.x, nextNode.y].prefab, pos, Quaternion.identity, this.transform);
+        tilemap.SetTile(new Vector3Int(nextNode.x, nextNode.y, 0), _finishedGrid[nextNode.x, nextNode.y].tile);
 
         ReduceNeighbours(nextNode);
 
+        
+    }
+
+    private void Update()
+    {
+
+        if (Input.GetButtonDown("Jump"))
+        {
+            tilemap.ClearAllTiles();
+
+            int nbChildren = transform.childCount;
+            if (nbChildren > 0)
+            {
+                for (int i = nbChildren - 1; i >= 0; i--)
+                {
+
+                    DestroyImmediate(transform.GetChild(i).gameObject);
+                    
+                }
+            }
+            CollapseWorld();
+        }
+
+        t_timer -= Time.deltaTime;
         int nodesLeft = (width * height);
 
-        while(nodesLeft > 0)
+        //while (nodesLeft > 0)
+        if (t_timer <= 0 && nodesLeft > 0)
         {
-            nextNode = GetLeastEntropy();
+            t_timer = timer;
+
+            Vector2Int nextNode = GetLeastEntropy();
+
+            //Debug.Log(nextNode);
 
 
-            
-            _finishedGrid[nextNode.x, nextNode.y] = _possibleGrid[nextNode.x, nextNode.y][Random.Range(0, allNodes.Count)];
-            _possibleGrid[nextNode.x, nextNode.y] = new List<WFCNode>();
+            if (IsInsideGrid(nextNode))
+            {
+                //Debug.Log(_possibleGrid[nextNode.x, nextNode.y]);
+                _finishedGrid[nextNode.x, nextNode.y] = _possibleGrid[nextNode.x, nextNode.y][Random.Range(0, allNodes.Count)];
+                _possibleGrid[nextNode.x, nextNode.y] = new List<WFCNode>();
 
-            pos = new Vector3(nextNode.x, nextNode.y, 0);
-            Instantiate(_finishedGrid[nextNode.x, nextNode.y].prefab, pos, Quaternion.identity);
-            ReduceNeighbours(nextNode);
+                Vector3 pos = new Vector3(nextNode.x, nextNode.y, 0);
+                //Instantiate(_finishedGrid[nextNode.x, nextNode.y].prefab, pos, Quaternion.identity, this.transform);
+                tilemap.SetTile(new Vector3Int(nextNode.x, nextNode.y, 0), _finishedGrid[nextNode.x, nextNode.y].tile);
+                //Debug.Log("placing guy with name " + _finishedGrid[nextNode.x, nextNode.y].name);
+                ReduceNeighbours(nextNode);
 
-            nodesLeft--;
+                nodesLeft--;
+            }
+
+
+
         }
     }
 
 
 
     // Iterates through the uncollapsed nodes (_possibleGrid)
-    // and gets ones that has the lowest or tied lowest possible tiles
+    // and gets one that has the lowest or tied lowest possible tiles
     private Vector2Int GetLeastEntropy()
     {
         List<Vector2Int> lowest = new List<Vector2Int>();
@@ -101,12 +144,20 @@ public class WFCBuilder : MonoBehaviour
             {
                 if (_possibleGrid[x, y].Count < currentLowest && _possibleGrid[x, y].Count > 0)
                 {
-                    lowest = new List<Vector2Int>();
-                    lowest.Add(new Vector2Int(x,y));
+                    if(IsInsideGrid(new Vector2Int(x, y)))
+                    {
+                        currentLowest = _possibleGrid[x, y].Count;
+                        lowest = new List<Vector2Int>();
+                        lowest.Add(new Vector2Int(x, y));
+                    }
+                    
                 }
                 else if (_possibleGrid[x, y].Count == currentLowest && _possibleGrid[x, y].Count > 0)
                 {
-                    lowest.Add(new Vector2Int(x, y));
+                    if (IsInsideGrid(new Vector2Int(x, y)))
+                    {
+                        lowest.Add(new Vector2Int(x, y));
+                    }
                 }
             }
         }
@@ -134,48 +185,55 @@ public class WFCBuilder : MonoBehaviour
                 // Got valid neighbour
 
                 // Get socket we are comparing to this neighbour
-                TileSocket socket = TileSocket.none;
+                List<TileSocket> sockets = new List<TileSocket>();// = TileSocket.none;
                 switch (i) {
                     case 0: // top
-                        socket = _finishedGrid[pos.x, pos.y].Top;
+                        sockets = _finishedGrid[pos.x, pos.y].Top;
                         break;
                     case 1: // bottom
-                        socket = _finishedGrid[pos.x, pos.y].Bottom;
+                        sockets = _finishedGrid[pos.x, pos.y].Bottom;
                         break;
                     case 2: // right
-                        socket = _finishedGrid[pos.x, pos.y].Right;
+                        sockets = _finishedGrid[pos.x, pos.y].Right;
                         break;
                     case 3: // left
-                        socket = _finishedGrid[pos.x, pos.y].Left;
+                        sockets = _finishedGrid[pos.x, pos.y].Left;
                         break;
                 }
 
                 // Use that socket to compare to the neighbour's list of possible tiles
-                if(socket != TileSocket.none)
+                if(sockets.Count > 0)
                 {
                     // Iterate through the list of possible tiles for that neighbour
                     for (int n = _possibleGrid[npos.x, npos.y].Count -1; n >= 0; n--)
                     {
                         // Get the correct socket from the neighbour's possible tile
-                        TileSocket nSocket = TileSocket.none;
+                        List<TileSocket> nSockets = new List<TileSocket>();
                         switch (i)
                         {
                             case 0: // top
-                                nSocket = _possibleGrid[npos.x, npos.y][n].Bottom;
+                                nSockets = _possibleGrid[npos.x, npos.y][n].Bottom;
                                 break;
                             case 1: // bottom
-                                nSocket = _possibleGrid[npos.x, npos.y][n].Top;
+                                nSockets = _possibleGrid[npos.x, npos.y][n].Top;
                                 break;
                             case 2: // right
-                                nSocket = _possibleGrid[npos.x, npos.y][n].Left;
+                                nSockets = _possibleGrid[npos.x, npos.y][n].Left;
                                 break;
                             case 3: // left
-                                nSocket = _possibleGrid[npos.x, npos.y][n].Right;
+                                nSockets = _possibleGrid[npos.x, npos.y][n].Right;
                                 break;
                         }
 
-                        // Check if the two sockets match
-                        if(nSocket != socket)
+
+                        bool match = false;
+                        foreach (TileSocket socket in nSockets)
+                        {
+                            if(sockets.Contains(socket))
+                                match = true;
+                        }
+                        // Check if the two socket lists contain a common socket
+                        if(!match)
                         {
                             // If they don't match remove that tile from the neighbour's list
                             _possibleGrid[npos.x, npos.y].RemoveAt(n);

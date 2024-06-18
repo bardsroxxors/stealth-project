@@ -1094,7 +1094,7 @@ MonoBehaviour:
   - -165
   pathfindTarget: {x: 0, y: 0, z: 0}
   pathUpdateSeconds: 0.5
-  nextWaypointDistance: 0.5
+  nextWaypointDistance: 0.6
   sightCone: {fileID: 3662010039264906175}
   sightConePosition: {x: 0, y: 0.47}
   coneTrackingSpeed: 15
@@ -1106,6 +1106,7 @@ MonoBehaviour:
   bloodPrefab: {fileID: 6797198346645744022, guid: fd9afede63ce4444a8788b9b38c234a1, type: 3}
   lerpSpeedBase: 5
   jumpMinDistance: 2
+  jumpForce: 15
   attackCooldown: 1
   swordObject: {fileID: 4248111003316377240}
   attackTrigger: {fileID: 8200466295216942089}

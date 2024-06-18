@@ -9,44 +9,58 @@ using UnityEngine.Tilemaps;
 
 public enum TileSocket
 {
-    X,
+    corner_edge,
+    flat_a,
+    flat_b,
+    fill_edge,
+    void_a,
+    void_b,
+    void_edge,
     T,
     L,
     none
 }
 
-[CreateAssetMenu (fileName = "WFCNode", menuName = "WFC/Node")]
+//[CreateAssetMenu (fileName = "WFCNode", menuName = "WFC/Node")]
 [System.Serializable]
-public class WFCNode : ScriptableObject
+public class WFCNode : MonoBehaviour
 {
     public string name;
-    public GameObject prefab;
+    //public GameObject prefab;
+    //public Sprite sprite;
+    public TileBase tile;
+
+    
 
     public bool f_createRotationClones = false;
     public bool f_isRotationClone = false;
 
 
-    public TileSocket Top       = TileSocket.X;
-    public TileSocket Bottom    = TileSocket.X;
-    public TileSocket Left      = TileSocket.X;
-    public TileSocket Right     = TileSocket.X;
+    public List<TileSocket> Top;
+    public List<TileSocket> Bottom;
+    public List<TileSocket> Left;
+    public List<TileSocket> Right;
 
 
-    public WFCNode(string name, GameObject prefab, bool f_createRotationClones, bool f_isRotationClone, TileSocket top, TileSocket bottom, TileSocket left, TileSocket right)
+    public WFCNode(string name, GameObject prefab, bool f_createRotationClones, bool f_isRotationClone, 
+        List<TileSocket> top, List<TileSocket> bottom, List<TileSocket> left, List<TileSocket> right)
     {
         this.name = name;
-        this.prefab = prefab;
+        //this.prefab = prefab;
         this.f_createRotationClones = f_createRotationClones;
         this.f_isRotationClone = f_isRotationClone;
         Top = top;
         Bottom = bottom;
         Left = left;
         Right = right;
+
+        
     }
 
 
     public void CreateClone()
     {
+        /*
         WFCNode asset = ScriptableObject.CreateInstance<WFCNode>();
 
         AssetDatabase.CreateAsset(asset, "Assets/Scriptable Objects/WFC/"+name+"_clone.asset");
@@ -54,7 +68,7 @@ public class WFCNode : ScriptableObject
 
         EditorUtility.FocusProjectWindow();
 
-        Selection.activeObject = asset;
+        Selection.activeObject = asset;*/
     }
 
 }
