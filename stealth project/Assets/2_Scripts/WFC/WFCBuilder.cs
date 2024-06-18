@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 using static UnityEditor.PlayerSettings;
 
 public class WFCBuilder : MonoBehaviour
@@ -9,6 +10,8 @@ public class WFCBuilder : MonoBehaviour
     private float t_timer;
     public int width;
     public int height;
+
+    public Tilemap tilemap;
 
     // a list containing all possible nodes
     public List<WFCNode> allNodes = new List<WFCNode>();
@@ -65,7 +68,8 @@ public class WFCBuilder : MonoBehaviour
         _finishedGrid[nextNode.x, nextNode.y] = allNodes[Random.Range(0, allNodes.Count)];
 
         Vector3 pos = new Vector3(nextNode.x, nextNode.y, 0);
-        Instantiate(_finishedGrid[nextNode.x, nextNode.y].prefab, pos, Quaternion.identity, this.transform);
+        //Instantiate(_finishedGrid[nextNode.x, nextNode.y].prefab, pos, Quaternion.identity, this.transform);
+        tilemap.SetTile(new Vector3Int(nextNode.x, nextNode.y, 0), _finishedGrid[nextNode.x, nextNode.y].tile);
 
         ReduceNeighbours(nextNode);
 
@@ -77,6 +81,8 @@ public class WFCBuilder : MonoBehaviour
 
         if (Input.GetButtonDown("Jump"))
         {
+            tilemap.ClearAllTiles();
+
             int nbChildren = transform.childCount;
             if (nbChildren > 0)
             {
@@ -110,7 +116,8 @@ public class WFCBuilder : MonoBehaviour
                 _possibleGrid[nextNode.x, nextNode.y] = new List<WFCNode>();
 
                 Vector3 pos = new Vector3(nextNode.x, nextNode.y, 0);
-                Instantiate(_finishedGrid[nextNode.x, nextNode.y].prefab, pos, Quaternion.identity, this.transform);
+                //Instantiate(_finishedGrid[nextNode.x, nextNode.y].prefab, pos, Quaternion.identity, this.transform);
+                tilemap.SetTile(new Vector3Int(nextNode.x, nextNode.y, 0), _finishedGrid[nextNode.x, nextNode.y].tile);
                 //Debug.Log("placing guy with name " + _finishedGrid[nextNode.x, nextNode.y].name);
                 ReduceNeighbours(nextNode);
 

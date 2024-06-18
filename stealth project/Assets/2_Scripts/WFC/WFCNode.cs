@@ -9,25 +9,25 @@ using UnityEngine.Tilemaps;
 
 public enum TileSocket
 {
-    A,
-    B,
-    C,
-    D,
-    X,
-    Y,
-    Z,
+    corner_edge,
+    flat_a,
+    flat_b,
+    fill_edge,
+    void_a,
+    void_b,
+    void_edge,
     T,
     L,
     none
 }
 
-[CreateAssetMenu (fileName = "WFCNode", menuName = "WFC/Node")]
+//[CreateAssetMenu (fileName = "WFCNode", menuName = "WFC/Node")]
 [System.Serializable]
-public class WFCNode : ScriptableObject
+public class WFCNode : MonoBehaviour
 {
     public string name;
-    public GameObject prefab;
-    public Sprite sprite;
+    //public GameObject prefab;
+    //public Sprite sprite;
     public TileBase tile;
 
     
@@ -46,7 +46,7 @@ public class WFCNode : ScriptableObject
         List<TileSocket> top, List<TileSocket> bottom, List<TileSocket> left, List<TileSocket> right)
     {
         this.name = name;
-        this.prefab = prefab;
+        //this.prefab = prefab;
         this.f_createRotationClones = f_createRotationClones;
         this.f_isRotationClone = f_isRotationClone;
         Top = top;
@@ -60,6 +60,7 @@ public class WFCNode : ScriptableObject
 
     public void CreateClone()
     {
+        /*
         WFCNode asset = ScriptableObject.CreateInstance<WFCNode>();
 
         AssetDatabase.CreateAsset(asset, "Assets/Scriptable Objects/WFC/"+name+"_clone.asset");
@@ -67,7 +68,7 @@ public class WFCNode : ScriptableObject
 
         EditorUtility.FocusProjectWindow();
 
-        Selection.activeObject = asset;
+        Selection.activeObject = asset;*/
     }
 
 }
