@@ -81,17 +81,17 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _Alpha: 0
+    - _Alpha: 0.4
     - _EnableExternalAlpha: 0
     - _Fullscreen_AlphaBlendOperation: 0
-    - _Fullscreen_BlendMode: 0
+    - _Fullscreen_BlendMode: 3
     - _Fullscreen_ColorBlendOperation: 0
     - _Fullscreen_DepthWrite: 1
-    - _Fullscreen_DstAlphaBlend: 10
-    - _Fullscreen_DstColorBlend: 10
+    - _Fullscreen_DstAlphaBlend: 1
+    - _Fullscreen_DstColorBlend: 1
     - _Fullscreen_SrcAlphaBlend: 1
     - _Fullscreen_SrcColorBlend: 5
-    - _Pixel_Scale: 350
+    - _Pixel_Scale: 251.92
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _Flip: {r: 1, g: 1, b: 1, a: 1}

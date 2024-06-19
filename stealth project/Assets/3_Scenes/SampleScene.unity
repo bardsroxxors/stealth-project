@@ -1148,10 +1148,10 @@ Camera:
   m_LensShift: {x: 0, y: 0}
   m_NormalizedViewPortRect:
     serializedVersion: 2
-    x: 0.044626594
-    y: 0.09546926
-    width: 0.9107468
-    height: 0.8090615
+    x: 0.13126844
+    y: 0.1716907
+    width: 0.7374631
+    height: 0.655308
   near clip plane: 0.3
   far clip plane: 1000
   field of view: 60
@@ -1697,7 +1697,7 @@ MonoBehaviour:
   f_isCharging: 0
   killzoneObject: {fileID: 0}
   minZipDistance: 0.2
-  zipSpeed: 2
+  zipSpeed: 1
   koIndicator: {fileID: 0}
   collisionDirections: {x: 0, y: 0}
   collisionLayers:
