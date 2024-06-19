@@ -919,7 +919,7 @@ Transform:
   m_GameObject: {fileID: 396376831}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.968, y: 1.017, z: 0}
+  m_LocalPosition: {x: 5.076, y: 1.017, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1148,10 +1148,10 @@ Camera:
   m_LensShift: {x: 0, y: 0}
   m_NormalizedViewPortRect:
     serializedVersion: 2
-    x: -0.78125
-    y: -0.5208334
-    width: 1.5625
-    height: 1.0416667
+    x: 0.044626594
+    y: 0.09546926
+    width: 0.9107468
+    height: 0.8090615
   near clip plane: 0.3
   far clip plane: 1000
   field of view: 60
@@ -1202,6 +1202,8 @@ MonoBehaviour:
   playerObject: {fileID: 808550038}
   leadingFactor: 0.25
   smoothing: 4
+  mousePullStrength: {x: 0, y: 0}
+  extendedPullStrength: {x: 0, y: 0}
   offset: {x: 0, y: 1}
   targetPos: {x: 0, y: 0}
   xSmoothing: 5
@@ -1222,10 +1224,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_RenderShadows: 1
   m_RequiresDepthTextureOption: 2
-  m_RequiresOpaqueTextureOption: 2
+  m_RequiresOpaqueTextureOption: 1
   m_CameraType: 0
   m_Cameras: []
-  m_RendererIndex: -1
+  m_RendererIndex: 0
   m_VolumeLayerMask:
     serializedVersion: 2
     m_Bits: 1
@@ -1372,7 +1374,7 @@ MonoBehaviour:
   m_BlendStyleIndex: 0
   m_FalloffIntensity: 0.5
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 0.01
+  m_Intensity: 0.24
   m_LightVolumeIntensity: 1
   m_LightVolumeIntensityEnabled: 0
   m_ApplyToSortingLayers: 8f077b0e0000000047989e11
@@ -1667,19 +1669,36 @@ MonoBehaviour:
   CurrentPlayerState: 0
   controlScheme: 0
   lit: 0
+  sneaking: 0
+  crouching: 0
   currentHP: 10
+  maxHP: 10
+  f_holdToRun: 1
   moveSpeed: 7
+  sneakSpeed: 1
+  crouchSpeed: 1
   moveDecay: 10
   inputVector: {x: 0, y: 0}
   movementVector: {x: 0, y: 0}
+  playerFacingVector: {x: 1, y: 0}
   gravityVector: {x: 0, y: 0}
-  canWallClimb: 1
-  climbSpeed: 3
+  canWallGrab: 1
   wallJumpForce: {x: 0, y: 0}
+  grabbedDirection: 0
+  climbSpeed: 3
+  interactTarget: {fileID: 0}
+  hideTarget: {fileID: 0}
   swordObject: {fileID: 0}
   attackCooldown: 0.5
   swingMoveSpeed: 5
   swingMoveDecay: 5
+  killChargeTime: 1
+  chargingMoveSpeed: 3
+  f_isCharging: 0
+  killzoneObject: {fileID: 0}
+  minZipDistance: 0.2
+  zipSpeed: 2
+  koIndicator: {fileID: 0}
   collisionDirections: {x: 0, y: 0}
   collisionLayers:
   - Ground
@@ -1693,12 +1712,27 @@ MonoBehaviour:
   collisionMask:
     serializedVersion: 2
     m_Bits: 0
+  lightCheckMask:
+    serializedVersion: 2
+    m_Bits: 0
+  koCheckMask:
+    serializedVersion: 2
+    m_Bits: 0
   slopeRaycastDistance: 1
+  footstepSound: {fileID: 0}
+  backpack: {fileID: 0}
   graphicsObject: {fileID: 0}
   darkColour: {r: 0, g: 0, b: 0, a: 0}
+  noisePrefab: {fileID: 0}
+  noiseInterval: 1
+  f_noiseAnimationTrigger: 0
   gracetimePostCollide: 0.08
   gracetimePreCollide: 0.25
   wallJumpNoGrabTime: 0.5
+  knockTime: 0.3
+  knockVector: {x: 0, y: 0}
+  contextButton: {fileID: 0}
+  paperSword: {fileID: 0}
 --- !u!4 &808550040
 Transform:
   m_ObjectHideFlags: 0
@@ -1810,6 +1844,7 @@ MonoBehaviour:
   jumpPeakGravityScale: 0.5
   maxFallSpeed: 25
   wallJumpForceVector: {x: 0, y: 0}
+  downJumpVector: {x: 0, y: 0}
   releaseVelocityFactor: 0.5
   peakGravityFactor: 0.7
   peakGravitySpeedWindow: 0.5
@@ -1817,6 +1852,7 @@ MonoBehaviour:
   peakBoostSpeedWindow: 5
   f_jumped: 0
   f_jumpKeyDown: 0
+  f_wallGrabReady: 0
 --- !u!1 &996427624
 GameObject:
   m_ObjectHideFlags: 0
@@ -23971,6 +24007,8 @@ MonoBehaviour:
   maxHP: 10
   graphicsObject: {fileID: 0}
   conditions: 
+  noisePrefab: {fileID: 0}
+  soundSO: {fileID: 0}
   patrolSpeed: 3
   pursueSpeed: 5
   moveDecay: 5
@@ -23979,6 +24017,8 @@ MonoBehaviour:
   movementVector: {x: 0, y: 0}
   facingDirection: 1
   facingSwitchTimer: 0.2
+  collisionLayers: []
+  collisionDirections: {x: 0, y: 0}
   patrolRouteObject: {fileID: 1243286457}
   currentNodeIndex: 0
   nodeCompleteDistance: 0.5
@@ -24000,6 +24040,10 @@ MonoBehaviour:
   reactionTime: 1
   reactionCooldown: 4
   flinchTime: 0.2
+  bloodPrefab: {fileID: 0}
+  lerpSpeedBase: 1
+  jumpMinDistance: 2
+  jumpForce: 15
   attackCooldown: 1
   swordObject: {fileID: 0}
   attackTrigger: {fileID: 0}
@@ -24030,7 +24074,6 @@ MonoBehaviour:
     m_Bits: 0
   sightAwareIncreaseSpeedMin: 0.3
   sightAwareIncreaseSpeedMax: 0.9
-  soundAwareIncrease: 0.5
   awarenessDecaySpeed: 0.2
   alertDecaySpeed: 0.05
   alertDecayDelay: 0.5
@@ -24418,7 +24461,7 @@ Transform:
   m_GameObject: {fileID: 1930175394}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 7.146, y: 0.498, z: 0}
+  m_LocalPosition: {x: 3.98, y: 0.54, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

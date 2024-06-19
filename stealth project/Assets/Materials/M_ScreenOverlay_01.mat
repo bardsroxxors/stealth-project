@@ -1,0 +1,99 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: M_ScreenOverlay_01
+  m_Shader: {fileID: -6465566751694194690, guid: 11f3b6e39f9188044be14755597324a7, type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
+  m_ValidKeywords: []
+  m_InvalidKeywords: []
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_LockedProperties: 
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _AlphaTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _CameraSortingLayerTexture:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _GatherTexture2D_9d545ec65e7a467ab93549841123552e_Texture_1_Texture2D:
+        m_Texture: {fileID: 8400000, guid: 77a1bc8bf54b190418b97c163794e5ce, type: 2}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MainTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MaskTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _NormalFromTexture_eb00a5df7b5342b0aaa15e5cc113e9eb_Texture_0_Texture2D:
+        m_Texture: {fileID: 2800000, guid: 527965173b00f43f9a1b8fc9e8c2e64b, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _NormalMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SampleTexture2D_7e5f4297d6174ff0a25f53d116b52ef1_Texture_1_Texture2D:
+        m_Texture: {fileID: 2800000, guid: 2162038e141467b479cf218d5ce15246, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SampleTexture2D_a29ac627a149434fa0eab6d7f8e38a9d_Texture_1_Texture2D:
+        m_Texture: {fileID: 2800000, guid: 2162038e141467b479cf218d5ce15246, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SampleTexture2D_d4616f2898814c0c833846c18f463329_Texture_1_Texture2D:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SampleTexture2D_f289644505924647bc6c98327a1c9dda_Texture_1_Texture2D:
+        m_Texture: {fileID: 2800000, guid: 2162038e141467b479cf218d5ce15246, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_Lightmaps:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_LightmapsInd:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_ShadowMasks:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
+    m_Floats:
+    - _Alpha: 0
+    - _EnableExternalAlpha: 0
+    - _Fullscreen_AlphaBlendOperation: 0
+    - _Fullscreen_BlendMode: 0
+    - _Fullscreen_ColorBlendOperation: 0
+    - _Fullscreen_DepthWrite: 1
+    - _Fullscreen_DstAlphaBlend: 10
+    - _Fullscreen_DstColorBlend: 10
+    - _Fullscreen_SrcAlphaBlend: 1
+    - _Fullscreen_SrcColorBlend: 5
+    - _Pixel_Scale: 350
+    m_Colors:
+    - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _Flip: {r: 1, g: 1, b: 1, a: 1}
+    - _RendererColor: {r: 1, g: 1, b: 1, a: 1}
+  m_BuildTextureStacks: []
