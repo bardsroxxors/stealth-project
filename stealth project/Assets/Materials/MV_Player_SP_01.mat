@@ -27,8 +27,20 @@ Material:
         m_Texture: {fileID: 2800000, guid: 865c9b28ddfe58744938074b98518e2b, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _SampleTexture2D_26081c7e3b704e17a06591a82ba8b815_Texture_1_Texture2D:
+        m_Texture: {fileID: 2800000, guid: 8f97d69b5482b734a9a70d1c5f42a6ee, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _SampleTexture2D_bc5cc037dcc046ccb912c36576e1709e_Texture_1_Texture2D:
         m_Texture: {fileID: 2800000, guid: 8f97d69b5482b734a9a70d1c5f42a6ee, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SampleTexture2D_c5029eef6ca64dd18cb7def9063f9f5a_Texture_1_Texture2D:
+        m_Texture: {fileID: 2800000, guid: e34505d477fcacc41aebc0ad47df97ce, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SampleTexture2D_e7ac577716e14b549f8330a1f1dd083d_Texture_1_Texture2D:
+        m_Texture: {fileID: 2800000, guid: 16b2258b6268b834bac89a51a35fca2a, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _SpriteMask:
@@ -49,7 +61,8 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _Facing_Right: 1
+    - _Effect: 0
+    - _Facing_Right: 0
     - _Normal_Strength: 2
     m_Colors:
     - _Highlight1_Colour: {r: 0.5943396, g: 0.3698417, b: 0.13737096, a: 0}
