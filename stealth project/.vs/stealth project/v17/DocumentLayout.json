@@ -3,16 +3,24 @@
   "WorkspaceRootPath": "D:\\stealth-project\\stealth project\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\stealth-project\\stealth project\\Assets\\2_Scripts\\WFC\\Helper.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Assets\\2_Scripts\\WFC\\Helper.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{B8A3D4B7-E533-0FD7-C260-767A941AA179}|Assembly-CSharp.csproj|d:\\stealth-project\\stealth project\\assets\\2_scripts\\wfc\\helper.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B8A3D4B7-E533-0FD7-C260-767A941AA179}|Assembly-CSharp.csproj|solutionrelative:assets\\2_scripts\\wfc\\helper.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{B8A3D4B7-E533-0FD7-C260-767A941AA179}|Assembly-CSharp.csproj|D:\\stealth-project\\stealth project\\assets\\2_scripts\\wfc\\wfcnode.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{B8A3D4B7-E533-0FD7-C260-767A941AA179}|Assembly-CSharp.csproj|solutionrelative:assets\\2_scripts\\wfc\\wfcnode.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{B8A3D4B7-E533-0FD7-C260-767A941AA179}|Assembly-CSharp.csproj|D:\\stealth-project\\stealth project\\assets\\2_scripts\\player controller\\playercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B8A3D4B7-E533-0FD7-C260-767A941AA179}|Assembly-CSharp.csproj|solutionrelative:assets\\2_scripts\\player controller\\playercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{B8A3D4B7-E533-0FD7-C260-767A941AA179}|Assembly-CSharp.csproj|D:\\stealth-project\\stealth project\\assets\\2_scripts\\wfc\\wfcbuilder.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{B8A3D4B7-E533-0FD7-C260-767A941AA179}|Assembly-CSharp.csproj|solutionrelative:assets\\2_scripts\\wfc\\wfcbuilder.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{B8A3D4B7-E533-0FD7-C260-767A941AA179}|Assembly-CSharp.csproj|D:\\stealth-project\\stealth project\\assets\\2_scripts\\enemies\\fieldofview.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B8A3D4B7-E533-0FD7-C260-767A941AA179}|Assembly-CSharp.csproj|solutionrelative:assets\\2_scripts\\enemies\\fieldofview.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B8A3D4B7-E533-0FD7-C260-767A941AA179}|Assembly-CSharp.csproj|D:\\stealth-project\\stealth project\\assets\\2_scripts\\noisescript.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B8A3D4B7-E533-0FD7-C260-767A941AA179}|Assembly-CSharp.csproj|solutionrelative:assets\\2_scripts\\noisescript.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B8A3D4B7-E533-0FD7-C260-767A941AA179}|Assembly-CSharp.csproj|D:\\stealth-project\\stealth project\\assets\\2_scripts\\lightscript.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B8A3D4B7-E533-0FD7-C260-767A941AA179}|Assembly-CSharp.csproj|solutionrelative:assets\\2_scripts\\lightscript.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{B8A3D4B7-E533-0FD7-C260-767A941AA179}|Assembly-CSharp.csproj|D:\\stealth-project\\stealth project\\assets\\2_scripts\\tilemap gemeration\\levelgen.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -25,10 +33,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{B8A3D4B7-E533-0FD7-C260-767A941AA179}|Assembly-CSharp.csproj|D:\\stealth-project\\stealth project\\assets\\2_scripts\\enemies\\enemystatemachine.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{B8A3D4B7-E533-0FD7-C260-767A941AA179}|Assembly-CSharp.csproj|solutionrelative:assets\\2_scripts\\enemies\\enemystatemachine.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{B8A3D4B7-E533-0FD7-C260-767A941AA179}|Assembly-CSharp.csproj|D:\\stealth-project\\stealth project\\assets\\2_scripts\\player controller\\playercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{B8A3D4B7-E533-0FD7-C260-767A941AA179}|Assembly-CSharp.csproj|solutionrelative:assets\\2_scripts\\player controller\\playercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{B8A3D4B7-E533-0FD7-C260-767A941AA179}|Assembly-CSharp.csproj|D:\\stealth-project\\stealth project\\assets\\2_scripts\\ui\\ui_backpack.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -60,115 +64,129 @@
               "RelativeDocumentMoniker": "Assets\\2_Scripts\\WFC\\Helper.cs",
               "ToolTip": "D:\\stealth-project\\stealth project\\Assets\\2_Scripts\\WFC\\Helper.cs",
               "RelativeToolTip": "Assets\\2_Scripts\\WFC\\Helper.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAgAAAACAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-19T11:11:45.188Z"
+              "WhenOpened": "2024-06-26T05:37:49.409Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 2,
-              "Title": "WFCBuilder.cs",
-              "DocumentMoniker": "D:\\stealth-project\\stealth project\\Assets\\2_Scripts\\WFC\\WFCBuilder.cs",
-              "RelativeDocumentMoniker": "Assets\\2_Scripts\\WFC\\WFCBuilder.cs",
-              "ToolTip": "D:\\stealth-project\\stealth project\\Assets\\2_Scripts\\WFC\\WFCBuilder.cs",
-              "RelativeToolTip": "Assets\\2_Scripts\\WFC\\WFCBuilder.cs",
-              "ViewState": "AQIAAFwAAAAAAAAAAAAwwFMAAAAkAAAA",
-              "Icon": "00000000-0000-0000-0000-000000000000.000000|iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAADtSURBVDhPYxgFCHDh4YX/sQtj/6u3qP9XblL\u002BHzk/8j9UiuHtx7f/VZpVwHxkNggwgohLjy79D18SzmAua86QZJbEwM/Bz3D91XWGCNMIRpAGo34jsGJkwMrMynCn9g5YP0PK0pT/3tO9/3/58gVuMjLA5wImEHH68WkGN3U3Bh4eHoiJJACwAb/\u002B/gI7CRuAeeH3398M8g3ycDayKxjC5oX9D54TjNX5IIDPC2Ann7x78n/E4ggGDw0PhgiDCLBrLj2/xJBhl0HQS3AFe67t\u002BT/lyBSGO2/uMHCxcTHYK9szdAd2kxwmIw8wMAAAESl0qwYO77cAAAAASUVORK5CYII=",
-              "WhenOpened": "2024-06-12T05:43:03.854Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "WFCNode.cs",
-              "DocumentMoniker": "D:\\stealth-project\\stealth project\\Assets\\2_Scripts\\WFC\\WFCNode.cs",
-              "RelativeDocumentMoniker": "Assets\\2_Scripts\\WFC\\WFCNode.cs",
-              "ToolTip": "D:\\stealth-project\\stealth project\\Assets\\2_Scripts\\WFC\\WFCNode.cs",
-              "RelativeToolTip": "Assets\\2_Scripts\\WFC\\WFCNode.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAA0AAAAKAAAA",
+              "Title": "FieldOfView.cs",
+              "DocumentMoniker": "D:\\stealth-project\\stealth project\\Assets\\2_Scripts\\Enemies\\FieldOfView.cs",
+              "RelativeDocumentMoniker": "Assets\\2_Scripts\\Enemies\\FieldOfView.cs",
+              "ToolTip": "D:\\stealth-project\\stealth project\\Assets\\2_Scripts\\Enemies\\FieldOfView.cs",
+              "RelativeToolTip": "Assets\\2_Scripts\\Enemies\\FieldOfView.cs",
+              "ViewState": "AQIAACoAAAAAAAAAAAAowEUAAAAYAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-12T05:03:50.958Z"
+              "WhenOpened": "2024-06-26T05:31:19.331Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 3,
+              "Title": "NoiseScript.cs",
+              "DocumentMoniker": "D:\\stealth-project\\stealth project\\Assets\\2_Scripts\\NoiseScript.cs",
+              "RelativeDocumentMoniker": "Assets\\2_Scripts\\NoiseScript.cs",
+              "ToolTip": "D:\\stealth-project\\stealth project\\Assets\\2_Scripts\\NoiseScript.cs",
+              "RelativeToolTip": "Assets\\2_Scripts\\NoiseScript.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAB8AAAAKAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-06-26T05:29:04.576Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "LightScript.cs",
+              "DocumentMoniker": "D:\\stealth-project\\stealth project\\Assets\\2_Scripts\\LightScript.cs",
+              "RelativeDocumentMoniker": "Assets\\2_Scripts\\LightScript.cs",
+              "ToolTip": "D:\\stealth-project\\stealth project\\Assets\\2_Scripts\\LightScript.cs",
+              "RelativeToolTip": "Assets\\2_Scripts\\LightScript.cs",
+              "ViewState": "AQIAADsAAAAAAAAAAAAwwFoAAAAKAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-06-26T05:27:59.63Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
               "Title": "GroundItem.cs",
               "DocumentMoniker": "D:\\stealth-project\\stealth project\\Assets\\2_Scripts\\Player Controller\\GroundItem.cs",
               "RelativeDocumentMoniker": "Assets\\2_Scripts\\Player Controller\\GroundItem.cs",
               "ToolTip": "D:\\stealth-project\\stealth project\\Assets\\2_Scripts\\Player Controller\\GroundItem.cs",
               "RelativeToolTip": "Assets\\2_Scripts\\Player Controller\\GroundItem.cs",
               "ViewState": "AQIAABQAAAAAAAAAAAAgwDMAAAAaAAAA",
-              "Icon": "00000000-0000-0000-0000-000000000000.000000|iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAADtSURBVDhPYxgFCHDh4YX/sQtj/6u3qP9XblL\u002BHzk/8j9UiuHtx7f/VZpVwHxkNggwgohLjy79D18SzmAua86QZJbEwM/Bz3D91XWGCNMIRpAGo34jsGJkwMrMynCn9g5YP0PK0pT/3tO9/3/58gVuMjLA5wImEHH68WkGN3U3Bh4eHoiJJACwAb/\u002B/gI7CRuAeeH3398M8g3ycDayKxjC5oX9D54TjNX5IIDPC2Ann7x78n/E4ggGDw0PhgiDCLBrLj2/xJBhl0HQS3AFe67t\u002BT/lyBSGO2/uMHCxcTHYK9szdAd2kxwmIw8wMAAAESl0qwYO77cAAAAASUVORK5CYII=",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-06-09T23:57:54.806Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 8,
               "Title": "UI_Backpack.cs",
               "DocumentMoniker": "D:\\stealth-project\\stealth project\\Assets\\2_Scripts\\UI\\UI_Backpack.cs",
               "RelativeDocumentMoniker": "Assets\\2_Scripts\\UI\\UI_Backpack.cs",
               "ToolTip": "D:\\stealth-project\\stealth project\\Assets\\2_Scripts\\UI\\UI_Backpack.cs",
               "RelativeToolTip": "Assets\\2_Scripts\\UI\\UI_Backpack.cs",
               "ViewState": "AQIAADYAAAAAAAAAAAAcwG0AAAAIAAAA",
-              "Icon": "00000000-0000-0000-0000-000000000000.000000|iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAADtSURBVDhPYxgFCHDh4YX/sQtj/6u3qP9XblL\u002BHzk/8j9UiuHtx7f/VZpVwHxkNggwgohLjy79D18SzmAua86QZJbEwM/Bz3D91XWGCNMIRpAGo34jsGJkwMrMynCn9g5YP0PK0pT/3tO9/3/58gVuMjLA5wImEHH68WkGN3U3Bh4eHoiJJACwAb/\u002B/gI7CRuAeeH3398M8g3ycDayKxjC5oX9D54TjNX5IIDPC2Ann7x78n/E4ggGDw0PhgiDCLBrLj2/xJBhl0HQS3AFe67t\u002BT/lyBSGO2/uMHCxcTHYK9szdAd2kxwmIw8wMAAAESl0qwYO77cAAAAASUVORK5CYII=",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-06-08T03:33:38.197Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 1,
               "Title": "PlayerController.cs",
               "DocumentMoniker": "D:\\stealth-project\\stealth project\\Assets\\2_Scripts\\Player Controller\\PlayerController.cs",
               "RelativeDocumentMoniker": "Assets\\2_Scripts\\Player Controller\\PlayerController.cs",
               "ToolTip": "D:\\stealth-project\\stealth project\\Assets\\2_Scripts\\Player Controller\\PlayerController.cs",
               "RelativeToolTip": "Assets\\2_Scripts\\Player Controller\\PlayerController.cs",
-              "ViewState": "AQIAABsBAAAAAAAAAAAIwLIAAABoAAAA",
-              "Icon": "00000000-0000-0000-0000-000000000000.000000|iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAADtSURBVDhPYxgFCHDh4YX/sQtj/6u3qP9XblL\u002BHzk/8j9UiuHtx7f/VZpVwHxkNggwgohLjy79D18SzmAua86QZJbEwM/Bz3D91XWGCNMIRpAGo34jsGJkwMrMynCn9g5YP0PK0pT/3tO9/3/58gVuMjLA5wImEHH68WkGN3U3Bh4eHoiJJACwAb/\u002B/gI7CRuAeeH3398M8g3ycDayKxjC5oX9D54TjNX5IIDPC2Ann7x78n/E4ggGDw0PhgiDCLBrLj2/xJBhl0HQS3AFe67t\u002BT/lyBSGO2/uMHCxcTHYK9szdAd2kxwmIw8wMAAAESl0qwYO77cAAAAASUVORK5CYII=",
+              "ViewState": "AQIAADUCAAAAAAAAAAAgwHMCAAAvAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-05-10T23:47:23.05Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 6,
               "Title": "EnemyAwareness.cs",
               "DocumentMoniker": "D:\\stealth-project\\stealth project\\Assets\\2_Scripts\\Enemies\\EnemyAwareness.cs",
               "RelativeDocumentMoniker": "Assets\\2_Scripts\\Enemies\\EnemyAwareness.cs",
               "ToolTip": "D:\\stealth-project\\stealth project\\Assets\\2_Scripts\\Enemies\\EnemyAwareness.cs",
               "RelativeToolTip": "Assets\\2_Scripts\\Enemies\\EnemyAwareness.cs",
               "ViewState": "AQIAALsAAAAAAAAAAAAAAOEAAAA8AAAA",
-              "Icon": "00000000-0000-0000-0000-000000000000.000000|iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAADtSURBVDhPYxgFCHDh4YX/sQtj/6u3qP9XblL\u002BHzk/8j9UiuHtx7f/VZpVwHxkNggwgohLjy79D18SzmAua86QZJbEwM/Bz3D91XWGCNMIRpAGo34jsGJkwMrMynCn9g5YP0PK0pT/3tO9/3/58gVuMjLA5wImEHH68WkGN3U3Bh4eHoiJJACwAb/\u002B/gI7CRuAeeH3398M8g3ycDayKxjC5oX9D54TjNX5IIDPC2Ann7x78n/E4ggGDw0PhgiDCLBrLj2/xJBhl0HQS3AFe67t\u002BT/lyBSGO2/uMHCxcTHYK9szdAd2kxwmIw8wMAAAESl0qwYO77cAAAAASUVORK5CYII=",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-06-18T03:13:57.444Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 7,
               "Title": "EnemyStateMachine.cs",
               "DocumentMoniker": "D:\\stealth-project\\stealth project\\Assets\\2_Scripts\\Enemies\\EnemyStateMachine.cs",
               "RelativeDocumentMoniker": "Assets\\2_Scripts\\Enemies\\EnemyStateMachine.cs",
               "ToolTip": "D:\\stealth-project\\stealth project\\Assets\\2_Scripts\\Enemies\\EnemyStateMachine.cs",
               "RelativeToolTip": "Assets\\2_Scripts\\Enemies\\EnemyStateMachine.cs",
               "ViewState": "AQIAAC0BAAAAAAAAAAAAwCkCAAAzAAAA",
-              "Icon": "00000000-0000-0000-0000-000000000000.000000|iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAADtSURBVDhPYxgFCHDh4YX/sQtj/6u3qP9XblL\u002BHzk/8j9UiuHtx7f/VZpVwHxkNggwgohLjy79D18SzmAua86QZJbEwM/Bz3D91XWGCNMIRpAGo34jsGJkwMrMynCn9g5YP0PK0pT/3tO9/3/58gVuMjLA5wImEHH68WkGN3U3Bh4eHoiJJACwAb/\u002B/gI7CRuAeeH3398M8g3ycDayKxjC5oX9D54TjNX5IIDPC2Ann7x78n/E4ggGDw0PhgiDCLBrLj2/xJBhl0HQS3AFe67t\u002BT/lyBSGO2/uMHCxcTHYK9szdAd2kxwmIw8wMAAAESl0qwYO77cAAAAASUVORK5CYII=",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-05-18T11:14:53.387Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 5,
               "Title": "LevelGen.cs",
               "DocumentMoniker": "D:\\stealth-project\\stealth project\\Assets\\2_Scripts\\Tilemap Gemeration\\LevelGen.cs",
               "RelativeDocumentMoniker": "Assets\\2_Scripts\\Tilemap Gemeration\\LevelGen.cs",
               "ToolTip": "D:\\stealth-project\\stealth project\\Assets\\2_Scripts\\Tilemap Gemeration\\LevelGen.cs",
               "RelativeToolTip": "Assets\\2_Scripts\\Tilemap Gemeration\\LevelGen.cs",
               "ViewState": "AQIAABkAAAAAAAAAAAA1wEAAAABLAAAA",
-              "Icon": "00000000-0000-0000-0000-000000000000.000000|iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAADtSURBVDhPYxgFCHDh4YX/sQtj/6u3qP9XblL\u002BHzk/8j9UiuHtx7f/VZpVwHxkNggwgohLjy79D18SzmAua86QZJbEwM/Bz3D91XWGCNMIRpAGo34jsGJkwMrMynCn9g5YP0PK0pT/3tO9/3/58gVuMjLA5wImEHH68WkGN3U3Bh4eHoiJJACwAb/\u002B/gI7CRuAeeH3398M8g3ycDayKxjC5oX9D54TjNX5IIDPC2Ann7x78n/E4ggGDw0PhgiDCLBrLj2/xJBhl0HQS3AFe67t\u002BT/lyBSGO2/uMHCxcTHYK9szdAd2kxwmIw8wMAAAESl0qwYO77cAAAAASUVORK5CYII=",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-05-21T08:34:04.752Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 10,
               "Title": "PlayerJumpManager.cs",
               "DocumentMoniker": "D:\\stealth-project\\stealth project\\Assets\\2_Scripts\\Player Controller\\PlayerJumpManager.cs",
               "RelativeDocumentMoniker": "Assets\\2_Scripts\\Player Controller\\PlayerJumpManager.cs",
               "ToolTip": "D:\\stealth-project\\stealth project\\Assets\\2_Scripts\\Player Controller\\PlayerJumpManager.cs",
               "RelativeToolTip": "Assets\\2_Scripts\\Player Controller\\PlayerJumpManager.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAABgAAAA2AAAA",
-              "Icon": "00000000-0000-0000-0000-000000000000.000000|iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAADtSURBVDhPYxgFCHDh4YX/sQtj/6u3qP9XblL\u002BHzk/8j9UiuHtx7f/VZpVwHxkNggwgohLjy79D18SzmAua86QZJbEwM/Bz3D91XWGCNMIRpAGo34jsGJkwMrMynCn9g5YP0PK0pT/3tO9/3/58gVuMjLA5wImEHH68WkGN3U3Bh4eHoiJJACwAb/\u002B/gI7CRuAeeH3398M8g3ycDayKxjC5oX9D54TjNX5IIDPC2Ann7x78n/E4ggGDw0PhgiDCLBrLj2/xJBhl0HQS3AFe67t\u002BT/lyBSGO2/uMHCxcTHYK9szdAd2kxwmIw8wMAAAESl0qwYO77cAAAAASUVORK5CYII=",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-05-11T02:22:59.317Z"
             }
           ]
