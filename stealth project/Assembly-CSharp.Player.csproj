@@ -65,7 +65,6 @@
     <Compile Include="Assets\2_Scripts\Enemies\EnemySightCone.cs" />
     <Compile Include="Assets\2_Scripts\Player Controller\Bow\ShotIndicatorCollision.cs" />
     <Compile Include="Assets\2_Scripts\Player Controller\KOIndicator.cs" />
-    <Compile Include="Assets\2_Scripts\WFC\Helper.cs" />
     <Compile Include="Assets\2_Scripts\WFC\WFCBuilder.cs" />
     <Compile Include="Assets\2_Scripts\Player Controller\StealthKillZone.cs" />
     <Compile Include="Assets\2_Scripts\ShadowCaster2DTileMap.cs" />

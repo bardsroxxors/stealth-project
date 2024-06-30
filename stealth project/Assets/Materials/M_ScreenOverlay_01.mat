@@ -81,7 +81,7 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _Alpha: 0.4
+    - _Alpha: 0
     - _EnableExternalAlpha: 0
     - _Fullscreen_AlphaBlendOperation: 0
     - _Fullscreen_BlendMode: 3
@@ -91,8 +91,8 @@ Material:
     - _Fullscreen_DstColorBlend: 1
     - _Fullscreen_SrcAlphaBlend: 1
     - _Fullscreen_SrcColorBlend: 5
-    - _LCD_Rotation: 90
-    - _Pixel_Scale: 251.92
+    - _LCD_Rotation: 0
+    - _Pixel_Scale: 217.3
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _Flip: {r: 1, g: 1, b: 1, a: 1}
