@@ -3,28 +3,36 @@
   "WorkspaceRootPath": "D:\\stealth-project\\stealth project\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{B8A3D4B7-E533-0FD7-C260-767A941AA179}|Assembly-CSharp.csproj|d:\\stealth-project\\stealth project\\assets\\2_scripts\\player controller\\playercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{B8A3D4B7-E533-0FD7-C260-767A941AA179}|Assembly-CSharp.csproj|solutionrelative:assets\\2_scripts\\player controller\\playercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{B8A3D4B7-E533-0FD7-C260-767A941AA179}|Assembly-CSharp.csproj|D:\\stealth-project\\stealth project\\assets\\unity-wave-function-collapse\\impl\\model.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B8A3D4B7-E533-0FD7-C260-767A941AA179}|Assembly-CSharp.csproj|solutionrelative:assets\\unity-wave-function-collapse\\impl\\model.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{B8A3D4B7-E533-0FD7-C260-767A941AA179}|Assembly-CSharp.csproj|D:\\stealth-project\\stealth project\\assets\\unity-wave-function-collapse\\impl\\overlappingmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{B8A3D4B7-E533-0FD7-C260-767A941AA179}|Assembly-CSharp.csproj|solutionrelative:assets\\unity-wave-function-collapse\\impl\\overlappingmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{B8A3D4B7-E533-0FD7-C260-767A941AA179}|Assembly-CSharp.csproj|D:\\stealth-project\\stealth project\\assets\\unity-wave-function-collapse\\impl\\model.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{B8A3D4B7-E533-0FD7-C260-767A941AA179}|Assembly-CSharp.csproj|solutionrelative:assets\\unity-wave-function-collapse\\impl\\model.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{B8A3D4B7-E533-0FD7-C260-767A941AA179}|Assembly-CSharp.csproj|D:\\stealth-project\\stealth project\\assets\\unity-wave-function-collapse\\overlapwfc.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{B8A3D4B7-E533-0FD7-C260-767A941AA179}|Assembly-CSharp.csproj|solutionrelative:assets\\unity-wave-function-collapse\\overlapwfc.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{B8A3D4B7-E533-0FD7-C260-767A941AA179}|Assembly-CSharp.csproj|D:\\stealth-project\\stealth project\\assets\\2_scripts\\player controller\\grounditem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{B8A3D4B7-E533-0FD7-C260-767A941AA179}|Assembly-CSharp.csproj|solutionrelative:assets\\2_scripts\\player controller\\grounditem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{B8A3D4B7-E533-0FD7-C260-767A941AA179}|Assembly-CSharp.csproj|d:\\stealth-project\\stealth project\\assets\\2_scripts\\level generation\\roomzones.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B8A3D4B7-E533-0FD7-C260-767A941AA179}|Assembly-CSharp.csproj|solutionrelative:assets\\2_scripts\\level generation\\roomzones.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{B8A3D4B7-E533-0FD7-C260-767A941AA179}|Assembly-CSharp.csproj|D:\\stealth-project\\stealth project\\assets\\2_scripts\\tilemap gemeration\\levelgen.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{B8A3D4B7-E533-0FD7-C260-767A941AA179}|Assembly-CSharp.csproj|solutionrelative:assets\\2_scripts\\tilemap gemeration\\levelgen.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{B8A3D4B7-E533-0FD7-C260-767A941AA179}|Assembly-CSharp.csproj|d:\\stealth-project\\stealth project\\assets\\unity-wave-function-collapse\\training.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B8A3D4B7-E533-0FD7-C260-767A941AA179}|Assembly-CSharp.csproj|solutionrelative:assets\\unity-wave-function-collapse\\training.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B8A3D4B7-E533-0FD7-C260-767A941AA179}|Assembly-CSharp.csproj|d:\\stealth-project\\stealth project\\assets\\2_scripts\\navmesh generation\\navmeshgenerator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B8A3D4B7-E533-0FD7-C260-767A941AA179}|Assembly-CSharp.csproj|solutionrelative:assets\\2_scripts\\navmesh generation\\navmeshgenerator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B8A3D4B7-E533-0FD7-C260-767A941AA179}|Assembly-CSharp.csproj|d:\\stealth-project\\stealth project\\assets\\2_scripts\\player controller\\playercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B8A3D4B7-E533-0FD7-C260-767A941AA179}|Assembly-CSharp.csproj|solutionrelative:assets\\2_scripts\\player controller\\playercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B8A3D4B7-E533-0FD7-C260-767A941AA179}|Assembly-CSharp.csproj|D:\\stealth-project\\stealth project\\assets\\2_scripts\\player controller\\grounditem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B8A3D4B7-E533-0FD7-C260-767A941AA179}|Assembly-CSharp.csproj|solutionrelative:assets\\2_scripts\\player controller\\grounditem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{B8A3D4B7-E533-0FD7-C260-767A941AA179}|Assembly-CSharp.csproj|D:\\stealth-project\\stealth project\\assets\\2_scripts\\enemies\\enemyawareness.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -33,14 +41,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{B8A3D4B7-E533-0FD7-C260-767A941AA179}|Assembly-CSharp.csproj|D:\\stealth-project\\stealth project\\assets\\2_scripts\\enemies\\enemystatemachine.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{B8A3D4B7-E533-0FD7-C260-767A941AA179}|Assembly-CSharp.csproj|solutionrelative:assets\\2_scripts\\enemies\\enemystatemachine.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{B8A3D4B7-E533-0FD7-C260-767A941AA179}|Assembly-CSharp.csproj|D:\\stealth-project\\stealth project\\assets\\2_scripts\\ui\\ui_backpack.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{B8A3D4B7-E533-0FD7-C260-767A941AA179}|Assembly-CSharp.csproj|solutionrelative:assets\\2_scripts\\ui\\ui_backpack.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{B8A3D4B7-E533-0FD7-C260-767A941AA179}|Assembly-CSharp.csproj|D:\\stealth-project\\stealth project\\assets\\2_scripts\\player controller\\playerjumpmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{B8A3D4B7-E533-0FD7-C260-767A941AA179}|Assembly-CSharp.csproj|solutionrelative:assets\\2_scripts\\player controller\\playerjumpmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -54,43 +54,85 @@
           "Children": [
             {
               "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "Training.cs",
+              "DocumentMoniker": "D:\\stealth-project\\stealth project\\Assets\\unity-wave-function-collapse\\Training.cs",
+              "RelativeDocumentMoniker": "Assets\\unity-wave-function-collapse\\Training.cs",
+              "ToolTip": "D:\\stealth-project\\stealth project\\Assets\\unity-wave-function-collapse\\Training.cs",
+              "RelativeToolTip": "Assets\\unity-wave-function-collapse\\Training.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAkAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-07-04T05:15:31.433Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "NavmeshGenerator.cs",
+              "DocumentMoniker": "D:\\stealth-project\\stealth project\\Assets\\2_Scripts\\Navmesh Generation\\NavmeshGenerator.cs",
+              "RelativeDocumentMoniker": "Assets\\2_Scripts\\Navmesh Generation\\NavmeshGenerator.cs",
+              "ToolTip": "D:\\stealth-project\\stealth project\\Assets\\2_Scripts\\Navmesh Generation\\NavmeshGenerator.cs",
+              "RelativeToolTip": "Assets\\2_Scripts\\Navmesh Generation\\NavmeshGenerator.cs",
+              "ViewState": "AQIAAKIAAAAAAAAAAAAAALkAAAANAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-07-04T03:35:44.53Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "RoomZones.cs",
+              "DocumentMoniker": "D:\\stealth-project\\stealth project\\Assets\\2_Scripts\\Level Generation\\RoomZones.cs",
+              "RelativeDocumentMoniker": "Assets\\2_Scripts\\Level Generation\\RoomZones.cs",
+              "ToolTip": "D:\\stealth-project\\stealth project\\Assets\\2_Scripts\\Level Generation\\RoomZones.cs",
+              "RelativeToolTip": "Assets\\2_Scripts\\Level Generation\\RoomZones.cs",
+              "ViewState": "AQIAACMAAAAAAAAAAAAqwDgAAAAmAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-07-04T02:24:18.865Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "OverlapWFC.cs",
+              "DocumentMoniker": "D:\\stealth-project\\stealth project\\Assets\\unity-wave-function-collapse\\OverlapWFC.cs",
+              "RelativeDocumentMoniker": "Assets\\unity-wave-function-collapse\\OverlapWFC.cs",
+              "ToolTip": "D:\\stealth-project\\stealth project\\Assets\\unity-wave-function-collapse\\OverlapWFC.cs",
+              "RelativeToolTip": "Assets\\unity-wave-function-collapse\\OverlapWFC.cs",
+              "ViewState": "AQIAADsAAAAAAAAAAAA8wLUAAAAPAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-06-27T01:46:12.188Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
               "DocumentIndex": 1,
               "Title": "OverlappingModel.cs",
               "DocumentMoniker": "D:\\stealth-project\\stealth project\\Assets\\unity-wave-function-collapse\\impl\\OverlappingModel.cs",
               "RelativeDocumentMoniker": "Assets\\unity-wave-function-collapse\\impl\\OverlappingModel.cs",
               "ToolTip": "D:\\stealth-project\\stealth project\\Assets\\unity-wave-function-collapse\\impl\\OverlappingModel.cs",
               "RelativeToolTip": "Assets\\unity-wave-function-collapse\\impl\\OverlappingModel.cs",
-              "ViewState": "AQIAAIoAAAAAAAAAAAAAABUAAACIAAAA",
+              "ViewState": "AQIAAHsAAAAAAAAAAAAAAKMAAAAiAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-28T14:18:47.889Z"
+              "WhenOpened": "2024-06-28T14:18:47.889Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "OverlapWFC.cs",
-              "DocumentMoniker": "D:\\stealth-project\\stealth project\\Assets\\unity-wave-function-collapse\\OverlapWFC.cs",
-              "RelativeDocumentMoniker": "Assets\\unity-wave-function-collapse\\OverlapWFC.cs",
-              "ToolTip": "D:\\stealth-project\\stealth project\\Assets\\unity-wave-function-collapse\\OverlapWFC.cs",
-              "RelativeToolTip": "Assets\\unity-wave-function-collapse\\OverlapWFC.cs",
-              "ViewState": "AQIAADkAAAAAAAAAAAAowGIAAAB0AAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-27T01:46:12.188Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 0,
               "Title": "Model.cs",
               "DocumentMoniker": "D:\\stealth-project\\stealth project\\Assets\\unity-wave-function-collapse\\impl\\Model.cs",
               "RelativeDocumentMoniker": "Assets\\unity-wave-function-collapse\\impl\\Model.cs",
               "ToolTip": "D:\\stealth-project\\stealth project\\Assets\\unity-wave-function-collapse\\impl\\Model.cs",
               "RelativeToolTip": "Assets\\unity-wave-function-collapse\\impl\\Model.cs",
-              "ViewState": "AQIAAJ8AAAAAAAAAAAAAALMAAAAbAAAA",
+              "ViewState": "AQIAAJAAAAAAAAAAAAAAAK0AAAASAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-26T13:26:54.907Z"
+              "WhenOpened": "2024-06-26T13:26:54.907Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 7,
               "Title": "GroundItem.cs",
               "DocumentMoniker": "D:\\stealth-project\\stealth project\\Assets\\2_Scripts\\Player Controller\\GroundItem.cs",
               "RelativeDocumentMoniker": "Assets\\2_Scripts\\Player Controller\\GroundItem.cs",
@@ -102,32 +144,20 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
-              "Title": "UI_Backpack.cs",
-              "DocumentMoniker": "D:\\stealth-project\\stealth project\\Assets\\2_Scripts\\UI\\UI_Backpack.cs",
-              "RelativeDocumentMoniker": "Assets\\2_Scripts\\UI\\UI_Backpack.cs",
-              "ToolTip": "D:\\stealth-project\\stealth project\\Assets\\2_Scripts\\UI\\UI_Backpack.cs",
-              "RelativeToolTip": "Assets\\2_Scripts\\UI\\UI_Backpack.cs",
-              "ViewState": "AQIAADYAAAAAAAAAAAAcwG0AAAAIAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-08T03:33:38.197Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 6,
               "Title": "PlayerController.cs",
               "DocumentMoniker": "D:\\stealth-project\\stealth project\\Assets\\2_Scripts\\Player Controller\\PlayerController.cs",
               "RelativeDocumentMoniker": "Assets\\2_Scripts\\Player Controller\\PlayerController.cs",
               "ToolTip": "D:\\stealth-project\\stealth project\\Assets\\2_Scripts\\Player Controller\\PlayerController.cs",
               "RelativeToolTip": "Assets\\2_Scripts\\Player Controller\\PlayerController.cs",
-              "ViewState": "AQIAAAYCAAAAAAAAAAAcwB4CAAAPAAAA",
+              "ViewState": "AQIAAAYCAAAAAAAAAAA0wB4CAAAPAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-05-10T23:47:23.05Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 8,
               "Title": "EnemyAwareness.cs",
               "DocumentMoniker": "D:\\stealth-project\\stealth project\\Assets\\2_Scripts\\Enemies\\EnemyAwareness.cs",
               "RelativeDocumentMoniker": "Assets\\2_Scripts\\Enemies\\EnemyAwareness.cs",
@@ -139,7 +169,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 9,
               "Title": "EnemyStateMachine.cs",
               "DocumentMoniker": "D:\\stealth-project\\stealth project\\Assets\\2_Scripts\\Enemies\\EnemyStateMachine.cs",
               "RelativeDocumentMoniker": "Assets\\2_Scripts\\Enemies\\EnemyStateMachine.cs",
@@ -148,30 +178,6 @@
               "ViewState": "AQIAAC0BAAAAAAAAAAAAwCkCAAAzAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-05-18T11:14:53.387Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "LevelGen.cs",
-              "DocumentMoniker": "D:\\stealth-project\\stealth project\\Assets\\2_Scripts\\Tilemap Gemeration\\LevelGen.cs",
-              "RelativeDocumentMoniker": "Assets\\2_Scripts\\Tilemap Gemeration\\LevelGen.cs",
-              "ToolTip": "D:\\stealth-project\\stealth project\\Assets\\2_Scripts\\Tilemap Gemeration\\LevelGen.cs",
-              "RelativeToolTip": "Assets\\2_Scripts\\Tilemap Gemeration\\LevelGen.cs",
-              "ViewState": "AQIAABkAAAAAAAAAAAA1wEAAAABLAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-21T08:34:04.752Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 9,
-              "Title": "PlayerJumpManager.cs",
-              "DocumentMoniker": "D:\\stealth-project\\stealth project\\Assets\\2_Scripts\\Player Controller\\PlayerJumpManager.cs",
-              "RelativeDocumentMoniker": "Assets\\2_Scripts\\Player Controller\\PlayerJumpManager.cs",
-              "ToolTip": "D:\\stealth-project\\stealth project\\Assets\\2_Scripts\\Player Controller\\PlayerJumpManager.cs",
-              "RelativeToolTip": "Assets\\2_Scripts\\Player Controller\\PlayerJumpManager.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAABgAAAA2AAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-11T02:22:59.317Z"
             }
           ]
         }

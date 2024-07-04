@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
-public class RoomZones : MonoBehaviour
+class RoomZones : MonoBehaviour
 {
 
     public Vector2Int minDimensions = Vector2Int.zero;
@@ -24,7 +24,13 @@ public class RoomZones : MonoBehaviour
     private int[] gen;
     // 0 means empty
     // 1 means room fill
-    // 2 means the center point of a room
+    // 2 means space buffer
+
+    public bool drawGizmos = true;
+
+    public Training training;
+
+    private bool[][] wave;
 
 
 
@@ -35,7 +41,6 @@ public class RoomZones : MonoBehaviour
         {
             gen[i] = 0;
         }
-        Debug.Log(gen[0]);
         int attempts = 0;
 
         while (attempts  < maxAttempts)
@@ -52,12 +57,15 @@ public class RoomZones : MonoBehaviour
             if(!CheckOverlap(c, x, y))
             {
 
+                PlaceRoom(c, x, y);
             }
-
-            attempts++;
+            else 
+                attempts++;
         }
 
+        TranslateToWave();
 
+        Debug.Log("Done");
         // pick a random spot to be the center
         // pick a random area
         // check if it fits
@@ -71,16 +79,33 @@ public class RoomZones : MonoBehaviour
         {
             for (int n = c.y-y/2; n < c.y+y/2; n++)
             {
-                if (gen[i + n * area.x] == 0)
-                    return false;
+                if (gen[i + n * area.x] != 0)
+                {
+
+                    return true;
+                }
+                    
             }
         }
-
-        return true;
+        
+        return false;
     }
 
     private void PlaceRoom(Vector2Int c, int x, int y)
     {
+        // place padding
+        for (int i = c.x-x/2 - minPadding; i < c.x+x/2 + minPadding; i++)
+        {
+            for (int n = c.y-y/2 - minPadding; n < c.y+y/2 + minPadding; n++)
+            {
+                if (i >= 0 && i < area.x &&
+                    n >= 0 && n < area.y)
+                    gen[i + n * area.x] = 2;
+
+            }
+        }
+
+        // place room
         for (int i = c.x-x/2; i < c.x+x/2; i++)
         {
             for (int n = c.y-y/2; n < c.y+y/2; n++)
@@ -90,10 +115,78 @@ public class RoomZones : MonoBehaviour
             }
         }
 
+        gen[c.x + c.y * area.x] = 3;
+    }
+
+    private void TranslateToWave()
+    {
+        wave = new bool[area.x * area.y][];
+
+        // using our int[] data structure
+        // create a bool[][] to pass into wfc
+
+        // we have tiles[] from the training thing
+
+        // from int[i] get tile
+
+        // at bool[i]
+        //      set all to false
+        //      set bool[i][tile] to true
+
+        for (int i = 0; i < gen.Length; i++)
+        {
+            wave[i] = new bool[training.tiles.Length];
+            for (int t = 0; t < training.tiles.Length; t++)
+            {
+                wave[i][t] = false;
+            }
+
+            wave[i][ gen[i] ] = true;
+        }
+    }
+
+
+
+
+    private void OnDrawGizmos()
+    {
+        if (drawGizmos == false)
+        {
+            return;
+        }
+
+
+
+        if (gen != null)
+        {
+            for (int x = 0; x < area.x; x++)
+            {
+                for (int y = 0; y < area.y; y++)
+                {
+
+                        Vector3 pos = transform.position;
+                        pos.x += x;
+                        pos.y += y;
+
+                        if(gen[x + y * area.x] == 1)
+                            Handles.color = UnityEngine.Color.green;
+                        if (gen[x + y * area.x] == 2)
+                            Handles.color = UnityEngine.Color.yellow;
+                        if (gen[x + y * area.x] == 3)
+                            Handles.color = UnityEngine.Color.red;
+                        if (gen[x + y * area.x] == 0)
+                            Handles.color = UnityEngine.Color.white;
+                        
+
+                        Handles.DrawWireCube(pos, new Vector3(0.25f, 0.25f, 0.25f));
+                }
+            }
+        }
+
+
     }
 
 }
-
 
 
 
