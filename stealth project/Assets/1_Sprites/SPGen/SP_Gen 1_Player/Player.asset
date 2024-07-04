@@ -141,11 +141,12 @@ MonoBehaviour:
   CurrentStatePreset: " <sbspreset pkgurl=\"pkg://A\" label=\"\" >\n  <presetinput
     identifier=\"$outputsize\" uid=\"3182604835\" type=\"8\" value=\"9,9\" />\n 
     <presetinput identifier=\"Shadows_AreaSelect_Position\" uid=\"3736252795\" type=\"0\"
-    value=\"1\" />\n  <presetinput identifier=\"Shadows_AreaSelect_Range\" uid=\"3736253679\"
+    value=\"0.793\" />\n  <presetinput identifier=\"Shadows_AreaSelect_Range\" uid=\"3736253679\"
     type=\"0\" value=\"0.39\" />\n  <presetinput identifier=\"Shadows_AreaMask_Postion\"
     uid=\"3736258415\" type=\"0\" value=\"0.338\" />\n  <presetinput identifier=\"Hightlights_AreaSelect_Position\"
-    uid=\"3739910174\" type=\"0\" value=\"0.124\" />\n  <presetinput identifier=\"Highlights_AreaSelect_Range\"
-    uid=\"3739917189\" type=\"0\" value=\"0.955\" />\n  <presetinput identifier=\"Highlights_AreaMask_Select\"
+    uid=\"3739910174\" type=\"0\" value=\"0.867\" />\n  <presetinput identifier=\"Highlights_AreaSelect_Range\"
+    uid=\"3739917189\" type=\"0\" value=\"0.17\" />\n  <presetinput identifier=\"Highlights_AreaInvert\"
+    uid=\"3739916445\" type=\"4\" value=\"1\" />\n  <presetinput identifier=\"Highlights_AreaMask_Select\"
     uid=\"3736929467\" type=\"0\" value=\"0.592\" />\n  <presetinput identifier=\"Highlights_AreaMask_Range\"
     uid=\"3736934444\" type=\"0\" value=\"0.171\" />\n  <presetinput identifier=\"Highlights_Add_Sub\"
     uid=\"3736952551\" type=\"4\" value=\"0\" />\n  <presetinput identifier=\"Highlights_lightangle\"
@@ -229,7 +230,7 @@ MonoBehaviour:
           GuiDescription: 
           Type: 0
           WidgetType: 1
-        Data: 1
+        Data: 0.793
         NumericalDescription:
           DefaultValue: 0.79
           MinValue: 0
@@ -517,7 +518,7 @@ MonoBehaviour:
           GuiDescription: 
           Type: 0
           WidgetType: 1
-        Data: 0.124
+        Data: 0.867
         NumericalDescription:
           DefaultValue: 0.68
           MinValue: 0
@@ -537,7 +538,7 @@ MonoBehaviour:
           GuiDescription: 
           Type: 0
           WidgetType: 1
-        Data: 0.955
+        Data: 0.17
         NumericalDescription:
           DefaultValue: 0.96
           MinValue: 0
@@ -557,7 +558,7 @@ MonoBehaviour:
           GuiDescription: 
           Type: 4
           WidgetType: 4
-        Data: 0
+        Data: 1
         NumericalDescription:
           DefaultValue: 0
           MinValue: 0

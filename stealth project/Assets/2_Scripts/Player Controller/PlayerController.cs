@@ -100,6 +100,8 @@ public class PlayerController : MonoBehaviour
     public Vector2 collisionDirections = Vector2.zero; // set to 0 for no collision, -1 for left, 1 for right
     public string[] collisionLayers;
     public Vector2 groundNormal = Vector2.zero;
+    public float colliderYModifier = 0.6f;
+    private float colliderYscale = 0;
 
     public GameObject normalIndicator;
     public bool slopeCheckRaycast = false;
@@ -162,6 +164,7 @@ public class PlayerController : MonoBehaviour
         collider = GetComponent<BoxCollider2D>();
         killZone = killzoneObject.GetComponent<StealthKillZone>();
         backpack = GameObject.Find("Backpack").GetComponent<UI_Backpack>();
+        colliderYscale = collider.size.y;
     }
 
 
@@ -213,12 +216,16 @@ public class PlayerController : MonoBehaviour
                 break;
         }
 
+
+        
+
         if (CurrentPlayerState != e_PlayerControllerStates.Hiding)
             ApplyMovement();
 
         if(!(CurrentPlayerState == e_PlayerControllerStates.FreeMove ||
             CurrentPlayerState == e_PlayerControllerStates.WallGrab ) && f_isCharging)
             f_isCharging = false;
+
 
         // manage timers
 
@@ -249,7 +256,9 @@ public class PlayerController : MonoBehaviour
         if (t_attackCooldown > 0) t_attackCooldown -= Time.deltaTime;
         if (t_knockTime > 0) t_knockTime -= Time.deltaTime;
         if (t_noiseInterval > 0) t_noiseInterval -= Time.deltaTime;
-        
+
+
+
     }
 
     private void Update()
@@ -257,6 +266,11 @@ public class PlayerController : MonoBehaviour
         //if (lit) spriteRenderer.color = defaultColour;
         //else spriteRenderer.color = darkColour;
         UpdateAnimator();
+        if (collisionDirections.y == -1 || f_groundClose) collider.size = new Vector2(collider.size.x, colliderYscale);
+        else
+        {
+            collider.size = new Vector2(collider.size.x, colliderYscale * colliderYModifier);
+        }
     }
 
 
@@ -523,10 +537,10 @@ public class PlayerController : MonoBehaviour
 
         RaycastHit2D hit = Physics2D.BoxCast(
             collider.bounds.center, 
-            new Vector2(collider.size.x*0.8f, collider.size.y), 
+            new Vector2(collider.size.x*0.8f, colliderYscale), 
             0, 
             Vector3.down, 
-            0.1f,
+            0.3f,
             collisionMask
             );
         
@@ -597,6 +611,8 @@ public class PlayerController : MonoBehaviour
                 {
                     collisionDirections.y = -1;
                     t_gracetimePostCollide = gracetimePostCollide;
+
+                    
                     //gravityVector.y = 0;
                 }
                 // if surface faces down
@@ -760,8 +776,16 @@ public class PlayerController : MonoBehaviour
     // manage animator variables
     private void UpdateAnimator()
     {
-        if (collisionDirections.y == -1 || f_groundClose) animator.SetBool("grounded", true);
-        else animator.SetBool("grounded", false);
+        if (collisionDirections.y == -1 || f_groundClose)
+        {
+            animator.SetBool("grounded", true);
+            
+        }
+        else
+        {
+            animator.SetBool("grounded", false);
+            
+        }
 
         if (Mathf.Abs(moveStickVector.x) <= 0.5f) animator.SetBool("not moving", true);
         else animator.SetBool("not moving", false);
@@ -786,9 +810,29 @@ public class PlayerController : MonoBehaviour
 
         if(CurrentPlayerState == e_PlayerControllerStates.WallGrab) animator.SetBool("wall grab", true);
         else animator.SetBool("wall grab", false);
+
+        if(!animator.GetBool("wall grab") && !animator.GetBool("grounded"))
+        {
+            animator.speed = 0;
+            animator.Play("air", 0, GetAirFrame());
+        }
+        else
+        {
+            animator.speed = 1;
+        }
     }
 
+    private float GetAirFrame()
+    {
+        if (movementVector.y > 1.5)
+            return 0;
+        else if (movementVector.y < 1.5 && movementVector.y > -1.5)
+            return 0.5f;
+        else
+            return 0.9f;
 
+ 
+    }
 
 
 
@@ -875,17 +919,17 @@ public class PlayerController : MonoBehaviour
 
     void OnToggleSneak(InputValue value)
     {
-        if(CurrentPlayerState == e_PlayerControllerStates.FreeMove)
-        {
+        //if(CurrentPlayerState == e_PlayerControllerStates.FreeMove)
+        //{
             if(f_holdToRun) sneaking = false;
             else sneaking = !sneaking;
-        }
+        //}
 
     }
 
     void OnSneakRelease(InputValue value)
     {
-        if (CurrentPlayerState == e_PlayerControllerStates.FreeMove && f_holdToRun)
+        if (f_holdToRun)
         {
             sneaking = true;
             
