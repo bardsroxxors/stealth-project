@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8050745577589146913}
   - component: {fileID: 8880517075633086048}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: navPrefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}

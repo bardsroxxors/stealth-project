@@ -65,7 +65,8 @@ public class NavmeshGenerator : MonoBehaviour
 
                 // if there is free space and a tile below
                 if (map.GetSprite(new Vector3Int(x, y, 0)) == null &&
-                    map.GetSprite(new Vector3Int(x, y-1, 0)) != null )
+                    map.GetSprite(new Vector3Int(x, y - 1, 0)) != null &&
+                    map.GetSprite(new Vector3Int(x, y + 1, 0)) == null)
                 {
 
                     Vector3 pos = map.layoutGrid.CellToWorld(new Vector3Int(x, y, 0));

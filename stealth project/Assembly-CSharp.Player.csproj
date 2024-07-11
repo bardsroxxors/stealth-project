@@ -62,16 +62,21 @@
   <ItemGroup>
     <Compile Include="Assets\unity-wave-function-collapse\impl\OverlappingModel.cs" />
     <Compile Include="Assets\AOSFogWar\Shadowcaster.cs" />
+    <Compile Include="Assets\KadaXuanwu\UtilityDesigner\Demos\Survival\Scripts\BearController.cs" />
     <Compile Include="Assets\2_Scripts\Enemies\EnemySightCone.cs" />
+    <Compile Include="Assets\KadaXuanwu\UtilityDesigner\Demos\Survival\Scripts\DoPushupMovement.cs" />
     <Compile Include="Assets\2_Scripts\Player Controller\Bow\ShotIndicatorCollision.cs" />
     <Compile Include="Assets\2_Scripts\Player Controller\KOIndicator.cs" />
+    <Compile Include="Assets\KadaXuanwu\UtilityDesigner\Demos\Survival\Scripts\SleepEffect.cs" />
     <Compile Include="Assets\2_Scripts\WFC\WFCBuilder.cs" />
+    <Compile Include="Assets\KadaXuanwu\UtilityDesigner\Demos\Survival\Scripts\FollowPath.cs" />
     <Compile Include="Assets\2_Scripts\Player Controller\StealthKillZone.cs" />
     <Compile Include="Assets\2_Scripts\ShadowCaster2DTileMap.cs" />
     <Compile Include="Assets\unity-wave-function-collapse\OverlapWFC.cs" />
     <Compile Include="Assets\2_Scripts\UI\UI_PlayerHealth.cs" />
     <Compile Include="Assets\2_Scripts\Navmesh Generation\NavPoint.cs" />
     <Compile Include="Assets\2_Scripts\Tilemap Gemeration\LevelGenEditor.cs" />
+    <Compile Include="Assets\KadaXuanwu\UtilityDesigner\Demos\Survival\Scripts\GameManager.cs" />
     <Compile Include="Assets\2_Scripts\Player Controller\Equipment\EquipmentManager.cs" />
     <Compile Include="Assets\2_Scripts\Player Controller\PlayerAnimationManager.cs" />
     <Compile Include="Assets\2_Scripts\Player Controller\PlayerSpriteManager.cs" />
@@ -83,6 +88,7 @@
     <Compile Include="Assets\2_Scripts\Enemies\EnemyFogVisiblity.cs" />
     <Compile Include="Assets\2_Scripts\Enemies\EnemyAwareness.cs" />
     <Compile Include="Assets\2_Scripts\Tilemap Gemeration\RoomNodeGen.cs" />
+    <Compile Include="Assets\KadaXuanwu\UtilityDesigner\Demos\Survival\Scripts\KillBear.cs" />
     <Compile Include="Assets\2_Scripts\PatrolRoute.cs" />
     <Compile Include="Assets\unity-wave-function-collapse\impl\Stuff.cs" />
     <Compile Include="Assets\2_Scripts\SnapToGrid.cs" />
@@ -97,13 +103,16 @@
     <Compile Include="Assets\2_Scripts\CameraFollow.cs" />
     <Compile Include="Assets\2_Scripts\SmallObjectScript.cs" />
     <Compile Include="Assets\2_Scripts\Player Controller\Sword\SwordScript.cs" />
+    <Compile Include="Assets\KadaXuanwu\UtilityDesigner\Demos\Survival\Scripts\CameraFollow.cs" />
     <Compile Include="Assets\unity-wave-function-collapse\TilePainter.cs" />
+    <Compile Include="Assets\KadaXuanwu\UtilityDesigner\Demos\Survival\Scripts\KillDeer.cs" />
     <Compile Include="Assets\2_Scripts\HideSprite.cs" />
     <Compile Include="Assets\2_Scripts\Enemies\EnemyAnimationTrigger.cs" />
     <Compile Include="Assets\2_Scripts\NoiseScript.cs" />
     <Compile Include="Assets\AOSFogWar\Demo\Scripts\csEyeController.cs" />
     <Compile Include="Assets\2_Scripts\Player Controller\PlayerGroundTrigger.cs" />
     <Compile Include="Assets\2_Scripts\Player Controller\PlayerAttackManager.cs" />
+    <Compile Include="Assets\KadaXuanwu\UtilityDesigner\Demos\Survival\Scripts\TakeSteak.cs" />
     <Compile Include="Assets\2_Scripts\ShadowCastersGeneratorEditor.cs" />
     <Compile Include="Assets\2_Scripts\Navmesh Generation\NavmeshGenEditor.cs" />
     <Compile Include="Assets\2_Scripts\Enemies\AttackTriggerZone.cs" />
@@ -115,16 +124,20 @@
     <Compile Include="Assets\2_Scripts\FogOfWarScript.cs" />
     <Compile Include="Assets\2_Scripts\Player Controller\PlayerJumpManager.cs" />
     <Compile Include="Assets\2_Scripts\Player Controller\SwordHitboxScript.cs" />
+    <Compile Include="Assets\KadaXuanwu\UtilityDesigner\Demos\Survival\Scripts\TakeFishingRod.cs" />
     <Compile Include="Assets\unity-wave-function-collapse\Training.cs" />
     <Compile Include="Assets\2_Scripts\Navmesh Generation\NavmeshGenerator.cs" />
     <Compile Include="Assets\2_Scripts\Player Controller\DijkFOW.cs" />
     <Compile Include="Assets\2_Scripts\UI\UI_Backpack.cs" />
     <Compile Include="Assets\2_Scripts\Arrow.cs" />
     <Compile Include="Assets\unity-wave-function-collapse\impl\SimpleTiledModel.cs" />
+    <Compile Include="Assets\KadaXuanwu\UtilityDesigner\Demos\Survival\Scripts\TakeBoatTrip.cs" />
     <Compile Include="Assets\AOSFogWar\Examples\csFogVisibilityAgent.cs" />
     <Compile Include="Assets\2_Scripts\Enemies\EnemyStateMachine.cs" />
+    <Compile Include="Assets\KadaXuanwu\UtilityDesigner\Demos\Survival\Scripts\JamesStats.cs" />
     <Compile Include="Assets\2_Scripts\Player Controller\PlayerController.cs" />
     <Compile Include="Assets\2_Scripts\Player Controller\GrappleLineRenderer.cs" />
+    <Compile Include="Assets\KadaXuanwu\UtilityDesigner\Demos\Survival\Scripts\DeerController.cs" />
     <Compile Include="Assets\2_Scripts\Effects\OneShotParticle.cs" />
     <Compile Include="Assets\2_Scripts\Player Controller\Bow\Bow.cs" />
     <Compile Include="Assets\AOSFogWar\Examples\csRevealerSpawner.cs" />
@@ -927,6 +940,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="UtilityDesigner.Player.csproj">
+      <Project>{0A936990-1E5D-915A-A79A-C6A55A2D9C4B}</Project>
+      <Name>UtilityDesigner.Player</Name>
+    </ProjectReference>
     <ProjectReference Include="Unity.2D.IK.Runtime.Player.csproj">
       <Project>{AB27A6D4-DE84-58CF-0BDA-71ED6A80DD84}</Project>
       <Name>Unity.2D.IK.Runtime.Player</Name>

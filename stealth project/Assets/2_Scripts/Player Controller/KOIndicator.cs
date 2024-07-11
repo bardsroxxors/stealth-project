@@ -8,6 +8,9 @@ public class KOIndicator : MonoBehaviour
     public Sprite[] sprites;
     public float animationPercent = 0;
     private SpriteRenderer renderer;
+    public Vector3 targetPosition;
+    public float minZipDistance = 0.1f;
+    public float zipSpeed = 15;
 
     // Start is called before the first frame update
     void Start()
@@ -28,6 +31,13 @@ public class KOIndicator : MonoBehaviour
         if(renderer != null)
         {
             renderer.sprite = sprites[i];
+
+
+            Vector2 distance = targetPosition - transform.position;
+            if (distance.magnitude > minZipDistance)
+            {
+                transform.Translate(distance.normalized * zipSpeed, Space.World);
+            }
         }
     }
 }

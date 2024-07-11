@@ -79,6 +79,10 @@ public class PlayerController : MonoBehaviour
     private bool f_init_swordSwing = false;
     public float swingMoveSpeed = 5f;
     public float swingMoveDecay = 5f;
+    [Range(0, 1)]
+    public float attackLength = 0.5f;
+    
+    private float t_attackLength = 0;
 
     private bool f_canInteract = false;
 
@@ -256,6 +260,7 @@ public class PlayerController : MonoBehaviour
         if (t_attackCooldown > 0) t_attackCooldown -= Time.deltaTime;
         if (t_knockTime > 0) t_knockTime -= Time.deltaTime;
         if (t_noiseInterval > 0) t_noiseInterval -= Time.deltaTime;
+        if (t_attackLength > 0) t_attackLength -= Time.deltaTime;
 
 
 
@@ -428,16 +433,19 @@ public class PlayerController : MonoBehaviour
             swordObject.transform.localScale = new Vector3( playerFacingVector.x, 1, 1 );
             swordObject.GetComponentInChildren<Animator>().SetTrigger("swing");
             swordObject.GetComponentInChildren<SwordScript>().animating = true;
-            swordObject.transform.GetChild(0).transform.localPosition = new Vector3 (0.75f,0,0);
+            swordObject.transform.GetChild(0).transform.localPosition = new Vector3 (1f,0,0);
             swordObject.transform.GetChild(0).GetComponent<DamageSource>().RefreshDamageSource();
             inputVector.x = swingMoveSpeed * playerFacingVector.x;
 
+            t_attackLength = attackLength;
             t_attackCooldown = attackCooldown;
+            animator.SetTrigger("attack trigger");
 
             f_init_swordSwing = true;
         }
 
-
+        // clamp to zero when its close
+        if (inputVector.magnitude <= 0.1) inputVector = Vector2.zero;
 
         if (inputVector.magnitude > 0)
         {
@@ -447,6 +455,10 @@ public class PlayerController : MonoBehaviour
         gravityVector.y = 0;
 
         if (!swordObject.GetComponentInChildren<SwordScript>().animating)
+            swordObject.SetActive(false);
+
+        //if (animator.GetCurrentAnimatorClipInfo(0)[0].clip.name != "attack")
+        if(t_attackLength <= 0)
         {
             swordObject.SetActive(false);
             ChangeState(e_PlayerControllerStates.FreeMove);
@@ -816,8 +828,6 @@ public class PlayerController : MonoBehaviour
         // attack
         if (CurrentPlayerState == e_PlayerControllerStates.SwordSwing) {
             animator.SetBool("attacking", true);
-            animator.SetBool("not moving", false);
-            animator.SetBool("sneaking", false);
         }
         else animator.SetBool("attacking", false);
 
@@ -969,9 +979,9 @@ public class PlayerController : MonoBehaviour
             koIndicator.SetActive(true);
             if (currentTarget != null)
             {
-                koIndicator.transform.position = currentTarget.transform.position;
+                koIndicator.GetComponent<KOIndicator>().targetPosition = currentTarget.transform.position;
             }
-            else koIndicator.transform.localPosition = new Vector3(0, 1, 0);
+            else koIndicator.GetComponent<KOIndicator>().targetPosition = transform.position + new Vector3(0, 1, 0);
 
 
 

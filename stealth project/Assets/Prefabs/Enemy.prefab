@@ -1112,6 +1112,10 @@ MonoBehaviour:
   attackTrigger: {fileID: 8200466295216942089}
   f_triggerAttack: 0
   f_playerInAttackZone: 0
+  randomPointRadius: 5
+  navpointsMask:
+    serializedVersion: 2
+    m_Bits: 32768
 --- !u!114 &2881394861468808388
 MonoBehaviour:
   m_ObjectHideFlags: 0

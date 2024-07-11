@@ -15,6 +15,7 @@ public enum e_EnemyStates
     patrolling, // walking to next patrol point
     waiting,    // waiting at patrpol point
     investigate,// walking to last known position
+    scramble,   // running around to random points
     headSwivel, // looking around
     reaction,   // reacting to new information
     damageFlinch,// reacting to minor damage
@@ -129,6 +130,10 @@ public class EnemyStateMachine : MonoBehaviour
     // used by animator to trigger attack
     public bool f_triggerAttack = false;
     public bool f_playerInAttackZone = false;
+
+    [Header("Scramble")]
+    public float randomPointRadius = 5;
+    public LayerMask navpointsMask;
 
 
     private Path path;
@@ -511,8 +516,17 @@ public class EnemyStateMachine : MonoBehaviour
     }
 
 
+    // this is the stat where the enemy runs around at random
+    /*
+     maybe do it by taking a circle around the enemy, picking a random point in that circle,
+    then translate that to the a walkable point below that point?
 
+    easier way, get a random navpoint from in that circle
+     */
+    private void ProcessScramble()
+    {
 
+    }
 
 
 
@@ -760,7 +774,13 @@ public class EnemyStateMachine : MonoBehaviour
 
     // #######  ------------------  #######
 
-
+    private void GetRandomNavPoint()
+    {
+        List<Collider2D> points = new List<Collider2D>();
+        ContactFilter2D contactFilter = new ContactFilter2D();
+        contactFilter.SetLayerMask(navpointsMask);
+        Physics2D.OverlapCircle(transform.position, randomPointRadius, contactFilter, points);
+    }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
