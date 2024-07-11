@@ -552,7 +552,7 @@ public class PlayerController : MonoBehaviour
             new Vector2(collider.size.x*0.8f, colliderYscale), 
             0, 
             Vector3.down, 
-            0.3f,
+            0.1f * Mathf.Abs(gravityVector.y/jumpManager.maxFallSpeed) + 0.3f,
             collisionMask
             );
         

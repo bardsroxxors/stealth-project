@@ -136,8 +136,8 @@
     <Compile Include="Assets\2_Scripts\Enemies\EnemyStateMachine.cs" />
     <Compile Include="Assets\KadaXuanwu\UtilityDesigner\Demos\Survival\Scripts\JamesStats.cs" />
     <Compile Include="Assets\2_Scripts\Player Controller\PlayerController.cs" />
-    <Compile Include="Assets\2_Scripts\Player Controller\GrappleLineRenderer.cs" />
     <Compile Include="Assets\KadaXuanwu\UtilityDesigner\Demos\Survival\Scripts\DeerController.cs" />
+    <Compile Include="Assets\2_Scripts\Player Controller\GrappleLineRenderer.cs" />
     <Compile Include="Assets\2_Scripts\Effects\OneShotParticle.cs" />
     <Compile Include="Assets\2_Scripts\Player Controller\Bow\Bow.cs" />
     <Compile Include="Assets\AOSFogWar\Examples\csRevealerSpawner.cs" />
@@ -1004,10 +1004,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="UtilityDesigner.csproj">
-      <Project>{31C55EE3-A535-6DDE-93FB-F0DC16377F0B}</Project>
-      <Name>UtilityDesigner</Name>
-    </ProjectReference>
     <ProjectReference Include="Unity.2D.IK.Runtime.csproj">
       <Project>{A44770E5-509E-FAA9-2C7B-A5D82F85E33F}</Project>
       <Name>Unity.2D.IK.Runtime</Name>
@@ -1271,6 +1267,10 @@
     <ProjectReference Include="Unity.2D.IK.Editor.csproj">
       <Project>{D97ED213-E93D-A903-FA64-F5E91DE4946A}</Project>
       <Name>Unity.2D.IK.Editor</Name>
+    </ProjectReference>
+    <ProjectReference Include="UtilityDesigner.csproj">
+      <Project>{31C55EE3-A535-6DDE-93FB-F0DC16377F0B}</Project>
+      <Name>UtilityDesigner</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

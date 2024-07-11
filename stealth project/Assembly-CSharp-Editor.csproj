@@ -1078,10 +1078,6 @@
       <Project>{7DA6CC13-B613-6DEE-7F27-89FBEF84BA68}</Project>
       <Name>UnityEngine.TestRunner</Name>
     </ProjectReference>
-    <ProjectReference Include="UtilityDesigner.csproj">
-      <Project>{31C55EE3-A535-6DDE-93FB-F0DC16377F0B}</Project>
-      <Name>UtilityDesigner</Name>
-    </ProjectReference>
     <ProjectReference Include="Unity.2D.IK.Runtime.csproj">
       <Project>{A44770E5-509E-FAA9-2C7B-A5D82F85E33F}</Project>
       <Name>Unity.2D.IK.Runtime</Name>
@@ -1345,6 +1341,10 @@
     <ProjectReference Include="Unity.2D.IK.Editor.csproj">
       <Project>{D97ED213-E93D-A903-FA64-F5E91DE4946A}</Project>
       <Name>Unity.2D.IK.Editor</Name>
+    </ProjectReference>
+    <ProjectReference Include="UtilityDesigner.csproj">
+      <Project>{31C55EE3-A535-6DDE-93FB-F0DC16377F0B}</Project>
+      <Name>UtilityDesigner</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

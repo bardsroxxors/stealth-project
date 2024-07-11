@@ -43,6 +43,7 @@ public class EnemyStateMachine : MonoBehaviour
     public List<e_EnemyConditions> conditions = new List<e_EnemyConditions>();
     public GameObject noisePrefab;
     public Sound soundSO;
+    private e_EnemyStates queuedState = e_EnemyStates.investigate;
 
     [Header("Movement")]
     public float patrolSpeed = 5;
@@ -71,6 +72,7 @@ public class EnemyStateMachine : MonoBehaviour
     public float investigateDistance = 1f;
     public float timeBeforeLookAround = 3f;
     private float t_timeBeforeLookAround = 0f;
+    private int lastKnownDirection = 0;
 
     [Header("Head Swivel")]
     public float swivelStateTime = 1.45f;
@@ -134,6 +136,18 @@ public class EnemyStateMachine : MonoBehaviour
     [Header("Scramble")]
     public float randomPointRadius = 5;
     public LayerMask navpointsMask;
+    private bool f_init_scramble = false;
+    private Vector3 scramblePos = Vector3.zero;
+    public float waitTime = 1f;
+    private float t_waitTime = 0;
+    public bool f_waiting = false;
+    public float timeBeforeScramble = 2f;
+    private float t_timeBeforeScramble = 0;
+    private bool f_waitingToScramble = false;
+
+    [Header("Blind Chase")]
+    public float blindChaseTime = 3f;
+    private float t_blindChaseTime = 0;
 
 
     private Path path;
@@ -224,6 +238,9 @@ public class EnemyStateMachine : MonoBehaviour
                 break;
             case e_EnemyStates.fall:
                 ProcessFall();
+                break;
+            case e_EnemyStates.scramble:
+                ProcessScramble();
                 break;
         }
 
@@ -316,6 +333,7 @@ public class EnemyStateMachine : MonoBehaviour
 
     }
 
+    // Waiting at a patrol node
     private void ProcessWaiting()
     {
         if (t_currentWaitTimer <= 0) ChangeState(e_EnemyStates.patrolling);
@@ -323,6 +341,7 @@ public class EnemyStateMachine : MonoBehaviour
         SightConeTrack();
     }
 
+    // Moving towards last known position
     private void ProcessInvestigate()
     {
 
@@ -333,6 +352,7 @@ public class EnemyStateMachine : MonoBehaviour
 
         if (dist > investigateDistance)
         {
+            f_waitingToScramble = false;
             if(pathfindTarget != awareScript.lastKnownPosition)
             {
                 pathfindTarget = awareScript.lastKnownPosition;
@@ -341,7 +361,17 @@ public class EnemyStateMachine : MonoBehaviour
             
             PathFollow();
         }
-        else inputVector = Vector3.zero;
+        else
+        {
+            inputVector = Vector3.zero;
+           
+            if (queuedState == e_EnemyStates.scramble && !f_waitingToScramble)
+            {
+                f_waitingToScramble = true;
+                t_timeBeforeScramble = timeBeforeScramble;
+            }
+        }
+            
 
         if (Mathf.Sign(targetLookPosition.x - transform.position.x) != facingDirection)
         {
@@ -350,14 +380,17 @@ public class EnemyStateMachine : MonoBehaviour
 
         
 
-        if (!awareScript.f_playerInSight && t_timeBeforeLookAround <= 0) 
+        if (!awareScript.f_playerInSight && t_timeBeforeScramble <= 0 && f_waitingToScramble) 
         {
-            ChangeState(e_EnemyStates.headSwivel);
+            Debug.Log("Scramblin' time!");
+            f_waitingToScramble = false;
+            queuedState = e_EnemyStates.investigate;
+            ChangeState(e_EnemyStates.scramble);
         }
 
     }
 
-
+    // Lost sight of player and moving head around
     private void ProcessHeadSwivel()
     {
         if (!f_init_swivel)
@@ -413,6 +446,7 @@ public class EnemyStateMachine : MonoBehaviour
 
     }
 
+    // Delay before taking action when player enters sight
     private void ProcessReaction()
     {
         if (t_reactionTime <= 0)
@@ -422,12 +456,14 @@ public class EnemyStateMachine : MonoBehaviour
         SightConeTrack();
     }
 
+    // Takes damage
     private void ProcessFlinch()
     {
         if (t_flinchTime <= 0)
             ChangeState(previousState);
     }
 
+    // Jump (awful lerp jump must remake)
     private void ProcessJump()
     {
         if (!f_jumpInit)
@@ -460,6 +496,7 @@ public class EnemyStateMachine : MonoBehaviour
         }
     }
 
+    // Falling
     private void ProcessFall()
     {
         float xMomentum = 0;
@@ -525,6 +562,49 @@ public class EnemyStateMachine : MonoBehaviour
      */
     private void ProcessScramble()
     {
+        if (!f_init_scramble)
+        {
+            scramblePos = GetRandomNavPoint().transform.position;
+            f_init_scramble = true;
+        }
+
+        float dist = (scramblePos - transform.position).magnitude;
+
+        targetLookPosition = scramblePos;
+        SightConeTrack();
+
+        if (dist > investigateDistance)
+        {
+            if (pathfindTarget != scramblePos)
+            {
+                pathfindTarget = scramblePos;
+                UpdatePath();
+            }
+
+            PathFollow();
+        }
+        else
+        {
+            inputVector = Vector3.zero;
+            if (!f_waiting)
+            {
+                f_waiting = true;
+                t_waitTime = waitTime;
+            }
+            
+        }
+
+        if (f_waiting && t_waitTime <= 0)
+        {
+            f_waiting = false;
+            scramblePos = GetRandomNavPoint().transform.position;
+        }
+
+        if (Mathf.Sign(targetLookPosition.x - transform.position.x) != facingDirection)
+        {
+            SwitchFacing(Mathf.Sign(targetLookPosition.x - transform.position.x));
+        }
+
 
     }
 
@@ -565,9 +645,10 @@ public class EnemyStateMachine : MonoBehaviour
             previousState = currentState;
 
             if (state == e_EnemyStates.patrolling ||
-                state == e_EnemyStates.investigate)
+                state == e_EnemyStates.investigate ||
+                state == e_EnemyStates.scramble)
                 UpdatePath();
-
+            f_init_scramble = false;
             currentState = state;
         }
 
@@ -582,6 +663,8 @@ public class EnemyStateMachine : MonoBehaviour
         targetLookPosition = awareScript.lastKnownPosition;
         pathfindTarget = awareScript.lastKnownPosition;
         UpdatePath();
+
+        lastKnownDirection = Math.Sign(targetLookPosition.x - transform.position.x);
 
 
         if (t_reactionCooldown <= 0 && currentState != e_EnemyStates.jump && currentState != e_EnemyStates.fall)
@@ -614,6 +697,9 @@ public class EnemyStateMachine : MonoBehaviour
     {
         if(t_timeBeforeLookAround <= 0)
             t_timeBeforeLookAround = timeBeforeLookAround;
+
+        if (awareScript.currentAwareness != AwarenessLevel.unaware)
+            queuedState = e_EnemyStates.scramble;
     }
 
     // called by the awareness script when the state chanegs
@@ -681,6 +767,9 @@ public class EnemyStateMachine : MonoBehaviour
         if (t_flinchTime > 0) t_flinchTime -= Time.deltaTime;
         if (t_attackCooldown > 0) t_attackCooldown -= Time.deltaTime;
         if (t_facingSwitchTimer > 0) t_facingSwitchTimer -= Time.deltaTime;
+        if (t_waitTime > 0) t_waitTime -= Time.deltaTime;
+        if (t_timeBeforeScramble > 0) t_timeBeforeScramble -= Time.deltaTime;
+        if (t_blindChaseTime > 0) t_blindChaseTime -= Time.deltaTime;
     }
 
 
@@ -774,12 +863,18 @@ public class EnemyStateMachine : MonoBehaviour
 
     // #######  ------------------  #######
 
-    private void GetRandomNavPoint()
+    private GameObject GetRandomNavPoint()
     {
-        List<Collider2D> points = new List<Collider2D>();
-        ContactFilter2D contactFilter = new ContactFilter2D();
-        contactFilter.SetLayerMask(navpointsMask);
-        Physics2D.OverlapCircle(transform.position, randomPointRadius, contactFilter, points);
+        Collider2D[] points = new Collider2D[10];
+
+        points = Physics2D.OverlapCircleAll(transform.position, randomPointRadius, navpointsMask, -5, 5);
+
+        if (points.Length > 0) 
+        {
+            return points[(int)Random.Range(0, points.Length - 1)].gameObject;
+        }
+        else return null;
+        
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
