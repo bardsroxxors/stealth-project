@@ -808,10 +808,23 @@ public class PlayerController : MonoBehaviour
         }
             
 
-        if(CurrentPlayerState == e_PlayerControllerStates.WallGrab) animator.SetBool("wall grab", true);
+        if(CurrentPlayerState == e_PlayerControllerStates.WallGrab) 
+            animator.SetBool("wall grab", true);
         else animator.SetBool("wall grab", false);
 
-        if(!animator.GetBool("wall grab") && !animator.GetBool("grounded"))
+
+        // attack
+        if (CurrentPlayerState == e_PlayerControllerStates.SwordSwing) {
+            animator.SetBool("attacking", true);
+            animator.SetBool("not moving", false);
+            animator.SetBool("sneaking", false);
+        }
+        else animator.SetBool("attacking", false);
+
+
+
+
+        if (!animator.GetBool("wall grab") && !animator.GetBool("grounded"))
         {
             animator.speed = 0;
             animator.Play("air", 0, GetAirFrame());

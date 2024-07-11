@@ -575,8 +575,8 @@ TextureImporter:
       name: player char sheet_22
       rect:
         serializedVersion: 2
-        x: 448
-        y: 192
+        x: 0
+        y: 128
         width: 64
         height: 64
       alignment: 0
@@ -596,7 +596,7 @@ TextureImporter:
       name: player char sheet_23
       rect:
         serializedVersion: 2
-        x: 0
+        x: 64
         y: 128
         width: 64
         height: 64
@@ -617,7 +617,7 @@ TextureImporter:
       name: player char sheet_24
       rect:
         serializedVersion: 2
-        x: 64
+        x: 128
         y: 128
         width: 64
         height: 64
@@ -630,6 +630,48 @@ TextureImporter:
       bones: []
       spriteID: be60e486f166abc418b7863807f35430
       internalID: 1176222349
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: player char sheet_25
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 128
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2e3d9569b8d8fd14da7e921bc4bb9369
+      internalID: -395419236
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: player char sheet_26
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 128
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bab24651de18c744d99ca4d5b177e679
+      internalID: -745762560
       vertices: []
       indices: 
       edges: []
@@ -665,6 +707,8 @@ TextureImporter:
       player char sheet_22: 1000999782
       player char sheet_23: -1569424545
       player char sheet_24: 1176222349
+      player char sheet_25: -395419236
+      player char sheet_26: -745762560
       player char sheet_3: -1942616017
       player char sheet_4: 491930158
       player char sheet_5: 370319278
