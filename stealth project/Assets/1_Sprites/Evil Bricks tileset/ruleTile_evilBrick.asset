@@ -49,7 +49,7 @@ MonoBehaviour:
     - {x: -1, y: 0, z: 0}
     - {x: 0, y: -1, z: 0}
     - {x: 1, y: 0, z: 0}
-    m_RuleTransform: 0
+    m_RuleTransform: 2
   - m_Id: 2
     m_Sprites:
     - {fileID: 444819784, guid: fa0bda2d2de65874ea1db09a1204b202, type: 3}

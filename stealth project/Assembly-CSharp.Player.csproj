@@ -135,6 +135,7 @@
     <Compile Include="Assets\AOSFogWar\Examples\csFogVisibilityAgent.cs" />
     <Compile Include="Assets\2_Scripts\Enemies\EnemyStateMachine.cs" />
     <Compile Include="Assets\KadaXuanwu\UtilityDesigner\Demos\Survival\Scripts\JamesStats.cs" />
+    <Compile Include="Assets\Advanced Rule Tiles\AdvancedRuleTile.cs" />
     <Compile Include="Assets\2_Scripts\Player Controller\PlayerController.cs" />
     <Compile Include="Assets\KadaXuanwu\UtilityDesigner\Demos\Survival\Scripts\DeerController.cs" />
     <Compile Include="Assets\2_Scripts\Player Controller\GrappleLineRenderer.cs" />

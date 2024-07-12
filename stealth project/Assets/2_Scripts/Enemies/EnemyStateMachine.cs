@@ -136,6 +136,7 @@ public class EnemyStateMachine : MonoBehaviour
     [Header("Scramble")]
     public float randomPointRadius = 5;
     public LayerMask navpointsMask;
+    public LayerMask levelCollisionMask;
     private bool f_init_scramble = false;
     private Vector3 scramblePos = Vector3.zero;
     public float waitTime = 1f;
@@ -146,8 +147,8 @@ public class EnemyStateMachine : MonoBehaviour
     private bool f_waitingToScramble = false;
 
     [Header("Blind Chase")]
-    public float blindChaseTime = 3f;
-    private float t_blindChaseTime = 0;
+    public float blindChaseDistance = 4;
+    public bool f_blindChase = false;
 
 
     private Path path;
@@ -655,8 +656,11 @@ public class EnemyStateMachine : MonoBehaviour
         
     }
 
-    public void TriggerReaction(e_EnemyStates state)
+
+    public void PlayerSightGained(e_EnemyStates state)
     {
+        f_blindChase = false;
+
         reactNextState = state;
         t_reactionTime = reactionTime;
 
@@ -699,8 +703,17 @@ public class EnemyStateMachine : MonoBehaviour
             t_timeBeforeLookAround = timeBeforeLookAround;
 
         if (awareScript.currentAwareness != AwarenessLevel.unaware)
+        {
+            if (!f_blindChase)
+            {
+                f_blindChase = true;
+                awareScript.lastKnownPosition = BlindPositionOffset(blindChaseDistance, awareScript.lastKnownPosition);
+            }
             queuedState = e_EnemyStates.scramble;
+        }
+            
     }
+
 
     // called by the awareness script when the state chanegs
     public void AwarenessChange(AwarenessLevel newState)
@@ -769,7 +782,6 @@ public class EnemyStateMachine : MonoBehaviour
         if (t_facingSwitchTimer > 0) t_facingSwitchTimer -= Time.deltaTime;
         if (t_waitTime > 0) t_waitTime -= Time.deltaTime;
         if (t_timeBeforeScramble > 0) t_timeBeforeScramble -= Time.deltaTime;
-        if (t_blindChaseTime > 0) t_blindChaseTime -= Time.deltaTime;
     }
 
 
@@ -818,7 +830,9 @@ public class EnemyStateMachine : MonoBehaviour
         direction.y = 0;
         if(currentState == e_EnemyStates.patrolling)
             inputVector = direction * patrolSpeed;
-        else if(currentState != e_EnemyStates.patrolling)
+        else if (awareScript.currentAwareness != AwarenessLevel.alert)
+            inputVector = direction * patrolSpeed * 1.5f;
+        else
             inputVector = direction * pursueSpeed;
 
 
@@ -877,6 +891,25 @@ public class EnemyStateMachine : MonoBehaviour
         
     }
 
+    // used to offset last known position when sight is lost
+    // allows a short blind chase after sight is lost
+    private Vector3 BlindPositionOffset(float distance, Vector2 position)
+    {
+        int dir = Math.Sign(awareScript.lastKnownPosition.x - transform.position.x);
+
+        // Do a raycast to see if we hit a wall
+        // if we do then return a slight offset from the wall
+
+        // else offset by the full distance
+
+        RaycastHit2D ray = Physics2D.Raycast(position, Vector2.right* dir, distance, levelCollisionMask);
+        if (ray)
+            return ray.point;// + (Vector2.right * -dir * 2);
+
+        return (Vector3)(position + (Vector2.right * dir * distance));
+
+    }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if(collision.gameObject.tag == "PlayerProjectile" && currentState != e_EnemyStates.dead)
@@ -906,7 +939,7 @@ public class EnemyStateMachine : MonoBehaviour
                 awareScript.alertPercent += noise.awarenessIncrease;
 
             if (awareScript.currentAwareness == AwarenessLevel.unaware)
-                TriggerReaction(e_EnemyStates.investigate);
+                PlayerSightGained(e_EnemyStates.investigate);
         }
     }
 
@@ -1024,6 +1057,7 @@ public class EnemyStateMachine : MonoBehaviour
     {
         Handles.color = UnityEngine.Color.red;
         Handles.DrawWireCube(targetLookPosition, new Vector3(0.25f, 0.25f, 0.25f));
+
         Handles.color = UnityEngine.Color.green;
         if(path != null && path.vectorPath.Count > 0 && Application.isPlaying)
             Handles.DrawWireCube(path.vectorPath[currentWaypoint], new Vector3(0.25f, 0.25f, 0.25f));

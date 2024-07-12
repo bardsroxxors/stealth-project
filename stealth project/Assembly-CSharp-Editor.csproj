@@ -63,6 +63,7 @@
     <Compile Include="Assets\2_Scripts\Editor\LightScriptEditor.cs" />
     <Compile Include="Assets\2_Scripts\Editor\LineRendererSmootherEditor.cs" />
     <Compile Include="Assets\AOSFogWar\Editor\editorFogWar.cs" />
+    <Compile Include="Assets\Advanced Rule Tiles\Editor\AdvancedRuleTileEditor.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Library\PackageCache\com.unity.collab-proxy@2.2.0\Lib\Editor\PlasticSCM\Localization\commontypes.ko.txt" />

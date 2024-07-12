@@ -224,7 +224,7 @@ public class EnemyAwareness : MonoBehaviour
     public void PlayerEnteredSight()
     {
         lastKnownPosition = playerObject.transform.position;
-        mainScript.TriggerReaction(e_EnemyStates.investigate);
+        mainScript.PlayerSightGained(e_EnemyStates.investigate);
     }
 
     // called when the entity is inside a noise trigger

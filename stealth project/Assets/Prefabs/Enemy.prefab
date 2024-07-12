@@ -1116,6 +1116,14 @@ MonoBehaviour:
   navpointsMask:
     serializedVersion: 2
     m_Bits: 32768
+  levelCollisionMask:
+    serializedVersion: 2
+    m_Bits: 8
+  waitTime: 1
+  f_waiting: 0
+  timeBeforeScramble: 2
+  blindChaseDistance: 5
+  f_blindChase: 0
 --- !u!114 &2881394861468808388
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1139,7 +1147,7 @@ MonoBehaviour:
   layerMask:
     serializedVersion: 2
     m_Bits: 72
-  sightAwareIncreaseSpeedMin: 0.2
+  sightAwareIncreaseSpeedMin: 0.5
   sightAwareIncreaseSpeedMax: 2.5
   awarenessDecaySpeed: 0.05
   alertDecaySpeed: 0.05
