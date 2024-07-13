@@ -505,7 +505,7 @@
                     "name": "",
                     "id": "d8274ee0-c719-4f3c-9acd-2b2fa710811f",
                     "path": "<Mouse>/leftButton",
-                    "interactions": "",
+                    "interactions": "Hold",
                     "processors": "",
                     "groups": "",
                     "action": "AttackHold",

@@ -12,10 +12,13 @@ public class KOIndicator : MonoBehaviour
     public float minZipDistance = 0.1f;
     public float zipSpeed = 15;
 
+
+
     // Start is called before the first frame update
     void Start()
     {
         renderer = GetComponent<SpriteRenderer>();
+
     }
 
     // Update is called once per frame
@@ -32,12 +35,14 @@ public class KOIndicator : MonoBehaviour
         {
             renderer.sprite = sprites[i];
 
-
-            Vector2 distance = targetPosition - transform.position;
-            if (distance.magnitude > minZipDistance)
-            {
-                transform.Translate(distance.normalized * zipSpeed, Space.World);
-            }
         }
+        /*
+        Vector2 distance = targetPosition - transform.position;
+        if (distance.magnitude > minZipDistance)
+        {
+            transform.Translate(distance.normalized * zipSpeed, Space.World);
+        }*/
+
+        transform.position = targetPosition;    
     }
 }

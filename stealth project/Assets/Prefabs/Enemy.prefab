@@ -49,7 +49,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 046cdbc0736add048987bbd02fba3fc4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fov: 35
+  fov: 45
   rayCount: 12
   viewDistance: 2.25
   layerMask:

@@ -87,6 +87,7 @@ public class PlayerController : MonoBehaviour
     private bool f_canInteract = false;
 
     [Header("Stealth Kills")]
+    private bool f_init_stealthKill = false;
     public float killChargeTime = 1f;
     private float t_killChargeTime = 0f;
     public float chargingMoveSpeed = 3f;
@@ -96,8 +97,7 @@ public class PlayerController : MonoBehaviour
     public float minZipDistance = 0.2f;
     [Range(0,1)]
     public float zipSpeed = 2f;
-    private bool f_init_stealthKill = false;
-    private GameObject currentTarget;
+    public GameObject currentTarget;
     public GameObject koIndicator;
 
     [Header("Collisions")]
@@ -153,6 +153,9 @@ public class PlayerController : MonoBehaviour
 
     public GameObject contextButton;
     public GameObject paperSword;
+
+    [Header("Blink Power")]
+    public float blinkRange = 3f;
 
 
 
@@ -221,7 +224,15 @@ public class PlayerController : MonoBehaviour
         }
 
 
-        
+        if(currentTarget != null)
+        {
+            koIndicator.SetActive(true);
+            koIndicator.GetComponent<KOIndicator>().targetPosition = currentTarget.transform.position;
+            Debug.Log("ko target");
+        }
+        else
+            koIndicator.SetActive(false);
+
 
         if (CurrentPlayerState != e_PlayerControllerStates.Hiding)
             ApplyMovement();
@@ -232,7 +243,7 @@ public class PlayerController : MonoBehaviour
 
 
         // manage timers
-
+        /*
         if (f_isCharging)
         {
             t_killChargeTime += Time.deltaTime;
@@ -240,7 +251,7 @@ public class PlayerController : MonoBehaviour
             if (percent > 1) percent = 1;
             koIndicator.GetComponent<KOIndicator>().animationPercent = percent;
 
-            currentTarget = GetKillTarget();
+            //currentTarget = GetKillTarget();
             if (currentTarget != null && CheckTargetLOS(currentTarget))
             {
                 koIndicator.transform.position = currentTarget.transform.position;
@@ -252,7 +263,7 @@ public class PlayerController : MonoBehaviour
         {
             t_killChargeTime = 0;
             koIndicator.SetActive(false);
-        }
+        }*/
 
         if (t_gracetimePostCollide > 0) t_gracetimePostCollide -= Time.deltaTime;
         if (t_gracetimePreCollide > 0) t_gracetimePreCollide -= Time.deltaTime;
@@ -439,7 +450,8 @@ public class PlayerController : MonoBehaviour
 
             t_attackLength = attackLength;
             t_attackCooldown = attackCooldown;
-            animator.SetTrigger("attack trigger");
+            //animator.SetTrigger("attack trigger");
+            animator.Play("attack", 0);
 
             f_init_swordSwing = true;
         }
@@ -457,11 +469,14 @@ public class PlayerController : MonoBehaviour
         if (!swordObject.GetComponentInChildren<SwordScript>().animating)
             swordObject.SetActive(false);
 
-        //if (animator.GetCurrentAnimatorClipInfo(0)[0].clip.name != "attack")
+        
         if(t_attackLength <= 0)
         {
             swordObject.SetActive(false);
-            ChangeState(e_PlayerControllerStates.FreeMove);
+            if(     moveStickVector.magnitude > 0.1f ||
+                    animator.GetCurrentAnimatorClipInfo(0)[0].clip.name != "attack") 
+                        ChangeState(e_PlayerControllerStates.FreeMove);
+
         }
 
     }
@@ -489,12 +504,17 @@ public class PlayerController : MonoBehaviour
 
     private void ProcessStealthKill()
     {
-        if (currentTarget == null)
+        if (currentTarget == null && animator.GetCurrentAnimatorClipInfo(0)[0].clip.name != "ko")
+        {
+            animator.SetBool("lock", false);
             ChangeState(e_PlayerControllerStates.FreeMove);
+        }
 
         if (!f_init_stealthKill && currentTarget != null)
         {
-            
+            animator.Play("air dash", 0);
+            animator.SetBool("lock", true);
+            collisionDirections = Vector2.zero;
             f_init_stealthKill = true;
         }
 
@@ -506,8 +526,12 @@ public class PlayerController : MonoBehaviour
         else
         {
             currentTarget.SendMessage("StealthKilled");
-            ChangeState(e_PlayerControllerStates.FreeMove);
+            currentTarget = null;
+            animator.Play("ko", 0);
+
         }
+        
+            
 
 
     }
@@ -585,7 +609,8 @@ public class PlayerController : MonoBehaviour
 
     void TriggerStealthKill()
     {
-        currentTarget = GetKillTarget();
+        //currentTarget = GetKillTarget();
+        animator.SetTrigger("ko trigger");
         ChangeState(e_PlayerControllerStates.StealthKill);
     }
 
@@ -826,15 +851,16 @@ public class PlayerController : MonoBehaviour
 
 
         // attack
-        if (CurrentPlayerState == e_PlayerControllerStates.SwordSwing) {
-            animator.SetBool("attacking", true);
+        if (CurrentPlayerState == e_PlayerControllerStates.SwordSwing ||
+            CurrentPlayerState == e_PlayerControllerStates.StealthKill) {
+            animator.SetBool("lock", true);
         }
-        else animator.SetBool("attacking", false);
+        else animator.SetBool("lock", false);
 
 
 
 
-        if (!animator.GetBool("wall grab") && !animator.GetBool("grounded"))
+        if (!animator.GetBool("wall grab") && !animator.GetBool("grounded") && !animator.GetBool("lock"))
         {
             animator.speed = 0;
             animator.Play("air", 0, GetAirFrame());
@@ -901,7 +927,10 @@ public class PlayerController : MonoBehaviour
 
     void OnAttack(InputValue value)
     {
-        if (t_attackCooldown <= 0 && 
+        if (currentTarget != null && CheckTargetLOS(currentTarget))
+            TriggerStealthKill();
+
+        else if (t_attackCooldown <= 0 && 
             CurrentPlayerState == e_PlayerControllerStates.FreeMove)
 
             ChangeState(e_PlayerControllerStates.SwordSwing);
@@ -971,7 +1000,8 @@ public class PlayerController : MonoBehaviour
 
     void OnChargeUp(InputValue value)
     {
-        currentTarget = GetKillTarget();
+        //currentTarget = GetKillTarget();
+        /*
         if (CurrentPlayerState == e_PlayerControllerStates.FreeMove ||
             CurrentPlayerState == e_PlayerControllerStates.WallGrab)
         {
@@ -987,15 +1017,16 @@ public class PlayerController : MonoBehaviour
 
             koIndicator.GetComponent<KOIndicator>().animationPercent = 0;
         }
-            
+         */   
     }
 
     void OnChargeRelease(InputValue value)
     {
+        /*
         f_isCharging = false;
         koIndicator.SetActive(false);
         if (t_killChargeTime > killChargeTime && CheckTargetLOS(currentTarget)) TriggerStealthKill();
-        
+        */
     }
 
     void OnBagToggle(InputValue value)
@@ -1003,31 +1034,15 @@ public class PlayerController : MonoBehaviour
         backpack.SendMessage("ToggleOpen");
     }
 
-
-    GameObject GetKillTarget()
+    
+    void KOTarget()
     {
-        GameObject final = null;
-        if(killZone != null)
-        {
-            killzoneObject.transform.localPosition = Vector3.zero;
-            float shortestDistance = 1000f;
-
-            foreach (GameObject target in killZone.targets)
-            {
-                float distance = Vector2.Distance(transform.position, target.transform.position);
-                
-                if (distance < shortestDistance)
-                {
-                    shortestDistance = distance;
-                    final = target;
-                    
-                }
-            }
-        }
-
-
-
-        return final;
+        if (killzoneObject.GetComponent<StealthKillZone>().currentTarget == null)
+            currentTarget = null;
+        else if(CheckTargetLOS(killzoneObject.GetComponent<StealthKillZone>().currentTarget) && 
+                CurrentPlayerState != e_PlayerControllerStates.StealthKill)
+            currentTarget = killzoneObject.GetComponent<StealthKillZone>().currentTarget;
+        
     }
 
     private bool CheckTargetLOS(GameObject target)

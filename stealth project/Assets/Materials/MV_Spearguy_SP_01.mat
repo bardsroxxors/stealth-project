@@ -49,6 +49,7 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
+    - _Facing_Right: 0
     - _Normal_Strength: 2
     m_Colors:
     - _Highlight1_Colour: {r: 0.13873571, g: 0.12549028, b: 1.4980404, a: 0}
