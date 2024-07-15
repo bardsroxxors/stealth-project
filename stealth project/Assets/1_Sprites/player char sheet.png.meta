@@ -928,6 +928,48 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: player char sheet_39
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 0
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4c067e06ae337e84e9052654703e8f74
+      internalID: 2024891455
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: player char sheet_40
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 0
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ad270b56af5814544988f98b6dca612a
+      internalID: 2039271034
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -974,7 +1016,9 @@ TextureImporter:
       player char sheet_36: 985316642
       player char sheet_37: 1736578863
       player char sheet_38: 9917124
+      player char sheet_39: 2024891455
       player char sheet_4: 491930158
+      player char sheet_40: 2039271034
       player char sheet_5: 370319278
       player char sheet_6: -538771886
       player char sheet_7: -533969816

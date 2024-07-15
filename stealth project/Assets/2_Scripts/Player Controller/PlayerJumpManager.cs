@@ -20,6 +20,7 @@ public class PlayerJumpManager : MonoBehaviour
     public float gravityAccel = 1;
     public float jumpPeakGravityScale = 0.5f;
     public float maxFallSpeed = 10;
+    public Vector2 slideJumpFactor = Vector2.one;
 
     [Header("Wall Jump")]
     public Vector2 wallJumpForceVector = Vector2.zero;
@@ -60,7 +61,12 @@ public class PlayerJumpManager : MonoBehaviour
         if(pc.CurrentPlayerState == e_PlayerControllerStates.FreeMove)
             pc.gravityVector.y = jumpForce;
 
-
+        if (pc.sliding)
+        {
+            pc.gravityVector.x = pc.moveSpeed * pc.playerFacingVector.x * pc.slideSpeedFactor * slideJumpFactor.x;
+            pc.gravityVector.y = jumpForce * slideJumpFactor.y;
+        }
+            
 
         f_jumped = true;
         f_wallGrabReady = false;
@@ -132,6 +138,7 @@ public class PlayerJumpManager : MonoBehaviour
 
             // decay x component as well
             pc.gravityVector.x = pc.gravityVector.x - (pc.gravityVector.x * (pc.moveDecay/2) * Time.deltaTime);
+
             // clamp x to zero when its close
             if (Mathf.Abs(pc.gravityVector.x) <= 0.1) pc.gravityVector.x = 0;
         }

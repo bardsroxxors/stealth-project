@@ -189,6 +189,9 @@ MonoBehaviour:
   - {fileID: 441364983, guid: 9d26009283015e7429f57970c3108cd9, type: 3}
   - {fileID: 279968929, guid: 9d26009283015e7429f57970c3108cd9, type: 3}
   animationPercent: 0
+  targetPosition: {x: 0, y: 0, z: 0}
+  minZipDistance: 0.1
+  zipSpeed: 15
 --- !u!1001 &6401558454843839282
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -297,6 +300,10 @@ PrefabInstance:
       propertyPath: paperSword
       value: 
       objectReference: {fileID: 271640479692179899}
+    - target: {fileID: 5591644623040213687, guid: 13f701b83b6e8534999654bb9edab1cc, type: 3}
+      propertyPath: slideDecel
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 5591644623040213687, guid: 13f701b83b6e8534999654bb9edab1cc, type: 3}
       propertyPath: sneakSpeed
       value: 4.5
@@ -418,6 +425,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targets: []
+  currentTarget: {fileID: 0}
 --- !u!4 &6760038698662621634 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 362148473659745008, guid: 13f701b83b6e8534999654bb9edab1cc, type: 3}

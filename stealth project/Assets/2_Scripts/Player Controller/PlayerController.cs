@@ -41,6 +41,7 @@ public class PlayerController : MonoBehaviour
     public bool lit = false;
     public bool sneaking = false;
     public bool crouching = false;
+    public bool sliding = false;
     public int currentHP = 10;
     public int maxHP = 10;
 
@@ -64,6 +65,15 @@ public class PlayerController : MonoBehaviour
     public Vector2 wallJumpForce = Vector2.zero;
     public int grabbedDirection = 0;
     public float climbSpeed = 0.5f;
+
+    [Header("Sliding")]
+    public float slideDecelFactor = 5;
+    public float slideSpeedFactor = 1.2f;
+    public float slideCooldown = 1;
+    private float t_slideCooldown = 0;
+    private int slideDirection = 0;
+    private bool crouchReleased = true;
+    private float slideSpeedLastFrame = 0;
 
 
     [Header("Hiding")]
@@ -272,7 +282,7 @@ public class PlayerController : MonoBehaviour
         if (t_knockTime > 0) t_knockTime -= Time.deltaTime;
         if (t_noiseInterval > 0) t_noiseInterval -= Time.deltaTime;
         if (t_attackLength > 0) t_attackLength -= Time.deltaTime;
-
+        if (t_slideCooldown > 0) t_slideCooldown -= Time.deltaTime;
 
 
     }
@@ -304,21 +314,56 @@ public class PlayerController : MonoBehaviour
         if (moveStickVector.y < 0 && f_groundClose) crouching = true;
         else crouching = false;
 
-        // create noise when triggered
-        if (f_noiseAnimationTrigger)
+        if (!crouching && !crouchReleased)
         {
-            f_noiseAnimationTrigger = false;
-            GameObject noise = Instantiate(noisePrefab, transform.position, Quaternion.identity);
-            noise.SendMessage("SetProfile", footstepSound);
+            crouchReleased = true;
+            t_slideCooldown = slideCooldown;
         }
+
+        
+
+        
+        // we stop sliding if we change direction or jump or speed reaches zero (or change state do that elseswhere)
+        if(Math.Sign(moveStickVector.x) != slideDirection ||
+            moveStickVector.x == 0 ||
+            collisionDirections.y != -1 ||
+            !crouching)
+        {
+            sliding = false;
+            
+        }
+
+        // check if we started sliding
+        if (crouching && !sliding && crouchReleased && t_slideCooldown <= 0)
+        {
+            sliding = true;
+            crouchReleased = false;
+            slideDirection = Math.Sign(moveStickVector.x);
+            slideSpeedLastFrame = Mathf.Abs(moveStickVector.normalized.x * moveSpeed * slideSpeedFactor);
+        }
+
+        if (crouching) crouchReleased = false;
+
+
 
         // get inputVector from raw input, set player facing
         if (moveStickVector.magnitude >= 0.25)
         {
-            if(!sneaking && !crouching && !f_isCharging) 
+            if(!sneaking && !crouching && !f_isCharging && !sliding) 
                 inputVector.x = moveStickVector.normalized.x * moveSpeed;
-            else if (f_isCharging)
-                inputVector.x = moveStickVector.normalized.x * chargingMoveSpeed;
+            else if (sliding)
+            {
+                // movestick vector is between 0 and 1, so its necessaesry to keep sliding
+                // then I want to take the previous speed and reduce it
+                float speed = slideSpeedLastFrame - (Time.deltaTime * slideDecelFactor * slideSpeedLastFrame);
+                if (speed < 0.5f)
+                {
+                    sliding = false;
+                    speed = 0;
+                }
+                inputVector.x = speed * slideDirection;
+                slideSpeedLastFrame = Mathf.Abs(inputVector.x);
+            }
             else if (crouching) 
                 inputVector.x = moveStickVector.normalized.x * crouchSpeed;
             else inputVector.x = moveStickVector.normalized.x * sneakSpeed;
@@ -358,6 +403,13 @@ public class PlayerController : MonoBehaviour
         }
 
         
+        // create noise when triggered
+        if (f_noiseAnimationTrigger)
+        {
+            f_noiseAnimationTrigger = false;
+            GameObject noise = Instantiate(noisePrefab, transform.position, Quaternion.identity);
+            noise.SendMessage("SetProfile", footstepSound);
+        }
         
 
     }
@@ -619,6 +671,13 @@ public class PlayerController : MonoBehaviour
     {
         previousPlayerState = CurrentPlayerState;
         CurrentPlayerState = state;
+        sliding = false;
+        if (!crouchReleased)
+        {
+            t_slideCooldown = slideCooldown;
+            crouchReleased = true;
+        }
+        
 
         if (previousPlayerState == e_PlayerControllerStates.SwordSwing)
             f_init_swordSwing = false;

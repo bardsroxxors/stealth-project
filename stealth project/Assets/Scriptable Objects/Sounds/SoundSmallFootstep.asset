@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: SoundSmallFootstep
   m_EditorClassIdentifier: 
   lifetime: 0.15
-  scaleAtDeath: 2
-  initialScale: 1.5
+  scaleAtDeath: 1.5
+  initialScale: 1
   awarenessIncrease: 0.25
