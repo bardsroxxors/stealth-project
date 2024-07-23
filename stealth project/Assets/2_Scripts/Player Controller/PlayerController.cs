@@ -44,6 +44,10 @@ public class PlayerController : MonoBehaviour
     public bool sliding = false;
     public int currentHP = 10;
     public int maxHP = 10;
+    public bool f_insideEnemy = false;
+    private GameObject shovingEnemy;
+    public float shoveForce = 2f;
+    private float t_iTime = 0;
 
     [Header("Free Move")]
     public bool f_holdToRun = true;
@@ -74,6 +78,7 @@ public class PlayerController : MonoBehaviour
     private int slideDirection = 0;
     private bool crouchReleased = true;
     private float slideSpeedLastFrame = 0;
+    public float slideITime = 0.25f;
 
 
     [Header("Hiding")]
@@ -238,7 +243,6 @@ public class PlayerController : MonoBehaviour
         {
             koIndicator.SetActive(true);
             koIndicator.GetComponent<KOIndicator>().targetPosition = currentTarget.transform.position;
-            Debug.Log("ko target");
         }
         else
             koIndicator.SetActive(false);
@@ -283,6 +287,7 @@ public class PlayerController : MonoBehaviour
         if (t_noiseInterval > 0) t_noiseInterval -= Time.deltaTime;
         if (t_attackLength > 0) t_attackLength -= Time.deltaTime;
         if (t_slideCooldown > 0) t_slideCooldown -= Time.deltaTime;
+        if (t_iTime > 0) t_iTime -= Time.deltaTime;
 
 
     }
@@ -337,6 +342,7 @@ public class PlayerController : MonoBehaviour
         if (crouching && !sliding && crouchReleased && t_slideCooldown <= 0)
         {
             sliding = true;
+            t_iTime = slideITime;
             crouchReleased = false;
             slideDirection = Math.Sign(moveStickVector.x);
             slideSpeedLastFrame = Mathf.Abs(moveStickVector.normalized.x * moveSpeed * slideSpeedFactor);
@@ -575,12 +581,18 @@ public class PlayerController : MonoBehaviour
         {
             transform.Translate(distance.normalized * zipSpeed, Space.World);
         }
-        else
+        else if(currentTarget.GetComponent<EnemyStateMachine>().facingDirection == playerFacingVector.x ||
+            transform.position.y > currentTarget.transform.position.y - 0f)
         {
             currentTarget.SendMessage("StealthKilled");
             currentTarget = null;
             animator.Play("ko", 0);
-
+        }
+        else
+        {
+            Debug.Log("ko aborted");
+            currentTarget = null;
+            TriggerKnockback((int)currentTarget.GetComponent<EnemyStateMachine>().facingDirection);
         }
         
             
@@ -639,7 +651,8 @@ public class PlayerController : MonoBehaviour
         else f_groundClose = false;
 
         // apply gravity if not grounded
-        if ((collisionDirections.y != -1 && CurrentPlayerState == e_PlayerControllerStates.FreeMove) || CurrentPlayerState == e_PlayerControllerStates.Hurt)
+        if ((collisionDirections.y != -1 && CurrentPlayerState == e_PlayerControllerStates.FreeMove) 
+            || CurrentPlayerState == e_PlayerControllerStates.Hurt)
         {
             movementVector.x = gravityVector.x + inputVector.x;
             movementVector.y = gravityVector.y;
@@ -649,6 +662,10 @@ public class PlayerController : MonoBehaviour
         else if (collisionDirections.y == -1) gravityVector.y = 0;
 
         if (collisionDirections.y != -1) jumpManager.CalculateGravity();
+
+        // apply shoving from enemies if need be
+        if (f_insideEnemy && !sliding && CurrentPlayerState == e_PlayerControllerStates.FreeMove)
+            movementVector += EnemyShove();
 
         ClampMovementForCollisions();
 
@@ -685,7 +702,18 @@ public class PlayerController : MonoBehaviour
             f_init_stealthKill = false;
     }
 
-    
+   private Vector2 EnemyShove()
+    {
+        if (shovingEnemy == null) return Vector2.zero;
+        Debug.Log("enemy shove");
+        Vector3 antitarget = shovingEnemy.transform.position;
+        Vector3 diff = transform.position - antitarget;
+        diff.y = 0;
+
+        return (Vector2) diff * shoveForce;
+
+
+    }
 
 
 
@@ -796,6 +824,12 @@ public class PlayerController : MonoBehaviour
             }
         }
 
+        else if(collision.transform.name == "shove zone")
+        {
+            shovingEnemy = collision.gameObject;
+            f_insideEnemy = true;
+        }
+
         
     }
 
@@ -842,6 +876,10 @@ public class PlayerController : MonoBehaviour
             f_canInteract = false;
             interactTarget = null;
         }
+        else if (collision.transform.name == "shove zone")
+        {
+            f_insideEnemy = false;
+        }
     }
 
 
@@ -857,9 +895,10 @@ public class PlayerController : MonoBehaviour
 
     public void TriggerKnockback(int direction)
     {
-        t_knockTime = knockTime;
-        if (true)
+        
+        if (t_iTime <= 0)
         {
+            t_knockTime = knockTime;
             gravityVector.y = knockVector.y;
             knockDirection = direction;
             ChangeState(e_PlayerControllerStates.Hurt);
@@ -886,21 +925,25 @@ public class PlayerController : MonoBehaviour
         if (Mathf.Abs(moveStickVector.x) <= 0.5f) animator.SetBool("not moving", true);
         else animator.SetBool("not moving", false);
 
-
-        if (crouching)
+        if (sliding)
+            animator.SetBool("sliding", true);
+        else if (crouching)
         {
             animator.SetBool("crouching", true);
             animator.SetBool("sneaking", false);
+            animator.SetBool("sliding", false);
         }
         else if (sneaking)
         {
             animator.SetBool("sneaking", true);
             animator.SetBool("crouching", false);
+            animator.SetBool("sliding", false);
         }
         else
         {
             animator.SetBool("sneaking", false);
             animator.SetBool("crouching", false);
+            animator.SetBool("sliding", false);
         }
             
 
@@ -990,7 +1033,8 @@ public class PlayerController : MonoBehaviour
             TriggerStealthKill();
 
         else if (t_attackCooldown <= 0 && 
-            CurrentPlayerState == e_PlayerControllerStates.FreeMove)
+            CurrentPlayerState == e_PlayerControllerStates.FreeMove &&
+            collisionDirections.y == -1)
 
             ChangeState(e_PlayerControllerStates.SwordSwing);
     }
@@ -1026,8 +1070,7 @@ public class PlayerController : MonoBehaviour
             ChangeState(e_PlayerControllerStates.FreeMove);
         }
     }
-    
-
+   
     void OnToggleSneak(InputValue value)
     {
         //if(CurrentPlayerState == e_PlayerControllerStates.FreeMove)

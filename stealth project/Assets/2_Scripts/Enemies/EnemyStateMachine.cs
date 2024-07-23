@@ -52,12 +52,14 @@ public class EnemyStateMachine : MonoBehaviour
     public float gravity = 5;
     public Vector2 inputVector = Vector2.zero;
     public Vector2 movementVector = Vector2.zero;
+    public Vector2 gravityVector = Vector2.zero;
     public float facingDirection = 1;
     public float facingSwitchTimer = 0.2f;
     private float t_facingSwitchTimer = 0;
     public string[] collisionLayers;
     public Vector2 collisionDirections = Vector2.zero;
-
+    public float maxFallSpeed = 20f;
+    public float gravityAccel = 1f;
 
     [Header("Patrolling")]
     public GameObject patrolRouteObject;
@@ -119,9 +121,9 @@ public class EnemyStateMachine : MonoBehaviour
     private Vector3 jumpStartPos = Vector3.zero;
     private float jumpLerp = 0;
     private float lerpSpeedCurrent = 0;
-    public float jumpMinDistance = 2;
+    public Vector2 jumpMinDistance = new Vector2(2, 0.8f);
     private bool f_fallInit = false;
-    public float jumpForce = 15f;
+    public Vector2 jumpForce;
 
     [Header("Attack")]
     public float attackCooldown = 1f;
@@ -157,6 +159,7 @@ public class EnemyStateMachine : MonoBehaviour
     Rigidbody2D rb;
     private EnemyAwareness awareScript;
     private Utilities utils = new Utilities();
+    public GameObject deadEnemy;
 
 
 
@@ -619,6 +622,16 @@ public class EnemyStateMachine : MonoBehaviour
         if (inputVector.y != 0) movementVector.y = inputVector.y;
 
 
+        // apply gravity if not grounded
+        if (collisionDirections.y != -1)
+        {
+            movementVector.x = gravityVector.x + inputVector.x;
+            movementVector.y = gravityVector.y;
+
+        }
+        // else set gravity to zero
+        else if (collisionDirections.y == -1) gravityVector.y = 0;
+
         // apply decay
         if (inputVector.x == 0) movementVector.x = movementVector.x - (movementVector.x * moveDecay * Time.deltaTime);
         if (inputVector.y == 0) movementVector.y = movementVector.y - (movementVector.y * moveDecay * Time.deltaTime);
@@ -631,7 +644,42 @@ public class EnemyStateMachine : MonoBehaviour
         if (Mathf.Abs(movementVector.x) <= 0.1) movementVector.x = 0;
         if (Mathf.Abs(movementVector.y) <= 0.1) movementVector.y = 0;
 
+        if (collisionDirections.y != -1) CalculateGravity();
+
+        ClampMovementForCollisions();
+
         transform.position += (Vector3)movementVector * Time.deltaTime;
+    }
+
+
+    public void CalculateGravity()
+    {
+
+        if (true)
+        {
+
+
+            gravityVector.y -= gravityAccel * Time.deltaTime;
+
+            // keep fall speed below the max
+            if (gravityVector.y < -maxFallSpeed) gravityVector.y = -maxFallSpeed;
+
+
+            // decay x component as well
+            gravityVector.x = gravityVector.x - (gravityVector.x * (moveDecay / 2) * Time.deltaTime);
+
+            // clamp x to zero when its close
+            if (Mathf.Abs(gravityVector.x) <= 0.1) gravityVector.x = 0;
+        }
+
+
+    }
+
+    public void Jump()
+    {
+        gravityVector = jumpForce;
+        gravityVector.x *= facingDirection;
+        collisionDirections = Vector2.zero;
     }
 
     public void ChangeState(e_EnemyStates state)
@@ -656,6 +704,15 @@ public class EnemyStateMachine : MonoBehaviour
         
     }
 
+
+    private void ClampMovementForCollisions()
+    {
+        if (collisionDirections.y > 0) movementVector.y = Mathf.Clamp(movementVector.y, -100, 0);
+        else if (collisionDirections.y < 0) movementVector.y = Mathf.Clamp(movementVector.y, 0, 100);
+
+        if (collisionDirections.x > 0) movementVector.x = Mathf.Clamp(movementVector.x, -100, 0);
+        else if (collisionDirections.x < 0) movementVector.x = Mathf.Clamp(movementVector.x, 0, 100);
+    }
 
     public void PlayerSightGained(e_EnemyStates state)
     {
@@ -812,14 +869,14 @@ public class EnemyStateMachine : MonoBehaviour
 
 
         // check if we need to jump
-        float nodeDistance = (path.vectorPath[currentWaypoint] - transform.position).magnitude;
-        float heightDelta = path.vectorPath[currentWaypoint].y - transform.position.y;
-        if (nodeDistance >= jumpMinDistance 
+        float xDelta = Mathf.Abs(path.vectorPath[currentWaypoint].x - transform.position.x);
+        float yDelta = path.vectorPath[currentWaypoint].y - transform.position.y;
+        if (xDelta <= jumpMinDistance.x 
             && currentState != e_EnemyStates.jump 
             && collisionDirections.y == -1 
-            && heightDelta >= 1)
+            && yDelta >= jumpMinDistance.y)
         {
-            ChangeState(e_EnemyStates.jump);
+            Jump();
         }
 
         // direction calculation
@@ -957,13 +1014,13 @@ public class EnemyStateMachine : MonoBehaviour
                 if (Vector2.Angle(normal, Vector2.up) < 45f)
                 {
                     collisionDirections.y = -1;
-                    //gravityVector.y = 0;
                 }
                 // if surface faces down
                 else if (Vector2.Angle(normal, Vector2.down) < 45f)
                 {
+                    if(collisionDirections.y != 1)
+                        gravityVector.y = 0;
                     collisionDirections.y = 1;
-                    //gravityVector.y = 0;
                 }
                 // if surface faces left
                 else if (Vector2.Angle(normal, Vector2.left) < 45f)
@@ -1020,14 +1077,20 @@ public class EnemyStateMachine : MonoBehaviour
     private void Die()
     {
         sightCone.SetActive(false);
-        ChangeState(e_EnemyStates.dead);
+        //ChangeState(e_EnemyStates.dead);
         awareScript.Die();
-        UpdateAnimator();
+        //UpdateAnimator();
+        Vector3 offset = new Vector3(0, 0.5f, 0);
+        GameObject dead = Instantiate(deadEnemy, transform.position + offset, Quaternion.identity);
+        if(facingDirection == -1)
+            dead.GetComponent<SpriteRenderer>().flipX = true;
+        Destroy(this.gameObject);
     }
 
     private void StealthKilled()
     {
-        if (awareScript.currentAwareness != AwarenessLevel.alert) Die();
+        //if (awareScript.currentAwareness != AwarenessLevel.alert)
+        Die();
     }
 
     void FindNearestPatrolRoute()

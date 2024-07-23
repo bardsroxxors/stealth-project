@@ -20,7 +20,7 @@ public class StealthKillZone : MonoBehaviour
 
         foreach (GameObject target in targets)
         {
-            if(target.GetComponent<EnemyAwareness>().currentAwareness == AwarenessLevel.alert ||
+            if(//target.GetComponent<EnemyAwareness>().currentAwareness == AwarenessLevel.alert ||
                 target.GetComponent<EnemyStateMachine>().currentState == e_EnemyStates.dead)
             {
                 targets.Remove(target);
@@ -44,7 +44,7 @@ public class StealthKillZone : MonoBehaviour
             EnemyStateMachine s = collision.gameObject.GetComponent<EnemyStateMachine>();
             if (a != null && s != null)
             {
-                if (a.currentAwareness != AwarenessLevel.alert &&
+                if (//a.currentAwareness != AwarenessLevel.alert &&
                     s.currentState != e_EnemyStates.dead)
                 {
                     //add the object to the list
