@@ -114,6 +114,8 @@ public class PlayerController : MonoBehaviour
     public float zipSpeed = 2f;
     public GameObject currentTarget;
     public GameObject koIndicator;
+    private Vector3 koStartPos = Vector3.zero;
+    private bool f_kozip = false;
 
     [Header("Collisions")]
     public Vector2 collisionDirections = Vector2.zero; // set to 0 for no collision, -1 for left, 1 for right
@@ -562,12 +564,17 @@ public class PlayerController : MonoBehaviour
 
     private void ProcessStealthKill()
     {
-        if (currentTarget == null && animator.GetCurrentAnimatorClipInfo(0)[0].clip.name != "ko")
+        // check if the kill animation has finished
+        if (!f_kozip && animator.GetCurrentAnimatorClipInfo(0)[0].clip.name != "ko")
         {
             animator.SetBool("lock", false);
+            currentTarget.SendMessage("KOEnd");
+            currentTarget.SendMessage("StealthKilled");
+            currentTarget = null;
             ChangeState(e_PlayerControllerStates.FreeMove);
         }
 
+        // do initial things
         if (!f_init_stealthKill && currentTarget != null)
         {
             animator.Play("air dash", 0);
@@ -576,23 +583,34 @@ public class PlayerController : MonoBehaviour
             f_init_stealthKill = true;
         }
 
+        // move towards target until we are close
         Vector2 distance = currentTarget.transform.position - transform.position;
         if (distance.magnitude > minZipDistance)
         {
             transform.Translate(distance.normalized * zipSpeed, Space.World);
         }
-        else if(currentTarget.GetComponent<EnemyStateMachine>().facingDirection == playerFacingVector.x ||
-            transform.position.y > currentTarget.transform.position.y - 0f)
+        // once we are close
+        // if we are eligible then start the animation
+        // if facing direction matches or we're above
+        else if(    currentTarget.GetComponent<EnemyStateMachine>().facingDirection == playerFacingVector.x ||
+                    koStartPos.y > currentTarget.transform.position.y + 1f 
+            )
         {
-            currentTarget.SendMessage("StealthKilled");
-            currentTarget = null;
+            //currentTarget.SendMessage("StealthKilled");
+            //currentTarget = null;
+            currentTarget.SendMessage("KOStart");
+            f_kozip = false;
             animator.Play("ko", 0);
+            inputVector = Vector2.zero;
         }
         else
         {
             Debug.Log("ko aborted");
+            currentTarget.SendMessage("KOEnd");
+            animator.SetBool("lock", false);
             currentTarget = null;
-            TriggerKnockback((int)currentTarget.GetComponent<EnemyStateMachine>().facingDirection);
+            ChangeState(e_PlayerControllerStates.FreeMove);
+            //TriggerKnockback((int)currentTarget.GetComponent<EnemyStateMachine>().facingDirection);
         }
         
             
@@ -680,6 +698,9 @@ public class PlayerController : MonoBehaviour
     {
         //currentTarget = GetKillTarget();
         animator.SetTrigger("ko trigger");
+        koStartPos = transform.position;
+        currentTarget.SendMessage("KOStart");
+        f_kozip = true;
         ChangeState(e_PlayerControllerStates.StealthKill);
     }
 
@@ -694,8 +715,9 @@ public class PlayerController : MonoBehaviour
             t_slideCooldown = slideCooldown;
             crouchReleased = true;
         }
-        
 
+        if (previousPlayerState == e_PlayerControllerStates.StealthKill && currentTarget != null)
+            currentTarget.SendMessage("KOEnd");
         if (previousPlayerState == e_PlayerControllerStates.SwordSwing)
             f_init_swordSwing = false;
         if (previousPlayerState == e_PlayerControllerStates.StealthKill)
@@ -705,7 +727,6 @@ public class PlayerController : MonoBehaviour
    private Vector2 EnemyShove()
     {
         if (shovingEnemy == null) return Vector2.zero;
-        Debug.Log("enemy shove");
         Vector3 antitarget = shovingEnemy.transform.position;
         Vector3 diff = transform.position - antitarget;
         diff.y = 0;
@@ -1029,10 +1050,9 @@ public class PlayerController : MonoBehaviour
 
     void OnAttack(InputValue value)
     {
-        if (currentTarget != null && CheckTargetLOS(currentTarget))
-            TriggerStealthKill();
+        
 
-        else if (t_attackCooldown <= 0 && 
+        if (t_attackCooldown <= 0 && 
             CurrentPlayerState == e_PlayerControllerStates.FreeMove &&
             collisionDirections.y == -1)
 
@@ -1119,7 +1139,10 @@ public class PlayerController : MonoBehaviour
 
             koIndicator.GetComponent<KOIndicator>().animationPercent = 0;
         }
-         */   
+         */
+
+        if (currentTarget != null && CheckTargetLOS(currentTarget))
+            TriggerStealthKill();
     }
 
     void OnChargeRelease(InputValue value)

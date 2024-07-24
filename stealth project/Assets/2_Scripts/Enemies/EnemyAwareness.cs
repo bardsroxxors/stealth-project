@@ -100,7 +100,7 @@ public class EnemyAwareness : MonoBehaviour
 
     private void ProcessUnaware()
     {
-        if (f_playerInSight)
+        if (f_playerInSight && !mainScript.f_koLocked)
         {
             alertPercent = alertPercent + GetIncreaseSpeed() * Time.deltaTime;
             t_alertDecayDelay = alertDecayDelay;
@@ -125,7 +125,7 @@ public class EnemyAwareness : MonoBehaviour
             ChangeState(AwarenessLevel.alert);
         }
 
-        if(f_playerInSight && playerObject != null)
+        if(f_playerInSight && playerObject != null && !mainScript.f_koLocked)
         {
             lastKnownPosition = playerObject.transform.position;
             alertPercent = alertPercent + GetIncreaseSpeed() * Time.deltaTime;

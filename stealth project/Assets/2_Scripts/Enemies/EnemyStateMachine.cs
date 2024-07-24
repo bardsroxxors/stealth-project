@@ -60,6 +60,9 @@ public class EnemyStateMachine : MonoBehaviour
     public Vector2 collisionDirections = Vector2.zero;
     public float maxFallSpeed = 20f;
     public float gravityAccel = 1f;
+    public float damageKnowTime = 2f;
+    private float t_damageKnowTime = 0;
+    public bool f_koLocked = false;
 
     [Header("Patrolling")]
     public GameObject patrolRouteObject;
@@ -214,6 +217,7 @@ public class EnemyStateMachine : MonoBehaviour
             Die();
         }
 
+        if(!f_koLocked)
         switch (currentState)
         {
             case e_EnemyStates.patrolling:
@@ -354,6 +358,9 @@ public class EnemyStateMachine : MonoBehaviour
         targetLookPosition = awareScript.lastKnownPosition;
         SightConeTrack();
 
+        if (t_damageKnowTime > 0)
+            targetLookPosition = GameObject.Find("Player").transform.position;
+
         if (dist > investigateDistance)
         {
             f_waitingToScramble = false;
@@ -463,8 +470,13 @@ public class EnemyStateMachine : MonoBehaviour
     // Takes damage
     private void ProcessFlinch()
     {
+        t_damageKnowTime = damageKnowTime;
         if (t_flinchTime <= 0)
-            ChangeState(previousState);
+        {
+            PlayerSightGained(e_EnemyStates.investigate);
+        }
+        targetLookPosition = awareScript.lastKnownPosition;
+        SightConeTrack();
     }
 
     // Jump (awful lerp jump must remake)
@@ -613,7 +625,15 @@ public class EnemyStateMachine : MonoBehaviour
     }
 
 
+    private void KOStart()
+    {
+        f_koLocked = true;
+    }
 
+    private void KOEnd()
+    {
+        f_koLocked = false;
+    }
 
     private void ApplyMovement()
     {
@@ -839,6 +859,7 @@ public class EnemyStateMachine : MonoBehaviour
         if (t_facingSwitchTimer > 0) t_facingSwitchTimer -= Time.deltaTime;
         if (t_waitTime > 0) t_waitTime -= Time.deltaTime;
         if (t_timeBeforeScramble > 0) t_timeBeforeScramble -= Time.deltaTime;
+        if (t_damageKnowTime > 0) t_damageKnowTime -= Time.deltaTime;
     }
 
 
@@ -983,7 +1004,7 @@ public class EnemyStateMachine : MonoBehaviour
                     t_flinchTime = flinchTime;
                     awareScript.alertPercent += 0.3f;
                     Instantiate(bloodPrefab, transform.position, Quaternion.identity);
-                    //awareScript.lastKnownPosition = collision.transform.position;
+                    awareScript.lastKnownPosition = collision.transform.position;
                     if (currentHP <= 0) Die();
                 }
             }

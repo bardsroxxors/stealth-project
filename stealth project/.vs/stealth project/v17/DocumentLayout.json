@@ -7,20 +7,20 @@
       "RelativeMoniker": "D:0:0:{B8A3D4B7-E533-0FD7-C260-767A941AA179}|Assembly-CSharp.csproj|solutionrelative:assets\\2_scripts\\player controller\\playercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{B8A3D4B7-E533-0FD7-C260-767A941AA179}|Assembly-CSharp.csproj|D:\\stealth-project\\stealth project\\assets\\2_scripts\\enemies\\attacktriggerzone.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{B8A3D4B7-E533-0FD7-C260-767A941AA179}|Assembly-CSharp.csproj|solutionrelative:assets\\2_scripts\\enemies\\attacktriggerzone.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{B8A3D4B7-E533-0FD7-C260-767A941AA179}|Assembly-CSharp.csproj|d:\\stealth-project\\stealth project\\assets\\2_scripts\\enemies\\enemystatemachine.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{B8A3D4B7-E533-0FD7-C260-767A941AA179}|Assembly-CSharp.csproj|solutionrelative:assets\\2_scripts\\enemies\\enemystatemachine.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{B8A3D4B7-E533-0FD7-C260-767A941AA179}|Assembly-CSharp.csproj|D:\\stealth-project\\stealth project\\assets\\2_scripts\\player controller\\playerjumpmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{B8A3D4B7-E533-0FD7-C260-767A941AA179}|Assembly-CSharp.csproj|solutionrelative:assets\\2_scripts\\player controller\\playerjumpmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{B8A3D4B7-E533-0FD7-C260-767A941AA179}|Assembly-CSharp.csproj|D:\\stealth-project\\stealth project\\assets\\2_scripts\\enemies\\attacktriggerzone.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B8A3D4B7-E533-0FD7-C260-767A941AA179}|Assembly-CSharp.csproj|solutionrelative:assets\\2_scripts\\enemies\\attacktriggerzone.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{B8A3D4B7-E533-0FD7-C260-767A941AA179}|Assembly-CSharp.csproj|D:\\stealth-project\\stealth project\\assets\\2_scripts\\player controller\\stealthkillzone.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{B8A3D4B7-E533-0FD7-C260-767A941AA179}|Assembly-CSharp.csproj|solutionrelative:assets\\2_scripts\\player controller\\stealthkillzone.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B8A3D4B7-E533-0FD7-C260-767A941AA179}|Assembly-CSharp.csproj|D:\\stealth-project\\stealth project\\assets\\2_scripts\\player controller\\playerjumpmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B8A3D4B7-E533-0FD7-C260-767A941AA179}|Assembly-CSharp.csproj|solutionrelative:assets\\2_scripts\\player controller\\playerjumpmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -34,26 +34,25 @@
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 2,
               "Title": "AttackTriggerZone.cs",
               "DocumentMoniker": "D:\\stealth-project\\stealth project\\Assets\\2_Scripts\\Enemies\\AttackTriggerZone.cs",
               "RelativeDocumentMoniker": "Assets\\2_Scripts\\Enemies\\AttackTriggerZone.cs",
               "ToolTip": "D:\\stealth-project\\stealth project\\Assets\\2_Scripts\\Enemies\\AttackTriggerZone.cs",
               "RelativeToolTip": "Assets\\2_Scripts\\Enemies\\AttackTriggerZone.cs",
-              "ViewState": "AQIAAAMAAAAAAAAAAAAAACkAAABFAAAA",
+              "ViewState": "AQIAAAMAAAAAAAAAAAAAAC0AAAA4AAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-07-22T11:10:34.645Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-07-22T11:10:34.645Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 4,
               "Title": "PlayerJumpManager.cs",
               "DocumentMoniker": "D:\\stealth-project\\stealth project\\Assets\\2_Scripts\\Player Controller\\PlayerJumpManager.cs",
               "RelativeDocumentMoniker": "Assets\\2_Scripts\\Player Controller\\PlayerJumpManager.cs",
               "ToolTip": "D:\\stealth-project\\stealth project\\Assets\\2_Scripts\\Player Controller\\PlayerJumpManager.cs",
               "RelativeToolTip": "Assets\\2_Scripts\\Player Controller\\PlayerJumpManager.cs",
-              "ViewState": "AQIAADAAAAAAAAAAAADwvz0AAAAcAAAA",
+              "ViewState": "AQIAABUAAAAAAAAAAADwvz0AAAAcAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-07-15T07:24:17.304Z"
             },
@@ -65,33 +64,33 @@
               "RelativeDocumentMoniker": "Assets\\2_Scripts\\Player Controller\\PlayerController.cs",
               "ToolTip": "D:\\stealth-project\\stealth project\\Assets\\2_Scripts\\Player Controller\\PlayerController.cs",
               "RelativeToolTip": "Assets\\2_Scripts\\Player Controller\\PlayerController.cs",
-              "ViewState": "AQIAAA4AAAAAAAAAAAAQwCkAAAAhAAAA",
+              "ViewState": "AQIAAKgBAAAAAAAAAAA7wKwCAAAIAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-05-10T23:47:23.05Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 1,
               "Title": "EnemyStateMachine.cs",
               "DocumentMoniker": "D:\\stealth-project\\stealth project\\Assets\\2_Scripts\\Enemies\\EnemyStateMachine.cs",
               "RelativeDocumentMoniker": "Assets\\2_Scripts\\Enemies\\EnemyStateMachine.cs",
               "ToolTip": "D:\\stealth-project\\stealth project\\Assets\\2_Scripts\\Enemies\\EnemyStateMachine.cs",
               "RelativeToolTip": "Assets\\2_Scripts\\Enemies\\EnemyStateMachine.cs",
-              "ViewState": "AQIAAE8DAAAAAAAAAAAswFEDAAAAAAAA",
+              "ViewState": "AQIAACACAAAAAAAAAAAAAHcCAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-05-18T11:14:53.387Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 3,
               "Title": "StealthKillZone.cs",
               "DocumentMoniker": "D:\\stealth-project\\stealth project\\Assets\\2_Scripts\\Player Controller\\StealthKillZone.cs",
               "RelativeDocumentMoniker": "Assets\\2_Scripts\\Player Controller\\StealthKillZone.cs",
               "ToolTip": "D:\\stealth-project\\stealth project\\Assets\\2_Scripts\\Player Controller\\StealthKillZone.cs",
               "RelativeToolTip": "Assets\\2_Scripts\\Player Controller\\StealthKillZone.cs",
-              "ViewState": "AQIAAAYAAAAAAAAAAAAUwBcAAABbAAAA",
+              "ViewState": "AQIAABYAAAAAAAAAAAAqwC4AAAAWAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-07-13T03:51:25.485Z"
             }

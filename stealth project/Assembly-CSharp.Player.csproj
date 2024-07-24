@@ -128,6 +128,7 @@
     <Compile Include="Assets\unity-wave-function-collapse\Training.cs" />
     <Compile Include="Assets\2_Scripts\Navmesh Generation\NavmeshGenerator.cs" />
     <Compile Include="Assets\2_Scripts\Player Controller\DijkFOW.cs" />
+    <Compile Include="Assets\2_Scripts\UI\PointsManager.cs" />
     <Compile Include="Assets\2_Scripts\UI\UI_Backpack.cs" />
     <Compile Include="Assets\2_Scripts\Arrow.cs" />
     <Compile Include="Assets\unity-wave-function-collapse\impl\SimpleTiledModel.cs" />

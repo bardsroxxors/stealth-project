@@ -225,7 +225,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 13495088799426282}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: awareness indicators
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -860,7 +860,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6827026529070254516}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: Sword
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1082,6 +1082,8 @@ MonoBehaviour:
   collisionDirections: {x: 0, y: 0}
   maxFallSpeed: 20
   gravityAccel: 15
+  damageKnowTime: 2
+  f_koLocked: 0
   patrolRouteObject: {fileID: 0}
   currentNodeIndex: 0
   nodeCompleteDistance: 1
@@ -1298,7 +1300,7 @@ GameObject:
   m_Component:
   - component: {fileID: 9118414621803950300}
   - component: {fileID: 5954614717153005696}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: default look target
   m_TagString: Untagged
   m_Icon: {fileID: 0}
