@@ -63,6 +63,9 @@ public class EnemyStateMachine : MonoBehaviour
     public float damageKnowTime = 2f;
     private float t_damageKnowTime = 0;
     public bool f_koLocked = false;
+    public GameObject shovingEnemy;
+    public bool f_insideEnemy = false;
+    public float shoveForce = 3f;
 
     [Header("Patrolling")]
     public GameObject patrolRouteObject;
@@ -666,6 +669,12 @@ public class EnemyStateMachine : MonoBehaviour
 
         if (collisionDirections.y != -1) CalculateGravity();
 
+        /*
+        // apply shoving from enemies if need be
+        if (f_insideEnemy && (currentState == e_EnemyStates.investigate ||
+                              currentState == e_EnemyStates.patrolling))
+            movementVector += EnemyShove();*/
+
         ClampMovementForCollisions();
 
         transform.position += (Vector3)movementVector * Time.deltaTime;
@@ -932,6 +941,18 @@ public class EnemyStateMachine : MonoBehaviour
         currentWaypoint = 0;
     }
 
+    private Vector2 EnemyShove()
+    {
+        if (shovingEnemy == null) return Vector2.zero;
+        Vector3 antitarget = shovingEnemy.transform.position;
+        Vector3 diff = transform.position - antitarget;
+        diff.y = 0;
+
+        return (Vector2)diff * shoveForce;
+
+
+    }
+
     // set the index for the next patrol route node
     private void SetNextNodeIndex()
     {
@@ -1009,7 +1030,7 @@ public class EnemyStateMachine : MonoBehaviour
                 }
             }
         }
-        if(collision.gameObject.tag == "NoiseTrigger" && currentState != e_EnemyStates.dead)
+        else if(collision.gameObject.tag == "NoiseTrigger" && currentState != e_EnemyStates.dead)
         {
             awareScript.lastKnownPosition = collision.gameObject.transform.position;
             NoiseScript noise = collision.gameObject.GetComponent<NoiseScript>();
@@ -1018,6 +1039,19 @@ public class EnemyStateMachine : MonoBehaviour
 
             if (awareScript.currentAwareness == AwarenessLevel.unaware)
                 PlayerSightGained(e_EnemyStates.investigate);
+        }
+        else if (collision.transform.name == "shove zone" && !collision.transform.IsChildOf(transform))
+        {
+            shovingEnemy = collision.gameObject;
+            f_insideEnemy = true;
+        }
+    }
+
+    private void OnTriggerExit2D(Collider collision)
+    {
+        if (collision.transform.name == "shove zone" && !collision.transform.IsChildOf(transform))
+        {
+            f_insideEnemy = false;
         }
     }
 

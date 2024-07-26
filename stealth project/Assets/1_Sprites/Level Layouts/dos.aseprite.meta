@@ -129,7 +129,7 @@ ScriptedImporter:
     rect:
       serializedVersion: 2
       x: 4
-      y: 4
+      y: 78
       width: 118
       height: 50
     spriteID: 1d2fbeb8938b9524abdc7b497fd3897d
@@ -140,18 +140,18 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 4, y: 4}
+    uvTransform: {x: 4, y: 78}
   - name: dos_Frame_1
     originalName: 
-    pivot: {x: 0.5, y: 0}
+    pivot: {x: 0.515625, y: 0.06060606}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
       x: 4
-      y: 62
-      width: 118
-      height: 50
+      y: 4
+      width: 128
+      height: 66
     spriteID: 4f052c76850c9df4b8fde5757e02dc35
     spriteBone: []
     spriteOutline: []
@@ -160,7 +160,7 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 4, y: 62}
+    uvTransform: {x: 4, y: 4}
   - name: dos_Frame_2
     originalName: 
     pivot: {x: 0.5, y: 0}
@@ -168,8 +168,8 @@ ScriptedImporter:
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 4
-      y: 120
+      x: 130
+      y: 78
       width: 118
       height: 50
     spriteID: b34cce19ebce3934f8cde1ea1b052b11
@@ -180,7 +180,27 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 4, y: 120}
+    uvTransform: {x: 130, y: 78}
+  - name: dos_Frame_3
+    originalName: 
+    pivot: {x: 0.5, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 136
+      width: 118
+      height: 50
+    spriteID: c87a561a16743824a876ce06bf0596fe
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 136}
   spriteSheetImportData: []
   asepriteLayers:
   - layerIndex: 0
@@ -201,10 +221,10 @@ ScriptedImporter:
     - name: dos_Frame_1
       frameIndex: 1
       cellRect:
-        x: 0
-        y: 0
-        width: 118
-        height: 50
+        x: -7
+        y: -4
+        width: 128
+        height: 66
       spriteId: 4f052c76850c9df4b8fde5757e02dc35
     - name: dos_Frame_2
       frameIndex: 2
@@ -214,6 +234,14 @@ ScriptedImporter:
         width: 118
         height: 50
       spriteId: b34cce19ebce3934f8cde1ea1b052b11
+    - name: dos_Frame_3
+      frameIndex: 3
+      cellRect:
+        x: 0
+        y: 0
+        width: 118
+        height: 50
+      spriteId: c87a561a16743824a876ce06bf0596fe
     linkedCells: []
     parentIndex: -1
   platformSettings: []

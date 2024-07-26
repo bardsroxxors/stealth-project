@@ -107,6 +107,7 @@
     <Compile Include="Assets\unity-wave-function-collapse\TilePainter.cs" />
     <Compile Include="Assets\KadaXuanwu\UtilityDesigner\Demos\Survival\Scripts\KillDeer.cs" />
     <Compile Include="Assets\2_Scripts\HideSprite.cs" />
+    <Compile Include="Assets\2_Scripts\Enemies\ScryingEye.cs" />
     <Compile Include="Assets\2_Scripts\Enemies\EnemyAnimationTrigger.cs" />
     <Compile Include="Assets\2_Scripts\NoiseScript.cs" />
     <Compile Include="Assets\AOSFogWar\Demo\Scripts\csEyeController.cs" />

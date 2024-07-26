@@ -141,14 +141,14 @@ MonoBehaviour:
   CurrentStatePreset: " <sbspreset pkgurl=\"pkg://A\" label=\"\" >\n  <presetinput
     identifier=\"$outputsize\" uid=\"3182604835\" type=\"8\" value=\"10,10\" />\n 
     <presetinput identifier=\"Shadows_AreaSelect_Position\" uid=\"3736252795\" type=\"0\"
-    value=\"0.399\" />\n  <presetinput identifier=\"Shadows_AreaSelect_Range\" uid=\"3736253679\"
+    value=\"0.052\" />\n  <presetinput identifier=\"Shadows_AreaSelect_Range\" uid=\"3736253679\"
     type=\"0\" value=\"0.307\" />\n  <presetinput identifier=\"Shadows_Distance\"
     uid=\"3739999993\" type=\"0\" value=\"0.099\" />\n  <presetinput identifier=\"Shadows_Power\"
     uid=\"3740003936\" type=\"0\" value=\"0.415\" />\n  <presetinput identifier=\"Shadows_Contrast\"
     uid=\"3740003963\" type=\"0\" value=\"0.302\" />\n  <presetinput identifier=\"Shadows_CheckerBlend\"
     uid=\"3740003782\" type=\"0\" value=\"0.13\" />\n  <presetinput identifier=\"Hightlights_AreaSelect_Position\"
-    uid=\"3739910174\" type=\"0\" value=\"0.786\" />\n  <presetinput identifier=\"Highlights_AreaSelect_Range\"
-    uid=\"3739917189\" type=\"0\" value=\"0.209\" />\n  <presetinput identifier=\"Highlights_AreaMask_Select\"
+    uid=\"3739910174\" type=\"0\" value=\"0.249\" />\n  <presetinput identifier=\"Highlights_AreaSelect_Range\"
+    uid=\"3739917189\" type=\"0\" value=\"0.932\" />\n  <presetinput identifier=\"Highlights_AreaMask_Select\"
     uid=\"3736929467\" type=\"0\" value=\"0.052\" />\n  <presetinput identifier=\"Highlights_AreaMask_Range\"
     uid=\"3736934444\" type=\"0\" value=\"0.212\" />\n  <presetinput identifier=\"Highlights_lightangle\"
     uid=\"3741265997\" type=\"0\" value=\"6.9\" />\n  <presetinput identifier=\"Highlights_ShadowShift\"
@@ -222,7 +222,7 @@ MonoBehaviour:
           GuiDescription: 
           Type: 8
           WidgetType: 7
-        Data: {fileID: 2800000, guid: e0a55acf60800db44af184e85ba01040, type: 3}
+        Data: {fileID: 2800000, guid: 31253f7dceef45b478fdd9cdb8084312, type: 3}
     - rid: 1169878520847139389
       type: {class: SubstanceInputFloat, ns: Adobe.Substance.Input, asm: Adobe.Substance}
       data:
@@ -234,7 +234,7 @@ MonoBehaviour:
           GuiDescription: 
           Type: 0
           WidgetType: 1
-        Data: 0.399
+        Data: 0.052
         NumericalDescription:
           DefaultValue: 0.79
           MinValue: 0
@@ -522,7 +522,7 @@ MonoBehaviour:
           GuiDescription: 
           Type: 0
           WidgetType: 1
-        Data: 0.786
+        Data: 0.249
         NumericalDescription:
           DefaultValue: 0.68
           MinValue: 0
@@ -542,7 +542,7 @@ MonoBehaviour:
           GuiDescription: 
           Type: 0
           WidgetType: 1
-        Data: 0.209
+        Data: 0.932
         NumericalDescription:
           DefaultValue: 0.96
           MinValue: 0

@@ -217,6 +217,13 @@ public class PlayerController : MonoBehaviour
     {
         if (controlScheme == e_ControlSchemes.MouseKeyboard) aimStickVector = GetVectorToMouse();
 
+
+        if (collisionDirections.y == -1 || f_groundClose) collider.size = new Vector2(collider.size.x, colliderYscale);
+        else
+        {
+            collider.size = new Vector2(collider.size.x, colliderYscale * colliderYModifier);
+        }
+
         // Process the current state
         switch (CurrentPlayerState)
         {
@@ -299,11 +306,7 @@ public class PlayerController : MonoBehaviour
         //if (lit) spriteRenderer.color = defaultColour;
         //else spriteRenderer.color = darkColour;
         UpdateAnimator();
-        if (collisionDirections.y == -1 || f_groundClose) collider.size = new Vector2(collider.size.x, colliderYscale);
-        else
-        {
-            collider.size = new Vector2(collider.size.x, colliderYscale * colliderYModifier);
-        }
+        
     }
 
 
@@ -324,7 +327,7 @@ public class PlayerController : MonoBehaviour
         if (!crouching && !crouchReleased)
         {
             crouchReleased = true;
-            t_slideCooldown = slideCooldown;
+            
         }
 
         
@@ -336,6 +339,8 @@ public class PlayerController : MonoBehaviour
             collisionDirections.y != -1 ||
             !crouching)
         {
+            if(sliding)
+                t_slideCooldown = slideCooldown;
             sliding = false;
             
         }
@@ -655,10 +660,10 @@ public class PlayerController : MonoBehaviour
 
         RaycastHit2D hit = Physics2D.BoxCast(
             collider.bounds.center, 
-            new Vector2(collider.size.x*0.8f, colliderYscale), 
+            new Vector2(collider.size.x*0.8f, colliderYscale/2), 
             0, 
             Vector3.down, 
-            0.1f * Mathf.Abs(gravityVector.y/jumpManager.maxFallSpeed) + 0.3f,
+            (0.1f * Mathf.Abs(gravityVector.y/jumpManager.maxFallSpeed)) + (colliderYscale * 0.6f),
             collisionMask
             );
         
@@ -809,7 +814,7 @@ public class PlayerController : MonoBehaviour
                 // if surface faces down
                 else if (Vector2.Angle(normal, Vector2.down) < 45f)
                 {
-                    gravityVector.y = 0;
+                    //gravityVector.y = 0;
                 }
 
 
