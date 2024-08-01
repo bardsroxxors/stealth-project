@@ -42,6 +42,24 @@
                     "initialStateCheck": true
                 },
                 {
+                    "name": "EquipUp",
+                    "type": "PassThrough",
+                    "id": "4062f046-ca7d-4ffb-8e51-0e7eff1ab927",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "Press",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "EquipDown",
+                    "type": "PassThrough",
+                    "id": "db87a9f3-6b61-43cf-b342-47457ec95fed",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "Press",
+                    "initialStateCheck": true
+                },
+                {
                     "name": "SneakRelease",
                     "type": "PassThrough",
                     "id": "670ae0c4-3d13-4dcb-bcb7-5cab7e1ddaea",
@@ -674,6 +692,28 @@
                     "processors": "",
                     "groups": "",
                     "action": "BagToggle",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "e50472e2-202c-4a0d-ba14-a049311ea9ec",
+                    "path": "<Mouse>/scroll/up",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "EquipUp",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "1b39677c-49e1-49f0-b4cd-441c02af98ae",
+                    "path": "<Mouse>/scroll/down",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "EquipDown",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

@@ -18,6 +18,14 @@ public enum e_PlayerControllerStates
     Dead
 }
 
+public enum e_Equipment
+{
+    empty,
+    sword,
+    bearTrap,
+    arrow
+}
+
 public enum e_ControlSchemes
 {
     MouseKeyboard,
@@ -48,6 +56,9 @@ public class PlayerController : MonoBehaviour
     private GameObject shovingEnemy;
     public float shoveForce = 2f;
     private float t_iTime = 0;
+
+    public int activeEquipIndex = 0;
+    public e_Equipment[] equipList = new e_Equipment[4]; 
 
     [Header("Free Move")]
     public bool f_holdToRun = true;
@@ -174,6 +185,10 @@ public class PlayerController : MonoBehaviour
     [Header("Blink Power")]
     public float blinkRange = 3f;
 
+    [Header("Equipment References")]
+    public GameObject baseProjectile;
+    public Projectile so_bearTrap;
+    public Projectile so_arrow;
 
 
 
@@ -189,6 +204,10 @@ public class PlayerController : MonoBehaviour
         killZone = killzoneObject.GetComponent<StealthKillZone>();
         backpack = GameObject.Find("Backpack").GetComponent<UI_Backpack>();
         colliderYscale = collider.size.y;
+
+        equipList[0] = e_Equipment.sword;
+        equipList[1] = e_Equipment.bearTrap;
+        equipList[2] = e_Equipment.arrow;
     }
 
 
@@ -1012,9 +1031,18 @@ public class PlayerController : MonoBehaviour
     }
 
 
+    private void ShootProjectile(Projectile proj)
+    {
+        GameObject bullet =  Instantiate(baseProjectile, transform.position, Quaternion.identity);
+        BaseProjectile p = bullet.GetComponent<BaseProjectile>();
+        if (p != null) 
+        {
+            p.so_projectile = proj;
+            p.launchVector = GetVectorToMouse();
+            p.Setup();
+        }
 
-
-
+    }
 
     // Input Listener Methods
     void OnMove(InputValue value)
@@ -1055,13 +1083,25 @@ public class PlayerController : MonoBehaviour
 
     void OnAttack(InputValue value)
     {
-        
-
-        if (t_attackCooldown <= 0 && 
+        if (equipList[activeEquipIndex] == e_Equipment.sword)
+        {
+            if (t_attackCooldown <= 0 &&
             CurrentPlayerState == e_PlayerControllerStates.FreeMove &&
             collisionDirections.y == -1)
 
-            ChangeState(e_PlayerControllerStates.SwordSwing);
+                ChangeState(e_PlayerControllerStates.SwordSwing);
+        }
+        else if (equipList[activeEquipIndex] == e_Equipment.bearTrap)
+        {
+            ShootProjectile(so_bearTrap);
+        }
+
+        else if (equipList[activeEquipIndex] == e_Equipment.arrow)
+        {
+            ShootProjectile(so_arrow);
+        }
+
+
     }
 
     void OnAim(InputValue value)
@@ -1164,7 +1204,21 @@ public class PlayerController : MonoBehaviour
         backpack.SendMessage("ToggleOpen");
     }
 
-    
+    void OnEquipUp(InputValue value)
+    {
+        activeEquipIndex -= 1;
+        if(activeEquipIndex < 0)
+            activeEquipIndex = equipList.Length - 1;
+    }
+
+    void OnEquipDown(InputValue value)
+    {
+        activeEquipIndex += 1;
+        if(activeEquipIndex > equipList.Length - 1)
+            activeEquipIndex = 0;
+    }
+
+
     void KOTarget()
     {
         if (killzoneObject.GetComponent<StealthKillZone>().currentTarget == null)

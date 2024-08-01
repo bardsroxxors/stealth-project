@@ -61,6 +61,9 @@ public class CameraFollow : MonoBehaviour
 
     void FixedUpdate()
     {
+        screenCenter.x = screenSize.x / 2;
+        screenCenter.y = screenSize.y / 2;
+
         playerMovementVector = playerController.movementVector;
 
         Vector3 targetCamPos = (Vector2)target.position + offset + (playerMovementVector * leadingFactor);
@@ -69,7 +72,8 @@ public class CameraFollow : MonoBehaviour
         float newY = Mathf.Lerp(transform.position.y, targetCamPos.y, ySmoothing * Time.deltaTime);
         transform.position = new Vector3(newX, newY, transform.position.z);
 
-        
+
+
 
         SnapToGrid();
 

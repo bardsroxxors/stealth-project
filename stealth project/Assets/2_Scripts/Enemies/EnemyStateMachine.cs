@@ -27,7 +27,9 @@ public enum e_EnemyStates
 
 public enum e_EnemyConditions
 {
-    vigilant // Looks around frequently
+    vigilant, // Looks around frequently
+    blind,
+    immobile
 
 }
 

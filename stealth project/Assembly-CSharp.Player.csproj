@@ -102,6 +102,7 @@
     <Compile Include="Assets\Scriptable Objects\Sounds\Sound.cs" />
     <Compile Include="Assets\2_Scripts\CameraFollow.cs" />
     <Compile Include="Assets\2_Scripts\SmallObjectScript.cs" />
+    <Compile Include="Assets\2_Scripts\BaseMine.cs" />
     <Compile Include="Assets\2_Scripts\Player Controller\Sword\SwordScript.cs" />
     <Compile Include="Assets\KadaXuanwu\UtilityDesigner\Demos\Survival\Scripts\CameraFollow.cs" />
     <Compile Include="Assets\unity-wave-function-collapse\TilePainter.cs" />
@@ -118,12 +119,15 @@
     <Compile Include="Assets\2_Scripts\Navmesh Generation\NavmeshGenEditor.cs" />
     <Compile Include="Assets\2_Scripts\Enemies\AttackTriggerZone.cs" />
     <Compile Include="Assets\2_Scripts\Level Generation\RoomZones.cs" />
+    <Compile Include="Assets\2_Scripts\Enemies\ShooterExtension.cs" />
     <Compile Include="Assets\2_Scripts\Parallax\ParallaxLayer.cs" />
     <Compile Include="Assets\2_Scripts\Utilities.cs" />
+    <Compile Include="Assets\2_Scripts\BaseProjectile.cs" />
     <Compile Include="Assets\2_Scripts\DamageSource.cs" />
     <Compile Include="Assets\2_Scripts\Player Controller\PaperdollSpriteManager.cs" />
     <Compile Include="Assets\2_Scripts\FogOfWarScript.cs" />
     <Compile Include="Assets\2_Scripts\Player Controller\PlayerJumpManager.cs" />
+    <Compile Include="Assets\Scriptable Objects\Mines\Mine.cs" />
     <Compile Include="Assets\2_Scripts\Player Controller\SwordHitboxScript.cs" />
     <Compile Include="Assets\KadaXuanwu\UtilityDesigner\Demos\Survival\Scripts\TakeFishingRod.cs" />
     <Compile Include="Assets\unity-wave-function-collapse\Training.cs" />
@@ -135,6 +139,7 @@
     <Compile Include="Assets\unity-wave-function-collapse\impl\SimpleTiledModel.cs" />
     <Compile Include="Assets\KadaXuanwu\UtilityDesigner\Demos\Survival\Scripts\TakeBoatTrip.cs" />
     <Compile Include="Assets\AOSFogWar\Examples\csFogVisibilityAgent.cs" />
+    <Compile Include="Assets\Scriptable Objects\Projectiles\Projectile.cs" />
     <Compile Include="Assets\2_Scripts\Enemies\EnemyStateMachine.cs" />
     <Compile Include="Assets\KadaXuanwu\UtilityDesigner\Demos\Survival\Scripts\JamesStats.cs" />
     <Compile Include="Assets\Advanced Rule Tiles\AdvancedRuleTile.cs" />
