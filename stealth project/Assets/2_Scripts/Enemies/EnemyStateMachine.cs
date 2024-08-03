@@ -43,6 +43,7 @@ public class EnemyStateMachine : MonoBehaviour
     public GameObject graphicsObject;
     private Animator animator;
     public List<e_EnemyConditions> conditions = new List<e_EnemyConditions>();
+    public List<float> conditionTimes = new List<float>();
     public GameObject noisePrefab;
     public Sound soundSO;
     private e_EnemyStates queuedState = e_EnemyStates.investigate;
@@ -313,6 +314,13 @@ public class EnemyStateMachine : MonoBehaviour
     // Update Functions for States
     private void ProcessPatrolling()
     {
+
+        if (conditions.Contains(e_EnemyConditions.immobile))
+        {
+            t_currentWaitTimer = 1f;
+            ChangeState(e_EnemyStates.headSwivel);
+        }
+            
 
         float nodeDistance = (currentPatrolDestination.position - transform.position).magnitude;
         if (nodeDistance <= nodeCompleteDistance)
@@ -677,9 +685,12 @@ public class EnemyStateMachine : MonoBehaviour
                               currentState == e_EnemyStates.patrolling))
             movementVector += EnemyShove();*/
 
+        movementVector += EnemyShove();
+
         ClampMovementForCollisions();
 
-        transform.position += (Vector3)movementVector * Time.deltaTime;
+        if(!conditions.Contains(e_EnemyConditions.immobile))
+            transform.position += (Vector3)movementVector * Time.deltaTime;
     }
 
 
@@ -809,7 +820,10 @@ public class EnemyStateMachine : MonoBehaviour
         if (newState == AwarenessLevel.alert)
         {
             if (!conditions.Contains(e_EnemyConditions.vigilant))
-                conditions.Add(e_EnemyConditions.vigilant);
+            {
+                ApplyCondition(e_EnemyConditions.vigilant, -1f);
+            }
+                
             GameObject s = Instantiate(noisePrefab, transform.position, Quaternion.identity);
             s.SendMessage("SetProfile", soundSO);
         }
@@ -818,7 +832,12 @@ public class EnemyStateMachine : MonoBehaviour
     }
 
     
-
+    public void ApplyCondition(e_EnemyConditions con, float time)
+    {
+        Debug.Log("Gottem!ed");
+        conditions.Add(con);
+        conditionTimes.Add(time);
+    }
 
 
     // manage animator variables
@@ -871,6 +890,20 @@ public class EnemyStateMachine : MonoBehaviour
         if (t_waitTime > 0) t_waitTime -= Time.deltaTime;
         if (t_timeBeforeScramble > 0) t_timeBeforeScramble -= Time.deltaTime;
         if (t_damageKnowTime > 0) t_damageKnowTime -= Time.deltaTime;
+
+
+        for (int i = conditionTimes.Count - 1; i > -1; i--)
+        {
+            if (conditionTimes[i] != -1)
+            {
+                conditionTimes[i] -= Time.deltaTime;
+            }
+            if (conditionTimes[i] <= 0)
+            {
+                conditionTimes.RemoveAt(i);
+                conditions.RemoveAt(i);
+            }
+        }
     }
 
 
@@ -908,7 +941,8 @@ public class EnemyStateMachine : MonoBehaviour
             && collisionDirections.y == -1 
             && yDelta >= jumpMinDistance.y)
         {
-            Jump();
+            if (!conditions.Contains(e_EnemyConditions.immobile))
+                Jump();
         }
 
         // direction calculation
@@ -1049,7 +1083,7 @@ public class EnemyStateMachine : MonoBehaviour
         }
     }
 
-    private void OnTriggerExit2D(Collider collision)
+    private void OnTriggerExit2D(Collider2D collision)
     {
         if (collision.transform.name == "shove zone" && !collision.transform.IsChildOf(transform))
         {

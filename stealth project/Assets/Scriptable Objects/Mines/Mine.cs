@@ -12,6 +12,6 @@ public class Mine : ScriptableObject
     public e_EnemyConditions effect;
     public float duration = 0f;
     public bool sticky = false;
-    public float triggerRadius = 1f;
-    public LayerMask triggerMask;
+    //public float triggerRadius = 1f;
+    public string[] applyToTags;
 }

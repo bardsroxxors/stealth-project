@@ -19,6 +19,5 @@ MonoBehaviour:
   duration: 3
   sticky: 0
   triggerRadius: 0.5
-  triggerMask:
-    serializedVersion: 2
-    m_Bits: 0
+  applyToTags:
+  - Enemy

@@ -1066,6 +1066,7 @@ MonoBehaviour:
   maxHP: 20
   graphicsObject: {fileID: 4627374472030742646}
   conditions: 
+  conditionTimes: []
   noisePrefab: {fileID: 2674792170459540541, guid: a7c9de3869cd3494d9a78b003448acb0, type: 3}
   soundSO: {fileID: 11400000, guid: b3f1cad38de077443ba2e311a1dd3901, type: 2}
   patrolSpeed: 2
@@ -1084,6 +1085,8 @@ MonoBehaviour:
   gravityAccel: 15
   damageKnowTime: 2
   f_koLocked: 0
+  shovingEnemy: {fileID: 0}
+  f_insideEnemy: 0
   shoveForce: 0.2
   patrolRouteObject: {fileID: 0}
   currentNodeIndex: 0
@@ -1194,7 +1197,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0.022634566}
+  m_Offset: {x: 0.028213978, y: 0.022634566}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -1205,7 +1208,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.1316156, y: 1.3568729}
+  m_Size: {x: 0.70437527, y: 1.3568729}
   m_EdgeRadius: 0
 --- !u!50 &7032059712344682543
 Rigidbody2D:

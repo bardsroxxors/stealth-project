@@ -92,6 +92,7 @@
     <Compile Include="Assets\2_Scripts\PatrolRoute.cs" />
     <Compile Include="Assets\unity-wave-function-collapse\impl\Stuff.cs" />
     <Compile Include="Assets\2_Scripts\SnapToGrid.cs" />
+    <Compile Include="Assets\2_Scripts\Equipment\BaseCloud.cs" />
     <Compile Include="Assets\2_Scripts\Parallax\ParallaxCamera.cs" />
     <Compile Include="Assets\2_Scripts\Tilemap Gemeration\LevelGen.cs" />
     <Compile Include="Assets\2_Scripts\WFC\WFCNode.cs" />
@@ -102,7 +103,6 @@
     <Compile Include="Assets\Scriptable Objects\Sounds\Sound.cs" />
     <Compile Include="Assets\2_Scripts\CameraFollow.cs" />
     <Compile Include="Assets\2_Scripts\SmallObjectScript.cs" />
-    <Compile Include="Assets\2_Scripts\BaseMine.cs" />
     <Compile Include="Assets\2_Scripts\Player Controller\Sword\SwordScript.cs" />
     <Compile Include="Assets\KadaXuanwu\UtilityDesigner\Demos\Survival\Scripts\CameraFollow.cs" />
     <Compile Include="Assets\unity-wave-function-collapse\TilePainter.cs" />
@@ -122,16 +122,17 @@
     <Compile Include="Assets\2_Scripts\Enemies\ShooterExtension.cs" />
     <Compile Include="Assets\2_Scripts\Parallax\ParallaxLayer.cs" />
     <Compile Include="Assets\2_Scripts\Utilities.cs" />
-    <Compile Include="Assets\2_Scripts\BaseProjectile.cs" />
     <Compile Include="Assets\2_Scripts\DamageSource.cs" />
     <Compile Include="Assets\2_Scripts\Player Controller\PaperdollSpriteManager.cs" />
     <Compile Include="Assets\2_Scripts\FogOfWarScript.cs" />
     <Compile Include="Assets\2_Scripts\Player Controller\PlayerJumpManager.cs" />
     <Compile Include="Assets\Scriptable Objects\Mines\Mine.cs" />
+    <Compile Include="Assets\2_Scripts\Equipment\BaseMine.cs" />
     <Compile Include="Assets\2_Scripts\Player Controller\SwordHitboxScript.cs" />
     <Compile Include="Assets\KadaXuanwu\UtilityDesigner\Demos\Survival\Scripts\TakeFishingRod.cs" />
     <Compile Include="Assets\unity-wave-function-collapse\Training.cs" />
     <Compile Include="Assets\2_Scripts\Navmesh Generation\NavmeshGenerator.cs" />
+    <Compile Include="Assets\Scriptable Objects\Clouds\Cloud.cs" />
     <Compile Include="Assets\2_Scripts\Player Controller\DijkFOW.cs" />
     <Compile Include="Assets\2_Scripts\UI\PointsManager.cs" />
     <Compile Include="Assets\2_Scripts\UI\UI_Backpack.cs" />
@@ -143,6 +144,7 @@
     <Compile Include="Assets\2_Scripts\Enemies\EnemyStateMachine.cs" />
     <Compile Include="Assets\KadaXuanwu\UtilityDesigner\Demos\Survival\Scripts\JamesStats.cs" />
     <Compile Include="Assets\Advanced Rule Tiles\AdvancedRuleTile.cs" />
+    <Compile Include="Assets\2_Scripts\Equipment\BaseProjectile.cs" />
     <Compile Include="Assets\2_Scripts\Player Controller\PlayerController.cs" />
     <Compile Include="Assets\KadaXuanwu\UtilityDesigner\Demos\Survival\Scripts\DeerController.cs" />
     <Compile Include="Assets\2_Scripts\Player Controller\GrappleLineRenderer.cs" />
