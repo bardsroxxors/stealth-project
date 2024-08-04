@@ -3,12 +3,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
+using static UnityEditor.PlayerSettings;
 
 public class PatrolRoute : MonoBehaviour
 {
 
-    public Transform[] nodes;
-    public Vector2[] nodeList;
+    public Vector2[] nodes;
+    //public Vector2[] nodeList;
     public int[] directions;
     public float[] waitTimes;
     public bool boomerang = true; // should the route be used as a circuit or a bommerang
@@ -28,10 +29,14 @@ public class PatrolRoute : MonoBehaviour
 
     private void OnDrawGizmos()
     {
-        for (int i = 0; i < nodeList.Length; i++) {
+
+        Gizmos.DrawIcon(transform.position, "circle indicator.png", false);
+
+        // draw patrol points
+        for (int i = 0; i < nodes.Length; i++) {
             Vector3 pos = transform.position;
-            pos.x += nodeList[i].x;
-            pos.y += nodeList[i].y;
+            pos.x += nodes[i].x;
+            pos.y += nodes[i].y;
             if (directions[i] == -1)
                 Gizmos.DrawIcon(pos, "left arrow.png", true);
             else if (directions[i] == 1)
@@ -41,4 +46,6 @@ public class PatrolRoute : MonoBehaviour
         }
 
     }
+
+
 }

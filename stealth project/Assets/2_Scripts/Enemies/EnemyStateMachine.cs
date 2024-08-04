@@ -27,9 +27,9 @@ public enum e_EnemyStates
 
 public enum e_EnemyConditions
 {
-    vigilant, // Looks around frequently
+    vigilant, // Looks around frequently, has been alerted
     blind,
-    immobile
+    immobile,
 
 }
 
@@ -73,7 +73,7 @@ public class EnemyStateMachine : MonoBehaviour
     [Header("Patrolling")]
     public GameObject patrolRouteObject;
     public int currentNodeIndex = 0;
-    private Transform currentPatrolDestination;
+    private Vector2 currentPatrolDestination;
     public float nodeCompleteDistance = 0.5f;
 
     [Header("Waiting")]
@@ -169,6 +169,7 @@ public class EnemyStateMachine : MonoBehaviour
     private EnemyAwareness awareScript;
     private Utilities utils = new Utilities();
     public GameObject deadEnemy;
+    float patrolFacing = -1f;
 
 
 
@@ -191,14 +192,15 @@ public class EnemyStateMachine : MonoBehaviour
 
         facingVector = new Vector3(facingDirection, 1, 1);
 
-        
+
 
         FindNearestPatrolRoute();
 
         patrolRoute = patrolRouteObject.GetComponent<PatrolRoute>();
         if (patrolRoute != null)
         {
-            currentPatrolDestination = patrolRoute.nodes[currentNodeIndex];
+            //currentPatrolDestination = patrolRouteObject.transform;
+            currentPatrolDestination = (Vector3)patrolRoute.nodes[currentNodeIndex] + patrolRouteObject.transform.position;
         }
 
     }
@@ -322,9 +324,11 @@ public class EnemyStateMachine : MonoBehaviour
         }
             
 
-        float nodeDistance = (currentPatrolDestination.position - transform.position).magnitude;
+        float nodeDistance = ((Vector3)currentPatrolDestination - transform.position).magnitude;
+        
         if (nodeDistance <= nodeCompleteDistance)
         {
+            patrolFacing = patrolRoute.directions[currentNodeIndex];
             t_currentWaitTimer = patrolRoute.waitTimes[currentNodeIndex];
             SetNextNodeIndex();
 
@@ -332,6 +336,10 @@ public class EnemyStateMachine : MonoBehaviour
                 ChangeState(e_EnemyStates.headSwivel);
             else
                 ChangeState(e_EnemyStates.waiting);
+
+            //facingDirection = patrolRoute.directions[currentNodeIndex];
+
+            UpdatePath();
             //inputVector = Vector3.zero;
         }
 
@@ -348,7 +356,7 @@ public class EnemyStateMachine : MonoBehaviour
         SightConeTrack();
 
 
-        pathfindTarget = patrolRoute.nodes[currentNodeIndex].position;
+        pathfindTarget = (Vector3)patrolRoute.nodes[currentNodeIndex] + patrolRouteObject.transform.position;
 
         PathFollow();
 
@@ -359,6 +367,24 @@ public class EnemyStateMachine : MonoBehaviour
     {
         if (t_currentWaitTimer <= 0) ChangeState(e_EnemyStates.patrolling);
         inputVector = Vector2.zero;
+
+
+        if(movementVector.magnitude == 0)
+        // look in right direction for the patrol point
+            facingDirection = patrolFacing;
+
+        float angle = 190;
+        if (facingDirection > 0) angle = 350;
+        Vector3 lookTarget = Vector3.zero;
+
+        
+
+        lookTarget = utils.GetVectorFromAngle(angle) * randomPointDistance;
+        lookTarget = transform.TransformPoint(lookTarget);
+
+        targetLookPosition = lookTarget;
+        
+
         SightConeTrack();
     }
 
@@ -685,7 +711,7 @@ public class EnemyStateMachine : MonoBehaviour
                               currentState == e_EnemyStates.patrolling))
             movementVector += EnemyShove();*/
 
-        movementVector += EnemyShove();
+        //movementVector += EnemyShove();
 
         ClampMovementForCollisions();
 
@@ -834,7 +860,6 @@ public class EnemyStateMachine : MonoBehaviour
     
     public void ApplyCondition(e_EnemyConditions con, float time)
     {
-        Debug.Log("Gottem!ed");
         conditions.Add(con);
         conditionTimes.Add(time);
     }
@@ -1005,7 +1030,7 @@ public class EnemyStateMachine : MonoBehaviour
             else currentNodeIndex++;
         }
 
-        currentPatrolDestination = patrolRoute.nodes[currentNodeIndex];
+        currentPatrolDestination = (Vector3)patrolRoute.nodes[currentNodeIndex] + patrolRouteObject.transform.position;
 
 
     }
@@ -1212,6 +1237,10 @@ public class EnemyStateMachine : MonoBehaviour
         Handles.color = UnityEngine.Color.red;
         Handles.DrawWireCube(targetLookPosition, new Vector3(0.25f, 0.25f, 0.25f));
 
+        Handles.color = UnityEngine.Color.blue;
+        Handles.DrawWireCube(currentPatrolDestination, new Vector3(0.4f, 0.4f, 0.4f));
+
+        
         Handles.color = UnityEngine.Color.green;
         if(path != null && path.vectorPath.Count > 0 && Application.isPlaying)
             Handles.DrawWireCube(path.vectorPath[currentWaypoint], new Vector3(0.25f, 0.25f, 0.25f));

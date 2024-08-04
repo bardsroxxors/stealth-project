@@ -16,6 +16,7 @@ TagManager:
   - PatrolRoute
   - OneWay
   - GroundItem
+  - Corpse
   layers:
   - Default
   - TransparentFX
@@ -33,7 +34,7 @@ TagManager:
   - LightTriggers
   - PlayerKillZone
   - NavPoint
-  - 
+  - Corpses
   - 
   - 
   - 

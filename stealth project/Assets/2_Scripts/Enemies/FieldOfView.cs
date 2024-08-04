@@ -134,6 +134,10 @@ public class FieldOfView : MonoBehaviour
             }
             
         }
+        else if (collision.gameObject.tag == "Corpse")
+        {
+
+        }
 
     }
 

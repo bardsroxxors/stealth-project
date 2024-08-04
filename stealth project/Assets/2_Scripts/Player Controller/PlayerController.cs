@@ -267,7 +267,7 @@ public class PlayerController : MonoBehaviour
         }
 
 
-        if(currentTarget != null)
+        if(currentTarget != null && KOTargetValid())
         {
             koIndicator.SetActive(true);
             koIndicator.GetComponent<KOIndicator>().targetPosition = currentTarget.transform.position;
@@ -523,22 +523,53 @@ public class PlayerController : MonoBehaviour
     {
         if (!f_init_swordSwing)
         {
-            swordObject.SetActive(true);
-            swordObject.transform.position = transform.position;
-            swordObject.transform.localScale = new Vector3( playerFacingVector.x, 1, 1 );
-            swordObject.GetComponentInChildren<Animator>().SetTrigger("swing");
-            swordObject.GetComponentInChildren<SwordScript>().animating = true;
-            swordObject.transform.GetChild(0).transform.localPosition = new Vector3 (1f,0,0);
-            swordObject.transform.GetChild(0).GetComponent<DamageSource>().RefreshDamageSource();
-            inputVector.x = swingMoveSpeed * playerFacingVector.x;
+            
+
+            if(collisionDirections.y == -1)
+            {
+                swordObject.SetActive(true);
+                swordObject.transform.GetChild(0).transform.gameObject.SetActive(true);
+                swordObject.transform.GetChild(1).transform.gameObject.SetActive(false);
+
+                swordObject.transform.position = transform.position;
+                swordObject.transform.localScale = new Vector3(playerFacingVector.x, 1, 1);
+                swordObject.transform.GetChild(0).GetComponent<Animator>().SetTrigger("swing");
+                swordObject.transform.GetChild(0).GetComponent<SwordScript>().animating = true;
+
+                swordObject.transform.GetChild(0).transform.localPosition = new Vector3(1f, 0, 0);
+                swordObject.transform.GetChild(0).GetComponent<DamageSource>().RefreshDamageSource();
+
+                //inputVector.x = swingMoveSpeed * playerFacingVector.x;
+
+                animator.Play("attack", 0);
+            }
+            else // airborn variation
+            {
+                swordObject.SetActive(true);
+                swordObject.transform.GetChild(1).transform.gameObject.SetActive(true);
+                swordObject.transform.GetChild(0).transform.gameObject.SetActive(false);
+
+                swordObject.transform.position = transform.position;
+                swordObject.transform.localScale = new Vector3(playerFacingVector.x, 1, 1);
+                swordObject.transform.GetChild(1).GetComponent<Animator>().SetTrigger("air swing");
+                swordObject.transform.GetChild(1).GetComponent<SwordScript>().animating = true;
+
+                swordObject.transform.GetChild(1).transform.localPosition = new Vector3(0.7f, 0, 0);
+                swordObject.transform.GetChild(1).GetComponent<DamageSource>().RefreshDamageSource();
+
+            }
 
             t_attackLength = attackLength;
             t_attackCooldown = attackCooldown;
             //animator.SetTrigger("attack trigger");
-            animator.Play("attack", 0);
+            
 
             f_init_swordSwing = true;
         }
+
+        //if(collisionDirections.y != -1 && moveStickVector.magnitude >= 0.25)
+        if (moveStickVector.magnitude >= 0.25)
+            inputVector.x = moveStickVector.normalized.x * moveSpeed;
 
         // clamp to zero when its close
         if (inputVector.magnitude <= 0.1) inputVector = Vector2.zero;
@@ -548,10 +579,20 @@ public class PlayerController : MonoBehaviour
             inputVector.x = inputVector.x - (inputVector.x * swingMoveDecay * Time.deltaTime);
         }
 
-        gravityVector.y = 0;
+        //gravityVector.y = 0;
 
-        if (!swordObject.GetComponentInChildren<SwordScript>().animating)
-            swordObject.SetActive(false);
+        if(collisionDirections.y == -1)
+        {
+            if (!swordObject.transform.GetChild(0).GetComponent<SwordScript>().animating)
+                swordObject.SetActive(false);
+        }
+        else
+        {
+            if (!swordObject.transform.GetChild(1).GetComponent<SwordScript>().animating)
+                swordObject.SetActive(false);
+        }
+
+        
 
         
         if(t_attackLength <= 0)
@@ -588,6 +629,8 @@ public class PlayerController : MonoBehaviour
 
     private void ProcessStealthKill()
     {
+        gravityVector = Vector2.zero;
+
         // check if the kill animation has finished
         if (!f_kozip && animator.GetCurrentAnimatorClipInfo(0)[0].clip.name != "ko")
         {
@@ -616,9 +659,7 @@ public class PlayerController : MonoBehaviour
         // once we are close
         // if we are eligible then start the animation
         // if facing direction matches or we're above
-        else if(    currentTarget.GetComponent<EnemyStateMachine>().facingDirection == playerFacingVector.x ||
-                    koStartPos.y > currentTarget.transform.position.y + 1f 
-            )
+        else// if( KOTargetValid() )
         {
             //currentTarget.SendMessage("StealthKilled");
             //currentTarget = null;
@@ -626,7 +667,7 @@ public class PlayerController : MonoBehaviour
             f_kozip = false;
             animator.Play("ko", 0);
             inputVector = Vector2.zero;
-        }
+        }/*
         else
         {
             Debug.Log("ko aborted");
@@ -635,7 +676,7 @@ public class PlayerController : MonoBehaviour
             currentTarget = null;
             ChangeState(e_PlayerControllerStates.FreeMove);
             //TriggerKnockback((int)currentTarget.GetComponent<EnemyStateMachine>().facingDirection);
-        }
+        }*/
         
             
 
@@ -693,7 +734,7 @@ public class PlayerController : MonoBehaviour
         else f_groundClose = false;
 
         // apply gravity if not grounded
-        if ((collisionDirections.y != -1 && CurrentPlayerState == e_PlayerControllerStates.FreeMove) 
+        if ((collisionDirections.y != -1 && ( CurrentPlayerState == e_PlayerControllerStates.FreeMove || CurrentPlayerState == e_PlayerControllerStates.SwordSwing)) 
             || CurrentPlayerState == e_PlayerControllerStates.Hurt)
         {
             movementVector.x = gravityVector.x + inputVector.x;
@@ -928,6 +969,31 @@ public class PlayerController : MonoBehaviour
     }
 
 
+    private bool KOTargetValid()
+    {
+        if (currentTarget != null) {
+
+            // conditions:
+            // above enemy OR
+            // behind them, which means facing same direction AND they're in front of player
+
+            // if above them
+            if (koStartPos.y > currentTarget.transform.position.y + 1f)
+                return true;
+            // OR if facing same direction
+            else if(currentTarget.GetComponent<EnemyStateMachine>().facingDirection == playerFacingVector.x)
+            {
+                // AND target is in front of player
+                float offset = currentTarget.transform.position.x - transform.position.x;
+                if (Math.Sign(offset) == playerFacingVector.x)
+                    return true;
+            }
+                
+
+        }
+
+        return false;
+    }
 
     private void ClampMovementForCollisions()
     {
@@ -1086,8 +1152,7 @@ public class PlayerController : MonoBehaviour
         if (equipList[activeEquipIndex] == e_Equipment.sword)
         {
             if (t_attackCooldown <= 0 &&
-            CurrentPlayerState == e_PlayerControllerStates.FreeMove &&
-            collisionDirections.y == -1)
+            CurrentPlayerState == e_PlayerControllerStates.FreeMove)
 
                 ChangeState(e_PlayerControllerStates.SwordSwing);
         }
@@ -1186,7 +1251,7 @@ public class PlayerController : MonoBehaviour
         }
          */
 
-        if (currentTarget != null && CheckTargetLOS(currentTarget))
+        if (currentTarget != null && CheckTargetLOS(currentTarget) && KOTargetValid())
             TriggerStealthKill();
     }
 
