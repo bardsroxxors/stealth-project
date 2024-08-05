@@ -10,6 +10,7 @@ using System.Linq;
 using static UnityEditor.PlayerSettings;
 using UnityEditor;
 
+
 public enum e_EnemyStates
 {
     patrolling, // walking to next patrol point
@@ -1090,7 +1091,7 @@ public class EnemyStateMachine : MonoBehaviour
                     if (currentHP <= 0) Die();
                 }
             }
-        }
+        }/*
         else if(collision.gameObject.tag == "NoiseTrigger" && currentState != e_EnemyStates.dead)
         {
             awareScript.lastKnownPosition = collision.gameObject.transform.position;
@@ -1100,7 +1101,7 @@ public class EnemyStateMachine : MonoBehaviour
 
             if (awareScript.currentAwareness == AwarenessLevel.unaware)
                 PlayerSightGained(e_EnemyStates.investigate);
-        }
+        }*/
         else if (collision.transform.name == "shove zone" && !collision.transform.IsChildOf(transform))
         {
             shovingEnemy = collision.gameObject;
@@ -1162,6 +1163,17 @@ public class EnemyStateMachine : MonoBehaviour
             collisionDirections = Vector2.zero;
         }
     }
+
+
+    public void NoiseHeard(Vector3 position, float awareIncrease) 
+    {
+        //EditorApplication.isPaused = true;
+        awareScript.alertPercent += awareIncrease;
+
+        if (awareScript.currentAwareness == AwarenessLevel.unaware)
+            PlayerSightGained(e_EnemyStates.investigate);
+    }
+
 
 
     // called by attack trigger 

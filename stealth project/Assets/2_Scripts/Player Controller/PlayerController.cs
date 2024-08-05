@@ -365,7 +365,7 @@ public class PlayerController : MonoBehaviour
         }
 
         // check if we started sliding
-        if (crouching && !sliding && crouchReleased && t_slideCooldown <= 0)
+        if (crouching && !sliding && crouchReleased && t_slideCooldown <= 0 && !sneaking)
         {
             sliding = true;
             t_iTime = slideITime;
@@ -979,9 +979,15 @@ public class PlayerController : MonoBehaviour
 
             // if above them
             if (koStartPos.y > currentTarget.transform.position.y + 1f)
+            {
                 return true;
+            }
+
+            else if (transform.position.y > currentTarget.transform.position.y + 1f)
+                return true;
+
             // OR if facing same direction
-            else if(currentTarget.GetComponent<EnemyStateMachine>().facingDirection == playerFacingVector.x)
+            else if (currentTarget.GetComponent<EnemyStateMachine>().facingDirection == playerFacingVector.x)
             {
                 // AND target is in front of player
                 float offset = currentTarget.transform.position.x - transform.position.x;

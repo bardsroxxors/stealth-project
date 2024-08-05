@@ -2,11 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using UnityEngine;
+using UnityEngine.U2D;
 using UnityEngine.UIElements;
+using static System.DateTime;
 
 
 public class FieldOfView : MonoBehaviour
 {
+    public bool isPlayer = false;
 
     public float fov = 90f;
     public int rayCount = 2;
@@ -19,6 +22,7 @@ public class FieldOfView : MonoBehaviour
 
     private Utilities utils = new Utilities();
     private GameObject EnemyObject;
+    SpriteRenderer sprite;
 
 
     private void Start()
@@ -29,6 +33,12 @@ public class FieldOfView : MonoBehaviour
 
         SetPolygonCollider();
 
+        if (isPlayer)
+        {
+            sprite = GetComponent<SpriteRenderer>();
+        }
+            
+
         EnemyObject = transform.parent.parent.gameObject;
     }
 
@@ -36,7 +46,9 @@ public class FieldOfView : MonoBehaviour
     // Start is called before the first frame update
     void Update()
     {
-
+        /*
+        System.DateTime before = System.DateTime.Now;*/
+        transform.localPosition = Vector3.zero;
         
 
 
@@ -97,6 +109,18 @@ public class FieldOfView : MonoBehaviour
         mesh.uv = uv;
         mesh.triangles = triangles;
 
+        /*
+        if (isPlayer)
+        {
+            Vector2[] verts = vertices;
+            sprite.sprite.OverrideGeometry((Vector2[])vertices, triangles);
+        }*/
+
+
+        /*
+        System.DateTime after = System.DateTime.Now;
+        System.TimeSpan duration = after.Subtract(before);
+        Debug.Log("Duration in milliseconds: " + duration.Milliseconds);*/
 
     }
 

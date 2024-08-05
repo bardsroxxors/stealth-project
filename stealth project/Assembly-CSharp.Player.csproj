@@ -73,6 +73,7 @@
     <Compile Include="Assets\2_Scripts\Player Controller\StealthKillZone.cs" />
     <Compile Include="Assets\2_Scripts\ShadowCaster2DTileMap.cs" />
     <Compile Include="Assets\unity-wave-function-collapse\OverlapWFC.cs" />
+    <Compile Include="Assets\2_Scripts\Enemies\Earpiece.cs" />
     <Compile Include="Assets\2_Scripts\UI\UI_PlayerHealth.cs" />
     <Compile Include="Assets\2_Scripts\Navmesh Generation\NavPoint.cs" />
     <Compile Include="Assets\2_Scripts\Tilemap Gemeration\LevelGenEditor.cs" />
@@ -136,6 +137,7 @@
     <Compile Include="Assets\2_Scripts\Player Controller\DijkFOW.cs" />
     <Compile Include="Assets\2_Scripts\UI\PointsManager.cs" />
     <Compile Include="Assets\2_Scripts\UI\UI_Backpack.cs" />
+    <Compile Include="Assets\2_Scripts\Player Controller\PlayerFieldOfView.cs" />
     <Compile Include="Assets\2_Scripts\Arrow.cs" />
     <Compile Include="Assets\unity-wave-function-collapse\impl\SimpleTiledModel.cs" />
     <Compile Include="Assets\KadaXuanwu\UtilityDesigner\Demos\Survival\Scripts\TakeBoatTrip.cs" />
