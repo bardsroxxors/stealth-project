@@ -110,6 +110,7 @@
     <Compile Include="Assets\KadaXuanwu\UtilityDesigner\Demos\Survival\Scripts\KillDeer.cs" />
     <Compile Include="Assets\2_Scripts\HideSprite.cs" />
     <Compile Include="Assets\2_Scripts\Enemies\ScryingEye.cs" />
+    <Compile Include="Assets\2_Scripts\Level Stuff\Grate.cs" />
     <Compile Include="Assets\2_Scripts\Enemies\EnemyAnimationTrigger.cs" />
     <Compile Include="Assets\2_Scripts\NoiseScript.cs" />
     <Compile Include="Assets\AOSFogWar\Demo\Scripts\csEyeController.cs" />
@@ -135,6 +136,7 @@
     <Compile Include="Assets\2_Scripts\Navmesh Generation\NavmeshGenerator.cs" />
     <Compile Include="Assets\Scriptable Objects\Clouds\Cloud.cs" />
     <Compile Include="Assets\2_Scripts\Player Controller\DijkFOW.cs" />
+    <Compile Include="Assets\2_Scripts\Level Stuff\Door.cs" />
     <Compile Include="Assets\2_Scripts\UI\PointsManager.cs" />
     <Compile Include="Assets\2_Scripts\UI\UI_Backpack.cs" />
     <Compile Include="Assets\2_Scripts\Player Controller\PlayerFieldOfView.cs" />

@@ -752,7 +752,19 @@ public class PlayerController : MonoBehaviour
 
         ClampMovementForCollisions();
 
-        transform.position += (Vector3)movementVector * Time.deltaTime;
+        hit = Physics2D.BoxCast((Vector2)transform.position + new Vector2(0, -0.05f), 
+                                new Vector2(collider.bounds.size.x, collider.bounds.size.y)*0.9f, 
+                                0, 
+                                movementVector * Time.deltaTime, 
+                                (movementVector * Time.deltaTime).magnitude,
+                                collisionMask);
+        if (!hit)
+            transform.position += (Vector3)movementVector * Time.deltaTime;
+        else
+        {
+            transform.position = hit.centroid;
+            //movementVector = Vector3.zero;
+        }
 
         // reset collision flags
         collisionDirections = Vector2.zero;
@@ -950,6 +962,12 @@ public class PlayerController : MonoBehaviour
             interactTarget = collision.gameObject;
         }
 
+        else if (collision.gameObject.tag == "Door")
+        {
+            f_canInteract = true;
+            interactTarget = collision.gameObject;
+        }
+
     }
 
     private void OnTriggerExit2D(Collider2D collision)
@@ -957,7 +975,8 @@ public class PlayerController : MonoBehaviour
         if (collision.gameObject.tag == "Light") lit = false;
 
         if (collision.gameObject.tag == "HidingPlace" ||
-            collision.gameObject.tag == "GroundItem")
+            collision.gameObject.tag == "GroundItem" ||
+            collision.gameObject.tag == "Door")
         {
             f_canInteract = false;
             interactTarget = null;
@@ -1196,6 +1215,11 @@ public class PlayerController : MonoBehaviour
             {
                 // do item pickup stuff
                 backpack.AddItem(interactTarget);
+            }
+
+            else if (interactTarget.tag == "Door")
+            {
+                interactTarget.SendMessage("ToggleOpen");
             }
 
 

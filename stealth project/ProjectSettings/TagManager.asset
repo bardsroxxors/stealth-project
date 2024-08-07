@@ -17,6 +17,7 @@ TagManager:
   - OneWay
   - GroundItem
   - Corpse
+  - Door
   layers:
   - Default
   - TransparentFX

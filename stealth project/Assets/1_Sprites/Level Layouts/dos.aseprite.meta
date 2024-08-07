@@ -129,7 +129,7 @@ ScriptedImporter:
     rect:
       serializedVersion: 2
       x: 4
-      y: 78
+      y: 152
       width: 118
       height: 50
     spriteID: 1d2fbeb8938b9524abdc7b497fd3897d
@@ -140,17 +140,17 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 4, y: 78}
+    uvTransform: {x: 4, y: 152}
   - name: dos_Frame_1
     originalName: 
-    pivot: {x: 0.515625, y: 0.06060606}
+    pivot: {x: 0.5246479, y: 0.06060606}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
       x: 4
-      y: 4
-      width: 128
+      y: 78
+      width: 142
       height: 66
     spriteID: 4f052c76850c9df4b8fde5757e02dc35
     spriteBone: []
@@ -160,18 +160,18 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 4, y: 4}
+    uvTransform: {x: 4, y: 78}
   - name: dos_Frame_2
     originalName: 
-    pivot: {x: 0.5, y: 0}
+    pivot: {x: 0.5212121, y: 0.06060606}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 130
-      y: 78
-      width: 118
-      height: 50
+      x: 4
+      y: 4
+      width: 165
+      height: 66
     spriteID: b34cce19ebce3934f8cde1ea1b052b11
     spriteBone: []
     spriteOutline: []
@@ -180,7 +180,7 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 130, y: 78}
+    uvTransform: {x: 4, y: 4}
   - name: dos_Frame_3
     originalName: 
     pivot: {x: 0.5, y: 0}
@@ -189,7 +189,7 @@ ScriptedImporter:
     rect:
       serializedVersion: 2
       x: 4
-      y: 136
+      y: 210
       width: 118
       height: 50
     spriteID: c87a561a16743824a876ce06bf0596fe
@@ -200,7 +200,27 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 4, y: 136}
+    uvTransform: {x: 4, y: 210}
+  - name: dos_Frame_4
+    originalName: 
+    pivot: {x: 0.6694915, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 268
+      width: 118
+      height: 50
+    spriteID: 69bc8ab1db542884fbef3739cd6dc158
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 268}
   spriteSheetImportData: []
   asepriteLayers:
   - layerIndex: 0
@@ -223,16 +243,16 @@ ScriptedImporter:
       cellRect:
         x: -7
         y: -4
-        width: 128
+        width: 142
         height: 66
       spriteId: 4f052c76850c9df4b8fde5757e02dc35
     - name: dos_Frame_2
       frameIndex: 2
       cellRect:
-        x: 0
-        y: 0
-        width: 118
-        height: 50
+        x: -7
+        y: -4
+        width: 165
+        height: 66
       spriteId: b34cce19ebce3934f8cde1ea1b052b11
     - name: dos_Frame_3
       frameIndex: 3
@@ -242,10 +262,18 @@ ScriptedImporter:
         width: 118
         height: 50
       spriteId: c87a561a16743824a876ce06bf0596fe
+    - name: dos_Frame_4
+      frameIndex: 4
+      cellRect:
+        x: 0
+        y: 0
+        width: 118
+        height: 50
+      spriteId: 69bc8ab1db542884fbef3739cd6dc158
     linkedCells: []
     parentIndex: -1
   platformSettings: []
   generatePhysicsShape: 0
   secondarySpriteTextures: []
   spritePackingTag: 
-  canvasSize: {x: 118, y: 50}
+  canvasSize: {x: 158, y: 61}
