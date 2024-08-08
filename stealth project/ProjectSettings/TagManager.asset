@@ -18,6 +18,7 @@ TagManager:
   - GroundItem
   - Corpse
   - Door
+  - Grate
   layers:
   - Default
   - TransparentFX

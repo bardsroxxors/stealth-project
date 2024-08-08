@@ -15,6 +15,7 @@ public enum e_PlayerControllerStates
     Hiding,
     Hurt,
     StealthKill,
+    Blink,
     Dead
 }
 
@@ -23,7 +24,8 @@ public enum e_Equipment
     empty,
     sword,
     bearTrap,
-    arrow
+    arrow,
+    blink
 }
 
 public enum e_ControlSchemes
@@ -183,7 +185,14 @@ public class PlayerController : MonoBehaviour
     public GameObject paperSword;
 
     [Header("Blink Power")]
+    public bool f_blinkAiming = false;
     public float blinkRange = 3f;
+    private bool f_init_blink = false;
+    private Vector3 blinkPosition = Vector3.zero;
+    public float blinkSpeed = 8f;
+    public float blinkCooldown = 2f;
+    private float t_blinkCooldown = 0f;
+    public GameObject blinkAimObject;
 
     [Header("Equipment References")]
     public GameObject baseProjectile;
@@ -208,6 +217,7 @@ public class PlayerController : MonoBehaviour
         equipList[0] = e_Equipment.sword;
         equipList[1] = e_Equipment.bearTrap;
         equipList[2] = e_Equipment.arrow;
+        equipList[3] = e_Equipment.blink;
     }
 
 
@@ -264,6 +274,9 @@ public class PlayerController : MonoBehaviour
             case e_PlayerControllerStates.StealthKill:
                 ProcessStealthKill();
                 break;
+            case e_PlayerControllerStates.Blink:
+                ProcessBlink();
+                break;
         }
 
 
@@ -274,6 +287,21 @@ public class PlayerController : MonoBehaviour
         }
         else
             koIndicator.SetActive(false);
+
+
+        // Blink stuff
+        if (equipList[activeEquipIndex] != e_Equipment.blink)
+            f_blinkAiming = false;
+        else if (f_blinkAiming)
+        {
+            AimBlink();
+        }
+        else
+        {
+            blinkAimObject.SetActive(false);
+        }
+
+
 
 
         if (CurrentPlayerState != e_PlayerControllerStates.Hiding)
@@ -316,6 +344,7 @@ public class PlayerController : MonoBehaviour
         if (t_attackLength > 0) t_attackLength -= Time.deltaTime;
         if (t_slideCooldown > 0) t_slideCooldown -= Time.deltaTime;
         if (t_iTime > 0) t_iTime -= Time.deltaTime;
+        if (t_blinkCooldown > 0) t_blinkCooldown -= Time.deltaTime;
 
 
     }
@@ -683,7 +712,29 @@ public class PlayerController : MonoBehaviour
 
     }
 
-    void ProcessHurt()
+    void ProcessBlink()
+    {
+        if (!f_init_blink)
+        {
+            f_init_blink = true;
+        }
+
+        lit = false;
+
+        Vector2 distance = blinkPosition - transform.position;
+        if (distance.magnitude > blinkSpeed * Time.deltaTime)
+        {
+            transform.Translate(distance.normalized * blinkSpeed * Time.deltaTime, Space.World);
+        }
+        else
+        {
+            transform.position = blinkPosition;
+            ChangeState(e_PlayerControllerStates.FreeMove);
+        }
+
+    }
+
+        void ProcessHurt()
     {
         if (t_knockTime <= 0) ChangeState(e_PlayerControllerStates.FreeMove);
         float percentLeft = t_knockTime / knockTime;
@@ -799,6 +850,8 @@ public class PlayerController : MonoBehaviour
             f_init_swordSwing = false;
         if (previousPlayerState == e_PlayerControllerStates.StealthKill)
             f_init_stealthKill = false;
+        if (previousPlayerState == e_PlayerControllerStates.Blink)
+            f_init_blink = false;
     }
 
    private Vector2 EnemyShove()
@@ -1042,7 +1095,21 @@ public class PlayerController : MonoBehaviour
         
     }
 
+    private void AimBlink()
+    {
+        // turn on aiming particle
+        // place it at mousevector * distance
+        blinkAimObject.SetActive(true);
 
+        Vector2 aimVector = GetVectorToMouse().normalized * blinkRange;
+
+        RaycastHit2D probe = Physics2D.BoxCast(transform.position, new Vector2(collider.bounds.size.x, collider.bounds.size.x), 0, aimVector, blinkRange, collisionMask);
+        if (probe)
+        {
+            blinkAimObject.transform.position = probe.centroid;
+        }
+        else blinkAimObject.transform.position = transform.position + (Vector3)aimVector;
+    }
 
     // manage animator variables
     private void UpdateAnimator()
@@ -1174,22 +1241,25 @@ public class PlayerController : MonoBehaviour
 
     void OnAttack(InputValue value)
     {
-        if (equipList[activeEquipIndex] == e_Equipment.sword)
+        if (currentTarget != null && CheckTargetLOS(currentTarget) && KOTargetValid())
+            TriggerStealthKill();
+        else
         {
             if (t_attackCooldown <= 0 &&
             CurrentPlayerState == e_PlayerControllerStates.FreeMove)
 
                 ChangeState(e_PlayerControllerStates.SwordSwing);
         }
-        else if (equipList[activeEquipIndex] == e_Equipment.bearTrap)
-        {
-            ShootProjectile(so_bearTrap);
-        }
 
-        else if (equipList[activeEquipIndex] == e_Equipment.arrow)
+        /*
+        else if (equipList[activeEquipIndex] == e_Equipment.sword)
         {
-            ShootProjectile(so_arrow);
-        }
+            if (t_attackCooldown <= 0 &&
+            CurrentPlayerState == e_PlayerControllerStates.FreeMove)
+
+                ChangeState(e_PlayerControllerStates.SwordSwing);
+        }*/
+        
 
 
     }
@@ -1280,9 +1350,20 @@ public class PlayerController : MonoBehaviour
             koIndicator.GetComponent<KOIndicator>().animationPercent = 0;
         }
          */
+        if (equipList[activeEquipIndex] == e_Equipment.blink)
+        {
+            f_blinkAiming = true;
+        }
+        else if (equipList[activeEquipIndex] == e_Equipment.bearTrap)
+        {
+            ShootProjectile(so_bearTrap);
+        }
 
-        if (currentTarget != null && CheckTargetLOS(currentTarget) && KOTargetValid())
-            TriggerStealthKill();
+        else if (equipList[activeEquipIndex] == e_Equipment.arrow)
+        {
+            ShootProjectile(so_arrow);
+        }
+
     }
 
     void OnChargeRelease(InputValue value)
@@ -1292,6 +1373,14 @@ public class PlayerController : MonoBehaviour
         koIndicator.SetActive(false);
         if (t_killChargeTime > killChargeTime && CheckTargetLOS(currentTarget)) TriggerStealthKill();
         */
+        if (equipList[activeEquipIndex] == e_Equipment.blink && f_blinkAiming)
+        {
+            Debug.Log("Shbloink!");
+            f_blinkAiming = false;
+            blinkPosition = blinkAimObject.transform.position;
+            if (CurrentPlayerState == e_PlayerControllerStates.FreeMove || CurrentPlayerState == e_PlayerControllerStates.WallGrab)
+                ChangeState(e_PlayerControllerStates.Blink);
+        }
     }
 
     void OnBagToggle(InputValue value)

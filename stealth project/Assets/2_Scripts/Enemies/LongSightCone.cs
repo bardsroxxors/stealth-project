@@ -55,7 +55,7 @@ public class LongSightCone : MonoBehaviour
                 {
                     EnemyObject.SendMessage("PlayerInSight");
                 }
-                else EnemyObject.SendMessage("PlayerSightLost");
+                else EnemyObject.SendMessage("PlayerSightLost", 0, SendMessageOptions.DontRequireReceiver);
                     
             }
 
