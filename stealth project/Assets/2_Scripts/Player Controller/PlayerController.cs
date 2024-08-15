@@ -193,6 +193,9 @@ public class PlayerController : MonoBehaviour
     public float blinkCooldown = 2f;
     private float t_blinkCooldown = 0f;
     public GameObject blinkAimObject;
+    public float blinkAirBop = 5f;
+    private Vector2 tempMoveV = Vector2.zero;
+    private Vector2 tempGravityV = Vector2.zero;
 
     [Header("Equipment References")]
     public GameObject baseProjectile;
@@ -290,7 +293,8 @@ public class PlayerController : MonoBehaviour
 
 
         // Blink stuff
-        if (equipList[activeEquipIndex] != e_Equipment.blink)
+        if (equipList[activeEquipIndex] != e_Equipment.blink && CurrentPlayerState == e_PlayerControllerStates.FreeMove ||
+                                                                CurrentPlayerState == e_PlayerControllerStates.WallGrab)
             f_blinkAiming = false;
         else if (f_blinkAiming)
         {
@@ -304,7 +308,7 @@ public class PlayerController : MonoBehaviour
 
 
 
-        if (CurrentPlayerState != e_PlayerControllerStates.Hiding)
+        if (CurrentPlayerState != e_PlayerControllerStates.Hiding && CurrentPlayerState != e_PlayerControllerStates.Blink)
             ApplyMovement();
 
         if(!(CurrentPlayerState == e_PlayerControllerStates.FreeMove ||
@@ -716,6 +720,11 @@ public class PlayerController : MonoBehaviour
     {
         if (!f_init_blink)
         {
+            tempMoveV = movementVector;
+            tempGravityV = gravityVector;
+            movementVector = Vector2.zero;
+            gravityVector = Vector2.zero;
+            spriteRenderer.enabled = false;
             f_init_blink = true;
         }
 
@@ -729,6 +738,10 @@ public class PlayerController : MonoBehaviour
         else
         {
             transform.position = blinkPosition;
+            movementVector = tempMoveV;
+            gravityVector = tempGravityV;
+            gravityVector.y += blinkAirBop;
+            spriteRenderer.enabled = true;
             ChangeState(e_PlayerControllerStates.FreeMove);
         }
 

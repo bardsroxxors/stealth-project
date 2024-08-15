@@ -154,7 +154,7 @@ public class FieldOfView : MonoBehaviour
             PlayerController pc = collision.gameObject.GetComponent<PlayerController>();
             if (pc && pc.CurrentPlayerState != e_PlayerControllerStates.Hiding)
             {
-                EnemyObject.SendMessage("PlayerInSight");
+                EnemyObject.SendMessage("PlayerInSight", SendMessageOptions.DontRequireReceiver);
             }
             
         }

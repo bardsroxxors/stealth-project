@@ -115,7 +115,7 @@ TextureImporter:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 64
+        width: 102
         height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -134,9 +134,9 @@ TextureImporter:
       name: basic door_1
       rect:
         serializedVersion: 2
-        x: 64
+        x: 102
         y: 0
-        width: 64
+        width: 102
         height: 64
       alignment: 0
       pivot: {x: 0, y: 0}

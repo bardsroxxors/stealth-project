@@ -38,12 +38,12 @@ TagManager:
   - NavPoint
   - Earpiece
   - Sound
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
+  - LOSShadow
+  - Door
+  - partialShadow
+  - spr_player
+  - spr_hidden
+  - spr_partial
   - 
   - 
   - 

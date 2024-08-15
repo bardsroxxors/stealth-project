@@ -15,10 +15,17 @@ public class LevelGen : MonoBehaviour
     //public Texture2D backTemplate;
     public Color wallColor;
     public Color lightColor;
+    public Color hideColor;
+    public Color doorColor;
+    public Color hiddenColor;
     public Color backLayerColor;
-    private GameObject lightsContainer;
+    public GameObject lightsContainer;
+    public GameObject hidesContainer;
+    public GameObject doorsContainer;  
     public GameObject hangingLight;
     public GameObject standingLight;
+    public GameObject hideObject;
+    public GameObject doorObject;
     public Color backdropColor;
     public GameObject backdropPlane;
 
@@ -28,10 +35,44 @@ public class LevelGen : MonoBehaviour
 
         frontMap.ClearAllTiles();
         backMap.ClearAllTiles();
-        DestroyImmediate(lightsContainer);
+        //DestroyImmediate(lightsContainer);
 
-        lightsContainer = new GameObject("Lights");
-        lightsContainer.transform.parent = this.transform;
+
+        SetupContainer(lightsContainer, "Lights");
+        SetupContainer(doorsContainer, "Doors");
+        SetupContainer(hidesContainer, "Hides");
+
+        /*
+
+        // Setup lights object
+        lightsContainer = GameObject.Find("Lights");
+        if(lightsContainer == null)
+        {
+            lightsContainer = new GameObject("Lights");
+            lightsContainer.transform.parent = this.transform;
+        }
+
+        for(int i = lightsContainer.transform.childCount -1; i >= 0; i--)
+        {
+            DestroyImmediate(lightsContainer.transform.GetChild(i).gameObject);
+        }
+
+        // Setup hides object
+        hidesContainer = GameObject.Find("Hides");
+        if (hidesContainer == null)
+        {
+            hidesContainer = new GameObject("Hides");
+            hidesContainer.transform.parent = this.transform;
+        }
+
+        for (int i = hidesContainer.transform.childCount - 1; i >= 0; i--)
+        {
+            DestroyImmediate(hidesContainer.transform.GetChild(i).gameObject);
+        }*/
+
+
+
+
 
         for (int y = 0; y < (int)frontTemplate.height; y++)
         {
@@ -40,12 +81,15 @@ public class LevelGen : MonoBehaviour
             // for each column in row
             for (int x = 0; x < (int)frontTemplate.width; x++)
             {
+
                 // walls
                 if (frontTemplate.GetPixel(x, y) == wallColor)
                 {
                     frontMap.SetTile(new Vector3Int(x, y, 0), wall);
                     backMap.SetTile(new Vector3Int(x, y, 0), backWall);
                 }
+
+
                 // lights
                 else if(frontTemplate.GetPixel(x, y) == lightColor)
                 {
@@ -65,6 +109,32 @@ public class LevelGen : MonoBehaviour
                         backMap.SetTile(new Vector3Int(x, y, 0), backWall);
 
                 }
+                
+                // Doors
+                else if (frontTemplate.GetPixel(x, y) == doorColor)
+                {
+                    if (frontTemplate.GetPixel(x, y + 1) == doorColor)
+                    {
+                        //Debug.Log("Door");
+                        Instantiate(doorObject,
+                                    frontMap.GetCellCenterWorld(new Vector3Int(x, y, 0)) + new Vector3(-0.5f,0.5f,0),
+                                    Quaternion.identity,
+                                    doorsContainer.transform);
+                    }
+
+                }
+
+                // Hides
+                else if (frontTemplate.GetPixel(x, y) == hideColor)
+                {
+                    //Debug.Log("Hide");
+                    Instantiate(hideObject,
+                                frontMap.GetCellCenterWorld(new Vector3Int(x, y, 0)),
+                                Quaternion.identity,
+                                hidesContainer.transform);
+                    
+
+                }
 
 
                 // back layer
@@ -80,6 +150,24 @@ public class LevelGen : MonoBehaviour
         backdropPlane.transform.position = frontMap.cellBounds.center;
         backdropPlane.transform.localScale = new Vector3(frontMap.cellBounds.xMax - frontMap.cellBounds.xMin, 
                                                         frontMap.cellBounds.yMax - frontMap.cellBounds.yMin, 1);
+    }
+
+
+
+    void SetupContainer(GameObject container, string name)
+    {
+        container = GameObject.Find(name);
+
+        if (container == null)
+        {
+            container = new GameObject(name);
+            container.transform.parent = this.transform;
+        }
+
+        for (int i = container.transform.childCount - 1; i >= 0; i--)
+        {
+            DestroyImmediate(container.transform.GetChild(i).gameObject);
+        }
     }
 
 
