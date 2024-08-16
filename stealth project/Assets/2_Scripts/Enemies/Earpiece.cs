@@ -38,5 +38,11 @@ public class Earpiece : MonoBehaviour
             }
                 
         }
+        /*
+        if (collision.gameObject.tag == "Door") 
+        { 
+            Debug.Log("door pls");
+            collision.transform.gameObject.SendMessage("SetOpen", SendMessageOptions.DontRequireReceiver);
+        }*/
     }
 }

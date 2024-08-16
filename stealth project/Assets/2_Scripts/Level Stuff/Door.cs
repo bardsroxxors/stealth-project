@@ -27,6 +27,15 @@ public class Door : MonoBehaviour
         
     }
 
+    public void SetOpen()
+    {
+        open = true;
+        collider.enabled = false;
+        shadow.enabled = false;
+        sprite.sprite = openSprite;
+
+    }
+
     public void ToggleOpen()
     {
         open = !open;
@@ -41,6 +50,14 @@ public class Door : MonoBehaviour
             collider.enabled = true;
             shadow.enabled = true;
             sprite.sprite = closedSprite;
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if(collision.gameObject.tag == "Enemy")
+        {
+            SetOpen();
         }
     }
 }

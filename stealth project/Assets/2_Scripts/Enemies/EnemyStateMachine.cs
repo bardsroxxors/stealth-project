@@ -1142,6 +1142,10 @@ public class EnemyStateMachine : MonoBehaviour
         {
             f_insideEnemy = false;
         }
+        /*if(collision.transform.tag == "Door")
+        {
+            collision.transform.gameObject.SendMessage("SetOpen", SendMessageOptions.DontRequireReceiver);
+        }*/
     }
 
     private void OnCollisionStay2D(Collision2D collision)

@@ -120,6 +120,7 @@
     <Compile Include="Assets\2_Scripts\ShadowCastersGeneratorEditor.cs" />
     <Compile Include="Assets\2_Scripts\Navmesh Generation\NavmeshGenEditor.cs" />
     <Compile Include="Assets\2_Scripts\Enemies\AttackTriggerZone.cs" />
+    <Compile Include="Assets\2_Scripts\Level Stuff\FalseWall.cs" />
     <Compile Include="Assets\2_Scripts\Level Generation\RoomZones.cs" />
     <Compile Include="Assets\2_Scripts\Enemies\ShooterExtension.cs" />
     <Compile Include="Assets\2_Scripts\Parallax\ParallaxLayer.cs" />
