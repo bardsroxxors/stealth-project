@@ -160,7 +160,7 @@ public class FieldOfView : MonoBehaviour
         }
         else if (collision.gameObject.tag == "Corpse")
         {
-
+            EnemyObject.SendMessage("BodySighted", SendMessageOptions.DontRequireReceiver);
         }
 
     }

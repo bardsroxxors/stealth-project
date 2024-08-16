@@ -46,6 +46,8 @@ public class EnemyStateMachine : MonoBehaviour
     public List<e_EnemyConditions> conditions = new List<e_EnemyConditions>();
     public List<float> conditionTimes = new List<float>();
     public GameObject noisePrefab;
+    public GameObject passiveNoisePrefab;
+    public Sound snd_footstep;
     public Sound soundSO;
     private e_EnemyStates queuedState = e_EnemyStates.investigate;
 
@@ -70,6 +72,7 @@ public class EnemyStateMachine : MonoBehaviour
     public GameObject shovingEnemy;
     public bool f_insideEnemy = false;
     public float shoveForce = 3f;
+
 
     [Header("Patrolling")]
     public GameObject patrolRouteObject;
@@ -202,6 +205,7 @@ public class EnemyStateMachine : MonoBehaviour
         {
             //currentPatrolDestination = patrolRouteObject.transform;
             currentPatrolDestination = (Vector3)patrolRoute.nodes[currentNodeIndex] + patrolRouteObject.transform.position;
+            awareScript.lastKnownPosition = currentPatrolDestination;
         }
 
     }
@@ -433,7 +437,7 @@ public class EnemyStateMachine : MonoBehaviour
 
         if (!awareScript.f_playerInSight && t_timeBeforeScramble <= 0 && f_waitingToScramble) 
         {
-            Debug.Log("Scramblin' time!");
+            //Debug.Log("Scramblin' time!");
             f_waitingToScramble = false;
             queuedState = e_EnemyStates.investigate;
             ChangeState(e_EnemyStates.scramble);
@@ -858,6 +862,16 @@ public class EnemyStateMachine : MonoBehaviour
         else if (newState == AwarenessLevel.unaware) ChangeState(e_EnemyStates.patrolling);
     }
 
+    public void BodySighted()
+    {
+        if(awareScript.currentAwareness != AwarenessLevel.alert)
+        {
+            awareScript.alertPercent = 1;
+            PlayerSightGained(e_EnemyStates.scramble);
+            queuedState = e_EnemyStates.investigate;
+        }
+        
+    }
     
     public void ApplyCondition(e_EnemyConditions con, float time)
     {
@@ -943,6 +957,16 @@ public class EnemyStateMachine : MonoBehaviour
     {
         if (path == null) return;
 
+        // if we can't reach our destination, ie we've accidentally reached the end of our path
+        // right now just scramble
+        if(currentWaypoint > path.vectorPath.Count - 1)
+        {
+            //Debug.Log("Scramblin' time!");
+            f_waitingToScramble = false;
+            queuedState = e_EnemyStates.investigate;
+            ChangeState(e_EnemyStates.scramble);
+            return;
+        }
 
 
         // next waypoint
@@ -1032,7 +1056,10 @@ public class EnemyStateMachine : MonoBehaviour
         }
 
         currentPatrolDestination = (Vector3)patrolRoute.nodes[currentNodeIndex] + patrolRouteObject.transform.position;
+        pathfindTarget = currentPatrolDestination;
+        UpdatePath();
 
+        awareScript.lastKnownPosition = currentPatrolDestination;
 
     }
 
@@ -1173,8 +1200,12 @@ public class EnemyStateMachine : MonoBehaviour
         if (awareScript.currentAwareness == AwarenessLevel.unaware)
             PlayerSightGained(e_EnemyStates.investigate);
     }
-
-
+    
+    public void TriggerFootstep()
+    {
+        GameObject noise = Instantiate(passiveNoisePrefab, transform.position, Quaternion.identity);
+        noise.SendMessage("SetProfile", snd_footstep);
+    }
 
     // called by attack trigger 
     public void AttackTriggerEnter()
@@ -1253,9 +1284,15 @@ public class EnemyStateMachine : MonoBehaviour
         Handles.DrawWireCube(currentPatrolDestination, new Vector3(0.4f, 0.4f, 0.4f));
 
         
-        Handles.color = UnityEngine.Color.green;
-        if(path != null && path.vectorPath.Count > 0 && Application.isPlaying)
-            Handles.DrawWireCube(path.vectorPath[currentWaypoint], new Vector3(0.25f, 0.25f, 0.25f));
+        if(path != null && currentWaypoint < path.vectorPath.Count - 1)
+        {
+            Handles.color = UnityEngine.Color.green;
+            if (path != null && path.vectorPath.Count > 0 && Application.isPlaying)
+                Handles.DrawWireCube(path.vectorPath[currentWaypoint], new Vector3(0.25f, 0.25f, 0.25f));
+
+        }
+
+        
     }
 
 }
