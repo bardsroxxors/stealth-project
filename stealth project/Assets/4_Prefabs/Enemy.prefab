@@ -1087,6 +1087,7 @@ MonoBehaviour:
   collisionLayers:
   - Ground
   - Door
+  - Grate
   collisionDirections: {x: 0, y: 0}
   maxFallSpeed: 20
   gravityAccel: 15

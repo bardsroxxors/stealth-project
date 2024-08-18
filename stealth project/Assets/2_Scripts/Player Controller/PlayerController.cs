@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Unity.VisualScripting;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Rendering;
@@ -155,6 +156,7 @@ public class PlayerController : MonoBehaviour
     private PlayerJumpManager jumpManager;
     private Animator animator;
     public GameObject graphicsObject;
+    private GameObject ScoreManager;
     private SpriteRenderer spriteRenderer;
     private BoxCollider2D collider;
     private Color defaultColour;
@@ -215,6 +217,7 @@ public class PlayerController : MonoBehaviour
         collider = GetComponent<BoxCollider2D>();
         killZone = killzoneObject.GetComponent<StealthKillZone>();
         backpack = GameObject.Find("Backpack").GetComponent<UI_Backpack>();
+        ScoreManager = GameObject.Find("Points Manager");
         colliderYscale = collider.size.y;
 
         equipList[0] = e_Equipment.sword;
@@ -414,7 +417,7 @@ public class PlayerController : MonoBehaviour
         // get inputVector from raw input, set player facing
         if (moveStickVector.magnitude >= 0.25)
         {
-            if(!sneaking && !crouching && !f_isCharging && !sliding) 
+            if(!sneaking && !crouching && !f_isCharging && !sliding && collisionDirections.y != -1) 
                 inputVector.x = moveStickVector.normalized.x * moveSpeed;
             else if (sliding)
             {
@@ -901,12 +904,13 @@ public class PlayerController : MonoBehaviour
                     t_gracetimePostCollide = gracetimePostCollide;
 
                     
-                    //gravityVector.y = 0;
+                    //
                 }
                 // if surface faces down
                 else if (Vector2.Angle(normal, Vector2.down) < 45f)
                 {
                     collisionDirections.y = 1;
+                    //gravityVector.y = gravityVector.y * (1f - (0.7f * Time.deltaTime));
                     //gravityVector.y = 0;
                 }
                 // if surface faces left
@@ -948,11 +952,19 @@ public class PlayerController : MonoBehaviour
                         collisionDirections.y = 0;
                         jumpManager.Jump();
                     }
+                    //Debug.Break();
                 }
                 // if surface faces down
                 else if (Vector2.Angle(normal, Vector2.down) < 45f)
                 {
-                    //gravityVector.y = 0;
+                    /*
+                    gravityVector.y = 0;
+                    if(movementVector.y > 0)
+                        movementVector.y = 0;
+                    */
+                    jumpManager.JumpReleased();
+                    //Debug.Break();
+                    //jumpManager.HeadBonk();
                 }
 
 
@@ -1240,8 +1252,8 @@ public class PlayerController : MonoBehaviour
         {
             ChangeState(e_PlayerControllerStates.FreeMove);
             t_wallJumpNoGrabTime = wallJumpNoGrabTime;
-            if (inputVector.y >= 0) jumpManager.WallJump();
-            else if (inputVector.y < 0) jumpManager.WallJumpDown();
+            if (moveStickVector.y >= 0) jumpManager.WallJump();
+            else if (moveStickVector.y < 0) jumpManager.WallJumpDown();
             collisionDirections.x = 0;
             playerFacingVector.x *= -1;
         }

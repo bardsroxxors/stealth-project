@@ -967,6 +967,10 @@
       <Project>{C7D4D4FD-137A-DC49-211A-257FFE241F86}</Project>
       <Name>Unity.Postprocessing.Runtime.Player</Name>
     </ProjectReference>
+    <ProjectReference Include="FMODUnityResonance.Player.csproj">
+      <Project>{DD94EAD6-E719-FC2C-22A6-3208E73776A1}</Project>
+      <Name>FMODUnityResonance.Player</Name>
+    </ProjectReference>
     <ProjectReference Include="Unity.RenderPipelines.Universal.Config.Runtime.Player.csproj">
       <Project>{4BB5E11E-3012-84E3-33F5-A7CB5007F024}</Project>
       <Name>Unity.RenderPipelines.Universal.Config.Runtime.Player</Name>
@@ -982,6 +986,10 @@
     <ProjectReference Include="Unity.Collections.Player.csproj">
       <Project>{638A0842-71B3-4C17-A402-58842974C352}</Project>
       <Name>Unity.Collections.Player</Name>
+    </ProjectReference>
+    <ProjectReference Include="FMODUnity.Player.csproj">
+      <Project>{1DED486E-D076-7A6B-E367-802EA99FFE8B}</Project>
+      <Name>FMODUnity.Player</Name>
     </ProjectReference>
     <ProjectReference Include="Unity.2D.SpriteShape.Runtime.Player.csproj">
       <Project>{9FBAF8EA-C57F-B7E3-1748-653B08CAD6CC}</Project>
@@ -1015,6 +1023,10 @@
       <Project>{F60A9C23-26F0-1FA8-98DA-9B829BAF0BA2}</Project>
       <Name>Unity.2D.Animation.Runtime.Player</Name>
     </ProjectReference>
+    <ProjectReference Include="Unity.2D.Tilemap.Extras.Player.csproj">
+      <Project>{84C87F2F-5E3A-79DE-14DE-3D5C5A85A0D0}</Project>
+      <Name>Unity.2D.Tilemap.Extras.Player</Name>
+    </ProjectReference>
     <ProjectReference Include="Adobe.Substance.Player.csproj">
       <Project>{E1D2954D-B778-FBC3-5116-58DD1784257A}</Project>
       <Name>Adobe.Substance.Player</Name>
@@ -1022,10 +1034,6 @@
     <ProjectReference Include="UnityEngine.UI.Player.csproj">
       <Project>{14C71EEF-259E-7380-8FE2-5383A331D494}</Project>
       <Name>UnityEngine.UI.Player</Name>
-    </ProjectReference>
-    <ProjectReference Include="Unity.2D.Tilemap.Extras.Player.csproj">
-      <Project>{84C87F2F-5E3A-79DE-14DE-3D5C5A85A0D0}</Project>
-      <Name>Unity.2D.Tilemap.Extras.Player</Name>
     </ProjectReference>
     <ProjectReference Include="Unity.InternalAPIEngineBridge.001.Player.csproj">
       <Project>{2B8ED3B5-378B-4FE3-B03E-523D16555FF8}</Project>

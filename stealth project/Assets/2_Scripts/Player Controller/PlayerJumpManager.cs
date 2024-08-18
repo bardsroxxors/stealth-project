@@ -102,8 +102,12 @@ public class PlayerJumpManager : MonoBehaviour
         if (f_jumped && f_stopOnKeyRelease)
         {
             pc.gravityVector.y = pc.gravityVector.y * releaseVelocityFactor;
+            pc.movementVector.y = pc.gravityVector.y;
         }
+
+        //Debug.Break();
     }
+
 
 
     public void CalculateGravity()

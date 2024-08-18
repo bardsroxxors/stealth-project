@@ -1023,6 +1023,10 @@
       <Project>{A44770E5-509E-FAA9-2C7B-A5D82F85E33F}</Project>
       <Name>Unity.2D.IK.Runtime</Name>
     </ProjectReference>
+    <ProjectReference Include="FMODUnityEditor.csproj">
+      <Project>{E4EE02C9-84FF-7D0D-C582-CBF24C4FF4B8}</Project>
+      <Name>FMODUnityEditor</Name>
+    </ProjectReference>
     <ProjectReference Include="Unity.RenderPipelines.Core.Runtime.csproj">
       <Project>{E3422DDB-343B-B065-44FA-0C398ED56496}</Project>
       <Name>Unity.RenderPipelines.Core.Runtime</Name>
@@ -1055,13 +1059,17 @@
       <Project>{DBA5EB14-8EE7-4E00-B742-7CDE22133321}</Project>
       <Name>Unity.2D.Aseprite.Common</Name>
     </ProjectReference>
-    <ProjectReference Include="Unity.2D.Sprite.Editor.csproj">
-      <Project>{22E8BF54-B964-E683-2A73-C69D280C508E}</Project>
-      <Name>Unity.2D.Sprite.Editor</Name>
+    <ProjectReference Include="FMODUnityResonance.csproj">
+      <Project>{23BE8559-52BC-DDDE-C19F-165E238DA164}</Project>
+      <Name>FMODUnityResonance</Name>
     </ProjectReference>
     <ProjectReference Include="Unity.RenderPipelines.Universal.Config.Runtime.csproj">
       <Project>{D226A25F-B5CF-8B9C-46D3-79FF85BB15E0}</Project>
       <Name>Unity.RenderPipelines.Universal.Config.Runtime</Name>
+    </ProjectReference>
+    <ProjectReference Include="Unity.2D.Sprite.Editor.csproj">
+      <Project>{22E8BF54-B964-E683-2A73-C69D280C508E}</Project>
+      <Name>Unity.2D.Sprite.Editor</Name>
     </ProjectReference>
     <ProjectReference Include="Unity.RenderPipelines.Core.Editor.csproj">
       <Project>{E660A1CE-0261-A683-F7C3-96F5AE02A44D}</Project>
@@ -1090,6 +1098,10 @@
     <ProjectReference Include="Unity.Collections.csproj">
       <Project>{BFEE7DD4-33CD-F304-E73A-5E115E703A10}</Project>
       <Name>Unity.Collections</Name>
+    </ProjectReference>
+    <ProjectReference Include="FMODUnity.csproj">
+      <Project>{AE99AD5D-4497-AB77-ED7A-C1FA210F4D6F}</Project>
+      <Name>FMODUnity</Name>
     </ProjectReference>
     <ProjectReference Include="Unity.2D.SpriteShape.Runtime.csproj">
       <Project>{ACFB71A9-A28E-E9A4-191C-1D3B93EA25DB}</Project>
@@ -1167,21 +1179,21 @@
       <Project>{5BB11AF1-D2D1-7B76-CF3F-E3F0347A6C3D}</Project>
       <Name>Unity.2D.Animation.Runtime</Name>
     </ProjectReference>
+    <ProjectReference Include="Unity.2D.Tilemap.Extras.csproj">
+      <Project>{E0F1A463-4860-A07A-BC8D-7FB2A491839F}</Project>
+      <Name>Unity.2D.Tilemap.Extras</Name>
+    </ProjectReference>
     <ProjectReference Include="Adobe.Substance.csproj">
       <Project>{64C760FD-D95F-79FE-D551-186AA8DE9E93}</Project>
       <Name>Adobe.Substance</Name>
-    </ProjectReference>
-    <ProjectReference Include="Unity.VisualScripting.Core.Editor.csproj">
-      <Project>{9D1E8B4B-E4D5-5227-DB5D-0B79BC89C2F9}</Project>
-      <Name>Unity.VisualScripting.Core.Editor</Name>
     </ProjectReference>
     <ProjectReference Include="UnityEngine.UI.csproj">
       <Project>{454252F5-2A2E-1F1C-E85D-636202A17BC5}</Project>
       <Name>UnityEngine.UI</Name>
     </ProjectReference>
-    <ProjectReference Include="Unity.2D.Tilemap.Extras.csproj">
-      <Project>{E0F1A463-4860-A07A-BC8D-7FB2A491839F}</Project>
-      <Name>Unity.2D.Tilemap.Extras</Name>
+    <ProjectReference Include="Unity.VisualScripting.Core.Editor.csproj">
+      <Project>{9D1E8B4B-E4D5-5227-DB5D-0B79BC89C2F9}</Project>
+      <Name>Unity.VisualScripting.Core.Editor</Name>
     </ProjectReference>
     <ProjectReference Include="Unity.InternalAPIEditorBridge.005.csproj">
       <Project>{5630D235-F927-7E17-7A78-4F4EDF23C7AD}</Project>
@@ -1238,6 +1250,10 @@
     <ProjectReference Include="Unity.VisualScripting.State.Editor.csproj">
       <Project>{06DF2F1A-0DE7-EA8F-19FE-57C4D4263339}</Project>
       <Name>Unity.VisualScripting.State.Editor</Name>
+    </ProjectReference>
+    <ProjectReference Include="FMODUnityResonanceEditor.csproj">
+      <Project>{98CE3343-7DAE-295B-63F7-6E29262DC854}</Project>
+      <Name>FMODUnityResonanceEditor</Name>
     </ProjectReference>
     <ProjectReference Include="AstarPathfindingProject.csproj">
       <Project>{B8D1AD1B-95E0-175B-F1AF-2BD965C6AE5E}</Project>

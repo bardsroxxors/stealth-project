@@ -16,16 +16,21 @@ public class LevelGen : MonoBehaviour
     public Color wallColor;
     public Color lightColor;
     public Color hideColor;
+    public Color enemyColor;
     public Color doorColor;
     public Color hiddenColor;
     public Color backLayerColor;
     public GameObject lightsContainer;
     public GameObject hidesContainer;
-    public GameObject doorsContainer;  
+    public GameObject doorsContainer;
+    public GameObject hatchesContainer;
+    public GameObject enemiesContainer;
     public GameObject hangingLight;
     public GameObject standingLight;
     public GameObject hideObject;
+    public GameObject hatchObject;
     public GameObject doorObject;
+    public GameObject enemyObject;
     public Color backdropColor;
     public GameObject backdropPlane;
 
@@ -41,6 +46,8 @@ public class LevelGen : MonoBehaviour
         SetupContainer(lightsContainer, "Lights");
         SetupContainer(doorsContainer, "Doors");
         SetupContainer(hidesContainer, "Hides");
+        SetupContainer(enemiesContainer, "Enemies");
+        SetupContainer(hatchesContainer, "Hatches");
 
         /*
 
@@ -120,6 +127,32 @@ public class LevelGen : MonoBehaviour
                                     frontMap.GetCellCenterWorld(new Vector3Int(x, y, 0)) + new Vector3(-0.5f,0.5f,0),
                                     Quaternion.identity,
                                     doorsContainer.transform);
+                    }
+
+
+                    // Hatches
+                    else if (frontTemplate.GetPixel(x, y + 1) != doorColor && frontTemplate.GetPixel(x, y - 1) != doorColor)
+                    {
+                        Instantiate(hatchObject,
+                                    frontMap.GetCellCenterWorld(new Vector3Int(x, y, 0)) + new Vector3(0, 0, 0),
+                                    Quaternion.identity,
+                                    hatchesContainer.transform);
+                    }
+
+                }
+
+
+
+                // Enemies
+                else if (frontTemplate.GetPixel(x, y) == enemyColor)
+                {
+                    if (frontTemplate.GetPixel(x, y + 1) == enemyColor)
+                    {
+                        //Debug.Log("Door");
+                        Instantiate(enemyObject,
+                                    frontMap.GetCellCenterWorld(new Vector3Int(x, y, 0)) + new Vector3(-0.5f, 0.15f, 0),
+                                    Quaternion.identity,
+                                    enemiesContainer.transform);
                     }
 
                 }

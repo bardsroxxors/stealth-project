@@ -1286,9 +1286,11 @@ public class EnemyStateMachine : MonoBehaviour
 
         Handles.color = UnityEngine.Color.blue;
         Handles.DrawWireCube(currentPatrolDestination, new Vector3(0.4f, 0.4f, 0.4f));
+        if(patrolRouteObject != null)
+            Handles.DrawWireDisc(patrolRouteObject.transform.position, Vector3.forward, 0.4f);
 
-        
-        if(path != null && currentWaypoint < path.vectorPath.Count - 1)
+
+        if (path != null && currentWaypoint < path.vectorPath.Count - 1)
         {
             Handles.color = UnityEngine.Color.green;
             if (path != null && path.vectorPath.Count > 0 && Application.isPlaying)
