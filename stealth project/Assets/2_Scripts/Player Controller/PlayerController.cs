@@ -136,6 +136,7 @@ public class PlayerController : MonoBehaviour
     public string[] collisionLayers;
     public Vector2 groundNormal = Vector2.zero;
     public float colliderYModifier = 0.6f;
+    public float colliderYOffset = -0.05f;
     private float colliderYscale = 0;
 
     public GameObject normalIndicator;
@@ -253,11 +254,9 @@ public class PlayerController : MonoBehaviour
         if (controlScheme == e_ControlSchemes.MouseKeyboard) aimStickVector = GetVectorToMouse();
 
 
-        if (collisionDirections.y == -1 || f_groundClose) collider.size = new Vector2(collider.size.x, colliderYscale);
-        else
-        {
-            collider.size = new Vector2(collider.size.x, colliderYscale * colliderYModifier);
-        }
+        CheckColliderSize();
+
+        
 
         // Process the current state
         switch (CurrentPlayerState)
@@ -365,6 +364,20 @@ public class PlayerController : MonoBehaviour
     }
 
 
+    private void CheckColliderSize()
+    {
+        // if we're on the ground
+        if (collisionDirections.y == -1 || f_groundClose)
+        {
+            collider.size = new Vector2(collider.size.x, colliderYscale);
+            collider.offset = new Vector2(collider.offset.x, colliderYOffset);
+        }
+        else
+        {
+            collider.size = new Vector2(collider.size.x, colliderYscale * colliderYModifier);
+            collider.offset = new Vector2(collider.offset.x, colliderYOffset + ((1 - colliderYModifier) / 2));
+        }
+    }
 
 
     // Update Functions for States
@@ -417,7 +430,7 @@ public class PlayerController : MonoBehaviour
         // get inputVector from raw input, set player facing
         if (moveStickVector.magnitude >= 0.25)
         {
-            if(!sneaking && !crouching && !f_isCharging && !sliding && collisionDirections.y != -1) 
+            if(!sneaking && !crouching && !f_isCharging && !sliding/* && collisionDirections.y != -1*/) 
                 inputVector.x = moveStickVector.normalized.x * moveSpeed;
             else if (sliding)
             {
@@ -750,7 +763,7 @@ public class PlayerController : MonoBehaviour
 
     }
 
-        void ProcessHurt()
+    void ProcessHurt()
     {
         if (t_knockTime <= 0) ChangeState(e_PlayerControllerStates.FreeMove);
         float percentLeft = t_knockTime / knockTime;
@@ -768,23 +781,11 @@ public class PlayerController : MonoBehaviour
 
     void ApplyMovement()
     {
-        /*
-        float targetSpeed = inputVector.x;
-
-        if(movementVector.x != targetSpeed)
-        {
-            float delta = movementVector.x + targetSpeed;
-            movementVector.x += delta * acceleration * Time.deltaTime;
-        }
-
-        if(Mathf.Abs(movementVector.x) > Mathf.Abs(targetSpeed)) movementVector.x = targetSpeed;
-        */
-
 
         movementVector.x = inputVector.x;
         movementVector.y = inputVector.y;
 
-
+        // check if groundclose
         RaycastHit2D hit = Physics2D.BoxCast(
             collider.bounds.center, 
             new Vector2(collider.size.x*0.8f, colliderYscale/2), 
@@ -800,18 +801,22 @@ public class PlayerController : MonoBehaviour
         }
         else f_groundClose = false;
 
+
         // apply gravity if not grounded
-        if ((collisionDirections.y != -1 && ( CurrentPlayerState == e_PlayerControllerStates.FreeMove || CurrentPlayerState == e_PlayerControllerStates.SwordSwing)) 
+        if ((collisionDirections.y != -1 && ( CurrentPlayerState == e_PlayerControllerStates.FreeMove 
+            || CurrentPlayerState == e_PlayerControllerStates.SwordSwing)) 
             || CurrentPlayerState == e_PlayerControllerStates.Hurt)
         {
             movementVector.x = gravityVector.x + inputVector.x;
             movementVector.y = gravityVector.y;
-            
+
+            jumpManager.CalculateGravity();
+
         }
         // else set gravity to zero
         else if (collisionDirections.y == -1) gravityVector.y = 0;
 
-        if (collisionDirections.y != -1) jumpManager.CalculateGravity();
+        //if (collisionDirections.y != -1) jumpManager.CalculateGravity();
 
         // apply shoving from enemies if need be
         if (f_insideEnemy && !sliding && CurrentPlayerState == e_PlayerControllerStates.FreeMove)
@@ -819,7 +824,11 @@ public class PlayerController : MonoBehaviour
 
         ClampMovementForCollisions();
 
-        hit = Physics2D.BoxCast((Vector2)transform.position + new Vector2(0, -0.05f), 
+        Vector2 offset = collider.offset;
+        if(collisionDirections.y != 0)
+            offset = Vector2.zero;
+
+        hit = Physics2D.BoxCast((Vector2)transform.position + offset/*new Vector2(0, -0.05f)*/, 
                                 new Vector2(collider.bounds.size.x, collider.bounds.size.y)*0.9f, 
                                 0, 
                                 movementVector * Time.deltaTime, 
@@ -832,6 +841,7 @@ public class PlayerController : MonoBehaviour
             transform.position = hit.centroid;
             //movementVector = Vector3.zero;
         }
+        
 
         // reset collision flags
         collisionDirections = Vector2.zero;
@@ -1478,7 +1488,22 @@ public class PlayerController : MonoBehaviour
         return direction.normalized;
     }
 
+    private void OnDrawGizmos() {
 
+        if (Application.isPlaying)
+        {
+            RaycastHit2D hit = Physics2D.BoxCast((Vector2)transform.position + new Vector2(0, 0f),
+                                new Vector2(collider.bounds.size.x, collider.bounds.size.y) * 0.9f,
+                                0,
+                                movementVector * Time.deltaTime,
+                                (movementVector * Time.deltaTime).magnitude,
+                                collisionMask);
+
+            Gizmos.DrawWireCube(hit.centroid, new Vector2(collider.bounds.size.x, collider.bounds.size.y) * 0.9f);
+        }
+
+        
+    }
 
 
 }
