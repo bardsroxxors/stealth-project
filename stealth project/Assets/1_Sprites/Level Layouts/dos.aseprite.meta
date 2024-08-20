@@ -183,14 +183,14 @@ ScriptedImporter:
     uvTransform: {x: 4, y: 115}
   - name: dos_Frame_3
     originalName: 
-    pivot: {x: 0.5212121, y: 0.03883495}
+    pivot: {x: 0.5, y: 0.009708738}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
       x: 4
       y: 4
-      width: 165
+      width: 180
       height: 103
     spriteID: c87a561a16743824a876ce06bf0596fe
     spriteBone: []
@@ -237,9 +237,9 @@ ScriptedImporter:
     - name: dos_Frame_3
       frameIndex: 3
       cellRect:
-        x: -7
-        y: -4
-        width: 165
+        x: 0
+        y: -1
+        width: 180
         height: 103
       spriteId: c87a561a16743824a876ce06bf0596fe
     linkedCells: []
@@ -248,4 +248,4 @@ ScriptedImporter:
   generatePhysicsShape: 0
   secondarySpriteTextures: []
   spritePackingTag: 
-  canvasSize: {x: 158, y: 99}
+  canvasSize: {x: 180, y: 99}

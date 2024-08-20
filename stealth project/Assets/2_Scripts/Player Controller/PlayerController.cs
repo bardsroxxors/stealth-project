@@ -13,6 +13,7 @@ public enum e_PlayerControllerStates
     FreeMove,
     SwordSwing,
     WallGrab,
+    PlatformGrab,
     Hiding,
     Hurt,
     StealthKill,
@@ -100,6 +101,10 @@ public class PlayerController : MonoBehaviour
 
     public GameObject interactTarget;
     public GameObject hideTarget;
+
+    [Header("Platform Grab")]
+    public float minGrabDistance = 0.05f;
+    public GameObject grabTarget;
 
     [Header("Sword Swing")]
     public GameObject swordObject;
@@ -281,6 +286,9 @@ public class PlayerController : MonoBehaviour
                 break;
             case e_PlayerControllerStates.Blink:
                 ProcessBlink();
+                break;
+            case e_PlayerControllerStates.PlatformGrab:
+                ProcessPlatformGrab();
                 break;
         }
 
@@ -483,7 +491,18 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-        
+        // change to platform grab under right conditions
+        if (grabTarget != null &&
+                collisionDirections.y != -1 &&
+                t_wallJumpNoGrabTime <= 0 &&
+                jumpManager.f_jumpKeyDown &&
+                jumpManager.f_wallGrabReady &&
+                canWallGrab)
+        {
+            ChangeState(e_PlayerControllerStates.PlatformGrab);
+        }
+
+
         // create noise when triggered
         if (f_noiseAnimationTrigger)
         {
@@ -673,6 +692,28 @@ public class PlayerController : MonoBehaviour
             }
         }
         
+    }
+
+    private void ProcessPlatformGrab()
+    {
+        if (grabTarget == null)
+            ChangeState(e_PlayerControllerStates.FreeMove);
+        else
+        {
+            inputVector = Vector2.zero;
+            gravityVector = Vector2.zero;
+            movementVector = Vector2.zero;
+
+            Vector2 distance = grabTarget.transform.position - transform.position;
+            if (distance.magnitude > minGrabDistance)
+            {
+                transform.Translate(distance.normalized * zipSpeed, Space.World);
+            }
+            else transform.position = grabTarget.transform.position;
+
+            
+        }
+
     }
 
 
@@ -1035,6 +1076,8 @@ public class PlayerController : MonoBehaviour
             else lit = false;
         }
 
+        if (collision.gameObject.tag == "GrabPlatform") grabTarget = collision.gameObject;
+
 
         // Interactables
 
@@ -1061,6 +1104,8 @@ public class PlayerController : MonoBehaviour
     private void OnTriggerExit2D(Collider2D collision)
     {
         if (collision.gameObject.tag == "Light") lit = false;
+
+        if (collision.gameObject.tag == "GrabPlatform") grabTarget = null;
 
         if (collision.gameObject.tag == "HidingPlace" ||
             collision.gameObject.tag == "GroundItem" ||
@@ -1251,9 +1296,11 @@ public class PlayerController : MonoBehaviour
 
         jumpManager.f_jumpKeyDown = true;
 
-        // if we're on the ground
-        if (collisionDirections.y == -1 || t_gracetimePostCollide > 0)
+        // if we're on the ground or platform grab
+        if (collisionDirections.y == -1 || t_gracetimePostCollide > 0 || CurrentPlayerState == e_PlayerControllerStates.PlatformGrab)
         {
+            if(CurrentPlayerState == e_PlayerControllerStates.PlatformGrab)
+                ChangeState(e_PlayerControllerStates.FreeMove);
             collisionDirections.y = 0;
             jumpManager.Jump();
         }

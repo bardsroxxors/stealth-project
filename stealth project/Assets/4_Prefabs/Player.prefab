@@ -684,11 +684,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 362148473659745008, guid: 13f701b83b6e8534999654bb9edab1cc, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 27.47
+      value: 21.28
       objectReference: {fileID: 0}
     - target: {fileID: 362148473659745008, guid: 13f701b83b6e8534999654bb9edab1cc, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 40.85
+      value: 19.1
       objectReference: {fileID: 0}
     - target: {fileID: 362148473659745008, guid: 13f701b83b6e8534999654bb9edab1cc, type: 3}
       propertyPath: m_LocalPosition.z
@@ -865,6 +865,10 @@ PrefabInstance:
     - target: {fileID: 5591644623040213687, guid: 13f701b83b6e8534999654bb9edab1cc, type: 3}
       propertyPath: slideSpeedFactor
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5591644623040213687, guid: 13f701b83b6e8534999654bb9edab1cc, type: 3}
+      propertyPath: colliderYModifier
+      value: 0.9
       objectReference: {fileID: 0}
     - target: {fileID: 5591644623040213687, guid: 13f701b83b6e8534999654bb9edab1cc, type: 3}
       propertyPath: koCheckMask.m_Bits

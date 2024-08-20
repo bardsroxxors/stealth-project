@@ -19,6 +19,7 @@ TagManager:
   - Corpse
   - Door
   - Grate
+  - GrabPlatform
   layers:
   - Default
   - TransparentFX
