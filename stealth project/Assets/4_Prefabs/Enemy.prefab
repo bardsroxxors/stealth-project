@@ -151,9 +151,9 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: 0.67919064, y: 0.5677879}
-      - {x: -0.53428084, y: 0.10834697}
-      - {x: 0.8169041, y: -0.51573026}
+    - - {x: 1.109549, y: 0.41970754}
+      - {x: 0.6133413, y: 0.10834697}
+      - {x: 1.1130643, y: -0.13164723}
   m_UseDelaunayMesh: 0
 --- !u!50 &4725256142805405739
 Rigidbody2D:
@@ -712,9 +712,9 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: 0, y: 1}
-      - {x: -0.95105654, y: 0.30901697}
-      - {x: -0.5877852, y: -0.80901706}
+    - - {x: 1.8047285, y: 0.7130945}
+      - {x: 0.5390014, y: 0.13779905}
+      - {x: 1.7861266, y: -0.3601488}
   m_UseDelaunayMesh: 0
 --- !u!50 &5778068149147716328
 Rigidbody2D:
@@ -1076,7 +1076,7 @@ MonoBehaviour:
   snd_footstep: {fileID: 11400000, guid: 0e37d92a58ab47447b104c6d9489604a, type: 2}
   soundSO: {fileID: 11400000, guid: b3f1cad38de077443ba2e311a1dd3901, type: 2}
   patrolSpeed: 2
-  pursueSpeed: 4
+  pursueSpeed: 5
   moveDecay: 5
   gravity: 5
   inputVector: {x: 0, y: 0}
@@ -1126,6 +1126,7 @@ MonoBehaviour:
   jumpMinDistance: {x: 2, y: 0.8}
   jumpForce: {x: 5, y: 12}
   attackCooldown: 1
+  attackRange: 1.2
   swordObject: {fileID: 4248111003316377240}
   attackTrigger: {fileID: 8200466295216942089}
   f_triggerAttack: 0
@@ -1559,8 +1560,8 @@ CapsuleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_Size: {x: 1.22, y: 2.04}
+  m_Offset: {x: 0.40681875, y: 5.242755e-15}
+  m_Size: {x: 2.9489295, y: 2.0399992}
   m_Direction: 0
 --- !u!114 &1895236418458283378
 MonoBehaviour:

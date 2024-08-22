@@ -141,6 +141,7 @@ public class EnemyStateMachine : MonoBehaviour
     [Header("Attack")]
     public float attackCooldown = 1f;
     private float t_attackCooldown = 0;
+    public float attackRange = 1.2f;
     public GameObject swordObject;
     public GameObject attackTrigger;
     private bool f_attackInit = false;
@@ -595,7 +596,26 @@ public class EnemyStateMachine : MonoBehaviour
             swordObject.transform.localScale = new Vector3(facingDirection, 1, 1);
             swordObject.GetComponentInChildren<Animator>().SetTrigger("swing");
             swordObject.GetComponentInChildren<SwordScript>().animating = true;
-            swordObject.transform.GetChild(0).transform.localPosition = new Vector3(1.2f, 0, 0);
+
+            // so in here is where we can set the position and rotation of the sword object when the attack goes off
+            // using the sightcone position I guess? That makes sense
+            // right now we're using a vector to set the localposition of the swing 
+            // so instead of setting it to that we need a normalised vector pointng in the right direction,
+            //  and times that by the magnitude we want the range to be
+            // then when we set the rotation we need to constrain it to (90, -90) facing right,
+            // because the facing is determined by scale I'm pretty sure
+
+            // utils.GetVectorFromAngle() to get our attack angle?
+
+            Vector2 attackDirection = (targetLookPosition - transform.position).normalized;
+            attackDirection.x = Mathf.Abs(attackDirection.x);
+            float angle = utils.GetAngleFromVectorFloat(attackDirection);
+
+            Quaternion targetRotation = Quaternion.AngleAxis(angle, Vector3.forward);
+
+            swordObject.transform.GetChild(0).transform.localPosition = attackDirection * attackRange;
+            swordObject.transform.GetChild(0).transform.localRotation = targetRotation;
+
             swordObject.transform.GetChild(0).GetComponent<DamageSource>().RefreshDamageSource();
             //inputVector.x = swingMoveSpeed * playerFacingVector.x;
 

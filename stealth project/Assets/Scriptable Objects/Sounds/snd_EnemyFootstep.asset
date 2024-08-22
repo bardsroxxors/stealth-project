@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 39be465fd09cb5e4181bcfd91e82f9ab, type: 3}
   m_Name: snd_EnemyFootstep
   m_EditorClassIdentifier: 
-  lifetime: 0.3
-  scaleAtDeath: 1.8
-  initialScale: 1.5
+  lifetime: 0.5
+  scaleAtDeath: 0.8
+  initialScale: 0.5
   awarenessIncrease: 0
