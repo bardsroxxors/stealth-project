@@ -11,6 +11,8 @@ public class FieldOfView : MonoBehaviour
 {
     public bool isPlayer = false;
 
+    public float unawareRadius = 0.65f;
+    public float alertRadius = 1.5f;
     public float fov = 90f;
     public int rayCount = 2;
     public float viewDistance = 5f;
@@ -19,6 +21,7 @@ public class FieldOfView : MonoBehaviour
     private float startingAngle;
     private Mesh mesh;
     private PolygonCollider2D collider;
+    private CircleCollider2D circleCollider;
 
     private Utilities utils = new Utilities();
     private GameObject EnemyObject;
@@ -30,6 +33,7 @@ public class FieldOfView : MonoBehaviour
         mesh = new Mesh();
         GetComponent<MeshFilter>().mesh = mesh;
         collider = GetComponent<PolygonCollider2D>();
+        circleCollider = GetComponent<CircleCollider2D>();
 
         SetPolygonCollider();
 
@@ -46,6 +50,10 @@ public class FieldOfView : MonoBehaviour
     // Start is called before the first frame update
     void Update()
     {
+        if(EnemyObject.GetComponent<EnemyAwareness>().currentAwareness == AwarenessLevel.alert)
+            circleCollider.radius = alertRadius;
+        else circleCollider.radius = unawareRadius;
+
         /*
         System.DateTime before = System.DateTime.Now;*/
         transform.localPosition = Vector3.zero;

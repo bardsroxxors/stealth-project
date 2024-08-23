@@ -11,6 +11,10 @@ public class PlayerFieldOfView : MonoBehaviour
 {
     public bool isPlayer = false;
 
+
+    public float xRayOffset = 1f;
+    public float yRayOffset = 1f;
+    public Vector2 originOffset = new Vector2(1,1);
     public float fov = 90f;
     public int rayCount = 2;
     public float viewDistance = 5f;
@@ -25,7 +29,9 @@ public class PlayerFieldOfView : MonoBehaviour
     private GameObject partialShadowObj;
 
     private Utilities utils = new Utilities();
-    private GameObject EnemyObject;
+    private GameObject playerObject;
+    private PlayerController playerController;
+
     SpriteRenderer sprite;
 
 
@@ -45,13 +51,17 @@ public class PlayerFieldOfView : MonoBehaviour
         }
             
 
-        EnemyObject = transform.parent.parent.gameObject;
+        playerObject = transform.parent.gameObject;
+        playerController = playerObject.GetComponent<PlayerController>();
     }
 
 
     // Start is called before the first frame update
     void Update()
     {
+        DrawRays();
+
+
         /*
         System.DateTime before = System.DateTime.Now;*/
         transform.localPosition = Vector3.zero;
@@ -145,7 +155,47 @@ public class PlayerFieldOfView : MonoBehaviour
 
     }
 
+    private void DrawRays()
+    {
+        // to move the centre point around we need o make sure all the rays are coming from that point
+        // how do we check that we need to move it?
+        // I want it to move when the player is close to an edge
+        // that will be dependent on the direction of the surface they're on
+        // so if standing on the ground, move it left or right
+        // if on a wall, move it up and down
+        // use raycasts that start beyond the main collider to check if there is open space
 
+        // so we want to get the collision directions from the player object
+        // then depending on that we will draw some rays to check where the edge is at
+        // we draw the rays from the center, offset outwards, pointing in the direction of 
+        // the collision surface
+        // but what about if there are two collisions?
+        // worry about that later
+        Vector2 colDir = playerController.collisionDirections;
+
+        // if standing on the ground
+        if(colDir.y == -1)
+        {
+            Debug.DrawRay(transform.position + new Vector3(xRayOffset, 0, 0), Vector3.down);
+            Debug.DrawRay(transform.position + new Vector3(-xRayOffset, 0, 0), Vector3.down);
+        }
+
+        if (colDir.x == 1)
+        {
+            Debug.DrawRay(transform.position + new Vector3(0, yRayOffset, 0), Vector3.left);
+            Debug.DrawRay(transform.position + new Vector3(0, -yRayOffset, 0), Vector3.left);
+        }
+        else if (colDir.x == -1)
+        {
+            Debug.DrawRay(transform.position + new Vector3(0, yRayOffset, 0), Vector3.right);
+            Debug.DrawRay(transform.position + new Vector3(0, -yRayOffset, 0), Vector3.right);
+        }
+
+        //Debug.DrawRay(transform.position + new Vector3(xRayOffset,0,0), Vector3.down);
+        //Debug.DrawRay(transform.position + new Vector3(xRayOffset, 0, 0), Vector3.up);
+        //Debug.DrawRay(transform.position + new Vector3(0, yRayOffset, 0), Vector3.left);
+        //Debug.DrawRay(transform.position + new Vector3(0, yRayOffset, 0), Vector3.right);
+    }
 
     // set up the polygon collider shape
     // origin, transform.right + 
@@ -175,7 +225,7 @@ public class PlayerFieldOfView : MonoBehaviour
             PlayerController pc = collision.gameObject.GetComponent<PlayerController>();
             if (pc && pc.CurrentPlayerState != e_PlayerControllerStates.Hiding)
             {
-                EnemyObject.SendMessage("PlayerInSight", SendMessageOptions.DontRequireReceiver);
+                playerObject.SendMessage("PlayerInSight", SendMessageOptions.DontRequireReceiver);
             }
             
         }
@@ -193,7 +243,7 @@ public class PlayerFieldOfView : MonoBehaviour
             PlayerController pc = collision.gameObject.GetComponent<PlayerController>();
             if (pc && pc.CurrentPlayerState != e_PlayerControllerStates.Hiding)
             {
-                EnemyObject.SendMessage("PlayerSightLost");
+                playerObject.SendMessage("PlayerSightLost");
             }
             
         }
