@@ -12,6 +12,7 @@ public enum e_PlayerControllerStates
 {
     FreeMove,
     SwordSwing,
+    DashAttack,
     WallGrab,
     PlatformGrab,
     Hiding,
@@ -95,6 +96,12 @@ public class PlayerController : MonoBehaviour
     private float slideSpeedLastFrame = 0;
     public float slideITime = 0.25f;
 
+    [Header("Dash Attack")]
+    public bool f_canDashAttack = true;
+    public float dashLockTime = 0.5f;
+    public float dashSpeed = 10f;
+    public float dashAttackRange = 1f;
+    private float t_dashLockTime = 0;
 
     [Header("Hiding")]
     //public GameObject hidingPlace;
@@ -210,6 +217,8 @@ public class PlayerController : MonoBehaviour
     public Projectile so_bearTrap;
     public Projectile so_arrow;
 
+    private Utilities utils = new Utilities();
+
 
 
 
@@ -274,6 +283,9 @@ public class PlayerController : MonoBehaviour
                 break;
             case e_PlayerControllerStates.SwordSwing:
                 ProcessSwordSwing();
+                break;
+            case e_PlayerControllerStates.DashAttack:
+                ProcessDashAttack();
                 break;
             case e_PlayerControllerStates.Hurt:
                 ProcessHurt();
@@ -349,6 +361,7 @@ public class PlayerController : MonoBehaviour
             koIndicator.SetActive(false);
         }*/
 
+        // manage timers
         if (t_gracetimePostCollide > 0) t_gracetimePostCollide -= Time.deltaTime;
         if (t_gracetimePreCollide > 0) t_gracetimePreCollide -= Time.deltaTime;
         if (t_wallJumpNoGrabTime > 0) t_wallJumpNoGrabTime -= Time.deltaTime;
@@ -359,7 +372,7 @@ public class PlayerController : MonoBehaviour
         if (t_slideCooldown > 0) t_slideCooldown -= Time.deltaTime;
         if (t_iTime > 0) t_iTime -= Time.deltaTime;
         if (t_blinkCooldown > 0) t_blinkCooldown -= Time.deltaTime;
-
+        if (t_dashLockTime > 0) t_dashLockTime -= Time.deltaTime;
 
     }
 
@@ -368,6 +381,8 @@ public class PlayerController : MonoBehaviour
         //if (lit) spriteRenderer.color = defaultColour;
         //else spriteRenderer.color = darkColour;
         UpdateAnimator();
+
+        Debug.DrawRay(transform.position, GetVectorToMouse());
         
     }
 
@@ -422,7 +437,7 @@ public class PlayerController : MonoBehaviour
         }
 
         // check if we started sliding
-        if (crouching && !sliding && crouchReleased && t_slideCooldown <= 0 && !sneaking)
+        if (crouching && !sliding && crouchReleased && t_slideCooldown <= 0/* && !sneaking*/)
         {
             sliding = true;
             t_iTime = slideITime;
@@ -469,6 +484,10 @@ public class PlayerController : MonoBehaviour
         // clamp to zero when its close
         if (inputVector.magnitude <= 0.1) inputVector = Vector2.zero;
 
+
+        
+        // clamp gravity x to zero when its close
+        if (Mathf.Abs(gravityVector.x) <= 0.15) gravityVector.x = 0;
 
 
         // change to wall grab under right conditions
@@ -674,6 +693,87 @@ public class PlayerController : MonoBehaviour
 
     }
 
+    private void ProcessDashAttack()
+    {
+        // ok so to do the dash attack what do we need to do?
+        // use the same sword slash object but change its rotation in relation to the mouse
+        // gain a burst of speed when you do it
+        // have a short period where gravity does not apply and you can't move left right
+        // have a boolean that resets when you touch the ground, that way you can use it like a kind of double jump
+        // which is pretty awesome
+
+        Vector2 attackDirection = (Vector3)GetVectorToMouse();
+
+        if (!f_init_swordSwing)
+        {
+
+            collisionDirections = Vector2.zero;
+            playerFacingVector = new Vector2(Mathf.Sign(attackDirection.x), 0);
+            
+            swordObject.SetActive(true);
+            swordObject.transform.GetChild(0).transform.gameObject.SetActive(true);
+            swordObject.transform.GetChild(1).transform.gameObject.SetActive(false);
+
+            swordObject.transform.position = transform.position;
+            swordObject.transform.localScale = new Vector3(playerFacingVector.x, 1, 1);
+            swordObject.transform.GetChild(0).GetComponent<Animator>().SetTrigger("swing");
+            swordObject.transform.GetChild(0).GetComponent<SwordScript>().animating = true;
+
+
+
+            attackDirection.x = Mathf.Abs(attackDirection.x);
+            float angle = utils.GetAngleFromVectorFloat(attackDirection);
+
+            Quaternion targetRotation = Quaternion.AngleAxis(angle, Vector3.forward);
+
+            swordObject.transform.GetChild(0).transform.localPosition = attackDirection * dashAttackRange;
+            swordObject.transform.GetChild(0).transform.localRotation = targetRotation;
+
+
+            //swordObject.transform.GetChild(0).transform.localPosition = new Vector3(1f, 0, 0);
+            swordObject.transform.GetChild(0).GetComponent<DamageSource>().RefreshDamageSource();
+
+            //inputVector.x = swingMoveSpeed * playerFacingVector.x;
+
+            animator.Play("attack", 0);
+            
+            
+
+            t_attackLength = attackLength;
+            t_attackCooldown = attackCooldown;
+            //animator.SetTrigger("attack trigger");
+
+            t_dashLockTime = dashLockTime;
+            
+            f_init_swordSwing = true;
+        }
+
+        //if(collisionDirections.y != -1 && moveStickVector.magnitude >= 0.25)
+        if (moveStickVector.magnitude >= 0.25)
+            inputVector.x = moveStickVector.normalized.x * moveSpeed;
+
+
+        gravityVector = dashSpeed * attackDirection;
+        inputVector = Vector2.zero;
+
+        if (!swordObject.transform.GetChild(0).GetComponent<SwordScript>().animating)
+            swordObject.SetActive(false);
+
+
+
+
+
+        if (t_dashLockTime <= 0)
+        {
+            swordObject.SetActive(false);
+            //if (moveStickVector.magnitude > 0.1f ||
+            //        animator.GetCurrentAnimatorClipInfo(0)[0].clip.name != "attack")
+            ChangeState(e_PlayerControllerStates.FreeMove);
+
+        }
+
+    }
+
     private void ProcessHiding()
     {
         if (hideTarget == null)
@@ -845,7 +945,8 @@ public class PlayerController : MonoBehaviour
 
         // apply gravity if not grounded
         if ((collisionDirections.y != -1 && ( CurrentPlayerState == e_PlayerControllerStates.FreeMove 
-            || CurrentPlayerState == e_PlayerControllerStates.SwordSwing)) 
+            || CurrentPlayerState == e_PlayerControllerStates.SwordSwing
+            || CurrentPlayerState == e_PlayerControllerStates.DashAttack)) 
             || CurrentPlayerState == e_PlayerControllerStates.Hurt)
         {
             movementVector.x = gravityVector.x + inputVector.x;
@@ -913,7 +1014,7 @@ public class PlayerController : MonoBehaviour
 
         if (previousPlayerState == e_PlayerControllerStates.StealthKill && currentTarget != null)
             currentTarget.SendMessage("KOEnd");
-        if (previousPlayerState == e_PlayerControllerStates.SwordSwing)
+        if (previousPlayerState == e_PlayerControllerStates.SwordSwing || previousPlayerState == e_PlayerControllerStates.DashAttack)
             f_init_swordSwing = false;
         if (previousPlayerState == e_PlayerControllerStates.StealthKill)
             f_init_stealthKill = false;
@@ -1323,15 +1424,16 @@ public class PlayerController : MonoBehaviour
 
     void OnAttack(InputValue value)
     {
-        if (currentTarget != null && CheckTargetLOS(currentTarget) && KOTargetValid())
-            TriggerStealthKill();
-        else
-        {
+        //if (currentTarget != null && CheckTargetLOS(currentTarget) && KOTargetValid())
+            //TriggerStealthKill();
+        //else
+        //{
             if (t_attackCooldown <= 0 &&
             CurrentPlayerState == e_PlayerControllerStates.FreeMove)
 
-                ChangeState(e_PlayerControllerStates.SwordSwing);
-        }
+                //ChangeState(e_PlayerControllerStates.SwordSwing);
+                ChangeState(e_PlayerControllerStates.DashAttack);
+        //}
 
         /*
         else if (equipList[activeEquipIndex] == e_Equipment.sword)

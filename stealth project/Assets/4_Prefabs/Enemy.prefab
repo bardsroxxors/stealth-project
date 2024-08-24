@@ -50,6 +50,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isPlayer: 0
+  unawareRadius: 0.65
+  alertRadius: 1.5
   fov: 45
   rayCount: 12
   viewDistance: 2.25
@@ -1066,8 +1068,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentState: 1
-  currentHP: 20
-  maxHP: 20
+  currentHP: 10
+  maxHP: 10
   graphicsObject: {fileID: 4627374472030742646}
   conditions: 
   conditionTimes: []

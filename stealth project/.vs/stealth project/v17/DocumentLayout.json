@@ -3,24 +3,24 @@
   "WorkspaceRootPath": "D:\\stealth-project\\stealth project\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{B8A3D4B7-E533-0FD7-C260-767A941AA179}|Assembly-CSharp.csproj|d:\\stealth-project\\stealth project\\assets\\2_scripts\\enemies\\playerfieldofview.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{B8A3D4B7-E533-0FD7-C260-767A941AA179}|Assembly-CSharp.csproj|solutionrelative:assets\\2_scripts\\enemies\\playerfieldofview.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{B8A3D4B7-E533-0FD7-C260-767A941AA179}|Assembly-CSharp.csproj|D:\\stealth-project\\stealth project\\assets\\2_scripts\\enemies\\fieldofview.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{B8A3D4B7-E533-0FD7-C260-767A941AA179}|Assembly-CSharp.csproj|solutionrelative:assets\\2_scripts\\enemies\\fieldofview.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{B8A3D4B7-E533-0FD7-C260-767A941AA179}|Assembly-CSharp.csproj|D:\\stealth-project\\stealth project\\assets\\2_scripts\\player controller\\playercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{B8A3D4B7-E533-0FD7-C260-767A941AA179}|Assembly-CSharp.csproj|solutionrelative:assets\\2_scripts\\player controller\\playercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B8A3D4B7-E533-0FD7-C260-767A941AA179}|Assembly-CSharp.csproj|D:\\stealth-project\\stealth project\\assets\\2_scripts\\player controller\\playerjumpmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B8A3D4B7-E533-0FD7-C260-767A941AA179}|Assembly-CSharp.csproj|solutionrelative:assets\\2_scripts\\player controller\\playerjumpmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{B8A3D4B7-E533-0FD7-C260-767A941AA179}|Assembly-CSharp.csproj|D:\\stealth-project\\stealth project\\assets\\2_scripts\\enemies\\enemystatemachine.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{B8A3D4B7-E533-0FD7-C260-767A941AA179}|Assembly-CSharp.csproj|solutionrelative:assets\\2_scripts\\enemies\\enemystatemachine.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{B8A3D4B7-E533-0FD7-C260-767A941AA179}|Assembly-CSharp.csproj|D:\\stealth-project\\stealth project\\assets\\2_scripts\\player controller\\playerjumpmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{B8A3D4B7-E533-0FD7-C260-767A941AA179}|Assembly-CSharp.csproj|solutionrelative:assets\\2_scripts\\player controller\\playerjumpmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{B8A3D4B7-E533-0FD7-C260-767A941AA179}|Assembly-CSharp.csproj|d:\\stealth-project\\stealth project\\assets\\2_scripts\\enemies\\playerfieldofview.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B8A3D4B7-E533-0FD7-C260-767A941AA179}|Assembly-CSharp.csproj|solutionrelative:assets\\2_scripts\\enemies\\playerfieldofview.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B8A3D4B7-E533-0FD7-C260-767A941AA179}|Assembly-CSharp.csproj|D:\\stealth-project\\stealth project\\assets\\2_scripts\\enemies\\fieldofview.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B8A3D4B7-E533-0FD7-C260-767A941AA179}|Assembly-CSharp.csproj|solutionrelative:assets\\2_scripts\\enemies\\fieldofview.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{B8A3D4B7-E533-0FD7-C260-767A941AA179}|Assembly-CSharp.csproj|D:\\stealth-project\\stealth project\\assets\\2_scripts\\ui\\pointsmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -55,50 +55,28 @@
             {
               "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "FieldOfView.cs",
-              "DocumentMoniker": "D:\\stealth-project\\stealth project\\Assets\\2_Scripts\\Enemies\\FieldOfView.cs",
-              "RelativeDocumentMoniker": "Assets\\2_Scripts\\Enemies\\FieldOfView.cs",
-              "ToolTip": "D:\\stealth-project\\stealth project\\Assets\\2_Scripts\\Enemies\\FieldOfView.cs",
-              "RelativeToolTip": "Assets\\2_Scripts\\Enemies\\FieldOfView.cs",
-              "ViewState": "AQIAABcAAAAAAAAAAAAQwDYAAAAzAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-08-22T05:30:12.76Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "PointsManager.cs",
-              "DocumentMoniker": "D:\\stealth-project\\stealth project\\Assets\\2_Scripts\\UI\\PointsManager.cs",
-              "RelativeDocumentMoniker": "Assets\\2_Scripts\\UI\\PointsManager.cs",
-              "ToolTip": "D:\\stealth-project\\stealth project\\Assets\\2_Scripts\\UI\\PointsManager.cs",
-              "RelativeToolTip": "Assets\\2_Scripts\\UI\\PointsManager.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAABgAAAATAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-08-18T09:51:16.567Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
               "Title": "PlayerJumpManager.cs",
               "DocumentMoniker": "D:\\stealth-project\\stealth project\\Assets\\2_Scripts\\Player Controller\\PlayerJumpManager.cs",
               "RelativeDocumentMoniker": "Assets\\2_Scripts\\Player Controller\\PlayerJumpManager.cs",
               "ToolTip": "D:\\stealth-project\\stealth project\\Assets\\2_Scripts\\Player Controller\\PlayerJumpManager.cs",
               "RelativeToolTip": "Assets\\2_Scripts\\Player Controller\\PlayerJumpManager.cs",
-              "ViewState": "AQIAAEoAAAAAAAAAAIA6wGAAAAAQAAAA",
+              "ViewState": "AQIAAHMAAAAAAAAAAAASwJEAAAAMAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-08-18T08:07:52.693Z"
+              "WhenOpened": "2024-08-18T08:07:52.693Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 2,
               "Title": "EnemyStateMachine.cs",
               "DocumentMoniker": "D:\\stealth-project\\stealth project\\Assets\\2_Scripts\\Enemies\\EnemyStateMachine.cs",
               "RelativeDocumentMoniker": "Assets\\2_Scripts\\Enemies\\EnemyStateMachine.cs",
               "ToolTip": "D:\\stealth-project\\stealth project\\Assets\\2_Scripts\\Enemies\\EnemyStateMachine.cs",
               "RelativeToolTip": "Assets\\2_Scripts\\Enemies\\EnemyStateMachine.cs",
-              "ViewState": "AQIAAEUCAAAAAAAAAAAMwF4CAAAAAAAA",
+              "ViewState": "AQIAAEgCAAAAAAAAAAAgwGECAAAMAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-08-16T10:37:04.638Z"
+              "WhenOpened": "2024-08-16T10:37:04.638Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
@@ -126,7 +104,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 3,
               "Title": "PlayerFieldOfView.cs",
               "DocumentMoniker": "D:\\stealth-project\\stealth project\\Assets\\2_Scripts\\Enemies\\PlayerFieldOfView.cs",
               "RelativeDocumentMoniker": "Assets\\2_Scripts\\Enemies\\PlayerFieldOfView.cs",
@@ -151,15 +129,40 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 0,
               "Title": "PlayerController.cs",
               "DocumentMoniker": "D:\\stealth-project\\stealth project\\Assets\\2_Scripts\\Player Controller\\PlayerController.cs",
               "RelativeDocumentMoniker": "Assets\\2_Scripts\\Player Controller\\PlayerController.cs",
               "ToolTip": "D:\\stealth-project\\stealth project\\Assets\\2_Scripts\\Player Controller\\PlayerController.cs",
               "RelativeToolTip": "Assets\\2_Scripts\\Player Controller\\PlayerController.cs",
-              "ViewState": "AQIAAO0BAAAAAAAAAAAiwMcCAABEAAAA",
+              "ViewState": "AQIAAMQBAAAAAAAAAAAuwOkBAAAIAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-08-16T10:33:09.448Z"
+              "WhenOpened": "2024-08-16T10:33:09.448Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "PointsManager.cs",
+              "DocumentMoniker": "D:\\stealth-project\\stealth project\\Assets\\2_Scripts\\UI\\PointsManager.cs",
+              "RelativeDocumentMoniker": "Assets\\2_Scripts\\UI\\PointsManager.cs",
+              "ToolTip": "D:\\stealth-project\\stealth project\\Assets\\2_Scripts\\UI\\PointsManager.cs",
+              "RelativeToolTip": "Assets\\2_Scripts\\UI\\PointsManager.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABgAAAATAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-08-18T09:51:16.567Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "FieldOfView.cs",
+              "DocumentMoniker": "D:\\stealth-project\\stealth project\\Assets\\2_Scripts\\Enemies\\FieldOfView.cs",
+              "RelativeDocumentMoniker": "Assets\\2_Scripts\\Enemies\\FieldOfView.cs",
+              "ToolTip": "D:\\stealth-project\\stealth project\\Assets\\2_Scripts\\Enemies\\FieldOfView.cs",
+              "RelativeToolTip": "Assets\\2_Scripts\\Enemies\\FieldOfView.cs",
+              "ViewState": "AQIAABcAAAAAAAAAAAAQwDYAAAAzAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-08-22T05:30:12.76Z"
             },
             {
               "$type": "Document",
