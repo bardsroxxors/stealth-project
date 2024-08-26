@@ -38,6 +38,13 @@ public class Earpiece : MonoBehaviour
             }
                 
         }
+
+        else if (collision.gameObject.tag == "Coin")
+        {
+            transform.parent.SendMessage("AddBounty", 2);
+            collision.gameObject.SendMessage("PickedUp");
+            Destroy(collision.gameObject);
+        }
         /*
         if (collision.gameObject.tag == "Door") 
         { 

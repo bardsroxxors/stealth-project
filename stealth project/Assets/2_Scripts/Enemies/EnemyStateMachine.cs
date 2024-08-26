@@ -31,6 +31,11 @@ public enum e_EnemyConditions
     vigilant, // Looks around frequently, has been alerted
     blind,
     immobile,
+    piqued,   // has become curious
+    alerted,  // has become alert
+    oblivious, // has moved past hidden player
+    bodySighted // has sighted a body
+
 
 }
 
@@ -292,6 +297,19 @@ public class EnemyStateMachine : MonoBehaviour
         if(collisionDirections.y != -1 && currentState != e_EnemyStates.jump)
         {
             ChangeState(e_EnemyStates.fall);
+        }
+
+        // check if we are freshly piqued
+        if(awareScript.currentAwareness == AwarenessLevel.curious && !conditions.Contains(e_EnemyConditions.piqued))
+        {
+            conditions.Add(e_EnemyConditions.piqued);
+            this.SendMessage("AddBounty", 2);
+        }
+        // check if we are freshly piqued
+        if (awareScript.currentAwareness == AwarenessLevel.alert && !conditions.Contains(e_EnemyConditions.alerted))
+        {
+            conditions.Add(e_EnemyConditions.alerted);
+            this.SendMessage("SubtractBounty", 1);
         }
 
 
@@ -846,6 +864,7 @@ public class EnemyStateMachine : MonoBehaviour
         }
     }
 
+
     // triggered by awareness script when sight is lost
     public void PlayerSightLost()
     {
@@ -884,6 +903,12 @@ public class EnemyStateMachine : MonoBehaviour
 
     public void BodySighted()
     {
+        if (!conditions.Contains(e_EnemyConditions.bodySighted))
+        {
+            this.SendMessage("AddBounty", 2);
+            conditions.Add(e_EnemyConditions.bodySighted);
+        }
+
         if(awareScript.currentAwareness != AwarenessLevel.alert)
         {
             awareScript.alertPercent = 1;
@@ -1122,7 +1147,10 @@ public class EnemyStateMachine : MonoBehaviour
     {
         if(collision.gameObject.tag == "PlayerProjectile" && currentState != e_EnemyStates.dead)
         {
-            
+            // i wanna make it so damage doesn't happen if the player is in their cone of vision
+            // get sightcone angle, that's the z rotation
+            // get angle to the player
+
             DamageSource dmg = collision.gameObject.GetComponent<DamageSource>();
             if (dmg != null)
             {
@@ -1138,22 +1166,14 @@ public class EnemyStateMachine : MonoBehaviour
                     if (currentHP <= 0) Die();
                 }
             }
-        }/*
-        else if(collision.gameObject.tag == "NoiseTrigger" && currentState != e_EnemyStates.dead)
-        {
-            awareScript.lastKnownPosition = collision.gameObject.transform.position;
-            NoiseScript noise = collision.gameObject.GetComponent<NoiseScript>();
-            if(noise != null)
-                awareScript.alertPercent += noise.awarenessIncrease;
+        }
 
-            if (awareScript.currentAwareness == AwarenessLevel.unaware)
-                PlayerSightGained(e_EnemyStates.investigate);
-        }*/
         else if (collision.transform.name == "shove zone" && !collision.transform.IsChildOf(transform))
         {
             shovingEnemy = collision.gameObject;
             f_insideEnemy = true;
         }
+        
     }
 
     private void OnTriggerExit2D(Collider2D collision)
@@ -1215,6 +1235,14 @@ public class EnemyStateMachine : MonoBehaviour
         }
     }
 
+    public void ObliviousIdiot()
+    {
+        if (!conditions.Contains(e_EnemyConditions.oblivious))
+        {
+            this.SendMessage("AddBounty", 1);
+            conditions.Add(e_EnemyConditions.oblivious);
+        }
+    }
 
     public void NoiseHeard(Vector3 position, float awareIncrease) 
     {
@@ -1262,6 +1290,7 @@ public class EnemyStateMachine : MonoBehaviour
         sightCone.SetActive(false);
         //ChangeState(e_EnemyStates.dead);
         awareScript.Die();
+        this.SendMessage("GrantPoints");
         //UpdateAnimator();
         Vector3 offset = new Vector3(0, 0.5f, 0);
         GameObject dead = Instantiate(deadEnemy, transform.position + offset, Quaternion.identity);

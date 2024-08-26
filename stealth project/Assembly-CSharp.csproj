@@ -95,6 +95,7 @@
     <Compile Include="Assets\2_Scripts\SnapToGrid.cs" />
     <Compile Include="Assets\2_Scripts\Equipment\BaseCloud.cs" />
     <Compile Include="Assets\2_Scripts\Parallax\ParallaxCamera.cs" />
+    <Compile Include="Assets\2_Scripts\Player Controller\ObliviousChecker.cs" />
     <Compile Include="Assets\2_Scripts\Tilemap Gemeration\LevelGen.cs" />
     <Compile Include="Assets\2_Scripts\WFC\WFCNode.cs" />
     <Compile Include="Assets\2_Scripts\Player Controller\GroundItem.cs" />
@@ -106,6 +107,7 @@
     <Compile Include="Assets\2_Scripts\SmallObjectScript.cs" />
     <Compile Include="Assets\2_Scripts\Player Controller\Sword\SwordScript.cs" />
     <Compile Include="Assets\KadaXuanwu\UtilityDesigner\Demos\Survival\Scripts\CameraFollow.cs" />
+    <Compile Include="Assets\2_Scripts\Enemies\BountyDisplay.cs" />
     <Compile Include="Assets\unity-wave-function-collapse\TilePainter.cs" />
     <Compile Include="Assets\KadaXuanwu\UtilityDesigner\Demos\Survival\Scripts\KillDeer.cs" />
     <Compile Include="Assets\2_Scripts\HideSprite.cs" />
@@ -117,6 +119,7 @@
     <Compile Include="Assets\2_Scripts\Player Controller\PlayerGroundTrigger.cs" />
     <Compile Include="Assets\2_Scripts\Player Controller\PlayerAttackManager.cs" />
     <Compile Include="Assets\KadaXuanwu\UtilityDesigner\Demos\Survival\Scripts\TakeSteak.cs" />
+    <Compile Include="Assets\2_Scripts\Enemies\PointBounty.cs" />
     <Compile Include="Assets\2_Scripts\ShadowCastersGeneratorEditor.cs" />
     <Compile Include="Assets\2_Scripts\Navmesh Generation\NavmeshGenEditor.cs" />
     <Compile Include="Assets\2_Scripts\Enemies\AttackTriggerZone.cs" />

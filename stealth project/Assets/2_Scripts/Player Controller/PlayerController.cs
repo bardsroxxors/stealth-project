@@ -67,6 +67,8 @@ public class PlayerController : MonoBehaviour
 
     [Header("Free Move")]
     public bool f_holdToRun = true;
+    public bool f_carryingObject = false;
+    public GameObject carriedObject;
     public float moveSpeed = 1;
     public float sneakSpeed = 1;
     public float crouchSpeed = 1;
@@ -504,7 +506,8 @@ public class PlayerController : MonoBehaviour
                 t_wallJumpNoGrabTime <= 0 &&
                 jumpManager.f_jumpKeyDown &&
                 jumpManager.f_wallGrabReady &&
-                canWallGrab)
+                canWallGrab &&
+                !f_carryingObject)
             {
                 ChangeState(e_PlayerControllerStates.WallGrab);
             }
@@ -516,7 +519,8 @@ public class PlayerController : MonoBehaviour
                 t_wallJumpNoGrabTime <= 0 &&
                 jumpManager.f_jumpKeyDown &&
                 jumpManager.f_wallGrabReady &&
-                canWallGrab)
+                canWallGrab &&
+                !f_carryingObject)
         {
             ChangeState(e_PlayerControllerStates.PlatformGrab);
         }
@@ -1429,7 +1433,8 @@ public class PlayerController : MonoBehaviour
         //else
         //{
             if (t_attackCooldown <= 0 &&
-            CurrentPlayerState == e_PlayerControllerStates.FreeMove)
+            CurrentPlayerState == e_PlayerControllerStates.FreeMove &&
+            !f_carryingObject)
 
                 //ChangeState(e_PlayerControllerStates.SwordSwing);
                 ChangeState(e_PlayerControllerStates.DashAttack);
