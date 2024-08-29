@@ -41,7 +41,8 @@ public class Earpiece : MonoBehaviour
 
         else if (collision.gameObject.tag == "Coin")
         {
-            transform.parent.SendMessage("AddBounty", 2);
+            PointBounty p = collision.gameObject.GetComponent<PointBounty>();
+            transform.parent.SendMessage("AddBounty", p.bounty);
             collision.gameObject.SendMessage("PickedUp");
             Destroy(collision.gameObject);
         }

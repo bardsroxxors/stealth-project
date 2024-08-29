@@ -119,6 +119,7 @@
     <Compile Include="Assets\2_Scripts\Player Controller\PlayerGroundTrigger.cs" />
     <Compile Include="Assets\2_Scripts\Player Controller\PlayerAttackManager.cs" />
     <Compile Include="Assets\KadaXuanwu\UtilityDesigner\Demos\Survival\Scripts\TakeSteak.cs" />
+    <Compile Include="Assets\2_Scripts\UI\BountyMessage.cs" />
     <Compile Include="Assets\2_Scripts\Enemies\PointBounty.cs" />
     <Compile Include="Assets\2_Scripts\ShadowCastersGeneratorEditor.cs" />
     <Compile Include="Assets\2_Scripts\Navmesh Generation\NavmeshGenEditor.cs" />
@@ -139,6 +140,7 @@
     <Compile Include="Assets\unity-wave-function-collapse\Training.cs" />
     <Compile Include="Assets\2_Scripts\Navmesh Generation\NavmeshGenerator.cs" />
     <Compile Include="Assets\Scriptable Objects\Clouds\Cloud.cs" />
+    <Compile Include="Assets\2_Scripts\HeldItem.cs" />
     <Compile Include="Assets\2_Scripts\Player Controller\DijkFOW.cs" />
     <Compile Include="Assets\2_Scripts\Level Stuff\Door.cs" />
     <Compile Include="Assets\2_Scripts\UI\PointsManager.cs" />

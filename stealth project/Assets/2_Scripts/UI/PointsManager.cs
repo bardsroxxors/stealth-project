@@ -38,7 +38,7 @@ public class PointsManager : MonoBehaviour
 
     void AddScore(int n)
     {
-        score += n;
+        score += n*50;
         BuildText();
         
     }

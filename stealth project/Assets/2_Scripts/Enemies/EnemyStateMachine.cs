@@ -300,16 +300,15 @@ public class EnemyStateMachine : MonoBehaviour
         }
 
         // check if we are freshly piqued
-        if(awareScript.currentAwareness == AwarenessLevel.curious && !conditions.Contains(e_EnemyConditions.piqued))
+        if(awareScript.currentAwareness == AwarenessLevel.curious)
         {
-            conditions.Add(e_EnemyConditions.piqued);
-            this.SendMessage("AddBounty", 2);
+            AddCondition(e_EnemyConditions.piqued);
+
         }
         // check if we are freshly piqued
-        if (awareScript.currentAwareness == AwarenessLevel.alert && !conditions.Contains(e_EnemyConditions.alerted))
+        if (awareScript.currentAwareness == AwarenessLevel.alert)
         {
-            conditions.Add(e_EnemyConditions.alerted);
-            this.SendMessage("SubtractBounty", 1);
+            AddCondition(e_EnemyConditions.alerted);
         }
 
 
@@ -903,11 +902,7 @@ public class EnemyStateMachine : MonoBehaviour
 
     public void BodySighted()
     {
-        if (!conditions.Contains(e_EnemyConditions.bodySighted))
-        {
-            this.SendMessage("AddBounty", 2);
-            conditions.Add(e_EnemyConditions.bodySighted);
-        }
+        AddCondition(e_EnemyConditions.bodySighted);
 
         if(awareScript.currentAwareness != AwarenessLevel.alert)
         {
@@ -1007,9 +1002,13 @@ public class EnemyStateMachine : MonoBehaviour
         if(currentWaypoint > path.vectorPath.Count - 1)
         {
             //Debug.Log("Scramblin' time!");
+            UpdatePath();
+
+            /*
             f_waitingToScramble = false;
             queuedState = e_EnemyStates.investigate;
-            ChangeState(e_EnemyStates.scramble);
+            ChangeState(e_EnemyStates.scramble);*/
+
             return;
         }
 
@@ -1143,6 +1142,32 @@ public class EnemyStateMachine : MonoBehaviour
 
     }
 
+    public bool AddCondition(e_EnemyConditions con)
+    {
+        if (conditions.Contains(con)) return false;
+
+        else
+        {
+            conditions.Add(con);
+            switch (con)
+            {
+                case e_EnemyConditions.piqued:
+                    this.SendMessage("AddBounty", 1);
+                    break;
+                case e_EnemyConditions.oblivious:
+                    this.SendMessage("AddBounty", 1);
+                    break;
+                case e_EnemyConditions.alerted:
+                    this.SendMessage("SubtractBounty", 1);
+                    break;
+                case e_EnemyConditions.bodySighted:
+                    this.SendMessage("AddBounty", 2);
+                    break;
+            }
+            return true;
+        }
+    }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if(collision.gameObject.tag == "PlayerProjectile" && currentState != e_EnemyStates.dead)
@@ -1237,11 +1262,8 @@ public class EnemyStateMachine : MonoBehaviour
 
     public void ObliviousIdiot()
     {
-        if (!conditions.Contains(e_EnemyConditions.oblivious))
-        {
-            this.SendMessage("AddBounty", 1);
-            conditions.Add(e_EnemyConditions.oblivious);
-        }
+        AddCondition(e_EnemyConditions.oblivious);
+
     }
 
     public void NoiseHeard(Vector3 position, float awareIncrease) 

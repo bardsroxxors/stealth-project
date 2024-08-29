@@ -161,6 +161,7 @@ public class PlayerController : MonoBehaviour
     public LayerMask koCheckMask;
     public float slopeRaycastDistance = 1;
     public Sound footstepSound;
+    public Sound meowSound;
 
     public UI_Backpack backpack;
 
@@ -233,7 +234,7 @@ public class PlayerController : MonoBehaviour
         animator = graphicsObject.GetComponent<Animator>();
         collider = GetComponent<BoxCollider2D>();
         killZone = killzoneObject.GetComponent<StealthKillZone>();
-        backpack = GameObject.Find("Backpack").GetComponent<UI_Backpack>();
+        //backpack = GameObject.Find("Backpack").GetComponent<UI_Backpack>();
         ScoreManager = GameObject.Find("Points Manager");
         colliderYscale = collider.size.y;
 
@@ -315,6 +316,12 @@ public class PlayerController : MonoBehaviour
         else
             koIndicator.SetActive(false);
 
+
+        // carrying object stuff
+        if(f_carryingObject && carriedObject != null)
+        {
+            carriedObject.transform.position = transform.position + new Vector3(0, 0.5f, 0);
+        }
 
         // Blink stuff
         if (equipList[activeEquipIndex] != e_Equipment.blink && CurrentPlayerState == e_PlayerControllerStates.FreeMove ||
@@ -506,8 +513,7 @@ public class PlayerController : MonoBehaviour
                 t_wallJumpNoGrabTime <= 0 &&
                 jumpManager.f_jumpKeyDown &&
                 jumpManager.f_wallGrabReady &&
-                canWallGrab &&
-                !f_carryingObject)
+                canWallGrab)
             {
                 ChangeState(e_PlayerControllerStates.WallGrab);
             }
@@ -519,8 +525,7 @@ public class PlayerController : MonoBehaviour
                 t_wallJumpNoGrabTime <= 0 &&
                 jumpManager.f_jumpKeyDown &&
                 jumpManager.f_wallGrabReady &&
-                canWallGrab &&
-                !f_carryingObject)
+                canWallGrab)
         {
             ChangeState(e_PlayerControllerStates.PlatformGrab);
         }
@@ -1204,6 +1209,12 @@ public class PlayerController : MonoBehaviour
             interactTarget = collision.gameObject;
         }
 
+        else if (collision.gameObject.tag == "Coin")
+        {
+            f_canInteract = true;
+            interactTarget = collision.gameObject;
+        }
+
     }
 
     private void OnTriggerExit2D(Collider2D collision)
@@ -1214,7 +1225,8 @@ public class PlayerController : MonoBehaviour
 
         if (collision.gameObject.tag == "HidingPlace" ||
             collision.gameObject.tag == "GroundItem" ||
-            collision.gameObject.tag == "Door")
+            collision.gameObject.tag == "Door" ||
+            collision.gameObject.tag == "Coin")
         {
             f_canInteract = false;
             interactTarget = null;
@@ -1391,8 +1403,9 @@ public class PlayerController : MonoBehaviour
     void OnMove(InputValue value)
     {
         moveStickVector.x = value.Get<Vector2>().x;
+        /*
         if(!backpack.open)
-            moveStickVector.y = value.Get<Vector2>().y;
+            moveStickVector.y = value.Get<Vector2>().y;*/
 
     }
 
@@ -1432,12 +1445,19 @@ public class PlayerController : MonoBehaviour
             //TriggerStealthKill();
         //else
         //{
-            if (t_attackCooldown <= 0 &&
-            CurrentPlayerState == e_PlayerControllerStates.FreeMove &&
-            !f_carryingObject)
+        if (t_attackCooldown <= 0 &&
+        CurrentPlayerState == e_PlayerControllerStates.FreeMove &&
+        !f_carryingObject)
 
-                //ChangeState(e_PlayerControllerStates.SwordSwing);
-                ChangeState(e_PlayerControllerStates.DashAttack);
+            //ChangeState(e_PlayerControllerStates.SwordSwing);
+            ChangeState(e_PlayerControllerStates.DashAttack);
+        else if (f_carryingObject)
+        {
+            f_carryingObject = false;
+            carriedObject.transform.position = transform.position;
+            carriedObject.SendMessage("Dropped", GetVectorToMouse());
+            carriedObject = null;
+        }
         //}
 
         /*
@@ -1460,8 +1480,17 @@ public class PlayerController : MonoBehaviour
 
     void OnInteract()
     {
-        if(f_canInteract && CurrentPlayerState == e_PlayerControllerStates.FreeMove)
-        { 
+        if (f_carryingObject)
+        {
+            f_carryingObject = false;
+            carriedObject.transform.position = transform.position;
+            carriedObject.SendMessage("Dropped", Vector2.zero);
+            carriedObject = null;
+        }
+
+        else if (f_canInteract && CurrentPlayerState == e_PlayerControllerStates.FreeMove)
+        {
+            
             // bugs = false;
             if (interactTarget.tag == "HidingPlace")
             {
@@ -1473,7 +1502,15 @@ public class PlayerController : MonoBehaviour
             else if (interactTarget.tag == "GroundItem")
             {
                 // do item pickup stuff
-                backpack.AddItem(interactTarget);
+                //backpack.AddItem(interactTarget);
+                
+            }
+
+            else if (interactTarget.tag == "Coin")
+            {
+                carriedObject = interactTarget;
+                f_carryingObject = true;
+                carriedObject.SendMessage("PickedUp");
             }
 
             else if (interactTarget.tag == "Door")
@@ -1591,6 +1628,12 @@ public class PlayerController : MonoBehaviour
             activeEquipIndex = 0;
     }
 
+    
+    void OnMeow()
+    {
+        GameObject noise = Instantiate(noisePrefab, transform.position, Quaternion.identity);
+        noise.SendMessage("SetProfile", meowSound);
+    }
 
     void KOTarget()
     {

@@ -8,7 +8,7 @@ public class PointBounty : MonoBehaviour
     // this is the points bounty thing
     // attach it to stuff that gives you points
     PointsManager pm;
-    public int bounty = 50;
+    public int bounty = 1;
 
     // Start is called before the first frame update
     void Start()
