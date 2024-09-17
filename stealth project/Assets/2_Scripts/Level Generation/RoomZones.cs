@@ -28,7 +28,7 @@ class RoomZones : MonoBehaviour
 
     public bool drawGizmos = true;
 
-    public Training training;
+    //public Training training;
 
     private bool[][] wave;
 
@@ -132,7 +132,7 @@ class RoomZones : MonoBehaviour
         // at bool[i]
         //      set all to false
         //      set bool[i][tile] to true
-
+        /*
         for (int i = 0; i < gen.Length; i++)
         {
             wave[i] = new bool[training.tiles.Length];
@@ -142,7 +142,7 @@ class RoomZones : MonoBehaviour
             }
 
             wave[i][ gen[i] ] = true;
-        }
+        }*/
     }
 
 
