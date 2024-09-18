@@ -31,9 +31,10 @@ Material:
     - _Specs_Amount_3: 0.51
     - _Specs_Gradient: 0.82
     - _Specs_Gradient_Power: 7.43
-    - _Specs_Opacity: 1.5
+    - _Specs_Opacity: 1.42
     m_Colors:
-    - _Specs_Colour: {r: 1, g: 1, b: 1, a: 0}
+    - _Distortion_Tiling: {r: 0.5, g: 0.5, b: 0, a: 0}
+    - _Specs_Colour: {r: 0.6698113, g: 0, b: 0.2336565, a: 0}
     - _Specs_Tiling: {r: 0.5, g: 0.5, b: 0, a: 0}
   m_BuildTextureStacks: []
 --- !u!114 &4962304284547199363
