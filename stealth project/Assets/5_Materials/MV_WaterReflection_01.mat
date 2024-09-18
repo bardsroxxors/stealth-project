@@ -25,17 +25,24 @@ Material:
     m_TexEnvs: []
     m_Ints: []
     m_Floats:
+    - _Distortion_Amount: 0.4
+    - _Distortion_Speed: 0.03
     - _QueueControl: 0
-    - _Specs_Amount_1: 0.62
-    - _Specs_Amount_2: 0.64
-    - _Specs_Amount_3: 0.51
-    - _Specs_Gradient: 0.82
-    - _Specs_Gradient_Power: 7.43
-    - _Specs_Opacity: 1.42
+    - _Reflection_Gradient: 1.47
+    - _Reflection_Gradient_Power: 1.28
+    - _Specs_3_Max: 0.2
+    - _Specs_Amount_1: 0.73
+    - _Specs_Amount_2: 0.74
+    - _Specs_Amount_3: 0.97
+    - _Specs_Gradient: 1
+    - _Specs_Gradient_Power: 5.17
+    - _Specs_Opacity: 0.02
+    - _Water_Tint_Opacity: 0.48
     m_Colors:
     - _Distortion_Tiling: {r: 0.5, g: 0.5, b: 0, a: 0}
-    - _Specs_Colour: {r: 0.6698113, g: 0, b: 0.2336565, a: 0}
+    - _Specs_Colour: {r: 1, g: 0.9103774, b: 0.98682064, a: 0}
     - _Specs_Tiling: {r: 0.5, g: 0.5, b: 0, a: 0}
+    - _Water_Tint: {r: 1, g: 0.7688679, b: 0.99371845, a: 0}
   m_BuildTextureStacks: []
 --- !u!114 &4962304284547199363
 MonoBehaviour:
