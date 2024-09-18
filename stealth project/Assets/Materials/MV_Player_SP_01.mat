@@ -62,10 +62,10 @@ Material:
     m_Ints: []
     m_Floats:
     - _Effect: 0
-    - _Facing_Right: 0
+    - _Facing_Right: 1
     - _Normal_Strength: 2
     m_Colors:
-    - _Highlight1_Colour: {r: 0.2924528, g: 0.18372035, b: 0.0731132, a: 0}
+    - _Highlight1_Colour: {r: 0, g: 766.99615, b: 612.14166, a: 0}
     - _Shadow1_Colour: {r: 0.5849056, g: 0.21244211, b: 0.21244211, a: 0}
   m_BuildTextureStacks: []
 --- !u!114 &7617579040072855149
