@@ -25,24 +25,32 @@ Material:
     m_TexEnvs: []
     m_Ints: []
     m_Floats:
-    - _Distortion_Amount: 0.4
+    - _Distortion_Amount: -0.27
     - _Distortion_Speed: 0.03
+    - _Murky_Gradient: 28.04
+    - _Murky_Gradient_Invert: 0
+    - _Murky_Gradient_Power: 0.8
+    - _Murky_Noise_Opacity: -0.68
+    - _Murky_Opacity: 1
+    - _Murky_Scale: 8.61
     - _QueueControl: 0
-    - _Reflection_Gradient: 1.47
-    - _Reflection_Gradient_Power: 1.28
+    - _Reflection_Gradient: 1.39
+    - _Reflection_Gradient_Invert: 1
+    - _Reflection_Gradient_Power: 2.99
     - _Specs_3_Max: 0.2
-    - _Specs_Amount_1: 0.73
-    - _Specs_Amount_2: 0.74
-    - _Specs_Amount_3: 0.97
+    - _Specs_Amount_1: 0.61
+    - _Specs_Amount_2: 0.81
+    - _Specs_Amount_3: 0.51
     - _Specs_Gradient: 1
-    - _Specs_Gradient_Power: 5.17
-    - _Specs_Opacity: 0.02
-    - _Water_Tint_Opacity: 0.48
+    - _Specs_Gradient_Power: 3.59
+    - _Specs_Opacity: 0.25
+    - _Water_Tint_Opacity: 1.62
     m_Colors:
-    - _Distortion_Tiling: {r: 0.5, g: 0.5, b: 0, a: 0}
-    - _Specs_Colour: {r: 1, g: 0.9103774, b: 0.98682064, a: 0}
-    - _Specs_Tiling: {r: 0.5, g: 0.5, b: 0, a: 0}
-    - _Water_Tint: {r: 1, g: 0.7688679, b: 0.99371845, a: 0}
+    - _Distortion_Tiling: {r: 1, g: 1, b: 0, a: 0}
+    - _Murky_Colour: {r: 0.008504042, g: 0, b: 0.009433985, a: 1}
+    - _Specs_Colour: {r: 0.50980395, g: 0, b: 0.49495897, a: 0}
+    - _Specs_Tiling: {r: 1, g: 1, b: 0, a: 0}
+    - _Water_Tint: {r: 0.6745283, g: 0.89568216, b: 1, a: 0}
   m_BuildTextureStacks: []
 --- !u!114 &4962304284547199363
 MonoBehaviour:
