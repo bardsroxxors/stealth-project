@@ -142,15 +142,16 @@ MonoBehaviour:
     identifier=\"$outputsize\" uid=\"3182604835\" type=\"8\" value=\"9,9\" />\n 
     <presetinput identifier=\"$randomseed\" uid=\"3938493553\" type=\"4\" value=\"2607\"
     />\n  <presetinput identifier=\"Shadows_AreaSelect_Position\" uid=\"3736252795\"
-    type=\"0\" value=\"0.793\" />\n  <presetinput identifier=\"Shadows_AreaSelect_Range\"
-    uid=\"3736253679\" type=\"0\" value=\"0.39\" />\n  <presetinput identifier=\"Shadows_AreaMask_Postion\"
-    uid=\"3736258415\" type=\"0\" value=\"0.338\" />\n  <presetinput identifier=\"Hightlights_AreaSelect_Position\"
-    uid=\"3739910174\" type=\"0\" value=\"0.05\" />\n  <presetinput identifier=\"Highlights_AreaSelect_Range\"
-    uid=\"3739917189\" type=\"0\" value=\"0.532\" />\n  <presetinput identifier=\"Highlights_AreaMask_Select\"
-    uid=\"3736929467\" type=\"0\" value=\"0.238\" />\n  <presetinput identifier=\"Highlights_AreaMask_Range\"
-    uid=\"3736934444\" type=\"0\" value=\"0.162\" />\n  <presetinput identifier=\"Highlights_AreaMask_Invert\"
-    uid=\"3736932515\" type=\"4\" value=\"1\" />\n  <presetinput identifier=\"Highlights_lightangle\"
-    uid=\"3741265997\" type=\"0\" value=\"33.93\" />\n  <presetinput identifier=\"Highlights_ShadowShift\"
+    type=\"0\" value=\"0\" />\n  <presetinput identifier=\"Shadows_AreaSelect_Range\"
+    uid=\"3736253679\" type=\"0\" value=\"0\" />\n  <presetinput identifier=\"Shadows_AreaMask_Postion\"
+    uid=\"3736258415\" type=\"0\" value=\"0\" />\n  <presetinput identifier=\"Shadows_AreaMask_Range\"
+    uid=\"3736263395\" type=\"0\" value=\"0\" />\n  <presetinput identifier=\"Hightlights_AreaSelect_Position\"
+    uid=\"3739910174\" type=\"0\" value=\"0\" />\n  <presetinput identifier=\"Highlights_AreaSelect_Range\"
+    uid=\"3739917189\" type=\"0\" value=\"0\" />\n  <presetinput identifier=\"Highlights_AreaMask_Select\"
+    uid=\"3736929467\" type=\"0\" value=\"0\" />\n  <presetinput identifier=\"Highlights_AreaMask_Range\"
+    uid=\"3736934444\" type=\"0\" value=\"0\" />\n  <presetinput identifier=\"Highlights_Add_Sub\"
+    uid=\"3736952551\" type=\"4\" value=\"0\" />\n  <presetinput identifier=\"Highlights_lightangle\"
+    uid=\"3741265997\" type=\"0\" value=\"17.2\" />\n  <presetinput identifier=\"Highlights_ShadowShift\"
     uid=\"3739926415\" type=\"0\" value=\"0\" />\n  <presetinput identifier=\"Highlights_Distance\"
     uid=\"3739915647\" type=\"0\" value=\"0.137\" />\n  <presetinput identifier=\"Highlights_power\"
     uid=\"3739925955\" type=\"0\" value=\"0.401\" />\n  <presetinput identifier=\"Highlights_Contrast\"
@@ -162,8 +163,8 @@ MonoBehaviour:
   DefaultPreset: " <sbspreset pkgurl=\"pkg://A\" label=\"\" >\n  <presetinput identifier=\"$outputsize\"
     uid=\"3182604835\" type=\"8\" value=\"10,10\" />\n </sbspreset>\n"
   MaterialShader: Universal Render Pipeline/Lit
-  RenderTextures: 1
-  OutputRemaped: 1
+  RenderTextures: 0
+  OutputRemaped: 0
   Presets: []
   references:
     version: 2
@@ -232,7 +233,7 @@ MonoBehaviour:
           GuiDescription: 
           Type: 0
           WidgetType: 1
-        Data: 0.793
+        Data: 0
         NumericalDescription:
           DefaultValue: 0.79
           MinValue: 0
@@ -252,7 +253,7 @@ MonoBehaviour:
           GuiDescription: 
           Type: 0
           WidgetType: 1
-        Data: 0.39
+        Data: 0
         NumericalDescription:
           DefaultValue: 0.61
           MinValue: 0
@@ -294,7 +295,7 @@ MonoBehaviour:
           GuiDescription: 
           Type: 0
           WidgetType: 1
-        Data: 0.338
+        Data: 0
         NumericalDescription:
           DefaultValue: 0.5
           MinValue: 0
@@ -314,7 +315,7 @@ MonoBehaviour:
           GuiDescription: 
           Type: 0
           WidgetType: 1
-        Data: 0.25
+        Data: 0
         NumericalDescription:
           DefaultValue: 0.25
           MinValue: 0
@@ -520,7 +521,7 @@ MonoBehaviour:
           GuiDescription: 
           Type: 0
           WidgetType: 1
-        Data: 0.05
+        Data: 0
         NumericalDescription:
           DefaultValue: 0.68
           MinValue: 0
@@ -540,7 +541,7 @@ MonoBehaviour:
           GuiDescription: 
           Type: 0
           WidgetType: 1
-        Data: 0.532
+        Data: 0
         NumericalDescription:
           DefaultValue: 0.96
           MinValue: 0
@@ -582,7 +583,7 @@ MonoBehaviour:
           GuiDescription: 
           Type: 0
           WidgetType: 1
-        Data: 0.238
+        Data: 0
         NumericalDescription:
           DefaultValue: 0.5
           MinValue: 0
@@ -602,7 +603,7 @@ MonoBehaviour:
           GuiDescription: 
           Type: 0
           WidgetType: 1
-        Data: 0.162
+        Data: 0
         NumericalDescription:
           DefaultValue: 0.25
           MinValue: 0
@@ -622,7 +623,7 @@ MonoBehaviour:
           GuiDescription: 
           Type: 4
           WidgetType: 4
-        Data: 1
+        Data: 0
         NumericalDescription:
           DefaultValue: 0
           MinValue: 0
@@ -644,7 +645,7 @@ MonoBehaviour:
           GuiDescription: 
           Type: 4
           WidgetType: 4
-        Data: 1
+        Data: 0
         NumericalDescription:
           DefaultValue: 1
           MinValue: 0
@@ -666,7 +667,7 @@ MonoBehaviour:
           GuiDescription: 
           Type: 0
           WidgetType: 2
-        Data: 33.93
+        Data: 17.2
         NumericalDescription:
           DefaultValue: 0.79
           MinValue: 0
