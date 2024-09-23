@@ -7,7 +7,7 @@ using UnityEngine;
 public class Projectile : ScriptableObject
 {
 
-
+    public bool TransferRotation = false;
     public float speed = 2f;
     public float gravity = 10f;
     public GameObject payload;

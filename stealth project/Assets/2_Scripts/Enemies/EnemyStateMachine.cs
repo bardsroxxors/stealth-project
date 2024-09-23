@@ -724,7 +724,7 @@ public class EnemyStateMachine : MonoBehaviour
 
 
         // apply gravity if not grounded
-        if (collisionDirections.y != -1)
+        if (collisionDirections.y != -1 || gravityVector.x != 0)
         {
             movementVector.x = gravityVector.x + inputVector.x;
             movementVector.y = gravityVector.y;
@@ -745,7 +745,7 @@ public class EnemyStateMachine : MonoBehaviour
         if (Mathf.Abs(movementVector.x) <= 0.1) movementVector.x = 0;
         if (Mathf.Abs(movementVector.y) <= 0.1) movementVector.y = 0;
 
-        if (collisionDirections.y != -1) CalculateGravity();
+        if (collisionDirections.y != -1 || gravityVector.x != 0) CalculateGravity();
 
         /*
         // apply shoving from enemies if need be
@@ -824,6 +824,15 @@ public class EnemyStateMachine : MonoBehaviour
         else if (collisionDirections.x < 0) movementVector.x = Mathf.Clamp(movementVector.x, 0, 100);
     }
 
+    private void KunaiHit()
+    {
+            
+        awareScript.lastKnownPosition = GameObject.FindWithTag("Player").transform.position;
+        NoiseHeard(awareScript.lastKnownPosition, 0.3f);
+        PlayerSightGained(e_EnemyStates.investigate);
+        
+    }
+
     public void PlayerSightGained(e_EnemyStates state)
     {
         f_blindChase = false;
@@ -882,6 +891,11 @@ public class EnemyStateMachine : MonoBehaviour
             
     }
 
+    public void ApplyForce(Vector2 force)
+    {
+        Debug.Log("force applied :0");
+        gravityVector += force;
+    }
 
     // called by the awareness script when the state chanegs
     public void AwarenessChange(AwarenessLevel newState)

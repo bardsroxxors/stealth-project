@@ -52,7 +52,9 @@ public class BaseProjectile : MonoBehaviour
 
             if (so_projectile.payload != null)
             {
-                Instantiate(so_projectile.payload, transform.position, Quaternion.identity);
+                GameObject pl = Instantiate(so_projectile.payload, transform.position, Quaternion.identity);
+                if (so_projectile.TransferRotation)
+                    pl.transform.rotation = transform.rotation;
                 Destroy(this.gameObject);
             }
         }

@@ -91,6 +91,7 @@
     <Compile Include="Assets\2_Scripts\Tilemap Gemeration\RoomNodeGen.cs" />
     <Compile Include="Assets\KadaXuanwu\UtilityDesigner\Demos\Survival\Scripts\KillBear.cs" />
     <Compile Include="Assets\2_Scripts\PatrolRoute.cs" />
+    <Compile Include="Assets\2_Scripts\Equipment\Payloads\PL_Kunai.cs" />
     <Compile Include="Assets\unity-wave-function-collapse\impl\Stuff.cs" />
     <Compile Include="Assets\2_Scripts\SnapToGrid.cs" />
     <Compile Include="Assets\2_Scripts\Equipment\BaseCloud.cs" />
@@ -113,6 +114,7 @@
     <Compile Include="Assets\2_Scripts\HideSprite.cs" />
     <Compile Include="Assets\2_Scripts\Enemies\ScryingEye.cs" />
     <Compile Include="Assets\2_Scripts\Level Stuff\Grate.cs" />
+    <Compile Include="Assets\2_Scripts\Equipment\Payloads\PL_ForceMine.cs" />
     <Compile Include="Assets\2_Scripts\Enemies\EnemyAnimationTrigger.cs" />
     <Compile Include="Assets\2_Scripts\NoiseScript.cs" />
     <Compile Include="Assets\AOSFogWar\Demo\Scripts\csEyeController.cs" />

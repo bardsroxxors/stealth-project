@@ -28,7 +28,9 @@ public enum e_Equipment
     sword,
     bearTrap,
     arrow,
-    blink
+    blink,
+    kunai,
+    forceMine
 }
 
 public enum e_ControlSchemes
@@ -219,6 +221,10 @@ public class PlayerController : MonoBehaviour
     public GameObject baseProjectile;
     public Projectile so_bearTrap;
     public Projectile so_arrow;
+    public Projectile so_kunai;
+    public Projectile so_forceMine;
+
+    Dictionary<e_Equipment, Projectile> dict_projectiles_enumSO = new Dictionary<e_Equipment, Projectile>();
 
     private Utilities utils = new Utilities();
 
@@ -240,8 +246,13 @@ public class PlayerController : MonoBehaviour
 
         equipList[0] = e_Equipment.sword;
         equipList[1] = e_Equipment.bearTrap;
-        equipList[2] = e_Equipment.arrow;
-        equipList[3] = e_Equipment.blink;
+        equipList[2] = e_Equipment.kunai;
+        equipList[3] = e_Equipment.forceMine;
+
+        dict_projectiles_enumSO.Add(e_Equipment.bearTrap, so_bearTrap);
+        dict_projectiles_enumSO.Add(e_Equipment.arrow, so_arrow);
+        dict_projectiles_enumSO.Add(e_Equipment.kunai, so_kunai);
+        dict_projectiles_enumSO.Add(e_Equipment.forceMine, so_forceMine);
     }
 
 
@@ -1580,6 +1591,13 @@ public class PlayerController : MonoBehaviour
         {
             f_blinkAiming = true;
         }
+        else if( dict_projectiles_enumSO.ContainsKey( equipList[activeEquipIndex] ))
+        {
+            ShootProjectile(dict_projectiles_enumSO[equipList[activeEquipIndex]]);
+        }
+
+
+                /*
         else if (equipList[activeEquipIndex] == e_Equipment.bearTrap)
         {
             ShootProjectile(so_bearTrap);
@@ -1588,7 +1606,7 @@ public class PlayerController : MonoBehaviour
         else if (equipList[activeEquipIndex] == e_Equipment.arrow)
         {
             ShootProjectile(so_arrow);
-        }
+        }*/
 
     }
 
