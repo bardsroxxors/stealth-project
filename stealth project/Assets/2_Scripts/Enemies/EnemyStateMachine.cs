@@ -776,7 +776,10 @@ public class EnemyStateMachine : MonoBehaviour
 
 
             // decay x component as well
-            gravityVector.x = gravityVector.x - (gravityVector.x * (moveDecay / 2) * Time.deltaTime);
+            if(collisionDirections.y != -1)
+                gravityVector.x = gravityVector.x - (Mathf.Sign(gravityVector.x) * 2 * Time.deltaTime);
+            else
+                gravityVector.x = gravityVector.x - (gravityVector.x * moveDecay * Time.deltaTime);
 
             // clamp x to zero when its close
             if (Mathf.Abs(gravityVector.x) <= 0.1) gravityVector.x = 0;

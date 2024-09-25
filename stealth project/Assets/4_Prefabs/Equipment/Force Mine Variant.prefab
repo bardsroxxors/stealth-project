@@ -50,12 +50,32 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5640847016318324489, guid: 5b83d181750a7dd45a4fe796ae9ab8c1, type: 3}
       propertyPath: m_Name
-      value: Base Mine Variant
+      value: Force Mine Variant
       objectReference: {fileID: 0}
     - target: {fileID: 6294613202393060527, guid: 5b83d181750a7dd45a4fe796ae9ab8c1, type: 3}
       propertyPath: so_mine
       value: 
       objectReference: {fileID: 11400000, guid: b8d638b2c57ba4d4191182b12b52d7d7, type: 2}
+    - target: {fileID: 7687350770152559965, guid: 5b83d181750a7dd45a4fe796ae9ab8c1, type: 3}
+      propertyPath: m_SpriteTilingProperty.pivot.x
+      value: 0.5054232
+      objectReference: {fileID: 0}
+    - target: {fileID: 7687350770152559965, guid: 5b83d181750a7dd45a4fe796ae9ab8c1, type: 3}
+      propertyPath: m_SpriteTilingProperty.pivot.y
+      value: 0.044451
+      objectReference: {fileID: 0}
+    - target: {fileID: 7687350770152559965, guid: 5b83d181750a7dd45a4fe796ae9ab8c1, type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7687350770152559965, guid: 5b83d181750a7dd45a4fe796ae9ab8c1, type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 9030802957202084437, guid: 5b83d181750a7dd45a4fe796ae9ab8c1, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: -1106306094, guid: e83efe3718e07404ab8c54298e7aa5f6, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

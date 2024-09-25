@@ -7,6 +7,8 @@ public class BaseMine : MonoBehaviour
 {
 
     public Mine so_mine;
+    private float t_armTime = 1f;
+    public bool armed = false;
 
     // Start is called before the first frame update
     void Start()
@@ -16,20 +18,27 @@ public class BaseMine : MonoBehaviour
 
     public void Setup()
     {
-        if(so_mine.sprite != null)
-            GetComponent<SpriteRenderer>().sprite = so_mine.sprite;
+        if(so_mine.disarmedSprite != null)
+            GetComponent<SpriteRenderer>().sprite = so_mine.disarmedSprite;
+        t_armTime = so_mine.armTime;
         //GetComponent<CircleCollider2D>().radius = so_mine.triggerRadius;
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        if(t_armTime > 0f)
+            t_armTime -= Time.deltaTime;
+        else if (!armed)
+        {
+            armed = true;
+            GetComponent<SpriteRenderer>().sprite = so_mine.armedSprite;
+        }
     }
 
-    void OnTriggerEnter2D(Collider2D other)
+    void OnTriggerStay2D(Collider2D other)
     {
-        if(so_mine.applyToTags.Contains(other.gameObject.tag))
+        if(so_mine.applyToTags.Contains(other.gameObject.tag) && armed)
         {
             if (so_mine.directEffect)
             {

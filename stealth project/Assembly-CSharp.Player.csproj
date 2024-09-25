@@ -72,12 +72,14 @@
     <Compile Include="Assets\KadaXuanwu\UtilityDesigner\Demos\Survival\Scripts\FollowPath.cs" />
     <Compile Include="Assets\2_Scripts\Player Controller\StealthKillZone.cs" />
     <Compile Include="Assets\2_Scripts\ShadowCaster2DTileMap.cs" />
+    <Compile Include="Assets\Scriptable Objects\Equipment\SO_EquipRegister.cs" />
     <Compile Include="Assets\unity-wave-function-collapse\OverlapWFC.cs" />
     <Compile Include="Assets\2_Scripts\Enemies\Earpiece.cs" />
     <Compile Include="Assets\2_Scripts\UI\UI_PlayerHealth.cs" />
     <Compile Include="Assets\2_Scripts\Navmesh Generation\NavPoint.cs" />
     <Compile Include="Assets\2_Scripts\Tilemap Gemeration\LevelGenEditor.cs" />
     <Compile Include="Assets\KadaXuanwu\UtilityDesigner\Demos\Survival\Scripts\GameManager.cs" />
+    <Compile Include="Assets\2_Scripts\UI\UI_itemBar.cs" />
     <Compile Include="Assets\2_Scripts\Player Controller\Equipment\EquipmentManager.cs" />
     <Compile Include="Assets\2_Scripts\Player Controller\PlayerAnimationManager.cs" />
     <Compile Include="Assets\2_Scripts\Player Controller\PlayerSpriteManager.cs" />
@@ -93,6 +95,7 @@
     <Compile Include="Assets\2_Scripts\PatrolRoute.cs" />
     <Compile Include="Assets\2_Scripts\Equipment\Payloads\PL_Kunai.cs" />
     <Compile Include="Assets\unity-wave-function-collapse\impl\Stuff.cs" />
+    <Compile Include="Assets\Scriptable Objects\Equipment\SO_Equipment.cs" />
     <Compile Include="Assets\2_Scripts\SnapToGrid.cs" />
     <Compile Include="Assets\2_Scripts\Equipment\BaseCloud.cs" />
     <Compile Include="Assets\2_Scripts\Parallax\ParallaxCamera.cs" />

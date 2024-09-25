@@ -12,12 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b2d9ff40df9e4e04799cb175adb2b6cb, type: 3}
   m_Name: mine_bearTrap
   m_EditorClassIdentifier: 
-  sprite: {fileID: 0}
+  disarmedSprite: {fileID: -673310526, guid: e83efe3718e07404ab8c54298e7aa5f6, type: 3}
+  armedSprite: {fileID: -673310526, guid: e83efe3718e07404ab8c54298e7aa5f6, type: 3}
   payload: {fileID: 0}
+  armTime: 0.2
   directEffect: 1
   effect: 2
   duration: 3
   sticky: 0
-  triggerRadius: 0.5
   applyToTags:
   - Enemy

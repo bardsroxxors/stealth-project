@@ -2,11 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu]
+[CreateAssetMenu(fileName = "New Equipment", menuName = "Scriptable Object/Projectile")]
 
 public class Projectile : ScriptableObject
 {
-
+    public Sprite icon;
     public bool TransferRotation = false;
     public float speed = 2f;
     public float gravity = 10f;

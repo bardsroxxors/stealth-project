@@ -12,11 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 223228e0563ddf047a5c48b9ffe6308f, type: 3}
   m_Name: proj_ForceMine
   m_EditorClassIdentifier: 
+  icon: {fileID: 1108078972, guid: e83efe3718e07404ab8c54298e7aa5f6, type: 3}
   TransferRotation: 0
   speed: 11
   gravity: 14
   payload: {fileID: 3074660993017458767, guid: 23375a77ba764b54ebfc9c3acf8ce3e0, type: 3}
-  sprite: {fileID: -1110517612, guid: 7146d40aef0ef5d4aba194d7b91d69c9, type: 3}
+  sprite: {fileID: 1108078972, guid: e83efe3718e07404ab8c54298e7aa5f6, type: 3}
   hitRadius: 0.2
   maxFallSpeed: 20
   collisionMask:

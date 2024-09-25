@@ -217,16 +217,20 @@ public class PlayerController : MonoBehaviour
     private Vector2 tempMoveV = Vector2.zero;
     private Vector2 tempGravityV = Vector2.zero;
 
+    
     [Header("Equipment References")]
     public GameObject baseProjectile;
+    /*
     public Projectile so_bearTrap;
     public Projectile so_arrow;
     public Projectile so_kunai;
-    public Projectile so_forceMine;
+    public Projectile so_forceMine;*/
 
     Dictionary<e_Equipment, Projectile> dict_projectiles_enumSO = new Dictionary<e_Equipment, Projectile>();
+    public SO_EquipRegister EquipmentRegister;
 
     private Utilities utils = new Utilities();
+    private UI_itemBar itembar;
 
 
 
@@ -244,15 +248,19 @@ public class PlayerController : MonoBehaviour
         ScoreManager = GameObject.Find("Points Manager");
         colliderYscale = collider.size.y;
 
-        equipList[0] = e_Equipment.sword;
-        equipList[1] = e_Equipment.bearTrap;
-        equipList[2] = e_Equipment.kunai;
-        equipList[3] = e_Equipment.forceMine;
 
-        dict_projectiles_enumSO.Add(e_Equipment.bearTrap, so_bearTrap);
-        dict_projectiles_enumSO.Add(e_Equipment.arrow, so_arrow);
-        dict_projectiles_enumSO.Add(e_Equipment.kunai, so_kunai);
-        dict_projectiles_enumSO.Add(e_Equipment.forceMine, so_forceMine);
+        for (int i = 0; i < EquipmentRegister.enums.Count; i++)
+        {
+            dict_projectiles_enumSO.Add(EquipmentRegister.enums[i], EquipmentRegister.projectiles[i]);
+        }
+
+        itembar = GameObject.Find("Equipment panel").GetComponent<UI_itemBar>();
+
+        for (int i = 0; i < equipList.Length; i++)
+        {
+            itembar.SetIcon(i, equipList[i]);
+        }
+
     }
 
 
@@ -1513,7 +1521,8 @@ public class PlayerController : MonoBehaviour
             else if (interactTarget.tag == "GroundItem")
             {
                 // do item pickup stuff
-                //backpack.AddItem(interactTarget);
+                Destroy(interactTarget.gameObject);
+                interactTarget = null;
                 
             }
 
@@ -1637,6 +1646,7 @@ public class PlayerController : MonoBehaviour
         activeEquipIndex -= 1;
         if(activeEquipIndex < 0)
             activeEquipIndex = equipList.Length - 1;
+        itembar.SetIndicator(activeEquipIndex);
     }
 
     void OnEquipDown(InputValue value)
@@ -1644,6 +1654,7 @@ public class PlayerController : MonoBehaviour
         activeEquipIndex += 1;
         if(activeEquipIndex > equipList.Length - 1)
             activeEquipIndex = 0;
+        itembar.SetIndicator(activeEquipIndex);
     }
 
     

@@ -12,10 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 223228e0563ddf047a5c48b9ffe6308f, type: 3}
   m_Name: proj_BearTrap
   m_EditorClassIdentifier: 
+  icon: {fileID: -673310526, guid: e83efe3718e07404ab8c54298e7aa5f6, type: 3}
+  TransferRotation: 0
   speed: 11
   gravity: 14
   payload: {fileID: 4383541908995768713, guid: 9b3d5b4ad055d13409cef20be622f19c, type: 3}
-  sprite: {fileID: -1110517612, guid: 7146d40aef0ef5d4aba194d7b91d69c9, type: 3}
+  sprite: {fileID: -640343836, guid: e83efe3718e07404ab8c54298e7aa5f6, type: 3}
   hitRadius: 0.2
   maxFallSpeed: 20
   collisionMask:

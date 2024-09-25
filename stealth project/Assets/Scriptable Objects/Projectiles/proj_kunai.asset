@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 223228e0563ddf047a5c48b9ffe6308f, type: 3}
   m_Name: proj_kunai
   m_EditorClassIdentifier: 
+  icon: {fileID: 21300000, guid: 80e8ce944e2edae49ad5544ae7c7ff55, type: 3}
   TransferRotation: 1
   speed: 45
   gravity: 0

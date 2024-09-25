@@ -3,40 +3,40 @@
   "WorkspaceRootPath": "D:\\stealth-project\\stealth project\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{B8A3D4B7-E533-0FD7-C260-767A941AA179}|Assembly-CSharp.csproj|D:\\stealth-project\\stealth project\\assets\\2_scripts\\enemies\\enemystatemachine.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{B8A3D4B7-E533-0FD7-C260-767A941AA179}|Assembly-CSharp.csproj|solutionrelative:assets\\2_scripts\\enemies\\enemystatemachine.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{B8A3D4B7-E533-0FD7-C260-767A941AA179}|Assembly-CSharp.csproj|d:\\stealth-project\\stealth project\\assets\\2_scripts\\player controller\\playercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B8A3D4B7-E533-0FD7-C260-767A941AA179}|Assembly-CSharp.csproj|solutionrelative:assets\\2_scripts\\player controller\\playercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{B8A3D4B7-E533-0FD7-C260-767A941AA179}|Assembly-CSharp.csproj|D:\\stealth-project\\stealth project\\assets\\2_scripts\\enemies\\earpiece.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{B8A3D4B7-E533-0FD7-C260-767A941AA179}|Assembly-CSharp.csproj|solutionrelative:assets\\2_scripts\\enemies\\earpiece.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{B8A3D4B7-E533-0FD7-C260-767A941AA179}|Assembly-CSharp.csproj|d:\\stealth-project\\stealth project\\assets\\2_scripts\\ui\\ui_itembar.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B8A3D4B7-E533-0FD7-C260-767A941AA179}|Assembly-CSharp.csproj|solutionrelative:assets\\2_scripts\\ui\\ui_itembar.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{B8A3D4B7-E533-0FD7-C260-767A941AA179}|Assembly-CSharp.csproj|D:\\stealth-project\\stealth project\\assets\\2_scripts\\equipment\\payloads\\pl_kunai.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{B8A3D4B7-E533-0FD7-C260-767A941AA179}|Assembly-CSharp.csproj|solutionrelative:assets\\2_scripts\\equipment\\payloads\\pl_kunai.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{B8A3D4B7-E533-0FD7-C260-767A941AA179}|Assembly-CSharp.csproj|d:\\stealth-project\\stealth project\\assets\\2_scripts\\equipment\\baseprojectile.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{B8A3D4B7-E533-0FD7-C260-767A941AA179}|Assembly-CSharp.csproj|solutionrelative:assets\\2_scripts\\equipment\\baseprojectile.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{B8A3D4B7-E533-0FD7-C260-767A941AA179}|Assembly-CSharp.csproj|D:\\stealth-project\\stealth project\\assets\\scriptable objects\\equipment\\so_equipregister.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B8A3D4B7-E533-0FD7-C260-767A941AA179}|Assembly-CSharp.csproj|solutionrelative:assets\\scriptable objects\\equipment\\so_equipregister.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{B8A3D4B7-E533-0FD7-C260-767A941AA179}|Assembly-CSharp.csproj|D:\\stealth-project\\stealth project\\assets\\scriptable objects\\projectiles\\projectile.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{B8A3D4B7-E533-0FD7-C260-767A941AA179}|Assembly-CSharp.csproj|solutionrelative:assets\\scriptable objects\\projectiles\\projectile.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{B8A3D4B7-E533-0FD7-C260-767A941AA179}|Assembly-CSharp.csproj|D:\\stealth-project\\stealth project\\assets\\2_scripts\\player controller\\playercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{B8A3D4B7-E533-0FD7-C260-767A941AA179}|Assembly-CSharp.csproj|solutionrelative:assets\\2_scripts\\player controller\\playercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{B8A3D4B7-E533-0FD7-C260-767A941AA179}|Assembly-CSharp.csproj|D:\\stealth-project\\stealth project\\assets\\2_scripts\\equipment\\basemine.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B8A3D4B7-E533-0FD7-C260-767A941AA179}|Assembly-CSharp.csproj|solutionrelative:assets\\2_scripts\\equipment\\basemine.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{B8A3D4B7-E533-0FD7-C260-767A941AA179}|Assembly-CSharp.csproj|D:\\stealth-project\\stealth project\\assets\\2_scripts\\ui\\bountymessage.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{B8A3D4B7-E533-0FD7-C260-767A941AA179}|Assembly-CSharp.csproj|solutionrelative:assets\\2_scripts\\ui\\bountymessage.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{B8A3D4B7-E533-0FD7-C260-767A941AA179}|Assembly-CSharp.csproj|D:\\stealth-project\\stealth project\\assets\\2_scripts\\enemies\\enemystatemachine.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B8A3D4B7-E533-0FD7-C260-767A941AA179}|Assembly-CSharp.csproj|solutionrelative:assets\\2_scripts\\enemies\\enemystatemachine.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{B8A3D4B7-E533-0FD7-C260-767A941AA179}|Assembly-CSharp.csproj|D:\\stealth-project\\stealth project\\assets\\2_scripts\\helditem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{B8A3D4B7-E533-0FD7-C260-767A941AA179}|Assembly-CSharp.csproj|solutionrelative:assets\\2_scripts\\helditem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{B8A3D4B7-E533-0FD7-C260-767A941AA179}|Assembly-CSharp.csproj|D:\\stealth-project\\stealth project\\assets\\scriptable objects\\mines\\mine.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B8A3D4B7-E533-0FD7-C260-767A941AA179}|Assembly-CSharp.csproj|solutionrelative:assets\\scriptable objects\\mines\\mine.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{B8A3D4B7-E533-0FD7-C260-767A941AA179}|Assembly-CSharp.csproj|D:\\stealth-project\\stealth project\\assets\\2_scripts\\enemies\\bountydisplay.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{B8A3D4B7-E533-0FD7-C260-767A941AA179}|Assembly-CSharp.csproj|solutionrelative:assets\\2_scripts\\enemies\\bountydisplay.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{B8A3D4B7-E533-0FD7-C260-767A941AA179}|Assembly-CSharp.csproj|D:\\stealth-project\\stealth project\\assets\\scriptable objects\\equipment\\so_equipment.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B8A3D4B7-E533-0FD7-C260-767A941AA179}|Assembly-CSharp.csproj|solutionrelative:assets\\scriptable objects\\equipment\\so_equipment.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B8A3D4B7-E533-0FD7-C260-767A941AA179}|Assembly-CSharp.csproj|D:\\stealth-project\\stealth project\\assets\\2_scripts\\equipment\\payloads\\pl_kunai.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B8A3D4B7-E533-0FD7-C260-767A941AA179}|Assembly-CSharp.csproj|solutionrelative:assets\\2_scripts\\equipment\\payloads\\pl_kunai.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -46,120 +46,119 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 7,
+          "SelectedChildIndex": 8,
           "Children": [
             {
               "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "UI_itemBar.cs",
+              "DocumentMoniker": "D:\\stealth-project\\stealth project\\Assets\\2_Scripts\\UI\\UI_itemBar.cs",
+              "RelativeDocumentMoniker": "Assets\\2_Scripts\\UI\\UI_itemBar.cs",
+              "ToolTip": "D:\\stealth-project\\stealth project\\Assets\\2_Scripts\\UI\\UI_itemBar.cs",
+              "RelativeToolTip": "Assets\\2_Scripts\\UI\\UI_itemBar.cs",
+              "ViewState": "AQIAABcAAAAAAAAAAAAQwDQAAAALAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-09-25T06:40:00.126Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
               "DocumentIndex": 4,
+              "Title": "BaseMine.cs",
+              "DocumentMoniker": "D:\\stealth-project\\stealth project\\Assets\\2_Scripts\\Equipment\\BaseMine.cs",
+              "RelativeDocumentMoniker": "Assets\\2_Scripts\\Equipment\\BaseMine.cs",
+              "ToolTip": "D:\\stealth-project\\stealth project\\Assets\\2_Scripts\\Equipment\\BaseMine.cs",
+              "RelativeToolTip": "Assets\\2_Scripts\\Equipment\\BaseMine.cs",
+              "ViewState": "AQIAABgAAAAAAAAAAAAowCcAAAAFAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-09-25T05:26:45.052Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "SO_EquipRegister.cs",
+              "DocumentMoniker": "D:\\stealth-project\\stealth project\\Assets\\Scriptable Objects\\Equipment\\SO_EquipRegister.cs",
+              "RelativeDocumentMoniker": "Assets\\Scriptable Objects\\Equipment\\SO_EquipRegister.cs",
+              "ToolTip": "D:\\stealth-project\\stealth project\\Assets\\Scriptable Objects\\Equipment\\SO_EquipRegister.cs",
+              "RelativeToolTip": "Assets\\Scriptable Objects\\Equipment\\SO_EquipRegister.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABsAAAAUAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-09-25T04:54:38.718Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "Mine.cs",
+              "DocumentMoniker": "D:\\stealth-project\\stealth project\\Assets\\Scriptable Objects\\Mines\\Mine.cs",
+              "RelativeDocumentMoniker": "Assets\\Scriptable Objects\\Mines\\Mine.cs",
+              "ToolTip": "D:\\stealth-project\\stealth project\\Assets\\Scriptable Objects\\Mines\\Mine.cs",
+              "RelativeToolTip": "Assets\\Scriptable Objects\\Mines\\Mine.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAkAAAAeAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-09-25T04:34:21.161Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "SO_Equipment.cs",
+              "DocumentMoniker": "D:\\stealth-project\\stealth project\\Assets\\Scriptable Objects\\Equipment\\SO_Equipment.cs",
+              "RelativeDocumentMoniker": "Assets\\Scriptable Objects\\Equipment\\SO_Equipment.cs",
+              "ToolTip": "D:\\stealth-project\\stealth project\\Assets\\Scriptable Objects\\Equipment\\SO_Equipment.cs",
+              "RelativeToolTip": "Assets\\Scriptable Objects\\Equipment\\SO_Equipment.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAwAAAAjAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-09-25T04:27:24.904Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "PL_Kunai.cs",
+              "DocumentMoniker": "D:\\stealth-project\\stealth project\\Assets\\2_Scripts\\Equipment\\Payloads\\PL_Kunai.cs",
+              "RelativeDocumentMoniker": "Assets\\2_Scripts\\Equipment\\Payloads\\PL_Kunai.cs",
+              "ToolTip": "D:\\stealth-project\\stealth project\\Assets\\2_Scripts\\Equipment\\Payloads\\PL_Kunai.cs",
+              "RelativeToolTip": "Assets\\2_Scripts\\Equipment\\Payloads\\PL_Kunai.cs",
+              "ViewState": "AQIAABYAAAAAAAAAAAAgwFcAAAA0AAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-09-23T11:53:03.363Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "EnemyStateMachine.cs",
+              "DocumentMoniker": "D:\\stealth-project\\stealth project\\Assets\\2_Scripts\\Enemies\\EnemyStateMachine.cs",
+              "RelativeDocumentMoniker": "Assets\\2_Scripts\\Enemies\\EnemyStateMachine.cs",
+              "ToolTip": "D:\\stealth-project\\stealth project\\Assets\\2_Scripts\\Enemies\\EnemyStateMachine.cs",
+              "RelativeToolTip": "Assets\\2_Scripts\\Enemies\\EnemyStateMachine.cs",
+              "ViewState": "AQIAAOwCAAAAAAAAAAAgwAkDAAAoAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-08-26T14:27:04.094Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
               "Title": "Projectile.cs",
               "DocumentMoniker": "D:\\stealth-project\\stealth project\\Assets\\Scriptable Objects\\Projectiles\\Projectile.cs",
               "RelativeDocumentMoniker": "Assets\\Scriptable Objects\\Projectiles\\Projectile.cs",
               "ToolTip": "D:\\stealth-project\\stealth project\\Assets\\Scriptable Objects\\Projectiles\\Projectile.cs",
               "RelativeToolTip": "Assets\\Scriptable Objects\\Projectiles\\Projectile.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAcAAAABAAAA",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAgAAAAXAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-09-23T12:22:17.052Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "PL_Kunai.cs",
-              "DocumentMoniker": "D:\\stealth-project\\stealth project\\Assets\\2_Scripts\\Equipment\\Payloads\\PL_Kunai.cs",
-              "RelativeDocumentMoniker": "Assets\\2_Scripts\\Equipment\\Payloads\\PL_Kunai.cs",
-              "ToolTip": "D:\\stealth-project\\stealth project\\Assets\\2_Scripts\\Equipment\\Payloads\\PL_Kunai.cs",
-              "RelativeToolTip": "Assets\\2_Scripts\\Equipment\\Payloads\\PL_Kunai.cs",
-              "ViewState": "AQIAAEEAAAAAAAAAAAAwwFcAAAA0AAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-09-23T11:53:03.363Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "BaseProjectile.cs",
-              "DocumentMoniker": "D:\\stealth-project\\stealth project\\Assets\\2_Scripts\\Equipment\\BaseProjectile.cs",
-              "RelativeDocumentMoniker": "Assets\\2_Scripts\\Equipment\\BaseProjectile.cs",
-              "ToolTip": "D:\\stealth-project\\stealth project\\Assets\\2_Scripts\\Equipment\\BaseProjectile.cs",
-              "RelativeToolTip": "Assets\\2_Scripts\\Equipment\\BaseProjectile.cs",
-              "ViewState": "AQIAABgAAAAAAAAAAAAowDoAAAANAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-09-23T11:33:18.829Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "BountyMessage.cs",
-              "DocumentMoniker": "D:\\stealth-project\\stealth project\\Assets\\2_Scripts\\UI\\BountyMessage.cs",
-              "RelativeDocumentMoniker": "Assets\\2_Scripts\\UI\\BountyMessage.cs",
-              "ToolTip": "D:\\stealth-project\\stealth project\\Assets\\2_Scripts\\UI\\BountyMessage.cs",
-              "RelativeToolTip": "Assets\\2_Scripts\\UI\\BountyMessage.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAABgAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-08-29T12:28:12.881Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 7,
-              "Title": "HeldItem.cs",
-              "DocumentMoniker": "D:\\stealth-project\\stealth project\\Assets\\2_Scripts\\HeldItem.cs",
-              "RelativeDocumentMoniker": "Assets\\2_Scripts\\HeldItem.cs",
-              "ToolTip": "D:\\stealth-project\\stealth project\\Assets\\2_Scripts\\HeldItem.cs",
-              "RelativeToolTip": "Assets\\2_Scripts\\HeldItem.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAkAAAAiAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-08-29T07:58:36.804Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "Earpiece.cs",
-              "DocumentMoniker": "D:\\stealth-project\\stealth project\\Assets\\2_Scripts\\Enemies\\Earpiece.cs",
-              "RelativeDocumentMoniker": "Assets\\2_Scripts\\Enemies\\Earpiece.cs",
-              "ToolTip": "D:\\stealth-project\\stealth project\\Assets\\2_Scripts\\Enemies\\Earpiece.cs",
-              "RelativeToolTip": "Assets\\2_Scripts\\Enemies\\Earpiece.cs",
-              "ViewState": "AQIAABAAAAAAAAAAAAA1wCQAAAAhAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-08-29T07:52:40.055Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 8,
-              "Title": "BountyDisplay.cs",
-              "DocumentMoniker": "D:\\stealth-project\\stealth project\\Assets\\2_Scripts\\Enemies\\BountyDisplay.cs",
-              "RelativeDocumentMoniker": "Assets\\2_Scripts\\Enemies\\BountyDisplay.cs",
-              "ToolTip": "D:\\stealth-project\\stealth project\\Assets\\2_Scripts\\Enemies\\BountyDisplay.cs",
-              "RelativeToolTip": "Assets\\2_Scripts\\Enemies\\BountyDisplay.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAUAAAAnAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-08-26T14:56:21.262Z"
-            },
-            {
-              "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "EnemyStateMachine.cs",
-              "DocumentMoniker": "D:\\stealth-project\\stealth project\\Assets\\2_Scripts\\Enemies\\EnemyStateMachine.cs",
-              "RelativeDocumentMoniker": "Assets\\2_Scripts\\Enemies\\EnemyStateMachine.cs",
-              "ToolTip": "D:\\stealth-project\\stealth project\\Assets\\2_Scripts\\Enemies\\EnemyStateMachine.cs",
-              "RelativeToolTip": "Assets\\2_Scripts\\Enemies\\EnemyStateMachine.cs",
-              "ViewState": "AQIAAJMCAAAAAAAAAAAswNYCAAA/AAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-08-26T14:27:04.094Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
               "Title": "PlayerController.cs",
               "DocumentMoniker": "D:\\stealth-project\\stealth project\\Assets\\2_Scripts\\Player Controller\\PlayerController.cs",
               "RelativeDocumentMoniker": "Assets\\2_Scripts\\Player Controller\\PlayerController.cs",
               "ToolTip": "D:\\stealth-project\\stealth project\\Assets\\2_Scripts\\Player Controller\\PlayerController.cs",
               "RelativeToolTip": "Assets\\2_Scripts\\Player Controller\\PlayerController.cs",
-              "ViewState": "AQIAACEFAAAAAAAAAAArwH0FAAAWAAAA",
+              "ViewState": "AQIAAOIAAAAAAAAAAAAjwAQBAAAtAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-08-26T14:23:44.877Z"
+              "WhenOpened": "2024-08-26T14:23:44.877Z",
+              "EditorCaption": ""
             }
           ]
         }

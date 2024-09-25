@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu]
+[CreateAssetMenu(fileName = "New Equipment", menuName = "Scriptable Object/Sound")]
 
 public class Sound : ScriptableObject
 {
