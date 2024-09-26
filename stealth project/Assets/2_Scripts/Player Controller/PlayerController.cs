@@ -85,7 +85,6 @@ public class PlayerController : MonoBehaviour
 
     [Header("Wall Grabbing")]
     public bool canWallGrab = true;
-    //public float climbSpeed = 3f;
     public Vector2 wallJumpForce = Vector2.zero;
     public int grabbedDirection = 0;
     public float climbSpeed = 0.5f;
@@ -564,6 +563,8 @@ public class PlayerController : MonoBehaviour
 
     private void ProcessWallGrab()
     {
+        
+
         inputVector.x = 0;
         // set player facing based on collision direction
         if(collisionDirections.x != 0)
@@ -614,7 +615,7 @@ public class PlayerController : MonoBehaviour
 
             float gridDistance = 1f / 2f;
 
-            Vector3 snap = new Vector3(transform.position.x - (transform.position.x % gridDistance),
+            Vector3 snap = new Vector3(transform.position.x - ((transform.position.x % gridDistance) * grabbedDirection),
                                         transform.position.y - (transform.position.y % gridDistance),
                                         transform.position.z);
 
@@ -630,6 +631,7 @@ public class PlayerController : MonoBehaviour
             playerFacingVector.x *= -1;
             ChangeState(e_PlayerControllerStates.FreeMove);
         }
+
 
     }
 
@@ -1330,7 +1332,7 @@ public class PlayerController : MonoBehaviour
     // manage animator variables
     private void UpdateAnimator()
     {
-        if (collisionDirections.y == -1 || f_groundClose)
+        if (collisionDirections.y == -1 || f_groundClose && CurrentPlayerState != e_PlayerControllerStates.WallGrab)
         {
             animator.SetBool("grounded", true);
             
@@ -1422,6 +1424,7 @@ public class PlayerController : MonoBehaviour
     void OnMove(InputValue value)
     {
         moveStickVector.x = value.Get<Vector2>().x;
+        moveStickVector.y = value.Get<Vector2>().y;
         /*
         if(!backpack.open)
             moveStickVector.y = value.Get<Vector2>().y;*/
