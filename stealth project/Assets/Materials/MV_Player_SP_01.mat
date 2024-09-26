@@ -62,7 +62,7 @@ Material:
     m_Ints: []
     m_Floats:
     - _Effect: 0
-    - _Facing_Right: 0
+    - _Facing_Right: 1
     - _Normal_Strength: 2
     m_Colors:
     - _Highlight1_Colour: {r: 766.99615, g: 246.4822, b: 0, a: 0}
