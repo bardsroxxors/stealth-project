@@ -91,6 +91,7 @@
     <Compile Include="Assets\2_Scripts\Enemies\EnemyFogVisiblity.cs" />
     <Compile Include="Assets\2_Scripts\Enemies\EnemyAwareness.cs" />
     <Compile Include="Assets\2_Scripts\Tilemap Gemeration\RoomNodeGen.cs" />
+    <Compile Include="Assets\2_Scripts\Enemies\GuardController.cs" />
     <Compile Include="Assets\KadaXuanwu\UtilityDesigner\Demos\Survival\Scripts\KillBear.cs" />
     <Compile Include="Assets\2_Scripts\PatrolRoute.cs" />
     <Compile Include="Assets\2_Scripts\Equipment\Payloads\PL_Kunai.cs" />
@@ -112,6 +113,7 @@
     <Compile Include="Assets\2_Scripts\Player Controller\Sword\SwordScript.cs" />
     <Compile Include="Assets\KadaXuanwu\UtilityDesigner\Demos\Survival\Scripts\CameraFollow.cs" />
     <Compile Include="Assets\2_Scripts\Enemies\BountyDisplay.cs" />
+    <Compile Include="Assets\2_Scripts\Enemies\GuardAwareness.cs" />
     <Compile Include="Assets\unity-wave-function-collapse\TilePainter.cs" />
     <Compile Include="Assets\KadaXuanwu\UtilityDesigner\Demos\Survival\Scripts\KillDeer.cs" />
     <Compile Include="Assets\2_Scripts\HideSprite.cs" />
