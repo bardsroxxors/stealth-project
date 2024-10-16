@@ -30,7 +30,8 @@ public enum e_Equipment
     arrow,
     blink,
     kunai,
-    forceMine
+    forceMine,
+    ropeShooter
 }
 
 public enum e_ControlSchemes

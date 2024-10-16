@@ -61,6 +61,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\unity-wave-function-collapse\impl\OverlappingModel.cs" />
+    <Compile Include="Assets\2_Scripts\Equipment\RopeScript.cs" />
     <Compile Include="Assets\AOSFogWar\Shadowcaster.cs" />
     <Compile Include="Assets\KadaXuanwu\UtilityDesigner\Demos\Survival\Scripts\BearController.cs" />
     <Compile Include="Assets\2_Scripts\Enemies\EnemySightCone.cs" />
@@ -106,6 +107,7 @@
     <Compile Include="Assets\2_Scripts\Player Controller\GroundItem.cs" />
     <Compile Include="Assets\unity-wave-function-collapse\impl\Model.cs" />
     <Compile Include="Assets\2_Scripts\Parallax\ParallaxBackground.cs" />
+    <Compile Include="Assets\2_Scripts\Equipment\Payloads\PL_Rope.cs" />
     <Compile Include="Assets\2_Scripts\Enemies\FieldOfView.cs" />
     <Compile Include="Assets\Scriptable Objects\Sounds\Sound.cs" />
     <Compile Include="Assets\2_Scripts\CameraFollow.cs" />
@@ -120,6 +122,7 @@
     <Compile Include="Assets\2_Scripts\Enemies\ScryingEye.cs" />
     <Compile Include="Assets\2_Scripts\Level Stuff\Grate.cs" />
     <Compile Include="Assets\2_Scripts\Equipment\Payloads\PL_ForceMine.cs" />
+    <Compile Include="Assets\2_Scripts\Player Controller\RopeShooter.cs" />
     <Compile Include="Assets\2_Scripts\Enemies\EnemyAnimationTrigger.cs" />
     <Compile Include="Assets\2_Scripts\NoiseScript.cs" />
     <Compile Include="Assets\AOSFogWar\Demo\Scripts\csEyeController.cs" />
