@@ -18,7 +18,7 @@ MonoBehaviour:
   gravity: 0
   payload: {fileID: 7385833304575690515, guid: 6379ccbe28cf2a24a8cbae9b27b1e366, type: 3}
   sprite: {fileID: 21300000, guid: 80e8ce944e2edae49ad5544ae7c7ff55, type: 3}
-  hitRadius: 0.2
+  hitRadius: 0.1
   maxFallSpeed: 20
   collisionMask:
     serializedVersion: 2

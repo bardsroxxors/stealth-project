@@ -220,7 +220,7 @@ public class PlayerController : MonoBehaviour
     
     [Header("Equipment References")]
     public GameObject baseProjectile;
-    /*
+    /*o
     public Projectile so_bearTrap;
     public Projectile so_arrow;
     public Projectile so_kunai;

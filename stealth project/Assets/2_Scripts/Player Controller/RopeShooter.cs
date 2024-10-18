@@ -11,6 +11,7 @@ public class RopeShooter : MonoBehaviour
 
     //public float circleCastWidth = 0.5f;
     public float maxDistance = 10f;
+    public float minDistance = 2f;
     public float castBufferDistance = 1f;
 
     public bool halfShot = false;
@@ -70,6 +71,12 @@ public class RopeShooter : MonoBehaviour
         if (dist > maxDistance)
         {
             Debug.Log("Too far");
+            return false;
+        }
+
+        if (dist < minDistance)
+        {
+            Debug.Log("Too short");
             return false;
         }
 
