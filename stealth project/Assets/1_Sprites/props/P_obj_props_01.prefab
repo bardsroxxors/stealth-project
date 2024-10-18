@@ -179,7 +179,7 @@ GameObject:
   - component: {fileID: 3089436617953939927}
   - component: {fileID: 4530007995353826097}
   m_Layer: 0
-  m_Name: props
+  m_Name: P_obj_props_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

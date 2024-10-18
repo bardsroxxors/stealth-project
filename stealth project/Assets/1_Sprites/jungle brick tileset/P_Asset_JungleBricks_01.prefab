@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5436046265298377261}
   - component: {fileID: 1995554213255020962}
   m_Layer: 0
-  m_Name: JungleBricks
+  m_Name: P_Asset_JungleBricks_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
