@@ -137,6 +137,7 @@
     <Compile Include="Assets\2_Scripts\Level Stuff\FalseWall.cs" />
     <Compile Include="Assets\2_Scripts\Level Generation\RoomZones.cs" />
     <Compile Include="Assets\2_Scripts\Enemies\ShooterExtension.cs" />
+    <Compile Include="Assets\Scriptable Objects\Animation Registries\SO_AnimationRegister.cs" />
     <Compile Include="Assets\2_Scripts\Parallax\ParallaxLayer.cs" />
     <Compile Include="Assets\2_Scripts\Utilities.cs" />
     <Compile Include="Assets\2_Scripts\DamageSource.cs" />
