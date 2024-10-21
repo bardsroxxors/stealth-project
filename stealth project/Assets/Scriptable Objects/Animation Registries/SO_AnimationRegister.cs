@@ -9,12 +9,12 @@ using UnityEngine;
 public class SO_AnimationRegister : ScriptableObject
 {
     public List<string> names;
-    public List<Animation> animations;
+    public List<AnimationClip> animations;
 
 
 
 
-    public Animation GetAnimation(string n)
+    public AnimationClip GetAnimation(string n)
     {
         if (names.Contains(n))
         {
