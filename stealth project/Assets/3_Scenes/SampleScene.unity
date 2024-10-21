@@ -1078,10 +1078,10 @@ Camera:
   m_LensShift: {x: 0, y: 0}
   m_NormalizedViewPortRect:
     serializedVersion: 2
-    x: -0.124481335
-    y: -0.1605166
-    width: 1.0373445
-    height: 0.92250925
+    x: -0.78125
+    y: -0.5208334
+    width: 1.5625
+    height: 1.0416667
   near clip plane: 0.3
   far clip plane: 1000
   field of view: 60
@@ -24294,7 +24294,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 8d578c52597fdb347a4926b00ebf97d8, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -3.85
+      value: 4.14
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 8d578c52597fdb347a4926b00ebf97d8, type: 3}
       propertyPath: m_LocalPosition.y
@@ -24302,11 +24302,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 8d578c52597fdb347a4926b00ebf97d8, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -3.01
+      value: 0.48
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 8d578c52597fdb347a4926b00ebf97d8, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.54745096
+      value: -0.0867373
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 8d578c52597fdb347a4926b00ebf97d8, type: 3}
       propertyPath: m_LocalRotation.x
@@ -24314,7 +24314,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 8d578c52597fdb347a4926b00ebf97d8, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.8368378
+      value: -0.9962312
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 8d578c52597fdb347a4926b00ebf97d8, type: 3}
       propertyPath: m_LocalRotation.z
@@ -24326,7 +24326,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 8d578c52597fdb347a4926b00ebf97d8, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: -3713.615
+      value: -4509.952
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 8d578c52597fdb347a4926b00ebf97d8, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
@@ -24359,11 +24359,11 @@ PrefabInstance:
     - target: {fileID: -7511558181221131132, guid: 8d578c52597fdb347a4926b00ebf97d8, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: -876546973899608171, guid: aa405ce42b9a3564aa9bd0538288b1fc, type: 3}
+      objectReference: {fileID: 2100000, guid: f2fdb2e1eae966f429ea6ca83110827a, type: 2}
     - target: {fileID: -7511558181221131132, guid: 8d578c52597fdb347a4926b00ebf97d8, type: 3}
       propertyPath: m_Materials.Array.data[1]
       value: 
-      objectReference: {fileID: -876546973899608171, guid: aa405ce42b9a3564aa9bd0538288b1fc, type: 3}
+      objectReference: {fileID: 2100000, guid: f2fdb2e1eae966f429ea6ca83110827a, type: 2}
     - target: {fileID: 919132149155446097, guid: 8d578c52597fdb347a4926b00ebf97d8, type: 3}
       propertyPath: m_Name
       value: SM_Building_China_01
