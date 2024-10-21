@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5f0974ed6e952a4ab9ffb0f3c3d79ce, type: 3}
+  m_Name: SO_AnimReg_Ren
+  m_EditorClassIdentifier: 
+  names:
+  - walk
+  - run
+  - jump
+  - idle
+  - wall grab
+  animations:
+  - {fileID: 7400000, guid: a4fd7e1766932974b9cdc66a2325ed33, type: 2}
+  - {fileID: 7400000, guid: 14a7cca4781f8f340a2e5b7f1a9cada4, type: 2}
+  - {fileID: 7400000, guid: 38833a5759c1bd447aefc4bbf5eda605, type: 2}
+  - {fileID: 7400000, guid: 8cc5289404075ac409537f79c6c167b1, type: 2}
+  - {fileID: 7400000, guid: 68c0f8e310476684aaf44544058f5375, type: 2}

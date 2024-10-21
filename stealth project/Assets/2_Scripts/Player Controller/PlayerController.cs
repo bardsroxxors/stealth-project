@@ -228,6 +228,7 @@ public class PlayerController : MonoBehaviour
 
     Dictionary<e_Equipment, Projectile> dict_projectiles_enumSO = new Dictionary<e_Equipment, Projectile>();
     public SO_EquipRegister EquipmentRegister;
+    public SO_AnimationRegister animRegister;
 
     private Utilities utils = new Utilities();
     private UI_itemBar itembar;
@@ -659,7 +660,8 @@ public class PlayerController : MonoBehaviour
 
                 //inputVector.x = swingMoveSpeed * playerFacingVector.x;
 
-                animator.Play("attack", 0);
+                //animator.Play("attack", 0);
+                PlayAnimation("attack", 0);
             }
             else // airborn variation
             {
@@ -679,7 +681,6 @@ public class PlayerController : MonoBehaviour
 
             t_attackLength = attackLength;
             t_attackCooldown = attackCooldown;
-            //animator.SetTrigger("attack trigger");
             
 
             f_init_swordSwing = true;
@@ -766,7 +767,8 @@ public class PlayerController : MonoBehaviour
 
             //inputVector.x = swingMoveSpeed * playerFacingVector.x;
 
-            animator.Play("attack", 0);
+            //animator.Play("attack", 0);
+            PlayAnimation("attack", 0);
             
             
 
@@ -865,7 +867,7 @@ public class PlayerController : MonoBehaviour
         // do initial things
         if (!f_init_stealthKill && currentTarget != null)
         {
-            animator.Play("air dash", 0);
+            PlayAnimation("air dash", 0);
             animator.SetBool("lock", true);
             collisionDirections = Vector2.zero;
             f_init_stealthKill = true;
@@ -886,7 +888,7 @@ public class PlayerController : MonoBehaviour
             //currentTarget = null;
             currentTarget.SendMessage("KOStart");
             f_kozip = false;
-            animator.Play("ko", 0);
+            PlayAnimation("ko", 0);
             inputVector = Vector2.zero;
         }/*
         else
@@ -1333,6 +1335,51 @@ public class PlayerController : MonoBehaviour
     // manage animator variables
     private void UpdateAnimator()
     {
+
+        // how to make play the right animation without um going insane
+        // use state as the first branches of decision tree
+
+        /*
+        
+        stand
+        walk
+        run
+        wall grab
+
+        slide
+        attack
+        crouch
+        crouch walk
+
+         */
+
+
+        /*
+        FreeMove
+            stand
+            walk
+            run
+            air
+            crouch
+            crouch walk
+
+        WallGrab
+            wall grab
+            climb up/down
+
+        Attack
+            attack
+         
+         
+         */
+
+        switch (CurrentPlayerState)
+        {
+            case e_PlayerControllerStates.FreeMove:
+                
+                break;
+        }
+
         if (collisionDirections.y == -1 || f_groundClose && CurrentPlayerState != e_PlayerControllerStates.WallGrab)
         {
             animator.SetBool("grounded", true);
@@ -1347,6 +1394,7 @@ public class PlayerController : MonoBehaviour
         if (Mathf.Abs(moveStickVector.x) <= 0.5f) animator.SetBool("not moving", true);
         else animator.SetBool("not moving", false);
 
+        /*
         if (sliding)
             animator.SetBool("sliding", true);
         else if (crouching)
@@ -1366,7 +1414,7 @@ public class PlayerController : MonoBehaviour
             animator.SetBool("sneaking", false);
             animator.SetBool("crouching", false);
             animator.SetBool("sliding", false);
-        }
+        }*/
             
 
         if(CurrentPlayerState == e_PlayerControllerStates.WallGrab) 
@@ -1387,7 +1435,7 @@ public class PlayerController : MonoBehaviour
         if (!animator.GetBool("wall grab") && !animator.GetBool("grounded") && !animator.GetBool("lock"))
         {
             animator.speed = 0;
-            animator.Play("air", 0, GetAirFrame());
+            PlayAnimation("air", GetAirFrame());
         }
         else
         {
@@ -1397,12 +1445,30 @@ public class PlayerController : MonoBehaviour
 
     private float GetAirFrame()
     {
-        if (movementVector.y > 1.5)
+        // this needs to change depending on how many frames the air animation has
+        // right now its hard coded for 3 frames
+
+        // if we're moving up, use 0
+        if (movementVector.y > 2)
             return 0;
-        else if (movementVector.y < 1.5 && movementVector.y > -1.5)
-            return 0.5f;
+
+        else if (movementVector.y < 2 && movementVector.y > -2)
+        {
+            float inV = movementVector.y;
+            float min = -2f;
+            float max = 2f;
+            float range = max - min; // = 4
+            float inR = inV - min;
+            float percent = inR / range;
+            return percent;
+        }
         else
+            // if we're moving down use 1
             return 0.9f;
+
+
+
+        
 
  
     }
@@ -1417,6 +1483,28 @@ public class PlayerController : MonoBehaviour
             p.so_projectile = proj;
             p.launchVector = GetVectorToMouse();
             p.Setup();
+        }
+
+    }
+
+    private void PlayAnimation(string name, float frame)
+    {
+        AnimationClip anim = animRegister.GetAnimation(name);
+
+        if (anim != null)
+        {
+            animator.Play(anim.name, 0, frame);
+        }
+
+    }
+
+    private void PlayAnimation(string name)
+    {
+        AnimationClip anim = animRegister.GetAnimation(name);
+
+        if (anim != null)
+        {
+            animator.Play(anim.name, 0);
         }
 
     }
