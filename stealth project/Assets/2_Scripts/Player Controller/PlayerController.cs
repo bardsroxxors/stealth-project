@@ -1003,20 +1003,25 @@ public class PlayerController : MonoBehaviour
         if(collisionDirections.y != 0)
             offset = Vector2.zero;
 
-        hit = Physics2D.BoxCast((Vector2)transform.position + offset/*new Vector2(0, -0.05f)*/, 
-                                new Vector2(collider.bounds.size.x, collider.bounds.size.y)*0.9f, 
-                                0, 
-                                movementVector * Time.deltaTime, 
-                                (movementVector * Time.deltaTime).magnitude,
+
+
+        // Boxcast to stop us going through walls
+
+        hit = Physics2D.BoxCast((Vector2)transform.position + offset/*new Vector2(0, -0.05f)*/,     // origin
+                                new Vector2(collider.bounds.size.x, collider.bounds.size.y)*colliderYModifier,   // size
+                                0,                                                                  // angle
+                                movementVector * Time.deltaTime,                                    // direction
+                                (movementVector * Time.deltaTime).magnitude,                        // distance
                                 collisionMask);
         if (!hit)
             transform.position += (Vector3)movementVector * Time.deltaTime;
         else
         {
             transform.position = hit.centroid;
-            //movementVector = Vector3.zero;
         }
-        
+
+        // #########           #########
+
 
         // reset collision flags
         collisionDirections = Vector2.zero;
@@ -1336,111 +1341,37 @@ public class PlayerController : MonoBehaviour
     private void UpdateAnimator()
     {
 
-        // how to make play the right animation without um going insane
-        // use state as the first branches of decision tree
-
-        /*
-        
-        stand
-        walk
-        run
-        wall grab
-
-        slide
-        attack
-        crouch
-        crouch walk
-
-         */
-
-
-        /*
-        FreeMove
-            stand
-            walk
-            run
-            air
-            crouch
-            crouch walk
-
-        WallGrab
-            wall grab
-            climb up/down
-
-        Attack
-            attack
-         
-         
-         */
 
         switch (CurrentPlayerState)
         {
-            case e_PlayerControllerStates.FreeMove:
-                
+            case e_PlayerControllerStates.FreeMove:                 // FreeMove
+                if (collisionDirections.y == -1 || f_groundClose)   // if grounded
+                {
+                    animator.speed = 1;
+                    if (Mathf.Abs(moveStickVector.x) >= 0.5f)           // if moving
+                    {
+                        if (sneaking)
+                            PlayAnimation("walk");
+                        else
+                            PlayAnimation("run");
+                    }
+                    else                                                // not moving
+                    {
+                        PlayAnimation("idle");
+                    }
+                }
+                else                                                // not grounded
+                {
+                    animator.speed = 0;
+                    PlayAnimation("jump", GetAirFrame());
+                }
+                break;
+            case e_PlayerControllerStates.WallGrab:
+                animator.speed = 1;
+                PlayAnimation("wall grab");
                 break;
         }
 
-        if (collisionDirections.y == -1 || f_groundClose && CurrentPlayerState != e_PlayerControllerStates.WallGrab)
-        {
-            animator.SetBool("grounded", true);
-            
-        }
-        else
-        {
-            animator.SetBool("grounded", false);
-            
-        }
-
-        if (Mathf.Abs(moveStickVector.x) <= 0.5f) animator.SetBool("not moving", true);
-        else animator.SetBool("not moving", false);
-
-        /*
-        if (sliding)
-            animator.SetBool("sliding", true);
-        else if (crouching)
-        {
-            animator.SetBool("crouching", true);
-            animator.SetBool("sneaking", false);
-            animator.SetBool("sliding", false);
-        }
-        else if (sneaking)
-        {
-            animator.SetBool("sneaking", true);
-            animator.SetBool("crouching", false);
-            animator.SetBool("sliding", false);
-        }
-        else
-        {
-            animator.SetBool("sneaking", false);
-            animator.SetBool("crouching", false);
-            animator.SetBool("sliding", false);
-        }*/
-            
-
-        if(CurrentPlayerState == e_PlayerControllerStates.WallGrab) 
-            animator.SetBool("wall grab", true);
-        else animator.SetBool("wall grab", false);
-
-
-        // attack
-        if (CurrentPlayerState == e_PlayerControllerStates.SwordSwing ||
-            CurrentPlayerState == e_PlayerControllerStates.StealthKill) {
-            animator.SetBool("lock", true);
-        }
-        else animator.SetBool("lock", false);
-
-
-
-
-        if (!animator.GetBool("wall grab") && !animator.GetBool("grounded") && !animator.GetBool("lock"))
-        {
-            animator.speed = 0;
-            PlayAnimation("air", GetAirFrame());
-        }
-        else
-        {
-            animator.speed = 1;
-        }
     }
 
     private float GetAirFrame()
@@ -1466,11 +1397,6 @@ public class PlayerController : MonoBehaviour
             // if we're moving down use 1
             return 0.9f;
 
-
-
-        
-
- 
     }
 
 
@@ -1810,14 +1736,14 @@ public class PlayerController : MonoBehaviour
 
         if (Application.isPlaying)
         {
-            RaycastHit2D hit = Physics2D.BoxCast((Vector2)transform.position + new Vector2(0, 0f),
-                                new Vector2(collider.bounds.size.x, collider.bounds.size.y) * 0.9f,
-                                0,
-                                movementVector * Time.deltaTime,
-                                (movementVector * Time.deltaTime).magnitude,
+            RaycastHit2D hit = Physics2D.BoxCast((Vector2)transform.position + collider.offset/*new Vector2(0, -0.05f)*/,     // origin
+                                new Vector2(collider.bounds.size.x, collider.bounds.size.y) * colliderYModifier,   // size
+                                0,                                                                  // angle
+                                movementVector * Time.deltaTime,                                    // direction
+                                (movementVector * Time.deltaTime).magnitude,                        // distance
                                 collisionMask);
 
-            Gizmos.DrawWireCube(hit.centroid, new Vector2(collider.bounds.size.x, collider.bounds.size.y) * 0.9f);
+            Gizmos.DrawWireCube(hit.centroid, new Vector2(collider.bounds.size.x, collider.bounds.size.y) * colliderYModifier);
         }
 
         
