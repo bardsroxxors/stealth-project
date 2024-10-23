@@ -83,6 +83,7 @@ public class PlayerController : MonoBehaviour
     private Vector2 aimStickVector = new Vector2(0, 0); // raw input from right stick
     public Vector2 playerFacingVector = new Vector2(1, 0); // used to aim abilities if there is no input, and used to determine sprite facing
     public Vector2 gravityVector = Vector2.zero;
+    public float airFrameSpeedThreshold = 3;
 
     [Header("Wall Grabbing")]
     public bool canWallGrab = true;
@@ -233,6 +234,11 @@ public class PlayerController : MonoBehaviour
     private Utilities utils = new Utilities();
     private UI_itemBar itembar;
 
+    public bool showDebugGizmos = true;
+    public bool giz_boxCast = true;
+    public bool giz_airframenum = true;
+
+    private string giz_text_jumpFrame = "null";
 
 
 
@@ -999,20 +1005,11 @@ public class PlayerController : MonoBehaviour
 
         ClampMovementForCollisions();
 
-        Vector2 offset = collider.offset;
-        if(collisionDirections.y != 0)
-            offset = Vector2.zero;
 
+        // Main physics boxcast to stop us going through walls
 
+        hit = MainBoxcast();
 
-        // Boxcast to stop us going through walls
-
-        hit = Physics2D.BoxCast((Vector2)transform.position + offset/*new Vector2(0, -0.05f)*/,     // origin
-                                new Vector2(collider.bounds.size.x, collider.bounds.size.y)*colliderYModifier,   // size
-                                0,                                                                  // angle
-                                movementVector * Time.deltaTime,                                    // direction
-                                (movementVector * Time.deltaTime).magnitude,                        // distance
-                                collisionMask);
         if (!hit)
             transform.position += (Vector3)movementVector * Time.deltaTime;
         else
@@ -1363,7 +1360,7 @@ public class PlayerController : MonoBehaviour
                 else                                                // not grounded
                 {
                     animator.speed = 0;
-                    PlayAnimation("jump", GetAirFrame());
+                    PlayAnimation("jump", GetJumpFrame());
                 }
                 break;
             case e_PlayerControllerStates.WallGrab:
@@ -1374,24 +1371,23 @@ public class PlayerController : MonoBehaviour
 
     }
 
-    private float GetAirFrame()
+    private float GetJumpFrame()
     {
-        // this needs to change depending on how many frames the air animation has
-        // right now its hard coded for 3 frames
+        float n = airFrameSpeedThreshold;
 
         // if we're moving up, use 0
-        if (movementVector.y > 2)
+        if (movementVector.y > n)
             return 0;
 
-        else if (movementVector.y < 2 && movementVector.y > -2)
+        else if (movementVector.y < n && movementVector.y > -n)
         {
             float inV = movementVector.y;
-            float min = -2f;
-            float max = 2f;
+            float min = -n;
+            float max = n;
             float range = max - min; // = 4
             float inR = inV - min;
             float percent = inR / range;
-            return percent;
+            return 1-percent;
         }
         else
             // if we're moving down use 1
@@ -1732,18 +1728,63 @@ public class PlayerController : MonoBehaviour
         return direction.normalized;
     }
 
-    private void OnDrawGizmos() {
+    private RaycastHit2D MainBoxcast()
+    {
+        Vector2 offset = collider.offset;
+        //if (collisionDirections.y != 0)
+        //    offset = Vector2.zero;
 
-        if (Application.isPlaying)
-        {
-            RaycastHit2D hit = Physics2D.BoxCast((Vector2)transform.position + collider.offset/*new Vector2(0, -0.05f)*/,     // origin
+
+
+        // Boxcast to stop us going through walls
+        
+        RaycastHit2D hit = Physics2D.BoxCast((Vector2)transform.position + offset/*new Vector2(0, -0.05f)*/,     // origin
                                 new Vector2(collider.bounds.size.x, collider.bounds.size.y) * colliderYModifier,   // size
                                 0,                                                                  // angle
                                 movementVector * Time.deltaTime,                                    // direction
                                 (movementVector * Time.deltaTime).magnitude,                        // distance
                                 collisionMask);
+        
+        return hit;
+    }
 
-            Gizmos.DrawWireCube(hit.centroid, new Vector2(collider.bounds.size.x, collider.bounds.size.y) * colliderYModifier);
+    private void OnDrawGizmos() {
+
+        if (Application.isPlaying && showDebugGizmos)
+        {
+            if (giz_boxCast)
+            {
+                /*
+                RaycastHit2D hit = Physics2D.BoxCast((Vector2)transform.position + collider.offsetnew Vector2(0, -0.05f),     // origin
+                                new Vector2(collider.bounds.size.x, collider.bounds.size.y) * colliderYModifier,   // size
+                                0,                                                                  // angle
+                                movementVector * Time.deltaTime,                                    // direction
+                                (movementVector * Time.deltaTime).magnitude,                        // distance
+                                collisionMask);*/
+
+                RaycastHit2D hit = MainBoxcast();
+
+                if(hit)
+                    Gizmos.DrawWireCube(hit.centroid, collider.bounds.size);
+                else
+                    Gizmos.DrawWireCube(transform.position + (Vector3)collider.offset, collider.bounds.size);
+            }
+
+            //Time.timeScale = 0.25f;
+
+            if (giz_airframenum)
+            {
+                giz_text_jumpFrame = GetJumpFrame().ToString();
+                Vector3 pos = transform.position;
+                pos.y += 1f;
+                Handles.Label(pos, giz_text_jumpFrame);
+            }
+
+
+
+
+
+
         }
 
         

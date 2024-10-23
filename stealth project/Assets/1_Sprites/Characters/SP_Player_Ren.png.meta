@@ -114,7 +114,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 256
+        y: 448
         width: 64
         height: 64
       alignment: 0
@@ -135,7 +135,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 64
-        y: 256
+        y: 448
         width: 64
         height: 64
       alignment: 0
@@ -156,7 +156,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 128
-        y: 256
+        y: 448
         width: 64
         height: 64
       alignment: 0
@@ -177,7 +177,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 192
-        y: 256
+        y: 448
         width: 64
         height: 64
       alignment: 0
@@ -198,7 +198,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 256
-        y: 256
+        y: 448
         width: 64
         height: 64
       alignment: 0
@@ -218,8 +218,8 @@ TextureImporter:
       name: SP_Player_Ren_5
       rect:
         serializedVersion: 2
-        x: 0
-        y: 192
+        x: 320
+        y: 448
         width: 64
         height: 64
       alignment: 0
@@ -239,8 +239,8 @@ TextureImporter:
       name: SP_Player_Ren_6
       rect:
         serializedVersion: 2
-        x: 64
-        y: 192
+        x: 384
+        y: 448
         width: 64
         height: 64
       alignment: 0
@@ -260,8 +260,8 @@ TextureImporter:
       name: SP_Player_Ren_7
       rect:
         serializedVersion: 2
-        x: 128
-        y: 192
+        x: 448
+        y: 448
         width: 64
         height: 64
       alignment: 0
@@ -281,8 +281,8 @@ TextureImporter:
       name: SP_Player_Ren_8
       rect:
         serializedVersion: 2
-        x: 192
-        y: 192
+        x: 0
+        y: 384
         width: 64
         height: 64
       alignment: 0
@@ -302,8 +302,8 @@ TextureImporter:
       name: SP_Player_Ren_9
       rect:
         serializedVersion: 2
-        x: 256
-        y: 192
+        x: 64
+        y: 384
         width: 64
         height: 64
       alignment: 0
@@ -323,8 +323,8 @@ TextureImporter:
       name: SP_Player_Ren_10
       rect:
         serializedVersion: 2
-        x: 0
-        y: 128
+        x: 128
+        y: 384
         width: 64
         height: 64
       alignment: 0
@@ -344,8 +344,8 @@ TextureImporter:
       name: SP_Player_Ren_11
       rect:
         serializedVersion: 2
-        x: 64
-        y: 128
+        x: 192
+        y: 384
         width: 64
         height: 64
       alignment: 0
@@ -365,8 +365,8 @@ TextureImporter:
       name: SP_Player_Ren_12
       rect:
         serializedVersion: 2
-        x: 128
-        y: 128
+        x: 256
+        y: 384
         width: 64
         height: 64
       alignment: 0
@@ -386,8 +386,8 @@ TextureImporter:
       name: SP_Player_Ren_13
       rect:
         serializedVersion: 2
-        x: 192
-        y: 128
+        x: 320
+        y: 384
         width: 64
         height: 64
       alignment: 0
@@ -407,8 +407,8 @@ TextureImporter:
       name: SP_Player_Ren_14
       rect:
         serializedVersion: 2
-        x: 256
-        y: 128
+        x: 384
+        y: 384
         width: 64
         height: 64
       alignment: 0
@@ -428,8 +428,8 @@ TextureImporter:
       name: SP_Player_Ren_15
       rect:
         serializedVersion: 2
-        x: 0
-        y: 64
+        x: 448
+        y: 384
         width: 64
         height: 64
       alignment: 0
@@ -449,8 +449,8 @@ TextureImporter:
       name: SP_Player_Ren_16
       rect:
         serializedVersion: 2
-        x: 64
-        y: 64
+        x: 0
+        y: 320
         width: 64
         height: 64
       alignment: 0
@@ -470,8 +470,8 @@ TextureImporter:
       name: SP_Player_Ren_17
       rect:
         serializedVersion: 2
-        x: 128
-        y: 64
+        x: 64
+        y: 320
         width: 64
         height: 64
       alignment: 0
@@ -491,8 +491,8 @@ TextureImporter:
       name: SP_Player_Ren_18
       rect:
         serializedVersion: 2
-        x: 192
-        y: 64
+        x: 128
+        y: 320
         width: 64
         height: 64
       alignment: 0
@@ -512,8 +512,8 @@ TextureImporter:
       name: SP_Player_Ren_19
       rect:
         serializedVersion: 2
-        x: 256
-        y: 64
+        x: 192
+        y: 320
         width: 64
         height: 64
       alignment: 0
@@ -533,8 +533,8 @@ TextureImporter:
       name: SP_Player_Ren_20
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
+        x: 384
+        y: 256
         width: 64
         height: 64
       alignment: 0
@@ -546,6 +546,48 @@ TextureImporter:
       bones: []
       spriteID: 99cb2412ef12497449c28e14ac3a62fc
       internalID: 476509477
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SP_Player_Ren_21
+      rect:
+        serializedVersion: 2
+        x: 448
+        y: 256
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 36c6882f0f284744688b7eb871b9c199
+      internalID: 1892591678
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SP_Player_Ren_22
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 192
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e694f32fd7a219141b4f0250eb1304cd
+      internalID: 1492999416
       vertices: []
       indices: 
       edges: []
@@ -575,6 +617,8 @@ TextureImporter:
       SP_Player_Ren_19: 66746227
       SP_Player_Ren_2: -309102991
       SP_Player_Ren_20: 476509477
+      SP_Player_Ren_21: 1892591678
+      SP_Player_Ren_22: 1492999416
       SP_Player_Ren_3: -623328637
       SP_Player_Ren_4: -1528228999
       SP_Player_Ren_5: -1780984095
