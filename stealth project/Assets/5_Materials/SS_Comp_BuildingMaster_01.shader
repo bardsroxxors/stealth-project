@@ -2,10 +2,11 @@ Shader "SS_Comp_BuildingMaster_01"
 {
     Properties
     {
-        _Base_Colour("Base Colour", Color) = (1, 1, 1, 0)
         [Normal][NoScaleOffset]_Texture2D("Texture2D", 2D) = "bump" {}
-        [NoScaleOffset]_Texture2D_1("Texture2D (1)", 2D) = "white" {}
-        _Tiling("Tiling", Vector) = (1, 1, 0, 0)
+        _Mask_Bleed("Mask Bleed", Float) = 8
+        _Colour_X("Colour X", Color) = (1, 0, 0, 0)
+        _Colour_Y("Colour Y", Color) = (0, 1, 0, 0)
+        _Colour_Z("Colour Z", Color) = (0, 0, 1, 0)
         [HideInInspector][NoScaleOffset]unity_Lightmaps("unity_Lightmaps", 2DArray) = "" {}
         [HideInInspector][NoScaleOffset]unity_LightmapsInd("unity_LightmapsInd", 2DArray) = "" {}
         [HideInInspector][NoScaleOffset]unity_ShadowMasks("unity_ShadowMasks", 2DArray) = "" {}
@@ -32,8 +33,8 @@ Shader "SS_Comp_BuildingMaster_01"
         
         // Render State
         //Cull Off
-        //Blend SrcAlpha OneMinusSrcAlpha, One OneMinusSrcAlpha
-        ZTest LEqual
+        Blend SrcAlpha OneMinusSrcAlpha, One OneMinusSrcAlpha
+        //ZTest LEqual
         //ZWrite Off
         
         // Debug
@@ -65,6 +66,7 @@ Shader "SS_Comp_BuildingMaster_01"
         #define ATTRIBUTES_NEED_TEXCOORD0
         #define ATTRIBUTES_NEED_COLOR
         #define VARYINGS_NEED_POSITION_WS
+        #define VARYINGS_NEED_NORMAL_WS
         #define VARYINGS_NEED_TEXCOORD0
         #define VARYINGS_NEED_COLOR
         #define VARYINGS_NEED_SCREENPOSITION
@@ -110,6 +112,7 @@ Shader "SS_Comp_BuildingMaster_01"
         {
              float4 positionCS : SV_POSITION;
              float3 positionWS;
+             float3 normalWS;
              float4 texCoord0;
              float4 color;
              float4 screenPosition;
@@ -128,7 +131,7 @@ Shader "SS_Comp_BuildingMaster_01"
         };
         struct SurfaceDescriptionInputs
         {
-             float4 uv0;
+             float3 WorldSpaceNormal;
         };
         struct VertexDescriptionInputs
         {
@@ -143,6 +146,7 @@ Shader "SS_Comp_BuildingMaster_01"
              float4 color : INTERP1;
              float4 screenPosition : INTERP2;
              float3 positionWS : INTERP3;
+             float3 normalWS : INTERP4;
             #if UNITY_ANY_INSTANCING_ENABLED
              uint instanceID : CUSTOM_INSTANCE_ID;
             #endif
@@ -166,6 +170,7 @@ Shader "SS_Comp_BuildingMaster_01"
             output.color.xyzw = input.color;
             output.screenPosition.xyzw = input.screenPosition;
             output.positionWS.xyz = input.positionWS;
+            output.normalWS.xyz = input.normalWS;
             #if UNITY_ANY_INSTANCING_ENABLED
             output.instanceID = input.instanceID;
             #endif
@@ -189,6 +194,7 @@ Shader "SS_Comp_BuildingMaster_01"
             output.color = input.color.xyzw;
             output.screenPosition = input.screenPosition.xyzw;
             output.positionWS = input.positionWS.xyz;
+            output.normalWS = input.normalWS.xyz;
             #if UNITY_ANY_INSTANCING_ENABLED
             output.instanceID = input.instanceID;
             #endif
@@ -210,19 +216,17 @@ Shader "SS_Comp_BuildingMaster_01"
         
         // Graph Properties
         CBUFFER_START(UnityPerMaterial)
-        float4 _Base_Colour;
         float4 _Texture2D_TexelSize;
-        float4 _Texture2D_1_TexelSize;
-        float2 _Tiling;
+        float4 _Colour_X;
+        float4 _Colour_Y;
+        float4 _Colour_Z;
+        float _Mask_Bleed;
         CBUFFER_END
         
         
         // Object and Global properties
-        SAMPLER(SamplerState_Linear_Repeat);
         TEXTURE2D(_Texture2D);
         SAMPLER(sampler_Texture2D);
-        TEXTURE2D(_Texture2D_1);
-        SAMPLER(sampler_Texture2D_1);
         
         // Graph Includes
         // GraphIncludes: <None>
@@ -240,9 +244,29 @@ Shader "SS_Comp_BuildingMaster_01"
         
         // Graph Functions
         
-        void Unity_TilingAndOffset_float(float2 UV, float2 Tiling, float2 Offset, out float2 Out)
+        void Unity_Absolute_float3(float3 In, out float3 Out)
         {
-            Out = UV * Tiling + Offset;
+            Out = abs(In);
+        }
+        
+        void Unity_Power_float3(float3 A, float3 B, out float3 Out)
+        {
+            Out = pow(A, B);
+        }
+        
+        void Unity_DotProduct_float3(float3 A, float3 B, out float Out)
+        {
+            Out = dot(A, B);
+        }
+        
+        void Unity_Divide_float3(float3 A, float3 B, out float3 Out)
+        {
+            Out = A / B;
+        }
+        
+        void Unity_Lerp_float4(float4 A, float4 B, float4 T, out float4 Out)
+        {
+            Out = lerp(A, B, T);
         }
         
         // Custom interpolators pre vertex
@@ -285,16 +309,28 @@ Shader "SS_Comp_BuildingMaster_01"
         SurfaceDescription SurfaceDescriptionFunction(SurfaceDescriptionInputs IN)
         {
             SurfaceDescription surface = (SurfaceDescription)0;
-            UnityTexture2D _Property_11f0a134dcc7488191cdcd5eb6fd3d28_Out_0_Texture2D = UnityBuildTexture2DStructNoScale(_Texture2D_1);
-            float2 _Property_d940dfea89014b2b98741f29c0562c2d_Out_0_Vector2 = _Tiling;
-            float2 _TilingAndOffset_ba494f9dad104bf9940e85eb277fec68_Out_3_Vector2;
-            Unity_TilingAndOffset_float(IN.uv0.xy, _Property_d940dfea89014b2b98741f29c0562c2d_Out_0_Vector2, float2 (0, 0), _TilingAndOffset_ba494f9dad104bf9940e85eb277fec68_Out_3_Vector2);
-            float4 _SampleTexture2D_f3814088d65b4f6a9534d32af278855a_RGBA_0_Vector4 = SAMPLE_TEXTURE2D(_Property_11f0a134dcc7488191cdcd5eb6fd3d28_Out_0_Texture2D.tex, _Property_11f0a134dcc7488191cdcd5eb6fd3d28_Out_0_Texture2D.samplerstate, _Property_11f0a134dcc7488191cdcd5eb6fd3d28_Out_0_Texture2D.GetTransformedUV(_TilingAndOffset_ba494f9dad104bf9940e85eb277fec68_Out_3_Vector2) );
-            float _SampleTexture2D_f3814088d65b4f6a9534d32af278855a_R_4_Float = _SampleTexture2D_f3814088d65b4f6a9534d32af278855a_RGBA_0_Vector4.r;
-            float _SampleTexture2D_f3814088d65b4f6a9534d32af278855a_G_5_Float = _SampleTexture2D_f3814088d65b4f6a9534d32af278855a_RGBA_0_Vector4.g;
-            float _SampleTexture2D_f3814088d65b4f6a9534d32af278855a_B_6_Float = _SampleTexture2D_f3814088d65b4f6a9534d32af278855a_RGBA_0_Vector4.b;
-            float _SampleTexture2D_f3814088d65b4f6a9534d32af278855a_A_7_Float = _SampleTexture2D_f3814088d65b4f6a9534d32af278855a_RGBA_0_Vector4.a;
-            surface.BaseColor = (_SampleTexture2D_f3814088d65b4f6a9534d32af278855a_RGBA_0_Vector4.xyz);
+            float4 _Property_d5d42953fbb24b4eac60e46780ff36a3_Out_0_Vector4 = _Colour_X;
+            float4 _Property_1cb74af97c904878be00cd358986d010_Out_0_Vector4 = _Colour_Y;
+            float3 _Absolute_e6c893cd31f44f6d9ee56a9a89ae9220_Out_1_Vector3;
+            Unity_Absolute_float3(IN.WorldSpaceNormal, _Absolute_e6c893cd31f44f6d9ee56a9a89ae9220_Out_1_Vector3);
+            float _Float_c4b790be96d8490a8ea61ecb29209f7e_Out_0_Float = 8;
+            float3 _Power_dbd14e7d3c21402796cec3a4e3185a78_Out_2_Vector3;
+            Unity_Power_float3(_Absolute_e6c893cd31f44f6d9ee56a9a89ae9220_Out_1_Vector3, (_Float_c4b790be96d8490a8ea61ecb29209f7e_Out_0_Float.xxx), _Power_dbd14e7d3c21402796cec3a4e3185a78_Out_2_Vector3);
+            float3 _Vector3_67e65ec93a0b4446bad2ceb5932958ab_Out_0_Vector3 = float3(1, 1, 1);
+            float _DotProduct_25540abbe18e43cab56607a793abdeeb_Out_2_Float;
+            Unity_DotProduct_float3(_Power_dbd14e7d3c21402796cec3a4e3185a78_Out_2_Vector3, _Vector3_67e65ec93a0b4446bad2ceb5932958ab_Out_0_Vector3, _DotProduct_25540abbe18e43cab56607a793abdeeb_Out_2_Float);
+            float3 _Divide_0d4e48d4a2db4b48afbee3a4c66d965a_Out_2_Vector3;
+            Unity_Divide_float3(_Power_dbd14e7d3c21402796cec3a4e3185a78_Out_2_Vector3, (_DotProduct_25540abbe18e43cab56607a793abdeeb_Out_2_Float.xxx), _Divide_0d4e48d4a2db4b48afbee3a4c66d965a_Out_2_Vector3);
+            float _Split_c2b8d7a0273e49f3bf5df729c7fb7efd_R_1_Float = _Divide_0d4e48d4a2db4b48afbee3a4c66d965a_Out_2_Vector3[0];
+            float _Split_c2b8d7a0273e49f3bf5df729c7fb7efd_G_2_Float = _Divide_0d4e48d4a2db4b48afbee3a4c66d965a_Out_2_Vector3[1];
+            float _Split_c2b8d7a0273e49f3bf5df729c7fb7efd_B_3_Float = _Divide_0d4e48d4a2db4b48afbee3a4c66d965a_Out_2_Vector3[2];
+            float _Split_c2b8d7a0273e49f3bf5df729c7fb7efd_A_4_Float = 0;
+            float4 _Lerp_a762218cb5934e33a1e02870d8998773_Out_3_Vector4;
+            Unity_Lerp_float4(_Property_d5d42953fbb24b4eac60e46780ff36a3_Out_0_Vector4, _Property_1cb74af97c904878be00cd358986d010_Out_0_Vector4, (_Split_c2b8d7a0273e49f3bf5df729c7fb7efd_G_2_Float.xxxx), _Lerp_a762218cb5934e33a1e02870d8998773_Out_3_Vector4);
+            float4 _Property_e95e8dbcfd9c47b48cce27c2848542a8_Out_0_Vector4 = _Colour_Z;
+            float4 _Lerp_442e1d6e93fd4830a59f16aff64691dc_Out_3_Vector4;
+            Unity_Lerp_float4(_Lerp_a762218cb5934e33a1e02870d8998773_Out_3_Vector4, _Property_e95e8dbcfd9c47b48cce27c2848542a8_Out_0_Vector4, (_Split_c2b8d7a0273e49f3bf5df729c7fb7efd_B_3_Float.xxxx), _Lerp_442e1d6e93fd4830a59f16aff64691dc_Out_3_Vector4);
+            surface.BaseColor = (_Lerp_442e1d6e93fd4830a59f16aff64691dc_Out_3_Vector4.xyz);
             surface.Alpha = 1;
             surface.SpriteMask = IsGammaSpace() ? float4(1, 1, 1, 1) : float4 (SRGBToLinear(float3(1, 1, 1)), 1);
             return surface;
@@ -334,8 +370,12 @@ Shader "SS_Comp_BuildingMaster_01"
         
             
         
+            // must use interpolated tangent, bitangent and normal before they are normalized in the pixel shader.
+            float3 unnormalizedNormalWS = input.normalWS;
+            const float renormFactor = 1.0 / length(unnormalizedNormalWS);
         
         
+            output.WorldSpaceNormal = renormFactor * input.normalWS.xyz;      // we want a unit length Normal Vector node in shader graph
         
         
         
@@ -344,7 +384,6 @@ Shader "SS_Comp_BuildingMaster_01"
             #endif
         
         
-            output.uv0 = input.texCoord0;
         #if defined(SHADER_STAGE_FRAGMENT) && defined(VARYINGS_NEED_CULLFACE)
         #define BUILD_SURFACE_DESCRIPTION_INPUTS_OUTPUT_FACESIGN output.FaceSign =                    IS_FRONT_VFACE(input.cullFace, true, false);
         #else
@@ -380,7 +419,7 @@ Shader "SS_Comp_BuildingMaster_01"
         // Render State
         //Cull Off
         //Blend SrcAlpha OneMinusSrcAlpha, One OneMinusSrcAlpha
-        ZTest LEqual
+        //ZTest LEqual
         //ZWrite Off
         
         // Debug
@@ -405,10 +444,8 @@ Shader "SS_Comp_BuildingMaster_01"
         
         #define ATTRIBUTES_NEED_NORMAL
         #define ATTRIBUTES_NEED_TANGENT
-        #define ATTRIBUTES_NEED_TEXCOORD0
         #define VARYINGS_NEED_NORMAL_WS
         #define VARYINGS_NEED_TANGENT_WS
-        #define VARYINGS_NEED_TEXCOORD0
         #define FEATURES_GRAPH_VERTEX
         /* WARNING: $splice Could not find named fragment 'PassInstancing' */
         #define SHADERPASS SHADERPASS_SPRITENORMAL
@@ -441,7 +478,6 @@ Shader "SS_Comp_BuildingMaster_01"
              float3 positionOS : POSITION;
              float3 normalOS : NORMAL;
              float4 tangentOS : TANGENT;
-             float4 uv0 : TEXCOORD0;
             #if UNITY_ANY_INSTANCING_ENABLED
              uint instanceID : INSTANCEID_SEMANTIC;
             #endif
@@ -451,7 +487,6 @@ Shader "SS_Comp_BuildingMaster_01"
              float4 positionCS : SV_POSITION;
              float3 normalWS;
              float4 tangentWS;
-             float4 texCoord0;
             #if UNITY_ANY_INSTANCING_ENABLED
              uint instanceID : CUSTOM_INSTANCE_ID;
             #endif
@@ -467,8 +502,8 @@ Shader "SS_Comp_BuildingMaster_01"
         };
         struct SurfaceDescriptionInputs
         {
+             float3 WorldSpaceNormal;
              float3 TangentSpaceNormal;
-             float4 uv0;
         };
         struct VertexDescriptionInputs
         {
@@ -480,8 +515,7 @@ Shader "SS_Comp_BuildingMaster_01"
         {
              float4 positionCS : SV_POSITION;
              float4 tangentWS : INTERP0;
-             float4 texCoord0 : INTERP1;
-             float3 normalWS : INTERP2;
+             float3 normalWS : INTERP1;
             #if UNITY_ANY_INSTANCING_ENABLED
              uint instanceID : CUSTOM_INSTANCE_ID;
             #endif
@@ -502,7 +536,6 @@ Shader "SS_Comp_BuildingMaster_01"
             ZERO_INITIALIZE(PackedVaryings, output);
             output.positionCS = input.positionCS;
             output.tangentWS.xyzw = input.tangentWS;
-            output.texCoord0.xyzw = input.texCoord0;
             output.normalWS.xyz = input.normalWS;
             #if UNITY_ANY_INSTANCING_ENABLED
             output.instanceID = input.instanceID;
@@ -524,7 +557,6 @@ Shader "SS_Comp_BuildingMaster_01"
             Varyings output;
             output.positionCS = input.positionCS;
             output.tangentWS = input.tangentWS.xyzw;
-            output.texCoord0 = input.texCoord0.xyzw;
             output.normalWS = input.normalWS.xyz;
             #if UNITY_ANY_INSTANCING_ENABLED
             output.instanceID = input.instanceID;
@@ -547,19 +579,17 @@ Shader "SS_Comp_BuildingMaster_01"
         
         // Graph Properties
         CBUFFER_START(UnityPerMaterial)
-        float4 _Base_Colour;
         float4 _Texture2D_TexelSize;
-        float4 _Texture2D_1_TexelSize;
-        float2 _Tiling;
+        float4 _Colour_X;
+        float4 _Colour_Y;
+        float4 _Colour_Z;
+        float _Mask_Bleed;
         CBUFFER_END
         
         
         // Object and Global properties
-        SAMPLER(SamplerState_Linear_Repeat);
         TEXTURE2D(_Texture2D);
         SAMPLER(sampler_Texture2D);
-        TEXTURE2D(_Texture2D_1);
-        SAMPLER(sampler_Texture2D_1);
         
         // Graph Includes
         // GraphIncludes: <None>
@@ -577,9 +607,29 @@ Shader "SS_Comp_BuildingMaster_01"
         
         // Graph Functions
         
-        void Unity_TilingAndOffset_float(float2 UV, float2 Tiling, float2 Offset, out float2 Out)
+        void Unity_Absolute_float3(float3 In, out float3 Out)
         {
-            Out = UV * Tiling + Offset;
+            Out = abs(In);
+        }
+        
+        void Unity_Power_float3(float3 A, float3 B, out float3 Out)
+        {
+            Out = pow(A, B);
+        }
+        
+        void Unity_DotProduct_float3(float3 A, float3 B, out float Out)
+        {
+            Out = dot(A, B);
+        }
+        
+        void Unity_Divide_float3(float3 A, float3 B, out float3 Out)
+        {
+            Out = A / B;
+        }
+        
+        void Unity_Lerp_float4(float4 A, float4 B, float4 T, out float4 Out)
+        {
+            Out = lerp(A, B, T);
         }
         
         // Custom interpolators pre vertex
@@ -622,25 +672,30 @@ Shader "SS_Comp_BuildingMaster_01"
         SurfaceDescription SurfaceDescriptionFunction(SurfaceDescriptionInputs IN)
         {
             SurfaceDescription surface = (SurfaceDescription)0;
-            UnityTexture2D _Property_11f0a134dcc7488191cdcd5eb6fd3d28_Out_0_Texture2D = UnityBuildTexture2DStructNoScale(_Texture2D_1);
-            float2 _Property_d940dfea89014b2b98741f29c0562c2d_Out_0_Vector2 = _Tiling;
-            float2 _TilingAndOffset_ba494f9dad104bf9940e85eb277fec68_Out_3_Vector2;
-            Unity_TilingAndOffset_float(IN.uv0.xy, _Property_d940dfea89014b2b98741f29c0562c2d_Out_0_Vector2, float2 (0, 0), _TilingAndOffset_ba494f9dad104bf9940e85eb277fec68_Out_3_Vector2);
-            float4 _SampleTexture2D_f3814088d65b4f6a9534d32af278855a_RGBA_0_Vector4 = SAMPLE_TEXTURE2D(_Property_11f0a134dcc7488191cdcd5eb6fd3d28_Out_0_Texture2D.tex, _Property_11f0a134dcc7488191cdcd5eb6fd3d28_Out_0_Texture2D.samplerstate, _Property_11f0a134dcc7488191cdcd5eb6fd3d28_Out_0_Texture2D.GetTransformedUV(_TilingAndOffset_ba494f9dad104bf9940e85eb277fec68_Out_3_Vector2) );
-            float _SampleTexture2D_f3814088d65b4f6a9534d32af278855a_R_4_Float = _SampleTexture2D_f3814088d65b4f6a9534d32af278855a_RGBA_0_Vector4.r;
-            float _SampleTexture2D_f3814088d65b4f6a9534d32af278855a_G_5_Float = _SampleTexture2D_f3814088d65b4f6a9534d32af278855a_RGBA_0_Vector4.g;
-            float _SampleTexture2D_f3814088d65b4f6a9534d32af278855a_B_6_Float = _SampleTexture2D_f3814088d65b4f6a9534d32af278855a_RGBA_0_Vector4.b;
-            float _SampleTexture2D_f3814088d65b4f6a9534d32af278855a_A_7_Float = _SampleTexture2D_f3814088d65b4f6a9534d32af278855a_RGBA_0_Vector4.a;
-            UnityTexture2D _Property_a4389d2041364d22a37b60f02c8f1c9f_Out_0_Texture2D = UnityBuildTexture2DStructNoScale(_Texture2D);
-            float4 _SampleTexture2D_86cde987da524278bbf218b392f68242_RGBA_0_Vector4 = SAMPLE_TEXTURE2D(_Property_a4389d2041364d22a37b60f02c8f1c9f_Out_0_Texture2D.tex, _Property_a4389d2041364d22a37b60f02c8f1c9f_Out_0_Texture2D.samplerstate, _Property_a4389d2041364d22a37b60f02c8f1c9f_Out_0_Texture2D.GetTransformedUV(_TilingAndOffset_ba494f9dad104bf9940e85eb277fec68_Out_3_Vector2) );
-            _SampleTexture2D_86cde987da524278bbf218b392f68242_RGBA_0_Vector4.rgb = UnpackNormal(_SampleTexture2D_86cde987da524278bbf218b392f68242_RGBA_0_Vector4);
-            float _SampleTexture2D_86cde987da524278bbf218b392f68242_R_4_Float = _SampleTexture2D_86cde987da524278bbf218b392f68242_RGBA_0_Vector4.r;
-            float _SampleTexture2D_86cde987da524278bbf218b392f68242_G_5_Float = _SampleTexture2D_86cde987da524278bbf218b392f68242_RGBA_0_Vector4.g;
-            float _SampleTexture2D_86cde987da524278bbf218b392f68242_B_6_Float = _SampleTexture2D_86cde987da524278bbf218b392f68242_RGBA_0_Vector4.b;
-            float _SampleTexture2D_86cde987da524278bbf218b392f68242_A_7_Float = _SampleTexture2D_86cde987da524278bbf218b392f68242_RGBA_0_Vector4.a;
-            surface.BaseColor = (_SampleTexture2D_f3814088d65b4f6a9534d32af278855a_RGBA_0_Vector4.xyz);
+            float4 _Property_d5d42953fbb24b4eac60e46780ff36a3_Out_0_Vector4 = _Colour_X;
+            float4 _Property_1cb74af97c904878be00cd358986d010_Out_0_Vector4 = _Colour_Y;
+            float3 _Absolute_e6c893cd31f44f6d9ee56a9a89ae9220_Out_1_Vector3;
+            Unity_Absolute_float3(IN.WorldSpaceNormal, _Absolute_e6c893cd31f44f6d9ee56a9a89ae9220_Out_1_Vector3);
+            float _Float_c4b790be96d8490a8ea61ecb29209f7e_Out_0_Float = 8;
+            float3 _Power_dbd14e7d3c21402796cec3a4e3185a78_Out_2_Vector3;
+            Unity_Power_float3(_Absolute_e6c893cd31f44f6d9ee56a9a89ae9220_Out_1_Vector3, (_Float_c4b790be96d8490a8ea61ecb29209f7e_Out_0_Float.xxx), _Power_dbd14e7d3c21402796cec3a4e3185a78_Out_2_Vector3);
+            float3 _Vector3_67e65ec93a0b4446bad2ceb5932958ab_Out_0_Vector3 = float3(1, 1, 1);
+            float _DotProduct_25540abbe18e43cab56607a793abdeeb_Out_2_Float;
+            Unity_DotProduct_float3(_Power_dbd14e7d3c21402796cec3a4e3185a78_Out_2_Vector3, _Vector3_67e65ec93a0b4446bad2ceb5932958ab_Out_0_Vector3, _DotProduct_25540abbe18e43cab56607a793abdeeb_Out_2_Float);
+            float3 _Divide_0d4e48d4a2db4b48afbee3a4c66d965a_Out_2_Vector3;
+            Unity_Divide_float3(_Power_dbd14e7d3c21402796cec3a4e3185a78_Out_2_Vector3, (_DotProduct_25540abbe18e43cab56607a793abdeeb_Out_2_Float.xxx), _Divide_0d4e48d4a2db4b48afbee3a4c66d965a_Out_2_Vector3);
+            float _Split_c2b8d7a0273e49f3bf5df729c7fb7efd_R_1_Float = _Divide_0d4e48d4a2db4b48afbee3a4c66d965a_Out_2_Vector3[0];
+            float _Split_c2b8d7a0273e49f3bf5df729c7fb7efd_G_2_Float = _Divide_0d4e48d4a2db4b48afbee3a4c66d965a_Out_2_Vector3[1];
+            float _Split_c2b8d7a0273e49f3bf5df729c7fb7efd_B_3_Float = _Divide_0d4e48d4a2db4b48afbee3a4c66d965a_Out_2_Vector3[2];
+            float _Split_c2b8d7a0273e49f3bf5df729c7fb7efd_A_4_Float = 0;
+            float4 _Lerp_a762218cb5934e33a1e02870d8998773_Out_3_Vector4;
+            Unity_Lerp_float4(_Property_d5d42953fbb24b4eac60e46780ff36a3_Out_0_Vector4, _Property_1cb74af97c904878be00cd358986d010_Out_0_Vector4, (_Split_c2b8d7a0273e49f3bf5df729c7fb7efd_G_2_Float.xxxx), _Lerp_a762218cb5934e33a1e02870d8998773_Out_3_Vector4);
+            float4 _Property_e95e8dbcfd9c47b48cce27c2848542a8_Out_0_Vector4 = _Colour_Z;
+            float4 _Lerp_442e1d6e93fd4830a59f16aff64691dc_Out_3_Vector4;
+            Unity_Lerp_float4(_Lerp_a762218cb5934e33a1e02870d8998773_Out_3_Vector4, _Property_e95e8dbcfd9c47b48cce27c2848542a8_Out_0_Vector4, (_Split_c2b8d7a0273e49f3bf5df729c7fb7efd_B_3_Float.xxxx), _Lerp_442e1d6e93fd4830a59f16aff64691dc_Out_3_Vector4);
+            surface.BaseColor = (_Lerp_442e1d6e93fd4830a59f16aff64691dc_Out_3_Vector4.xyz);
             surface.Alpha = 1;
-            surface.NormalTS = (_SampleTexture2D_86cde987da524278bbf218b392f68242_RGBA_0_Vector4.xyz);
+            surface.NormalTS = IN.TangentSpaceNormal;
             return surface;
         }
         
@@ -678,8 +733,12 @@ Shader "SS_Comp_BuildingMaster_01"
         
             
         
+            // must use interpolated tangent, bitangent and normal before they are normalized in the pixel shader.
+            float3 unnormalizedNormalWS = input.normalWS;
+            const float renormFactor = 1.0 / length(unnormalizedNormalWS);
         
         
+            output.WorldSpaceNormal = renormFactor * input.normalWS.xyz;      // we want a unit length Normal Vector node in shader graph
             output.TangentSpaceNormal = float3(0.0f, 0.0f, 1.0f);
         
         
@@ -689,7 +748,6 @@ Shader "SS_Comp_BuildingMaster_01"
             #endif
         
         
-            output.uv0 = input.texCoord0;
         #if defined(SHADER_STAGE_FRAGMENT) && defined(VARYINGS_NEED_CULLFACE)
         #define BUILD_SURFACE_DESCRIPTION_INPUTS_OUTPUT_FACESIGN output.FaceSign =                    IS_FRONT_VFACE(input.cullFace, true, false);
         #else
@@ -872,19 +930,17 @@ Shader "SS_Comp_BuildingMaster_01"
         
         // Graph Properties
         CBUFFER_START(UnityPerMaterial)
-        float4 _Base_Colour;
         float4 _Texture2D_TexelSize;
-        float4 _Texture2D_1_TexelSize;
-        float2 _Tiling;
+        float4 _Colour_X;
+        float4 _Colour_Y;
+        float4 _Colour_Z;
+        float _Mask_Bleed;
         CBUFFER_END
         
         
         // Object and Global properties
-        SAMPLER(SamplerState_Linear_Repeat);
         TEXTURE2D(_Texture2D);
         SAMPLER(sampler_Texture2D);
-        TEXTURE2D(_Texture2D_1);
-        SAMPLER(sampler_Texture2D_1);
         
         // Graph Includes
         // GraphIncludes: <None>
@@ -1171,19 +1227,17 @@ Shader "SS_Comp_BuildingMaster_01"
         
         // Graph Properties
         CBUFFER_START(UnityPerMaterial)
-        float4 _Base_Colour;
         float4 _Texture2D_TexelSize;
-        float4 _Texture2D_1_TexelSize;
-        float2 _Tiling;
+        float4 _Colour_X;
+        float4 _Colour_Y;
+        float4 _Colour_Z;
+        float _Mask_Bleed;
         CBUFFER_END
         
         
         // Object and Global properties
-        SAMPLER(SamplerState_Linear_Repeat);
         TEXTURE2D(_Texture2D);
         SAMPLER(sampler_Texture2D);
-        TEXTURE2D(_Texture2D_1);
-        SAMPLER(sampler_Texture2D_1);
         
         // Graph Includes
         // GraphIncludes: <None>
@@ -1351,6 +1405,7 @@ Shader "SS_Comp_BuildingMaster_01"
         #define ATTRIBUTES_NEED_TEXCOORD0
         #define ATTRIBUTES_NEED_COLOR
         #define VARYINGS_NEED_POSITION_WS
+        #define VARYINGS_NEED_NORMAL_WS
         #define VARYINGS_NEED_TEXCOORD0
         #define VARYINGS_NEED_COLOR
         #define FEATURES_GRAPH_VERTEX
@@ -1394,6 +1449,7 @@ Shader "SS_Comp_BuildingMaster_01"
         {
              float4 positionCS : SV_POSITION;
              float3 positionWS;
+             float3 normalWS;
              float4 texCoord0;
              float4 color;
             #if UNITY_ANY_INSTANCING_ENABLED
@@ -1411,8 +1467,8 @@ Shader "SS_Comp_BuildingMaster_01"
         };
         struct SurfaceDescriptionInputs
         {
+             float3 WorldSpaceNormal;
              float3 TangentSpaceNormal;
-             float4 uv0;
         };
         struct VertexDescriptionInputs
         {
@@ -1426,6 +1482,7 @@ Shader "SS_Comp_BuildingMaster_01"
              float4 texCoord0 : INTERP0;
              float4 color : INTERP1;
              float3 positionWS : INTERP2;
+             float3 normalWS : INTERP3;
             #if UNITY_ANY_INSTANCING_ENABLED
              uint instanceID : CUSTOM_INSTANCE_ID;
             #endif
@@ -1448,6 +1505,7 @@ Shader "SS_Comp_BuildingMaster_01"
             output.texCoord0.xyzw = input.texCoord0;
             output.color.xyzw = input.color;
             output.positionWS.xyz = input.positionWS;
+            output.normalWS.xyz = input.normalWS;
             #if UNITY_ANY_INSTANCING_ENABLED
             output.instanceID = input.instanceID;
             #endif
@@ -1470,6 +1528,7 @@ Shader "SS_Comp_BuildingMaster_01"
             output.texCoord0 = input.texCoord0.xyzw;
             output.color = input.color.xyzw;
             output.positionWS = input.positionWS.xyz;
+            output.normalWS = input.normalWS.xyz;
             #if UNITY_ANY_INSTANCING_ENABLED
             output.instanceID = input.instanceID;
             #endif
@@ -1491,19 +1550,17 @@ Shader "SS_Comp_BuildingMaster_01"
         
         // Graph Properties
         CBUFFER_START(UnityPerMaterial)
-        float4 _Base_Colour;
         float4 _Texture2D_TexelSize;
-        float4 _Texture2D_1_TexelSize;
-        float2 _Tiling;
+        float4 _Colour_X;
+        float4 _Colour_Y;
+        float4 _Colour_Z;
+        float _Mask_Bleed;
         CBUFFER_END
         
         
         // Object and Global properties
-        SAMPLER(SamplerState_Linear_Repeat);
         TEXTURE2D(_Texture2D);
         SAMPLER(sampler_Texture2D);
-        TEXTURE2D(_Texture2D_1);
-        SAMPLER(sampler_Texture2D_1);
         
         // Graph Includes
         // GraphIncludes: <None>
@@ -1521,9 +1578,29 @@ Shader "SS_Comp_BuildingMaster_01"
         
         // Graph Functions
         
-        void Unity_TilingAndOffset_float(float2 UV, float2 Tiling, float2 Offset, out float2 Out)
+        void Unity_Absolute_float3(float3 In, out float3 Out)
         {
-            Out = UV * Tiling + Offset;
+            Out = abs(In);
+        }
+        
+        void Unity_Power_float3(float3 A, float3 B, out float3 Out)
+        {
+            Out = pow(A, B);
+        }
+        
+        void Unity_DotProduct_float3(float3 A, float3 B, out float Out)
+        {
+            Out = dot(A, B);
+        }
+        
+        void Unity_Divide_float3(float3 A, float3 B, out float3 Out)
+        {
+            Out = A / B;
+        }
+        
+        void Unity_Lerp_float4(float4 A, float4 B, float4 T, out float4 Out)
+        {
+            Out = lerp(A, B, T);
         }
         
         // Custom interpolators pre vertex
@@ -1566,25 +1643,30 @@ Shader "SS_Comp_BuildingMaster_01"
         SurfaceDescription SurfaceDescriptionFunction(SurfaceDescriptionInputs IN)
         {
             SurfaceDescription surface = (SurfaceDescription)0;
-            UnityTexture2D _Property_11f0a134dcc7488191cdcd5eb6fd3d28_Out_0_Texture2D = UnityBuildTexture2DStructNoScale(_Texture2D_1);
-            float2 _Property_d940dfea89014b2b98741f29c0562c2d_Out_0_Vector2 = _Tiling;
-            float2 _TilingAndOffset_ba494f9dad104bf9940e85eb277fec68_Out_3_Vector2;
-            Unity_TilingAndOffset_float(IN.uv0.xy, _Property_d940dfea89014b2b98741f29c0562c2d_Out_0_Vector2, float2 (0, 0), _TilingAndOffset_ba494f9dad104bf9940e85eb277fec68_Out_3_Vector2);
-            float4 _SampleTexture2D_f3814088d65b4f6a9534d32af278855a_RGBA_0_Vector4 = SAMPLE_TEXTURE2D(_Property_11f0a134dcc7488191cdcd5eb6fd3d28_Out_0_Texture2D.tex, _Property_11f0a134dcc7488191cdcd5eb6fd3d28_Out_0_Texture2D.samplerstate, _Property_11f0a134dcc7488191cdcd5eb6fd3d28_Out_0_Texture2D.GetTransformedUV(_TilingAndOffset_ba494f9dad104bf9940e85eb277fec68_Out_3_Vector2) );
-            float _SampleTexture2D_f3814088d65b4f6a9534d32af278855a_R_4_Float = _SampleTexture2D_f3814088d65b4f6a9534d32af278855a_RGBA_0_Vector4.r;
-            float _SampleTexture2D_f3814088d65b4f6a9534d32af278855a_G_5_Float = _SampleTexture2D_f3814088d65b4f6a9534d32af278855a_RGBA_0_Vector4.g;
-            float _SampleTexture2D_f3814088d65b4f6a9534d32af278855a_B_6_Float = _SampleTexture2D_f3814088d65b4f6a9534d32af278855a_RGBA_0_Vector4.b;
-            float _SampleTexture2D_f3814088d65b4f6a9534d32af278855a_A_7_Float = _SampleTexture2D_f3814088d65b4f6a9534d32af278855a_RGBA_0_Vector4.a;
-            UnityTexture2D _Property_a4389d2041364d22a37b60f02c8f1c9f_Out_0_Texture2D = UnityBuildTexture2DStructNoScale(_Texture2D);
-            float4 _SampleTexture2D_86cde987da524278bbf218b392f68242_RGBA_0_Vector4 = SAMPLE_TEXTURE2D(_Property_a4389d2041364d22a37b60f02c8f1c9f_Out_0_Texture2D.tex, _Property_a4389d2041364d22a37b60f02c8f1c9f_Out_0_Texture2D.samplerstate, _Property_a4389d2041364d22a37b60f02c8f1c9f_Out_0_Texture2D.GetTransformedUV(_TilingAndOffset_ba494f9dad104bf9940e85eb277fec68_Out_3_Vector2) );
-            _SampleTexture2D_86cde987da524278bbf218b392f68242_RGBA_0_Vector4.rgb = UnpackNormal(_SampleTexture2D_86cde987da524278bbf218b392f68242_RGBA_0_Vector4);
-            float _SampleTexture2D_86cde987da524278bbf218b392f68242_R_4_Float = _SampleTexture2D_86cde987da524278bbf218b392f68242_RGBA_0_Vector4.r;
-            float _SampleTexture2D_86cde987da524278bbf218b392f68242_G_5_Float = _SampleTexture2D_86cde987da524278bbf218b392f68242_RGBA_0_Vector4.g;
-            float _SampleTexture2D_86cde987da524278bbf218b392f68242_B_6_Float = _SampleTexture2D_86cde987da524278bbf218b392f68242_RGBA_0_Vector4.b;
-            float _SampleTexture2D_86cde987da524278bbf218b392f68242_A_7_Float = _SampleTexture2D_86cde987da524278bbf218b392f68242_RGBA_0_Vector4.a;
-            surface.BaseColor = (_SampleTexture2D_f3814088d65b4f6a9534d32af278855a_RGBA_0_Vector4.xyz);
+            float4 _Property_d5d42953fbb24b4eac60e46780ff36a3_Out_0_Vector4 = _Colour_X;
+            float4 _Property_1cb74af97c904878be00cd358986d010_Out_0_Vector4 = _Colour_Y;
+            float3 _Absolute_e6c893cd31f44f6d9ee56a9a89ae9220_Out_1_Vector3;
+            Unity_Absolute_float3(IN.WorldSpaceNormal, _Absolute_e6c893cd31f44f6d9ee56a9a89ae9220_Out_1_Vector3);
+            float _Float_c4b790be96d8490a8ea61ecb29209f7e_Out_0_Float = 8;
+            float3 _Power_dbd14e7d3c21402796cec3a4e3185a78_Out_2_Vector3;
+            Unity_Power_float3(_Absolute_e6c893cd31f44f6d9ee56a9a89ae9220_Out_1_Vector3, (_Float_c4b790be96d8490a8ea61ecb29209f7e_Out_0_Float.xxx), _Power_dbd14e7d3c21402796cec3a4e3185a78_Out_2_Vector3);
+            float3 _Vector3_67e65ec93a0b4446bad2ceb5932958ab_Out_0_Vector3 = float3(1, 1, 1);
+            float _DotProduct_25540abbe18e43cab56607a793abdeeb_Out_2_Float;
+            Unity_DotProduct_float3(_Power_dbd14e7d3c21402796cec3a4e3185a78_Out_2_Vector3, _Vector3_67e65ec93a0b4446bad2ceb5932958ab_Out_0_Vector3, _DotProduct_25540abbe18e43cab56607a793abdeeb_Out_2_Float);
+            float3 _Divide_0d4e48d4a2db4b48afbee3a4c66d965a_Out_2_Vector3;
+            Unity_Divide_float3(_Power_dbd14e7d3c21402796cec3a4e3185a78_Out_2_Vector3, (_DotProduct_25540abbe18e43cab56607a793abdeeb_Out_2_Float.xxx), _Divide_0d4e48d4a2db4b48afbee3a4c66d965a_Out_2_Vector3);
+            float _Split_c2b8d7a0273e49f3bf5df729c7fb7efd_R_1_Float = _Divide_0d4e48d4a2db4b48afbee3a4c66d965a_Out_2_Vector3[0];
+            float _Split_c2b8d7a0273e49f3bf5df729c7fb7efd_G_2_Float = _Divide_0d4e48d4a2db4b48afbee3a4c66d965a_Out_2_Vector3[1];
+            float _Split_c2b8d7a0273e49f3bf5df729c7fb7efd_B_3_Float = _Divide_0d4e48d4a2db4b48afbee3a4c66d965a_Out_2_Vector3[2];
+            float _Split_c2b8d7a0273e49f3bf5df729c7fb7efd_A_4_Float = 0;
+            float4 _Lerp_a762218cb5934e33a1e02870d8998773_Out_3_Vector4;
+            Unity_Lerp_float4(_Property_d5d42953fbb24b4eac60e46780ff36a3_Out_0_Vector4, _Property_1cb74af97c904878be00cd358986d010_Out_0_Vector4, (_Split_c2b8d7a0273e49f3bf5df729c7fb7efd_G_2_Float.xxxx), _Lerp_a762218cb5934e33a1e02870d8998773_Out_3_Vector4);
+            float4 _Property_e95e8dbcfd9c47b48cce27c2848542a8_Out_0_Vector4 = _Colour_Z;
+            float4 _Lerp_442e1d6e93fd4830a59f16aff64691dc_Out_3_Vector4;
+            Unity_Lerp_float4(_Lerp_a762218cb5934e33a1e02870d8998773_Out_3_Vector4, _Property_e95e8dbcfd9c47b48cce27c2848542a8_Out_0_Vector4, (_Split_c2b8d7a0273e49f3bf5df729c7fb7efd_B_3_Float.xxxx), _Lerp_442e1d6e93fd4830a59f16aff64691dc_Out_3_Vector4);
+            surface.BaseColor = (_Lerp_442e1d6e93fd4830a59f16aff64691dc_Out_3_Vector4.xyz);
             surface.Alpha = 1;
-            surface.NormalTS = (_SampleTexture2D_86cde987da524278bbf218b392f68242_RGBA_0_Vector4.xyz);
+            surface.NormalTS = IN.TangentSpaceNormal;
             return surface;
         }
         
@@ -1622,8 +1704,12 @@ Shader "SS_Comp_BuildingMaster_01"
         
             
         
+            // must use interpolated tangent, bitangent and normal before they are normalized in the pixel shader.
+            float3 unnormalizedNormalWS = input.normalWS;
+            const float renormFactor = 1.0 / length(unnormalizedNormalWS);
         
         
+            output.WorldSpaceNormal = renormFactor * input.normalWS.xyz;      // we want a unit length Normal Vector node in shader graph
             output.TangentSpaceNormal = float3(0.0f, 0.0f, 1.0f);
         
         
@@ -1633,7 +1719,6 @@ Shader "SS_Comp_BuildingMaster_01"
             #endif
         
         
-            output.uv0 = input.texCoord0;
         #if defined(SHADER_STAGE_FRAGMENT) && defined(VARYINGS_NEED_CULLFACE)
         #define BUILD_SURFACE_DESCRIPTION_INPUTS_OUTPUT_FACESIGN output.FaceSign =                    IS_FRONT_VFACE(input.cullFace, true, false);
         #else

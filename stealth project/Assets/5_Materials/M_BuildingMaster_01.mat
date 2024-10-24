@@ -1,5 +1,18 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-816550790707447054
+MonoBehaviour:
+  m_ObjectHideFlags: 11
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0353a89b1f911e48b9e16bdc9f2e058, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  version: 7
 --- !u!21 &2100000
 Material:
   serializedVersion: 8
@@ -39,6 +52,26 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _SampleTexture2D_1487ab3989e448568a4032e6ad516bb6_Texture_1_Texture2D:
+        m_Texture: {fileID: 2800000, guid: ce970816794dc4a6c8b5acdbc5953551, type: 2}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SampleTexture2D_239be6dac0cb4bfeaf00527e58b2c3ba_Texture_1_Texture2D:
+        m_Texture: {fileID: 2800000, guid: ee2523340e7944c4297a80937a51484c, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SampleTexture2D_79834501d2fe4dbeabfcd840bed1c542_Texture_1_Texture2D:
+        m_Texture: {fileID: 2800000, guid: ee2523340e7944c4297a80937a51484c, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SampleTexture2D_9d31a8fcba924acb8585e61f3b85c36c_Texture_1_Texture2D:
+        m_Texture: {fileID: 2800000, guid: e62bcf4d24881c14ebbd6e1f1b5f19a4, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SampleTexture2D_b4b37195ac564c59b6026d4dbde8965f_Texture_1_Texture2D:
+        m_Texture: {fileID: 2800000, guid: ce970816794dc4a6c8b5acdbc5953551, type: 2}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _Texture2D:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -62,10 +95,19 @@ Material:
     m_Ints: []
     m_Floats:
     - _EnableExternalAlpha: 0
+    - _Mask_Bleed: 8
+    - _Mask_Contrast: -3
+    - _Mask_G_Contrast: -3
+    - _Mask_G_Power: 8
     m_Colors:
     - _Base_Colour: {r: 1, g: 1, b: 1, a: 0}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _Colour_Base: {r: 1, g: 1, b: 1, a: 0}
+    - _Colour_X: {r: 0.35377362, g: 0.08962265, b: 0.3584906, a: 0}
+    - _Colour_Y: {r: 0.85631585, g: 0.74105555, b: 0.8584906, a: 0}
+    - _Colour_Z: {r: 0.7014086, g: 0.36378607, b: 0.7075472, a: 0}
     - _Flip: {r: 1, g: 1, b: 1, a: 1}
     - _RendererColor: {r: 1, g: 1, b: 1, a: 1}
     - _Tiling: {r: 20, g: 20, b: 0, a: 0}
+    - _Vector3: {r: 1, g: 1, b: 1, a: 0}
   m_BuildTextureStacks: []
