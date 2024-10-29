@@ -27,10 +27,11 @@ public class UI_itemBar : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        /*
         for (int i = 0; i < equipSlotIcons.Count; i++)
         {
             SetIcon(i, e_Equipment.empty);
-        }
+        }*/
 
     }
 

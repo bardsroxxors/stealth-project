@@ -9,6 +9,9 @@ public class RopeShooter : MonoBehaviour
     public GameObject pos2;
     public GameObject ropePrefab;
 
+    public string tag1;
+    public string tag2;
+
     //public float circleCastWidth = 0.5f;
     public float maxDistance = 10f;
     public float minDistance = 2f;
@@ -35,16 +38,18 @@ public class RopeShooter : MonoBehaviour
     // function to recieve message from projectile
     // it sets the positions 
 
-    public void ProjectileHit(Vector3 position)
+    public void ProjectileHit(Vector3 position, string tag)
     {
         if (!halfShot)
         {
             pos1.transform.position = position;
+            tag1 = tag;
             halfShot = true;
         }
         else
         {
             pos2.transform.position = position;
+            tag2 = tag;
             CreateRope();
         }
     }
@@ -56,10 +61,10 @@ public class RopeShooter : MonoBehaviour
         if (CheckValid())
         {
             GameObject rope = Instantiate(ropePrefab, pos1.transform.position, Quaternion.identity);
-            rope.GetComponent<RopeScript>().Setup(pos1.transform.position, pos2.transform.position);
+            rope.GetComponent<RopeScript>().Setup(pos1.transform.position, pos2.transform.position, tag1, tag2);
         }
 
-        Debug.Log("Create rope attempt");
+        Debug.Log("Create rope attempt" + tag1 + tag2);
     }
 
     private bool CheckValid()

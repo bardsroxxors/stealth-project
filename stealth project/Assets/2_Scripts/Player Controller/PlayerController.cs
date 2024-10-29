@@ -57,6 +57,7 @@ public class PlayerController : MonoBehaviour
     public bool lit = false;
     public bool sneaking = false;
     public bool crouching = false;
+    public bool aiming = false;
     public bool sliding = false;
     public int currentHP = 10;
     public int maxHP = 10;
@@ -64,6 +65,10 @@ public class PlayerController : MonoBehaviour
     private GameObject shovingEnemy;
     public float shoveForce = 2f;
     private float t_iTime = 0;
+
+    public string nextAnim = "";
+    private float currentAnimTime = 0;
+    private float t_currentAnimTime = 0;
 
     public int activeEquipIndex = 0;
     public e_Equipment[] equipList = new e_Equipment[4]; 
@@ -408,6 +413,7 @@ public class PlayerController : MonoBehaviour
         if (t_iTime > 0) t_iTime -= Time.deltaTime;
         if (t_blinkCooldown > 0) t_blinkCooldown -= Time.deltaTime;
         if (t_dashLockTime > 0) t_dashLockTime -= Time.deltaTime;
+        if (t_currentAnimTime > 0) t_currentAnimTime -= Time.deltaTime;
 
     }
 
@@ -456,6 +462,11 @@ public class PlayerController : MonoBehaviour
             
         }
 
+        if (aiming)
+        {
+            playerFacingVector.x = Mathf.Sign(GetVectorToMouse().x);
+        }
+
         
 
         
@@ -486,9 +497,9 @@ public class PlayerController : MonoBehaviour
 
 
         // get inputVector from raw input, set player facing
-        if (moveStickVector.magnitude >= 0.25)
+        if (moveStickVector.magnitude >= 0.25 && !(aiming && collisionDirections.y == -1))
         {
-            if(!sneaking && !crouching && !f_isCharging && !sliding/* && collisionDirections.y != -1*/) 
+            if(!sneaking && !crouching && !f_isCharging && !sliding) 
                 inputVector.x = moveStickVector.normalized.x * moveSpeed;
             else if (sliding)
             {
@@ -1021,7 +1032,8 @@ public class PlayerController : MonoBehaviour
 
 
         // reset collision flags
-        collisionDirections = Vector2.zero;
+        if(!ResetCheckBoxcast())
+            collisionDirections = Vector2.zero;
     }
 
 
@@ -1339,22 +1351,35 @@ public class PlayerController : MonoBehaviour
     {
 
 
+        giz_text_jumpFrame = GetCurrentAnimationName();
+
         switch (CurrentPlayerState)
         {
             case e_PlayerControllerStates.FreeMove:                 // FreeMove
                 if (collisionDirections.y == -1 || f_groundClose)   // if grounded
                 {
                     animator.speed = 1;
-                    if (Mathf.Abs(moveStickVector.x) >= 0.5f)           // if moving
+                    if(nextAnim == "throw")
+                    {
+                        PlayAnimation("throw", true, false);
+                        nextAnim = "";
+                    }
+                    else if (Mathf.Abs(inputVector.x) >= 0.5f)           // if moving
                     {
                         if (sneaking)
-                            PlayAnimation("walk");
+                            PlayAnimation("walk", false, false);
                         else
-                            PlayAnimation("run");
+                            PlayAnimation("run", false, false);
                     }
                     else                                                // not moving
                     {
-                        PlayAnimation("idle");
+                        if (aiming)
+                        {
+                            PlayAnimation("throw prep", false, false);
+                        }
+                            
+                        else
+                            PlayAnimation("idle", false, false);
                     }
                 }
                 else                                                // not grounded
@@ -1365,7 +1390,7 @@ public class PlayerController : MonoBehaviour
                 break;
             case e_PlayerControllerStates.WallGrab:
                 animator.speed = 1;
-                PlayAnimation("wall grab");
+                PlayAnimation("wall grab", false, true);
                 break;
         }
 
@@ -1416,19 +1441,27 @@ public class PlayerController : MonoBehaviour
         if (anim != null)
         {
             animator.Play(anim.name, 0, frame);
+            //t_currentAnimTime = animator.GetCurrentAnimatorClipInfo(0)[0].clip.length;
         }
 
     }
 
-    private void PlayAnimation(string name)
+    private void PlayAnimation(string name, bool wait, bool overide) // wait means lock any other animations until ths one has finished
     {
         AnimationClip anim = animRegister.GetAnimation(name);
 
-        if (anim != null)
+        if (anim != null && (overide || t_currentAnimTime <= 0))
         {
             animator.Play(anim.name, 0);
+            if(wait)
+                t_currentAnimTime = animator.GetCurrentAnimatorClipInfo(0)[0].clip.length;
         }
 
+    }
+
+    private string GetCurrentAnimationName()
+    {
+        return animator.GetCurrentAnimatorClipInfo(0)[0].clip.name;
     }
 
     // Input Listener Methods
@@ -1472,39 +1505,7 @@ public class PlayerController : MonoBehaviour
 
     }
 
-    void OnAttack(InputValue value)
-    {
-        //if (currentTarget != null && CheckTargetLOS(currentTarget) && KOTargetValid())
-            //TriggerStealthKill();
-        //else
-        //{
-        if (t_attackCooldown <= 0 &&
-        CurrentPlayerState == e_PlayerControllerStates.FreeMove &&
-        !f_carryingObject)
-
-            //ChangeState(e_PlayerControllerStates.SwordSwing);
-            ChangeState(e_PlayerControllerStates.DashAttack);
-        else if (f_carryingObject)
-        {
-            f_carryingObject = false;
-            carriedObject.transform.position = transform.position;
-            carriedObject.SendMessage("Dropped", GetVectorToMouse());
-            carriedObject = null;
-        }
-        //}
-
-        /*
-        else if (equipList[activeEquipIndex] == e_Equipment.sword)
-        {
-            if (t_attackCooldown <= 0 &&
-            CurrentPlayerState == e_PlayerControllerStates.FreeMove)
-
-                ChangeState(e_PlayerControllerStates.SwordSwing);
-        }*/
-        
-
-
-    }
+    
 
     void OnAim(InputValue value)
     {
@@ -1590,7 +1591,55 @@ public class PlayerController : MonoBehaviour
         if (controlScheme != e_ControlSchemes.MouseKeyboard) controlScheme = e_ControlSchemes.MouseKeyboard;
     }
 
-    void OnChargeUp(InputValue value)
+    void OnLeftMouse(InputValue value)
+    {
+        //if (currentTarget != null && CheckTargetLOS(currentTarget) && KOTargetValid())
+        //TriggerStealthKill();
+        //else
+        //{
+        if (t_attackCooldown <= 0 &&
+        CurrentPlayerState == e_PlayerControllerStates.FreeMove &&
+        !f_carryingObject &&
+        !aiming)
+
+            //ChangeState(e_PlayerControllerStates.SwordSwing);
+            ChangeState(e_PlayerControllerStates.DashAttack);
+        else if (f_carryingObject)
+        {
+            f_carryingObject = false;
+            carriedObject.transform.position = transform.position;
+            carriedObject.SendMessage("Dropped", GetVectorToMouse());
+            carriedObject = null;
+        }
+        else if (aiming)
+        {
+            nextAnim = "throw";
+            ShootProjectile(dict_projectiles_enumSO[equipList[activeEquipIndex]]);
+            
+            aiming = false;
+
+            if (equipList[activeEquipIndex] == e_Equipment.ropeShooter)
+            {
+                RopeShooter rs = GameObject.Find("RopeShooter").GetComponent<RopeShooter>();
+                if(!rs.halfShot) 
+                        aiming = true;
+            }
+        }
+        //}
+
+        /*
+        else if (equipList[activeEquipIndex] == e_Equipment.sword)
+        {
+            if (t_attackCooldown <= 0 &&
+            CurrentPlayerState == e_PlayerControllerStates.FreeMove)
+
+                ChangeState(e_PlayerControllerStates.SwordSwing);
+        }*/
+
+
+
+    }
+    void OnRightMouse(InputValue value)
     {
         //currentTarget = GetKillTarget();
         /*
@@ -1612,12 +1661,14 @@ public class PlayerController : MonoBehaviour
          */
         if (equipList[activeEquipIndex] == e_Equipment.blink)
         {
-            f_blinkAiming = true;
+            //f_blinkAiming = true;
         }
         else if( dict_projectiles_enumSO.ContainsKey( equipList[activeEquipIndex] ))
         {
-            ShootProjectile(dict_projectiles_enumSO[equipList[activeEquipIndex]]);
+            //ShootProjectile(dict_projectiles_enumSO[equipList[activeEquipIndex]]);
         }
+
+        aiming = true;
 
 
                 /*
@@ -1633,21 +1684,24 @@ public class PlayerController : MonoBehaviour
 
     }
 
-    void OnChargeRelease(InputValue value)
+    void OnRightMouseUp(InputValue value)
     {
         /*
         f_isCharging = false;
         koIndicator.SetActive(false);
         if (t_killChargeTime > killChargeTime && CheckTargetLOS(currentTarget)) TriggerStealthKill();
         */
-        if (equipList[activeEquipIndex] == e_Equipment.blink && f_blinkAiming)
+        /*if (equipList[activeEquipIndex] == e_Equipment.blink && f_blinkAiming)
         {
             Debug.Log("Shbloink!");
             f_blinkAiming = false;
             blinkPosition = blinkAimObject.transform.position;
             if (CurrentPlayerState == e_PlayerControllerStates.FreeMove || CurrentPlayerState == e_PlayerControllerStates.WallGrab)
                 ChangeState(e_PlayerControllerStates.Blink);
-        }
+        }*/
+        aiming = false;
+        RopeShooter rs = GameObject.Find("RopeShooter").GetComponent<RopeShooter>();
+        rs.halfShot = false;
     }
 
     void OnBagToggle(InputValue value)
@@ -1748,6 +1802,27 @@ public class PlayerController : MonoBehaviour
         return hit;
     }
 
+    private RaycastHit2D ResetCheckBoxcast()
+    {
+        Vector2 offset = collider.offset;
+        //if (collisionDirections.y != 0)
+        //    offset = Vector2.zero;
+
+
+
+        // Boxcast to stop us going through walls
+
+        RaycastHit2D hit = Physics2D.BoxCast((Vector2)transform.position + offset/*new Vector2(0, -0.05f)*/,     // origin
+                                new Vector2(collider.bounds.size.x, collider.bounds.size.y * 1.05f),   // size
+                                0,                                                                  // angle
+                                movementVector * Time.deltaTime,                                    // direction
+                                (movementVector * Time.deltaTime).magnitude,                        // distance
+                                collisionMask);
+
+        return hit;
+    }
+
+
     private void OnDrawGizmos() {
 
         if (Application.isPlaying && showDebugGizmos)
@@ -1774,7 +1849,7 @@ public class PlayerController : MonoBehaviour
 
             if (giz_airframenum)
             {
-                giz_text_jumpFrame = GetJumpFrame().ToString();
+                //giz_text_jumpFrame = GetJumpFrame().ToString();
                 Vector3 pos = transform.position;
                 pos.y += 1f;
                 Handles.Label(pos, giz_text_jumpFrame);

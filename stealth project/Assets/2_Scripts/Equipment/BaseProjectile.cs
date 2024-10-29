@@ -5,9 +5,9 @@ using UnityEngine;
 public class BaseProjectile : MonoBehaviour
 {
 
-    public Vector2 forceVector = Vector2.zero;
+    public Vector2 forceVector = Vector2.zero; // vector for current movement 
     public Projectile so_projectile;
-    public Vector2 launchVector = Vector2.zero;
+    public Vector2 launchVector = Vector2.zero; // initial launch vector
     private Rigidbody2D rb;
 
     // Start is called before the first frame update
@@ -23,6 +23,8 @@ public class BaseProjectile : MonoBehaviour
         GetComponent<CircleCollider2D>().radius = so_projectile.hitRadius;
         if(so_projectile.sprite != null)
             GetComponent<SpriteRenderer>().sprite = so_projectile.sprite;
+        Debug.Log("launch " + launchVector.normalized.ToString());
+        Debug.Log("force " + forceVector.normalized.ToString());
     }
 
     // Update is called once per frame
@@ -37,7 +39,7 @@ public class BaseProjectile : MonoBehaviour
 
         if (forceVector.y > -so_projectile.maxFallSpeed)
             forceVector.y -= so_projectile.gravity * Time.deltaTime;
-        else forceVector.y = so_projectile.maxFallSpeed;
+        else forceVector.y = -so_projectile.maxFallSpeed;
 
 
         RaycastHit2D hit = Physics2D.CircleCast(transform.position, 

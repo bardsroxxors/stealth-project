@@ -15,7 +15,7 @@
                     "initialStateCheck": true
                 },
                 {
-                    "name": "Attack",
+                    "name": "LeftMouse",
                     "type": "PassThrough",
                     "id": "0aa5a729-a802-4442-a152-b0ddadc3b7e4",
                     "expectedControlType": "",
@@ -96,7 +96,7 @@
                     "initialStateCheck": true
                 },
                 {
-                    "name": "ChargeUp",
+                    "name": "RightMouse",
                     "type": "PassThrough",
                     "id": "ed0722bd-2aec-4642-9728-5449b7b413bb",
                     "expectedControlType": "",
@@ -105,7 +105,7 @@
                     "initialStateCheck": true
                 },
                 {
-                    "name": "ChargeRelease",
+                    "name": "RightMouseUp",
                     "type": "PassThrough",
                     "id": "b3dc07aa-030e-4f2e-be99-a84b52126a84",
                     "expectedControlType": "",
@@ -260,7 +260,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Attack",
+                    "action": "LeftMouse",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -271,7 +271,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Attack",
+                    "action": "LeftMouse",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -282,7 +282,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "ChargeUp",
+                    "action": "RightMouse",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -293,7 +293,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "ChargeUp",
+                    "action": "RightMouse",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -678,7 +678,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "ChargeRelease",
+                    "action": "RightMouseUp",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -689,7 +689,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "ChargeRelease",
+                    "action": "RightMouseUp",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },

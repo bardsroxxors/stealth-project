@@ -18,9 +18,13 @@ MonoBehaviour:
   - jump
   - idle
   - wall grab
+  - throw prep
+  - throw
   animations:
   - {fileID: 7400000, guid: a4fd7e1766932974b9cdc66a2325ed33, type: 2}
   - {fileID: 7400000, guid: 14a7cca4781f8f340a2e5b7f1a9cada4, type: 2}
   - {fileID: 7400000, guid: 38833a5759c1bd447aefc4bbf5eda605, type: 2}
   - {fileID: 7400000, guid: 8cc5289404075ac409537f79c6c167b1, type: 2}
   - {fileID: 7400000, guid: 68c0f8e310476684aaf44544058f5375, type: 2}
+  - {fileID: 7400000, guid: d5dd5ff442ec55c4abe4d9e39de349fa, type: 2}
+  - {fileID: 7400000, guid: 4af8d9f081e8ba647a093857add1649b, type: 2}
