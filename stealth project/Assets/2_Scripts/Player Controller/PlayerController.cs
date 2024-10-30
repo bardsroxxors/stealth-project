@@ -122,6 +122,7 @@ public class PlayerController : MonoBehaviour
     [Header("Platform Grab")]
     public float minGrabDistance = 0.05f;
     public GameObject grabTarget;
+    private bool grabbedRope = false;
 
     [Header("Sword Swing")]
     public GameObject swordObject;
@@ -564,6 +565,10 @@ public class PlayerController : MonoBehaviour
                 jumpManager.f_wallGrabReady &&
                 canWallGrab)
         {
+            if (grabTarget.tag == "Rope")
+                grabbedRope = true;
+            else 
+                grabbedRope = false;
             ChangeState(e_PlayerControllerStates.PlatformGrab);
         }
 
@@ -850,16 +855,27 @@ public class PlayerController : MonoBehaviour
             ChangeState(e_PlayerControllerStates.FreeMove);
         else
         {
-            inputVector = Vector2.zero;
             gravityVector = Vector2.zero;
-            movementVector = Vector2.zero;
+            Vector3 targetPos = grabTarget.transform.position;
+            if (!grabbedRope)
+            {
+                inputVector = Vector2.zero;
+                movementVector = Vector2.zero;
+            }
+            else
+            {
+                targetPos = grabTarget.GetComponent<RopeScript>().GetNearestPoint(transform.position);
+                Debug.Log(targetPos);
+            }
+            
 
-            Vector2 distance = grabTarget.transform.position - transform.position;
+            Vector2 distance = targetPos - transform.position;
             if (distance.magnitude > minGrabDistance)
             {
                 transform.Translate(distance.normalized * zipSpeed, Space.World);
             }
-            else transform.position = grabTarget.transform.position;
+            else if(!grabbedRope)
+                transform.position = grabTarget.transform.position;
 
             
         }
@@ -1205,7 +1221,8 @@ public class PlayerController : MonoBehaviour
             f_insideEnemy = true;
         }
 
-        
+
+
     }
 
     private void OnTriggerStay2D(Collider2D collision)
@@ -1224,7 +1241,7 @@ public class PlayerController : MonoBehaviour
             else lit = false;
         }
 
-        if (collision.gameObject.tag == "GrabPlatform") grabTarget = collision.gameObject;
+        if (collision.gameObject.tag == "GrabPlatform" || collision.gameObject.tag == "Rope") grabTarget = collision.gameObject;
 
 
         // Interactables

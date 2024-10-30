@@ -28,3 +28,7 @@ stealth project/.vs/stealth project/FileContentIndex/dce6d373-66b3-4e23-b3cd-bc8
 # If the source bank files are kept outside of the StreamingAssets folder then these can be ignored.
 # Log files can be ignored.
 fmod_editor.log
+
+/stealth project/.vs/stealth project/v17/.suo
+/stealth project/.vs/stealth project/v17/DocumentLayout.json
+/stealth project/.vs/stealth project/v17/fileList.bin

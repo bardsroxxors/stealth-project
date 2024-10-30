@@ -21,6 +21,7 @@ TagManager:
   - Grate
   - GrabPlatform
   - Coin
+  - Rope
   layers:
   - Default
   - TransparentFX
