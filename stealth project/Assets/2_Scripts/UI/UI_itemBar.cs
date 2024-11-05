@@ -53,10 +53,10 @@ public class UI_itemBar : MonoBehaviour
 
     public void SetIcon(int index, e_Equipment equip)
     {
-        if (EquipRegister.GetProjectile(equip) != null)
+        if (EquipRegister.GetEquipment(equip) != null)
         {
             equipSlotIcons[index].GetComponent<UnityEngine.UI.Image>().enabled = true;
-            equipSlotIcons[index].GetComponent<UnityEngine.UI.Image>().sprite = EquipRegister.GetProjectile(equip).icon;
+            equipSlotIcons[index].GetComponent<UnityEngine.UI.Image>().sprite = EquipRegister.GetEquipment(equip).icon;
         }
             
         else

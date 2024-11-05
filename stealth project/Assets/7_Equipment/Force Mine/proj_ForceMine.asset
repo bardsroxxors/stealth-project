@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 223228e0563ddf047a5c48b9ffe6308f, type: 3}
+  m_Name: proj_ForceMine
+  m_EditorClassIdentifier: 
+  icon: {fileID: 1108078972, guid: e83efe3718e07404ab8c54298e7aa5f6, type: 3}
+  TransferRotation: 0
+  speed: 11
+  gravity: 14
+  payload: {fileID: 3074660993017458767, guid: 23375a77ba764b54ebfc9c3acf8ce3e0, type: 3}
+  sprite: {fileID: -597042884, guid: e83efe3718e07404ab8c54298e7aa5f6, type: 3}
+  hitRadius: 0.2
+  maxFallSpeed: 20
+  collisionMask:
+    serializedVersion: 2
+    m_Bits: 136

@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b2d9ff40df9e4e04799cb175adb2b6cb, type: 3}
+  m_Name: mine_bearTrap
+  m_EditorClassIdentifier: 
+  disarmedSprite: {fileID: 920125082, guid: e83efe3718e07404ab8c54298e7aa5f6, type: 3}
+  armedSprite: {fileID: -303393133, guid: e83efe3718e07404ab8c54298e7aa5f6, type: 3}
+  payload: {fileID: 0}
+  armTime: 0.5
+  directEffect: 1
+  effect: 2
+  duration: 3
+  sticky: 0
+  applyToTags:
+  - Enemy

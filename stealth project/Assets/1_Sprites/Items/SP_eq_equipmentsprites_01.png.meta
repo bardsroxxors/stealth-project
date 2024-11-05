@@ -45,7 +45,7 @@ TextureImporter:
   compressionQuality: 50
   spriteMode: 2
   spriteExtrude: 1
-  spriteMeshType: 1
+  spriteMeshType: 0
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
   spritePixelsToUnits: 32
@@ -110,7 +110,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: equipment sprites_0
+      name: SP_eq_equipmentsprites_01_0
       rect:
         serializedVersion: 2
         x: 0
@@ -118,20 +118,20 @@ TextureImporter:
         width: 16
         height: 16
       alignment: 9
-      pivot: {x: 0.5, y: 0.039027452}
+      pivot: {x: 0.5076553, y: 0.010061502}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 4795b0b4d69f26b43afcdfeaedfe1e68
-      internalID: -632222208
+      spriteID: 1b48b14aac4a4b347927613939694e19
+      internalID: 1876942655
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: equipment sprites_1
+      name: SP_eq_equipmentsprites_01_1
       rect:
         serializedVersion: 2
         x: 16
@@ -139,20 +139,20 @@ TextureImporter:
         width: 16
         height: 16
       alignment: 9
-      pivot: {x: 0.5054232, y: 0.044451}
+      pivot: {x: 0.5000001, y: 0.0024061203}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b441f008cd173604ab4d5af2bb80639f
-      internalID: -1106306094
+      spriteID: aedae306309a6f749b3994dd1cd09285
+      internalID: -1035004283
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: equipment sprites_2
+      name: SP_eq_equipmentsprites_01_2
       rect:
         serializedVersion: 2
         x: 32
@@ -166,14 +166,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 6db864760d8b5154387adfdbd4b25e82
-      internalID: 1108078972
+      spriteID: e197758089c0555498ae5a64f7f5994a
+      internalID: -597042884
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: equipment sprites_3
+      name: SP_eq_equipmentsprites_01_3
       rect:
         serializedVersion: 2
         x: 48
@@ -181,20 +181,20 @@ TextureImporter:
         width: 16
         height: 16
       alignment: 9
-      pivot: {x: 0.5108464, y: 0.03902769}
+      pivot: {x: 0.49234486, y: -0.0052491426}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 96ea6e85012906444bb373953f24f7e3
-      internalID: -673310526
+      spriteID: db880fcdd9ffa0c499bf5e4ca5854ddb
+      internalID: -303393133
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: equipment sprites_4
+      name: SP_eq_equipmentsprites_01_4
       rect:
         serializedVersion: 2
         x: 64
@@ -202,20 +202,20 @@ TextureImporter:
         width: 16
         height: 16
       alignment: 9
-      pivot: {x: 0.5000005, y: 0.025019884}
+      pivot: {x: 0.49234486, y: 0.010061502}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 3e43e649e36e791439a1a2f77e2a7cef
-      internalID: -1557067879
+      spriteID: 9a6450058e68a0245ab3a51b65546771
+      internalID: 920125082
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: equipment sprites_5
+      name: SP_eq_equipmentsprites_01_5
       rect:
         serializedVersion: 2
         x: 80
@@ -229,14 +229,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 72839c19ac4665f44a1024491679c9fd
-      internalID: -640343836
+      spriteID: 7568870c1a838d24880e945cbb6c5bf9
+      internalID: -1603670407
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: equipment sprites_6
+      name: SP_eq_equipmentsprites_01_6
       rect:
         serializedVersion: 2
         x: 96
@@ -250,14 +250,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: aca8998298ff1dd4db85d5682a286039
-      internalID: 1439968360
+      spriteID: 997a8e667e3069444967659fce21540d
+      internalID: -1642501318
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: equipment sprites_7
+      name: SP_eq_equipmentsprites_01_7
       rect:
         serializedVersion: 2
         x: 0
@@ -271,14 +271,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c929bd2fdcd14c34091c23504b5e718b
-      internalID: 1849606317
+      spriteID: 2021b6e32316ad044aee5a24b049d02b
+      internalID: -2072397129
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: equipment sprites_8
+      name: SP_eq_equipmentsprites_01_8
       rect:
         serializedVersion: 2
         x: 16
@@ -292,8 +292,50 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 9cc781a5a853dc444a4cd4cc1b4035b8
-      internalID: -2043197926
+      spriteID: 9efc1b38417f87d4eba078015a80dfda
+      internalID: 237596658
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SP_eq_equipmentsprites_01_9
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 16
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 199133ef3ea843940a07cf1d324f3e30
+      internalID: 1417220845
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SP_eq_equipmentsprites_01_10
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4209a5a89b599d24ab59385168840500
+      internalID: -1378538735
       vertices: []
       indices: 
       edges: []
@@ -309,15 +351,17 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      equipment sprites_0: -632222208
-      equipment sprites_1: -1106306094
-      equipment sprites_2: 1108078972
-      equipment sprites_3: -673310526
-      equipment sprites_4: -1557067879
-      equipment sprites_5: -640343836
-      equipment sprites_6: 1439968360
-      equipment sprites_7: 1849606317
-      equipment sprites_8: -2043197926
+      SP_eq_equipmentsprites_01_0: 1876942655
+      SP_eq_equipmentsprites_01_1: -1035004283
+      SP_eq_equipmentsprites_01_10: -1378538735
+      SP_eq_equipmentsprites_01_2: -597042884
+      SP_eq_equipmentsprites_01_3: -303393133
+      SP_eq_equipmentsprites_01_4: 920125082
+      SP_eq_equipmentsprites_01_5: -1603670407
+      SP_eq_equipmentsprites_01_6: -1642501318
+      SP_eq_equipmentsprites_01_7: -2072397129
+      SP_eq_equipmentsprites_01_8: 237596658
+      SP_eq_equipmentsprites_01_9: 1417220845
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

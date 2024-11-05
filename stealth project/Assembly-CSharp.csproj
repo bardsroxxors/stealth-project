@@ -65,6 +65,7 @@
     <Compile Include="Assets\AOSFogWar\Shadowcaster.cs" />
     <Compile Include="Assets\KadaXuanwu\UtilityDesigner\Demos\Survival\Scripts\BearController.cs" />
     <Compile Include="Assets\2_Scripts\Enemies\EnemySightCone.cs" />
+    <Compile Include="Assets\Scriptable Objects\Projectile.cs" />
     <Compile Include="Assets\KadaXuanwu\UtilityDesigner\Demos\Survival\Scripts\DoPushupMovement.cs" />
     <Compile Include="Assets\2_Scripts\Player Controller\Bow\ShotIndicatorCollision.cs" />
     <Compile Include="Assets\2_Scripts\Player Controller\KOIndicator.cs" />
@@ -143,7 +144,6 @@
     <Compile Include="Assets\2_Scripts\Player Controller\PaperdollSpriteManager.cs" />
     <Compile Include="Assets\2_Scripts\FogOfWarScript.cs" />
     <Compile Include="Assets\2_Scripts\Player Controller\PlayerJumpManager.cs" />
-    <Compile Include="Assets\Scriptable Objects\Mines\Mine.cs" />
     <Compile Include="Assets\2_Scripts\Equipment\BaseMine.cs" />
     <Compile Include="Assets\2_Scripts\Player Controller\SwordHitboxScript.cs" />
     <Compile Include="Assets\KadaXuanwu\UtilityDesigner\Demos\Survival\Scripts\TakeFishingRod.cs" />
@@ -160,7 +160,6 @@
     <Compile Include="Assets\unity-wave-function-collapse\impl\SimpleTiledModel.cs" />
     <Compile Include="Assets\KadaXuanwu\UtilityDesigner\Demos\Survival\Scripts\TakeBoatTrip.cs" />
     <Compile Include="Assets\AOSFogWar\Examples\csFogVisibilityAgent.cs" />
-    <Compile Include="Assets\Scriptable Objects\Projectiles\Projectile.cs" />
     <Compile Include="Assets\2_Scripts\Enemies\EnemyStateMachine.cs" />
     <Compile Include="Assets\KadaXuanwu\UtilityDesigner\Demos\Survival\Scripts\JamesStats.cs" />
     <Compile Include="Assets\Advanced Rule Tiles\AdvancedRuleTile.cs" />
@@ -169,6 +168,7 @@
     <Compile Include="Assets\Scriptable Objects\SO_AnimationRegister.cs" />
     <Compile Include="Assets\KadaXuanwu\UtilityDesigner\Demos\Survival\Scripts\DeerController.cs" />
     <Compile Include="Assets\2_Scripts\Player Controller\GrappleLineRenderer.cs" />
+    <Compile Include="Assets\Scriptable Objects\Mine.cs" />
     <Compile Include="Assets\2_Scripts\Effects\OneShotParticle.cs" />
     <Compile Include="Assets\2_Scripts\Player Controller\Bow\Bow.cs" />
     <Compile Include="Assets\AOSFogWar\Examples\csRevealerSpawner.cs" />

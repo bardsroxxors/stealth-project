@@ -31,7 +31,8 @@ public enum e_Equipment
     blink,
     kunai,
     forceMine,
-    ropeShooter
+    ropeShooter,
+    coin
 }
 
 public enum e_ControlSchemes
@@ -71,7 +72,7 @@ public class PlayerController : MonoBehaviour
     private float t_currentAnimTime = 0;
 
     public int activeEquipIndex = 0;
-    public e_Equipment[] equipList = new e_Equipment[4]; 
+    public e_Equipment[] equipList = new e_Equipment[4];
 
     [Header("Free Move")]
     public bool f_holdToRun = true;
@@ -95,6 +96,8 @@ public class PlayerController : MonoBehaviour
     public Vector2 wallJumpForce = Vector2.zero;
     public int grabbedDirection = 0;
     public float climbSpeed = 0.5f;
+    private bool f_initialRopePos = false; // used to check if we've done the initial "stick to rope"
+    private bool f_zippedToRope = false;
 
     [Header("Sliding")]
     public float slideDecelFactor = 5;
@@ -133,7 +136,7 @@ public class PlayerController : MonoBehaviour
     public float swingMoveDecay = 5f;
     [Range(0, 1)]
     public float attackLength = 0.5f;
-    
+
     private float t_attackLength = 0;
 
     private bool f_canInteract = false;
@@ -147,7 +150,7 @@ public class PlayerController : MonoBehaviour
     public GameObject killzoneObject;
     private StealthKillZone killZone;
     public float minZipDistance = 0.2f;
-    [Range(0,1)]
+    [Range(0, 1)]
     public float zipSpeed = 2f;
     public GameObject currentTarget;
     public GameObject koIndicator;
@@ -224,7 +227,7 @@ public class PlayerController : MonoBehaviour
     private Vector2 tempMoveV = Vector2.zero;
     private Vector2 tempGravityV = Vector2.zero;
 
-    
+
     [Header("Equipment References")]
     public GameObject baseProjectile;
     /*o
@@ -233,7 +236,7 @@ public class PlayerController : MonoBehaviour
     public Projectile so_kunai;
     public Projectile so_forceMine;*/
 
-    Dictionary<e_Equipment, Projectile> dict_projectiles_enumSO = new Dictionary<e_Equipment, Projectile>();
+    Dictionary<e_Equipment, SO_Equipment> dict_enum_equipment = new Dictionary<e_Equipment, SO_Equipment>();
     public SO_EquipRegister EquipmentRegister;
     public SO_AnimationRegister animRegister;
 
@@ -264,7 +267,7 @@ public class PlayerController : MonoBehaviour
 
         for (int i = 0; i < EquipmentRegister.enums.Count; i++)
         {
-            dict_projectiles_enumSO.Add(EquipmentRegister.enums[i], EquipmentRegister.projectiles[i]);
+            dict_enum_equipment.Add(EquipmentRegister.enums[i], EquipmentRegister.equipment[i]);
         }
 
         itembar = GameObject.Find("Equipment panel").GetComponent<UI_itemBar>();
@@ -279,7 +282,7 @@ public class PlayerController : MonoBehaviour
 
     private void LateUpdate()
     {
-        if(playerFacingVector.x != 0)
+        if (playerFacingVector.x != 0)
         {
             graphicsObject.transform.localScale = new Vector3(Mathf.Sign(playerFacingVector.x), 1, 1);
 
@@ -295,7 +298,7 @@ public class PlayerController : MonoBehaviour
             }
 
         }
-            
+
     }
 
     void FixedUpdate()
@@ -305,7 +308,7 @@ public class PlayerController : MonoBehaviour
 
         CheckColliderSize();
 
-        
+
 
         // Process the current state
         switch (CurrentPlayerState)
@@ -340,7 +343,7 @@ public class PlayerController : MonoBehaviour
         }
 
 
-        if(currentTarget != null && KOTargetValid())
+        if (currentTarget != null && KOTargetValid())
         {
             koIndicator.SetActive(true);
             koIndicator.GetComponent<KOIndicator>().targetPosition = currentTarget.transform.position;
@@ -350,7 +353,7 @@ public class PlayerController : MonoBehaviour
 
 
         // carrying object stuff
-        if(f_carryingObject && carriedObject != null)
+        if (f_carryingObject && carriedObject != null)
         {
             carriedObject.transform.position = transform.position + new Vector3(0, 0.5f, 0);
         }
@@ -374,8 +377,8 @@ public class PlayerController : MonoBehaviour
         if (CurrentPlayerState != e_PlayerControllerStates.Hiding && CurrentPlayerState != e_PlayerControllerStates.Blink)
             ApplyMovement();
 
-        if(!(CurrentPlayerState == e_PlayerControllerStates.FreeMove ||
-            CurrentPlayerState == e_PlayerControllerStates.WallGrab ) && f_isCharging)
+        if (!(CurrentPlayerState == e_PlayerControllerStates.FreeMove ||
+            CurrentPlayerState == e_PlayerControllerStates.WallGrab) && f_isCharging)
             f_isCharging = false;
 
 
@@ -425,7 +428,7 @@ public class PlayerController : MonoBehaviour
         UpdateAnimator();
 
         Debug.DrawRay(transform.position, GetVectorToMouse());
-        
+
     }
 
 
@@ -460,7 +463,7 @@ public class PlayerController : MonoBehaviour
         if (!crouching && !crouchReleased)
         {
             crouchReleased = true;
-            
+
         }
 
         if (aiming)
@@ -468,19 +471,19 @@ public class PlayerController : MonoBehaviour
             playerFacingVector.x = Mathf.Sign(GetVectorToMouse().x);
         }
 
-        
 
-        
+
+
         // we stop sliding if we change direction or jump or speed reaches zero (or change state do that elseswhere)
-        if(Math.Sign(moveStickVector.x) != slideDirection ||
+        if (Math.Sign(moveStickVector.x) != slideDirection ||
             moveStickVector.x == 0 ||
             collisionDirections.y != -1 ||
             !crouching)
         {
-            if(sliding)
+            if (sliding)
                 t_slideCooldown = slideCooldown;
             sliding = false;
-            
+
         }
 
         // check if we started sliding
@@ -500,7 +503,7 @@ public class PlayerController : MonoBehaviour
         // get inputVector from raw input, set player facing
         if (moveStickVector.magnitude >= 0.25 && !(aiming && collisionDirections.y == -1))
         {
-            if(!sneaking && !crouching && !f_isCharging && !sliding) 
+            if (!sneaking && !crouching && !f_isCharging && !sliding)
                 inputVector.x = moveStickVector.normalized.x * moveSpeed;
             else if (sliding)
             {
@@ -515,7 +518,7 @@ public class PlayerController : MonoBehaviour
                 inputVector.x = speed * slideDirection;
                 slideSpeedLastFrame = Mathf.Abs(inputVector.x);
             }
-            else if (crouching) 
+            else if (crouching)
                 inputVector.x = moveStickVector.normalized.x * crouchSpeed;
             else inputVector.x = moveStickVector.normalized.x * sneakSpeed;
             inputVector.y = 0;
@@ -532,7 +535,7 @@ public class PlayerController : MonoBehaviour
         if (inputVector.magnitude <= 0.1) inputVector = Vector2.zero;
 
 
-        
+
         // clamp gravity x to zero when its close
         if (Mathf.Abs(gravityVector.x) <= 0.15) gravityVector.x = 0;
 
@@ -567,7 +570,7 @@ public class PlayerController : MonoBehaviour
         {
             if (grabTarget.tag == "Rope")
                 grabbedRope = true;
-            else 
+            else
                 grabbedRope = false;
             ChangeState(e_PlayerControllerStates.PlatformGrab);
         }
@@ -580,33 +583,33 @@ public class PlayerController : MonoBehaviour
             GameObject noise = Instantiate(noisePrefab, transform.position, Quaternion.identity);
             noise.SendMessage("SetProfile", footstepSound);
         }
-        
+
 
     }
 
 
     private void ProcessWallGrab()
     {
-        
+
 
         inputVector.x = 0;
         // set player facing based on collision direction
-        if(collisionDirections.x != 0)
+        if (collisionDirections.x != 0)
         {
             playerFacingVector = new Vector2(collisionDirections.x, 0);
             grabbedDirection = (int)Mathf.Sign(collisionDirections.x);
         }
-            
+
 
 
         RaycastHit2D wallCheck = Physics2D.BoxCast(transform.position,
                                                     new Vector2(0.2f, 0.2f),
-                                                    0, 
-                                                    new Vector2(grabbedDirection*0.2f, 0), 
+                                                    0,
+                                                    new Vector2(grabbedDirection * 0.2f, 0),
                                                     1,
                                                     collisionMask);
 
-        
+
 
 
         if (collisionDirections.y == -1)
@@ -664,9 +667,9 @@ public class PlayerController : MonoBehaviour
     {
         if (!f_init_swordSwing)
         {
-            
 
-            if(collisionDirections.y == -1)
+
+            if (collisionDirections.y == -1)
             {
                 swordObject.SetActive(true);
                 swordObject.transform.GetChild(0).transform.gameObject.SetActive(true);
@@ -703,7 +706,7 @@ public class PlayerController : MonoBehaviour
 
             t_attackLength = attackLength;
             t_attackCooldown = attackCooldown;
-            
+
 
             f_init_swordSwing = true;
         }
@@ -722,7 +725,7 @@ public class PlayerController : MonoBehaviour
 
         //gravityVector.y = 0;
 
-        if(collisionDirections.y == -1)
+        if (collisionDirections.y == -1)
         {
             if (!swordObject.transform.GetChild(0).GetComponent<SwordScript>().animating)
                 swordObject.SetActive(false);
@@ -733,15 +736,15 @@ public class PlayerController : MonoBehaviour
                 swordObject.SetActive(false);
         }
 
-        
 
-        
-        if(t_attackLength <= 0)
+
+
+        if (t_attackLength <= 0)
         {
             swordObject.SetActive(false);
-            if(     moveStickVector.magnitude > 0.1f ||
-                    animator.GetCurrentAnimatorClipInfo(0)[0].clip.name != "attack") 
-                        ChangeState(e_PlayerControllerStates.FreeMove);
+            if (moveStickVector.magnitude > 0.1f ||
+                    animator.GetCurrentAnimatorClipInfo(0)[0].clip.name != "attack")
+                ChangeState(e_PlayerControllerStates.FreeMove);
 
         }
 
@@ -763,7 +766,7 @@ public class PlayerController : MonoBehaviour
 
             collisionDirections = Vector2.zero;
             playerFacingVector = new Vector2(Mathf.Sign(attackDirection.x), 0);
-            
+
             swordObject.SetActive(true);
             swordObject.transform.GetChild(0).transform.gameObject.SetActive(true);
             swordObject.transform.GetChild(1).transform.gameObject.SetActive(false);
@@ -791,15 +794,15 @@ public class PlayerController : MonoBehaviour
 
             //animator.Play("attack", 0);
             PlayAnimation("attack", 0);
-            
-            
+
+
 
             t_attackLength = attackLength;
             t_attackCooldown = attackCooldown;
             //animator.SetTrigger("attack trigger");
 
             t_dashLockTime = dashLockTime;
-            
+
             f_init_swordSwing = true;
         }
 
@@ -846,39 +849,82 @@ public class PlayerController : MonoBehaviour
                 transform.Translate(distance.normalized * zipSpeed, Space.World);
             }
         }
-        
+
     }
 
     private void ProcessPlatformGrab()
     {
         if (grabTarget == null)
             ChangeState(e_PlayerControllerStates.FreeMove);
-        else
+        else if (grabbedRope)
         {
             gravityVector = Vector2.zero;
             Vector3 targetPos = grabTarget.transform.position;
-            if (!grabbedRope)
+
+            if (!f_initialRopePos)
+            {
+                f_initialRopePos = true;
+                targetPos = grabTarget.GetComponent<RopeScript>().GetNearestPoint(transform.position);
+            }
+                
+
+
+            if (!f_zippedToRope)
             {
                 inputVector = Vector2.zero;
                 movementVector = Vector2.zero;
+
+                Vector2 distance = targetPos - transform.position;
+                if (distance.magnitude > minGrabDistance)
+                {
+                    transform.Translate(distance.normalized * zipSpeed, Space.World);
+                }
+                else
+                    f_zippedToRope = true;
             }
+
             else
             {
-                targetPos = grabTarget.GetComponent<RopeScript>().GetNearestPoint(transform.position);
-                Debug.Log(targetPos);
+                // get rope direction
+
+
+                // get inputVector from raw input, set player facing
+                if (moveStickVector.magnitude >= 0.25)
+                {
+                    inputVector.y = moveStickVector.normalized.y * climbSpeed;
+                }
+
+                // if there is no input then apply movement decay
+                else if (inputVector.magnitude > 0)
+                {
+                    inputVector.y = inputVector.y - (inputVector.y * moveDecay * Time.deltaTime);
+                }
+
+                // clamp to zero when its close
+                if (inputVector.magnitude <= 0.1) inputVector = Vector2.zero;
             }
             
+            
+        }
+
+        else if (!grabbedRope)
+        {
+            gravityVector = Vector2.zero;
+            Vector3 targetPos = grabTarget.transform.position;
+
+            inputVector = Vector2.zero;
+            movementVector = Vector2.zero;
 
             Vector2 distance = targetPos - transform.position;
             if (distance.magnitude > minGrabDistance)
             {
                 transform.Translate(distance.normalized * zipSpeed, Space.World);
             }
-            else if(!grabbedRope)
+            else 
                 transform.position = grabTarget.transform.position;
 
-            
         }
+            
 
     }
 
@@ -933,8 +979,8 @@ public class PlayerController : MonoBehaviour
             ChangeState(e_PlayerControllerStates.FreeMove);
             //TriggerKnockback((int)currentTarget.GetComponent<EnemyStateMachine>().facingDirection);
         }*/
-        
-            
+
+
 
 
     }
@@ -994,14 +1040,14 @@ public class PlayerController : MonoBehaviour
 
         // check if groundclose
         RaycastHit2D hit = Physics2D.BoxCast(
-            collider.bounds.center, 
-            new Vector2(collider.size.x*0.8f, colliderYscale/2), 
-            0, 
-            Vector3.down, 
-            (0.1f * Mathf.Abs(gravityVector.y/jumpManager.maxFallSpeed)) + (colliderYscale * 0.6f),
+            collider.bounds.center,
+            new Vector2(collider.size.x * 0.8f, colliderYscale / 2),
+            0,
+            Vector3.down,
+            (0.1f * Mathf.Abs(gravityVector.y / jumpManager.maxFallSpeed)) + (colliderYscale * 0.6f),
             collisionMask
             );
-        
+
         if (hit)
         {
             f_groundClose = true;
@@ -1010,9 +1056,9 @@ public class PlayerController : MonoBehaviour
 
 
         // apply gravity if not grounded
-        if ((collisionDirections.y != -1 && ( CurrentPlayerState == e_PlayerControllerStates.FreeMove 
+        if ((collisionDirections.y != -1 && (CurrentPlayerState == e_PlayerControllerStates.FreeMove
             || CurrentPlayerState == e_PlayerControllerStates.SwordSwing
-            || CurrentPlayerState == e_PlayerControllerStates.DashAttack)) 
+            || CurrentPlayerState == e_PlayerControllerStates.DashAttack))
             || CurrentPlayerState == e_PlayerControllerStates.Hurt)
         {
             movementVector.x = gravityVector.x + inputVector.x;
@@ -1048,7 +1094,7 @@ public class PlayerController : MonoBehaviour
 
 
         // reset collision flags
-        if(!ResetCheckBoxcast())
+        if (!ResetCheckBoxcast())
             collisionDirections = Vector2.zero;
     }
 
@@ -1083,16 +1129,22 @@ public class PlayerController : MonoBehaviour
             f_init_stealthKill = false;
         if (previousPlayerState == e_PlayerControllerStates.Blink)
             f_init_blink = false;
+        if (previousPlayerState == e_PlayerControllerStates.PlatformGrab)
+        {
+            f_zippedToRope = false;
+            f_initialRopePos = false;
+        }
+
     }
 
-   private Vector2 EnemyShove()
+    private Vector2 EnemyShove()
     {
         if (shovingEnemy == null) return Vector2.zero;
         Vector3 antitarget = shovingEnemy.transform.position;
         Vector3 diff = transform.position - antitarget;
         diff.y = 0;
 
-        return (Vector2) diff * shoveForce;
+        return (Vector2)diff * shoveForce;
 
 
     }
@@ -1103,22 +1155,22 @@ public class PlayerController : MonoBehaviour
 
     private void OnCollisionStay2D(Collision2D collision)
     {
-        if(collisionLayers.Contains(collision.collider.gameObject.tag))
+        if (collisionLayers.Contains(collision.collider.gameObject.tag))
         {
             Vector2 normal;
-            
+
             // these values get reset every frame, so checked again every frame
-            for(int i = 0; i < collision.contacts.Length; i++)
+            for (int i = 0; i < collision.contacts.Length; i++)
             {
                 normal = collision.contacts[i].normal;
 
                 // if surface faces up
-                if(Vector2.Angle(normal, Vector2.up) < 45f)
+                if (Vector2.Angle(normal, Vector2.up) < 45f)
                 {
                     collisionDirections.y = -1;
                     t_gracetimePostCollide = gracetimePostCollide;
 
-                    
+
                     //
                 }
                 // if surface faces down
@@ -1187,7 +1239,7 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-        
+
     }
 
 
@@ -1215,7 +1267,7 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-        else if(collision.transform.name == "shove zone")
+        else if (collision.transform.name == "shove zone")
         {
             shovingEnemy = collision.gameObject;
             f_insideEnemy = true;
@@ -1276,7 +1328,7 @@ public class PlayerController : MonoBehaviour
     {
         if (collision.gameObject.tag == "Light") lit = false;
 
-        if (collision.gameObject.tag == "GrabPlatform") grabTarget = null;
+        if (collision.gameObject.tag == "GrabPlatform" || collision.gameObject.tag == "Rope") grabTarget = null;
 
         if (collision.gameObject.tag == "HidingPlace" ||
             collision.gameObject.tag == "GroundItem" ||
@@ -1631,7 +1683,7 @@ public class PlayerController : MonoBehaviour
         else if (aiming)
         {
             nextAnim = "throw";
-            ShootProjectile(dict_projectiles_enumSO[equipList[activeEquipIndex]]);
+            ShootProjectile(dict_enum_equipment[equipList[activeEquipIndex]].projectileSO);
             
             aiming = false;
 
@@ -1680,9 +1732,9 @@ public class PlayerController : MonoBehaviour
         {
             //f_blinkAiming = true;
         }
-        else if( dict_projectiles_enumSO.ContainsKey( equipList[activeEquipIndex] ))
+        else if( dict_enum_equipment.ContainsKey( equipList[activeEquipIndex] ))
         {
-            //ShootProjectile(dict_projectiles_enumSO[equipList[activeEquipIndex]]);
+            //ShootProjectile(dict_enum_equipment[equipList[activeEquipIndex]]);
         }
 
         aiming = true;

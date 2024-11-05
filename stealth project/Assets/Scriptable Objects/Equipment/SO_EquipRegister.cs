@@ -7,22 +7,22 @@ using UnityEngine;
 public class SO_EquipRegister : ScriptableObject
 {
     public List<e_Equipment> enums;
-    public List<Projectile> projectiles;
+    public List<SO_Equipment> equipment;
 
 
-    public Projectile GetProjectile(int index)
+    public SO_Equipment GetEquipment(int index)
     {
-        return projectiles[index];
+        return equipment[index];
     }
 
-    public Projectile GetProjectile(e_Equipment e)
+    public SO_Equipment GetEquipment(e_Equipment e)
     {
         if (enums.Contains(e)) 
         {
             for (int i = 0; i< enums.Count; i++) 
             {
                 if (enums[i] == e)
-                    return projectiles[i];
+                    return equipment[i];
             }
         }
         return null;

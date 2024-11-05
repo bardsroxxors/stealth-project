@@ -3,15 +3,15 @@
   "WorkspaceRootPath": "D:\\stealth-project\\stealth project\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{A7A1F7EC-57E9-C36A-D27A-747A209A43CF}|Assembly-CSharp.Player.csproj|D:\\stealth-project\\stealth project\\assets\\2_scripts\\player controller\\playercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{A7A1F7EC-57E9-C36A-D27A-747A209A43CF}|Assembly-CSharp.Player.csproj|d:\\stealth-project\\stealth project\\assets\\2_scripts\\player controller\\playercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{A7A1F7EC-57E9-C36A-D27A-747A209A43CF}|Assembly-CSharp.Player.csproj|solutionrelative:assets\\2_scripts\\player controller\\playercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A7A1F7EC-57E9-C36A-D27A-747A209A43CF}|Assembly-CSharp.Player.csproj|d:\\stealth-project\\stealth project\\assets\\2_scripts\\equipment\\ropescript.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{A7A1F7EC-57E9-C36A-D27A-747A209A43CF}|Assembly-CSharp.Player.csproj|D:\\stealth-project\\stealth project\\assets\\2_scripts\\equipment\\ropescript.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{A7A1F7EC-57E9-C36A-D27A-747A209A43CF}|Assembly-CSharp.Player.csproj|solutionrelative:assets\\2_scripts\\equipment\\ropescript.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A7A1F7EC-57E9-C36A-D27A-747A209A43CF}|Assembly-CSharp.Player.csproj|d:\\stealth-project\\stealth project\\assets\\2_scripts\\enemies\\fieldofview.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{A7A1F7EC-57E9-C36A-D27A-747A209A43CF}|Assembly-CSharp.Player.csproj|D:\\stealth-project\\stealth project\\assets\\2_scripts\\enemies\\fieldofview.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{A7A1F7EC-57E9-C36A-D27A-747A209A43CF}|Assembly-CSharp.Player.csproj|solutionrelative:assets\\2_scripts\\enemies\\fieldofview.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
@@ -42,8 +42,7 @@
               "RelativeToolTip": "Assets\\2_Scripts\\Enemies\\FieldOfView.cs",
               "ViewState": "AQIAACUAAAAAAAAAAAAswCIAAAAnAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-30T04:16:55.9Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-10-30T04:16:55.9Z"
             },
             {
               "$type": "Document",
@@ -53,10 +52,9 @@
               "RelativeDocumentMoniker": "Assets\\2_Scripts\\Equipment\\RopeScript.cs",
               "ToolTip": "D:\\stealth-project\\stealth project\\Assets\\2_Scripts\\Equipment\\RopeScript.cs",
               "RelativeToolTip": "Assets\\2_Scripts\\Equipment\\RopeScript.cs",
-              "ViewState": "AQIAADIAAAAAAAAAAAAIwFAAAAAdAAAA",
+              "ViewState": "AQIAADIAAAAAAAAAAAAIwFsAAAAFAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-24T04:10:22.692Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-10-24T04:10:22.692Z"
             },
             {
               "$type": "Document",
@@ -80,8 +78,7 @@
               "RelativeToolTip": "Assets\\2_Scripts\\Player Controller\\RopeShooter.cs",
               "ViewState": "AQIAACEAAAAAAAAAAAAowDwAAAAZAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-29T04:33:16.772Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-10-29T04:33:16.772Z"
             },
             {
               "$type": "Document",
@@ -91,7 +88,7 @@
               "RelativeDocumentMoniker": "Assets\\2_Scripts\\Player Controller\\PlayerController.cs",
               "ToolTip": "D:\\stealth-project\\stealth project\\Assets\\2_Scripts\\Player Controller\\PlayerController.cs",
               "RelativeToolTip": "Assets\\2_Scripts\\Player Controller\\PlayerController.cs",
-              "ViewState": "AQIAAJQEAAAAAAAAAAAUwLkEAAAkAAAA",
+              "ViewState": "AQIAAA0AAAAAAAAAAAAjwCIAAAAIAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-10-23T06:04:04.433Z",
               "EditorCaption": ""
