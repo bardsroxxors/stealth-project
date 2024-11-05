@@ -48,6 +48,10 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _Mask_X:
+        m_Texture: {fileID: 2800000, guid: 65664258bed9c8a49ab45b8f6fa25559, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _NormalMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -64,8 +68,16 @@ Material:
         m_Texture: {fileID: 2800000, guid: ee2523340e7944c4297a80937a51484c, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _SampleTexture2D_843a117ed8dd49e6991f0455dc37cf55_Texture_1_Texture2D:
+        m_Texture: {fileID: 2800000, guid: e89e2691b2e22d04c82038761fecb17d, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _SampleTexture2D_9d31a8fcba924acb8585e61f3b85c36c_Texture_1_Texture2D:
         m_Texture: {fileID: 2800000, guid: e62bcf4d24881c14ebbd6e1f1b5f19a4, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SampleTexture2D_b0401ed42f864af68aa85a7d8ea4911e_Texture_1_Texture2D:
+        m_Texture: {fileID: 2800000, guid: e89e2691b2e22d04c82038761fecb17d, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _SampleTexture2D_b4b37195ac564c59b6026d4dbde8965f_Texture_1_Texture2D:
@@ -77,6 +89,18 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Texture2D_1:
+        m_Texture: {fileID: 2800000, guid: ee2523340e7944c4297a80937a51484c, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Texture_X:
+        m_Texture: {fileID: 2800000, guid: e89e2691b2e22d04c82038761fecb17d, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Texture_Y:
+        m_Texture: {fileID: 2800000, guid: b40b083d68e1b644bb2d3ff9f782c0fd, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Texture_Z:
         m_Texture: {fileID: 2800000, guid: ee2523340e7944c4297a80937a51484c, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
@@ -99,6 +123,18 @@ Material:
     - _Mask_Contrast: -3
     - _Mask_G_Contrast: -3
     - _Mask_G_Power: 8
+    - _Mask_Max: 11.2
+    - _Mask_Strength_X: 7.9
+    - _Max_X: 11.43
+    - _Max_Y: 5
+    - _Max_Z: 3.91
+    - _Multiply_X: 4.25
+    - _Multiply_Y: 12.9
+    - _Multiply_Z: 5
+    - _World_Aligned: 0
+    - _World_Aligned_X: 0
+    - _World_Aligned_Y: 0
+    - _World_Aligned_Z: 1
     m_Colors:
     - _Base_Colour: {r: 1, g: 1, b: 1, a: 0}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
@@ -107,7 +143,12 @@ Material:
     - _Colour_Y: {r: 0.85631585, g: 0.74105555, b: 0.8584906, a: 0}
     - _Colour_Z: {r: 0.7014086, g: 0.36378607, b: 0.7075472, a: 0}
     - _Flip: {r: 1, g: 1, b: 1, a: 1}
+    - _Mask_Strength_X: {r: 1, g: 1, b: 1, a: 0}
+    - _Mask_Tiling_X: {r: 140.6, g: 403.6, b: 0, a: 0}
     - _RendererColor: {r: 1, g: 1, b: 1, a: 1}
+    - _Texture_Tiling_X: {r: 114.3, g: 178.9, b: 0, a: 0}
+    - _Texture_Tiling_Y: {r: 1, g: 1, b: 0, a: 0}
+    - _Texture_Tiling_Z: {r: 1000, g: 1000, b: 0, a: 0}
     - _Tiling: {r: 20, g: 20, b: 0, a: 0}
     - _Vector3: {r: 1, g: 1, b: 1, a: 0}
   m_BuildTextureStacks: []
