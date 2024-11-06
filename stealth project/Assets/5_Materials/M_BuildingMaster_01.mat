@@ -21,7 +21,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: M_BuildingMaster_01
-  m_Shader: {fileID: 4800000, guid: 76f412487f35ea34a82300da80ad5576, type: 3}
+  m_Shader: {fileID: -6465566751694194690, guid: aa405ce42b9a3564aa9bd0538288b1fc, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
@@ -72,6 +72,10 @@ Material:
         m_Texture: {fileID: 2800000, guid: e89e2691b2e22d04c82038761fecb17d, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _SampleTexture2D_92aa66cfc1594e75953f78eda338240d_Texture_1_Texture2D:
+        m_Texture: {fileID: 2800000, guid: e89e2691b2e22d04c82038761fecb17d, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _SampleTexture2D_9d31a8fcba924acb8585e61f3b85c36c_Texture_1_Texture2D:
         m_Texture: {fileID: 2800000, guid: e62bcf4d24881c14ebbd6e1f1b5f19a4, type: 3}
         m_Scale: {x: 1, y: 1}
@@ -82,6 +86,14 @@ Material:
         m_Offset: {x: 0, y: 0}
     - _SampleTexture2D_b4b37195ac564c59b6026d4dbde8965f_Texture_1_Texture2D:
         m_Texture: {fileID: 2800000, guid: ce970816794dc4a6c8b5acdbc5953551, type: 2}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SampleTexture2D_cb94edd4eb6c495eae4c93398c1e10ec_Texture_1_Texture2D:
+        m_Texture: {fileID: 2800000, guid: e89e2691b2e22d04c82038761fecb17d, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SampleTexture2D_cd494f44ee2e4a48aef8d8c7541d0cb6_Texture_1_Texture2D:
+        m_Texture: {fileID: 2800000, guid: e89e2691b2e22d04c82038761fecb17d, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Texture2D:
@@ -124,13 +136,19 @@ Material:
     - _Mask_G_Contrast: -3
     - _Mask_G_Power: 8
     - _Mask_Max: 11.2
-    - _Mask_Strength_X: 7.9
+    - _Mask_Max_X: 0
+    - _Mask_Min_X: 0
+    - _Mask_Strength_X: 0
+    - _Mask_Strength_Y: 1
+    - _Mask_Strength_Z: 1
     - _Max_X: 11.43
     - _Max_Y: 5
     - _Max_Z: 3.91
     - _Multiply_X: 4.25
-    - _Multiply_Y: 12.9
+    - _Multiply_Y: 17.68
     - _Multiply_Z: 5
+    - _Smooth1: 1
+    - _Smooth2: 0
     - _World_Aligned: 0
     - _World_Aligned_X: 0
     - _World_Aligned_Y: 0
