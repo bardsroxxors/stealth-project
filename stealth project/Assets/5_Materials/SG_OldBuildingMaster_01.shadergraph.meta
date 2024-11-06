@@ -1,0 +1,10 @@
+fileFormatVersion: 2
+guid: 1f03e2f29dbb73b47b0f7aa8a16c8a9b
+ScriptedImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 2
+  userData: '{"shaderPath":"Shader Graphs/SG_BuildingMaster_01","attributes":[]}'
+  assetBundleName: 
+  assetBundleVariant: 
+  script: {fileID: 11500000, guid: 625f186215c104763be7675aa2d941aa, type: 3}
