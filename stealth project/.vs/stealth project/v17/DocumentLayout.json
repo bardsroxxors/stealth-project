@@ -3,24 +3,32 @@
   "WorkspaceRootPath": "D:\\stealth-project\\stealth project\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{A7A1F7EC-57E9-C36A-D27A-747A209A43CF}|Assembly-CSharp.Player.csproj|d:\\stealth-project\\stealth project\\assets\\2_scripts\\player controller\\playercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A7A1F7EC-57E9-C36A-D27A-747A209A43CF}|Assembly-CSharp.Player.csproj|solutionrelative:assets\\2_scripts\\player controller\\playercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\stealth-project\\stealth project\\Assets\\2_Scripts\\Player Controller\\PlayerController.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Assets\\2_Scripts\\Player Controller\\PlayerController.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A7A1F7EC-57E9-C36A-D27A-747A209A43CF}|Assembly-CSharp.Player.csproj|D:\\stealth-project\\stealth project\\assets\\2_scripts\\equipment\\ropescript.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A7A1F7EC-57E9-C36A-D27A-747A209A43CF}|Assembly-CSharp.Player.csproj|solutionrelative:assets\\2_scripts\\equipment\\ropescript.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\stealth-project\\stealth project\\Assets\\2_Scripts\\UI\\UI_itemBar.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Assets\\2_Scripts\\UI\\UI_itemBar.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A7A1F7EC-57E9-C36A-D27A-747A209A43CF}|Assembly-CSharp.Player.csproj|D:\\stealth-project\\stealth project\\assets\\2_scripts\\enemies\\fieldofview.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A7A1F7EC-57E9-C36A-D27A-747A209A43CF}|Assembly-CSharp.Player.csproj|solutionrelative:assets\\2_scripts\\enemies\\fieldofview.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\stealth-project\\stealth project\\Assets\\Scriptable Objects\\Equipment\\SO_EquipRegister.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Assets\\Scriptable Objects\\Equipment\\SO_EquipRegister.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A7A1F7EC-57E9-C36A-D27A-747A209A43CF}|Assembly-CSharp.Player.csproj|D:\\stealth-project\\stealth project\\assets\\2_scripts\\player controller\\ropeshooter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A7A1F7EC-57E9-C36A-D27A-747A209A43CF}|Assembly-CSharp.Player.csproj|solutionrelative:assets\\2_scripts\\player controller\\ropeshooter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\stealth-project\\stealth project\\Assets\\2_Scripts\\Enemies\\FieldOfView.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Assets\\2_Scripts\\Enemies\\FieldOfView.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A7A1F7EC-57E9-C36A-D27A-747A209A43CF}|Assembly-CSharp.Player.csproj|D:\\stealth-project\\stealth project\\assets\\2_scripts\\equipment\\payloads\\pl_rope.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A7A1F7EC-57E9-C36A-D27A-747A209A43CF}|Assembly-CSharp.Player.csproj|solutionrelative:assets\\2_scripts\\equipment\\payloads\\pl_rope.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\stealth-project\\stealth project\\Assets\\2_Scripts\\Equipment\\RopeScript.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Assets\\2_Scripts\\Equipment\\RopeScript.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\stealth-project\\stealth project\\Assets\\2_Scripts\\Equipment\\Payloads\\PL_Rope.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Assets\\2_Scripts\\Equipment\\Payloads\\PL_Rope.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\stealth-project\\stealth project\\Assets\\2_Scripts\\Player Controller\\RopeShooter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Assets\\2_Scripts\\Player Controller\\RopeShooter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -30,11 +38,35 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 4,
+          "SelectedChildIndex": 6,
           "Children": [
             {
               "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "UI_itemBar.cs",
+              "DocumentMoniker": "D:\\stealth-project\\stealth project\\Assets\\2_Scripts\\UI\\UI_itemBar.cs",
+              "RelativeDocumentMoniker": "Assets\\2_Scripts\\UI\\UI_itemBar.cs",
+              "ToolTip": "D:\\stealth-project\\stealth project\\Assets\\2_Scripts\\UI\\UI_itemBar.cs",
+              "RelativeToolTip": "Assets\\2_Scripts\\UI\\UI_itemBar.cs",
+              "ViewState": "AQIAACIAAAAAAAAAAAAgwDoAAABqAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-05T04:05:24.82Z"
+            },
+            {
+              "$type": "Document",
               "DocumentIndex": 2,
+              "Title": "SO_EquipRegister.cs",
+              "DocumentMoniker": "D:\\stealth-project\\stealth project\\Assets\\Scriptable Objects\\Equipment\\SO_EquipRegister.cs",
+              "RelativeDocumentMoniker": "Assets\\Scriptable Objects\\Equipment\\SO_EquipRegister.cs",
+              "ToolTip": "D:\\stealth-project\\stealth project\\Assets\\Scriptable Objects\\Equipment\\SO_EquipRegister.cs",
+              "RelativeToolTip": "Assets\\Scriptable Objects\\Equipment\\SO_EquipRegister.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABgAAAAoAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-05T03:57:49.863Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
               "Title": "FieldOfView.cs",
               "DocumentMoniker": "D:\\stealth-project\\stealth project\\Assets\\2_Scripts\\Enemies\\FieldOfView.cs",
               "RelativeDocumentMoniker": "Assets\\2_Scripts\\Enemies\\FieldOfView.cs",
@@ -46,7 +78,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 4,
               "Title": "RopeScript.cs",
               "DocumentMoniker": "D:\\stealth-project\\stealth project\\Assets\\2_Scripts\\Equipment\\RopeScript.cs",
               "RelativeDocumentMoniker": "Assets\\2_Scripts\\Equipment\\RopeScript.cs",
@@ -58,7 +90,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 5,
               "Title": "PL_Rope.cs",
               "DocumentMoniker": "D:\\stealth-project\\stealth project\\Assets\\2_Scripts\\Equipment\\Payloads\\PL_Rope.cs",
               "RelativeDocumentMoniker": "Assets\\2_Scripts\\Equipment\\Payloads\\PL_Rope.cs",
@@ -70,7 +102,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 6,
               "Title": "RopeShooter.cs",
               "DocumentMoniker": "D:\\stealth-project\\stealth project\\Assets\\2_Scripts\\Player Controller\\RopeShooter.cs",
               "RelativeDocumentMoniker": "Assets\\2_Scripts\\Player Controller\\RopeShooter.cs",
@@ -88,7 +120,7 @@
               "RelativeDocumentMoniker": "Assets\\2_Scripts\\Player Controller\\PlayerController.cs",
               "ToolTip": "D:\\stealth-project\\stealth project\\Assets\\2_Scripts\\Player Controller\\PlayerController.cs",
               "RelativeToolTip": "Assets\\2_Scripts\\Player Controller\\PlayerController.cs",
-              "ViewState": "AQIAAA0AAAAAAAAAAAAjwCIAAAAIAAAA",
+              "ViewState": "AQIAAEIDAAAAAAAAAAAiwHADAAARAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-10-23T06:04:04.433Z",
               "EditorCaption": ""
