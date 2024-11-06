@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
@@ -859,7 +860,7 @@ public class PlayerController : MonoBehaviour
         else if (grabbedRope)
         {
             gravityVector = Vector2.zero;
-            Vector3 targetPos = grabTarget.transform.position;
+            Vector3 targetPos = grabTarget.GetComponent<RopeScript>().GetNearestPoint(transform.position);
 
             if (!f_initialRopePos)
             {
@@ -886,18 +887,22 @@ public class PlayerController : MonoBehaviour
             else
             {
                 // get rope direction
+                // we want to be able to use both input axis to control movement along rope
+                // so we should start with getting both axis of movement,
+                // then using the rope vector as a kind of filter?
+
 
 
                 // get inputVector from raw input, set player facing
                 if (moveStickVector.magnitude >= 0.25)
                 {
-                    inputVector.y = moveStickVector.normalized.y * climbSpeed;
+                    inputVector = ConvertRopeMovement(moveStickVector.normalized, grabTarget.GetComponent<RopeScript>().currentDirection) * climbSpeed;
                 }
 
                 // if there is no input then apply movement decay
                 else if (inputVector.magnitude > 0)
                 {
-                    inputVector.y = inputVector.y - (inputVector.y * moveDecay * Time.deltaTime);
+                    inputVector = inputVector - (inputVector * moveDecay * Time.deltaTime);
                 }
 
                 // clamp to zero when its close
@@ -1293,7 +1298,8 @@ public class PlayerController : MonoBehaviour
             else lit = false;
         }
 
-        if (collision.gameObject.tag == "GrabPlatform" || collision.gameObject.tag == "Rope") grabTarget = collision.gameObject;
+        if ((collision.gameObject.tag == "GrabPlatform" || collision.gameObject.tag == "Rope") &&
+            CurrentPlayerState != e_PlayerControllerStates.PlatformGrab) grabTarget = collision.gameObject;
 
 
         // Interactables
@@ -1328,7 +1334,8 @@ public class PlayerController : MonoBehaviour
     {
         if (collision.gameObject.tag == "Light") lit = false;
 
-        if (collision.gameObject.tag == "GrabPlatform" || collision.gameObject.tag == "Rope") grabTarget = null;
+        if ((collision.gameObject.tag == "GrabPlatform" || collision.gameObject.tag == "Rope") &&
+            CurrentPlayerState != e_PlayerControllerStates.PlatformGrab) grabTarget = null;
 
         if (collision.gameObject.tag == "HidingPlace" ||
             collision.gameObject.tag == "GroundItem" ||
@@ -1420,7 +1427,7 @@ public class PlayerController : MonoBehaviour
     {
 
 
-        giz_text_jumpFrame = GetCurrentAnimationName();
+        //giz_text_jumpFrame = GetCurrentAnimationName();
 
         switch (CurrentPlayerState)
         {
@@ -1489,6 +1496,32 @@ public class PlayerController : MonoBehaviour
 
     }
 
+    private Vector2 ConvertRopeMovement(Vector2 input, Vector2 rope)
+    {
+        Vector2 ropeI = rope * -1;
+
+        // get angle between the input vector and the 2 rope vectors (one each each direction of the rope)
+
+        // Angle
+        // Inverse cosine of the dot product, divided by the product of each vectors length
+
+
+        // use the rope direction that has the lowest angle
+        
+        float angle = (float)Math.Acos(  Vector2.Dot(input, rope) / (input.magnitude * rope.magnitude)) * Mathf.Rad2Deg;
+        float angleI = (float)Math.Acos(Vector2.Dot(input, ropeI) / (input.magnitude * ropeI.magnitude)) * Mathf.Rad2Deg;
+
+        if(angle < angleI)
+            return rope * climbSpeed;
+        else
+            return ropeI * climbSpeed;
+
+        giz_text_jumpFrame = angle.ToString();
+
+        //return utils.GetVectorFromAngle(angle) * climbSpeed;
+        return Vector2.zero;
+
+    }
 
     private void ShootProjectile(Projectile proj)
     {
@@ -1918,7 +1951,7 @@ public class PlayerController : MonoBehaviour
 
             if (giz_airframenum)
             {
-                //giz_text_jumpFrame = GetJumpFrame().ToString();
+                //giz_text_jumpFrame = f_zippedToRope.ToString();
                 Vector3 pos = transform.position;
                 pos.y += 1f;
                 Handles.Label(pos, giz_text_jumpFrame);

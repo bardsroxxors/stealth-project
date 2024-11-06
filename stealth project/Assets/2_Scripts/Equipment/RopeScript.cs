@@ -94,6 +94,7 @@ public class RopeScript : MonoBehaviour
     // this is used to get the nearest point on the line to the parameter position
     public Vector3 GetNearestPoint(Vector3 target)
     {
+        //Debug.Log(NearestPointOnLine(pos1, (pos1 - pos2).normalized, target));
         return NearestPointOnLine(pos1, (pos1 - pos2).normalized, target);
     }
 
