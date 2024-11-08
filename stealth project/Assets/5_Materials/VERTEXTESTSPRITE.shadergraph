@@ -104,7 +104,7 @@
                 "m_Node": {
                     "m_Id": "b3fc08cc509b44cc93db4cc9aba009cc"
                 },
-                "m_SlotId": 0
+                "m_SlotId": 1
             }
         },
         {
@@ -118,7 +118,7 @@
                 "m_Node": {
                     "m_Id": "b3fc08cc509b44cc93db4cc9aba009cc"
                 },
-                "m_SlotId": 1
+                "m_SlotId": 0
             }
         }
     ],
@@ -930,10 +930,10 @@
         "m_Expanded": true,
         "m_Position": {
             "serializedVersion": "2",
-            "x": -633.0,
-            "y": 76.0,
+            "x": -779.0000610351563,
+            "y": 73.00000762939453,
             "width": 208.0,
-            "height": 127.0
+            "height": 126.99999237060547
         }
     },
     "m_Slots": [
