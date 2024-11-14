@@ -139,6 +139,7 @@
     <Compile Include="Assets\2_Scripts\Level Generation\RoomZones.cs" />
     <Compile Include="Assets\2_Scripts\Enemies\ShooterExtension.cs" />
     <Compile Include="Assets\2_Scripts\Parallax\ParallaxLayer.cs" />
+    <Compile Include="Assets\2_Scripts\Environmental Interacts\KunaiTarget.cs" />
     <Compile Include="Assets\2_Scripts\Utilities.cs" />
     <Compile Include="Assets\2_Scripts\DamageSource.cs" />
     <Compile Include="Assets\2_Scripts\Player Controller\PaperdollSpriteManager.cs" />
@@ -1112,10 +1113,6 @@
       <Project>{095AFAA6-2B1A-862D-2F82-097310E5546F}</Project>
       <Name>Unity.2D.Tilemap.Extras.Editor</Name>
     </ProjectReference>
-    <ProjectReference Include="Unity.Polybrush.Editor.csproj">
-      <Project>{3EF7EE5D-59DB-7DA0-3A7D-185F1B3AC2CF}</Project>
-      <Name>Unity.Polybrush.Editor</Name>
-    </ProjectReference>
     <ProjectReference Include="Unity.RenderPipelines.Core.ShaderLibrary.csproj">
       <Project>{5A7BE0FB-6471-A135-66E2-9C37916E8A17}</Project>
       <Name>Unity.RenderPipelines.Core.ShaderLibrary</Name>
@@ -1235,10 +1232,6 @@
     <ProjectReference Include="Unity.2D.Common.Runtime.csproj">
       <Project>{B8D79908-7E01-FF64-C5FA-E445392D18CB}</Project>
       <Name>Unity.2D.Common.Runtime</Name>
-    </ProjectReference>
-    <ProjectReference Include="Unity.Polybrush.csproj">
-      <Project>{4EAB512D-BFC3-3726-F653-20456E2483A5}</Project>
-      <Name>Unity.Polybrush</Name>
     </ProjectReference>
     <ProjectReference Include="Unity.RenderPipeline.Universal.ShaderLibrary.csproj">
       <Project>{873F5819-95CB-20B2-E09D-8EEC3A955C58}</Project>

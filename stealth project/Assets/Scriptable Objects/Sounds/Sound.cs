@@ -12,5 +12,7 @@ public class Sound : ScriptableObject
     public float scaleAtDeath = 3f;
     public float initialScale = 2.5f;
     public float awarenessIncrease = 0.15f;
+    public bool directCondition = false;
+    public e_EnemyConditions condition;
 
 }

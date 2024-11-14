@@ -126,6 +126,7 @@ public class PlayerController : MonoBehaviour
     [Header("Platform Grab")]
     public float minGrabDistance = 0.05f;
     public GameObject grabTarget;
+    public float ropeClimbSpeed = 3;
     private bool grabbedRope = false;
 
     [Header("Sword Swing")]
@@ -1512,9 +1513,9 @@ public class PlayerController : MonoBehaviour
         float angleI = (float)Math.Acos(Vector2.Dot(input, ropeI) / (input.magnitude * ropeI.magnitude)) * Mathf.Rad2Deg;
 
         if(angle < angleI)
-            return rope * climbSpeed;
+            return rope * ropeClimbSpeed;
         else
-            return ropeI * climbSpeed;
+            return ropeI * ropeClimbSpeed;
 
         giz_text_jumpFrame = angle.ToString();
 

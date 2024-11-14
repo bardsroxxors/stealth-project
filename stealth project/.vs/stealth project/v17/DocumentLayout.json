@@ -3,32 +3,32 @@
   "WorkspaceRootPath": "D:\\stealth-project\\stealth project\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\stealth-project\\stealth project\\Assets\\2_Scripts\\Player Controller\\PlayerController.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Assets\\2_Scripts\\Player Controller\\PlayerController.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{A7A1F7EC-57E9-C36A-D27A-747A209A43CF}|Assembly-CSharp.Player.csproj|d:\\stealth-project\\stealth project\\assets\\2_scripts\\equipment\\payloads\\pl_kunai.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A7A1F7EC-57E9-C36A-D27A-747A209A43CF}|Assembly-CSharp.Player.csproj|solutionrelative:assets\\2_scripts\\equipment\\payloads\\pl_kunai.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\stealth-project\\stealth project\\Assets\\2_Scripts\\UI\\UI_itemBar.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Assets\\2_Scripts\\UI\\UI_itemBar.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{A7A1F7EC-57E9-C36A-D27A-747A209A43CF}|Assembly-CSharp.Player.csproj|d:\\stealth-project\\stealth project\\assets\\2_scripts\\equipment\\baseprojectile.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A7A1F7EC-57E9-C36A-D27A-747A209A43CF}|Assembly-CSharp.Player.csproj|solutionrelative:assets\\2_scripts\\equipment\\baseprojectile.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\stealth-project\\stealth project\\Assets\\Scriptable Objects\\Equipment\\SO_EquipRegister.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Assets\\Scriptable Objects\\Equipment\\SO_EquipRegister.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{A7A1F7EC-57E9-C36A-D27A-747A209A43CF}|Assembly-CSharp.Player.csproj|D:\\stealth-project\\stealth project\\assets\\scriptable objects\\projectile.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A7A1F7EC-57E9-C36A-D27A-747A209A43CF}|Assembly-CSharp.Player.csproj|solutionrelative:assets\\scriptable objects\\projectile.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\stealth-project\\stealth project\\Assets\\2_Scripts\\Enemies\\FieldOfView.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Assets\\2_Scripts\\Enemies\\FieldOfView.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{A7A1F7EC-57E9-C36A-D27A-747A209A43CF}|Assembly-CSharp.Player.csproj|D:\\stealth-project\\stealth project\\assets\\2_scripts\\player controller\\playercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A7A1F7EC-57E9-C36A-D27A-747A209A43CF}|Assembly-CSharp.Player.csproj|solutionrelative:assets\\2_scripts\\player controller\\playercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\stealth-project\\stealth project\\Assets\\2_Scripts\\Equipment\\RopeScript.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Assets\\2_Scripts\\Equipment\\RopeScript.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{A7A1F7EC-57E9-C36A-D27A-747A209A43CF}|Assembly-CSharp.Player.csproj|D:\\stealth-project\\stealth project\\Assets\\2_Scripts\\Equipment\\RopeScript.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A7A1F7EC-57E9-C36A-D27A-747A209A43CF}|Assembly-CSharp.Player.csproj|solutionrelative:Assets\\2_Scripts\\Equipment\\RopeScript.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\stealth-project\\stealth project\\Assets\\2_Scripts\\Equipment\\Payloads\\PL_Rope.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Assets\\2_Scripts\\Equipment\\Payloads\\PL_Rope.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{A7A1F7EC-57E9-C36A-D27A-747A209A43CF}|Assembly-CSharp.Player.csproj|D:\\stealth-project\\stealth project\\Assets\\2_Scripts\\Equipment\\Payloads\\PL_Rope.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A7A1F7EC-57E9-C36A-D27A-747A209A43CF}|Assembly-CSharp.Player.csproj|solutionrelative:Assets\\2_Scripts\\Equipment\\Payloads\\PL_Rope.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\stealth-project\\stealth project\\Assets\\2_Scripts\\Player Controller\\RopeShooter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Assets\\2_Scripts\\Player Controller\\RopeShooter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{A7A1F7EC-57E9-C36A-D27A-747A209A43CF}|Assembly-CSharp.Player.csproj|D:\\stealth-project\\stealth project\\Assets\\2_Scripts\\Player Controller\\RopeShooter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A7A1F7EC-57E9-C36A-D27A-747A209A43CF}|Assembly-CSharp.Player.csproj|solutionrelative:Assets\\2_Scripts\\Player Controller\\RopeShooter.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -38,43 +38,45 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 6,
+          "SelectedChildIndex": 0,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "UI_itemBar.cs",
-              "DocumentMoniker": "D:\\stealth-project\\stealth project\\Assets\\2_Scripts\\UI\\UI_itemBar.cs",
-              "RelativeDocumentMoniker": "Assets\\2_Scripts\\UI\\UI_itemBar.cs",
-              "ToolTip": "D:\\stealth-project\\stealth project\\Assets\\2_Scripts\\UI\\UI_itemBar.cs",
-              "RelativeToolTip": "Assets\\2_Scripts\\UI\\UI_itemBar.cs",
-              "ViewState": "AQIAACIAAAAAAAAAAAAgwDoAAABqAAAA",
+              "DocumentIndex": 0,
+              "Title": "PL_Kunai.cs",
+              "DocumentMoniker": "D:\\stealth-project\\stealth project\\Assets\\2_Scripts\\Equipment\\Payloads\\PL_Kunai.cs",
+              "RelativeDocumentMoniker": "Assets\\2_Scripts\\Equipment\\Payloads\\PL_Kunai.cs",
+              "ToolTip": "D:\\stealth-project\\stealth project\\Assets\\2_Scripts\\Equipment\\Payloads\\PL_Kunai.cs",
+              "RelativeToolTip": "Assets\\2_Scripts\\Equipment\\Payloads\\PL_Kunai.cs",
+              "ViewState": "AQIAAD4AAAAAAAAAAAAwwF0AAAAuAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-05T04:05:24.82Z"
+              "WhenOpened": "2024-11-14T10:39:55.332Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "BaseProjectile.cs",
+              "DocumentMoniker": "D:\\stealth-project\\stealth project\\Assets\\2_Scripts\\Equipment\\BaseProjectile.cs",
+              "RelativeDocumentMoniker": "Assets\\2_Scripts\\Equipment\\BaseProjectile.cs",
+              "ToolTip": "D:\\stealth-project\\stealth project\\Assets\\2_Scripts\\Equipment\\BaseProjectile.cs",
+              "RelativeToolTip": "Assets\\2_Scripts\\Equipment\\BaseProjectile.cs",
+              "ViewState": "AQIAABgAAAAAAAAAAAAowAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-06T10:01:46.873Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 2,
-              "Title": "SO_EquipRegister.cs",
-              "DocumentMoniker": "D:\\stealth-project\\stealth project\\Assets\\Scriptable Objects\\Equipment\\SO_EquipRegister.cs",
-              "RelativeDocumentMoniker": "Assets\\Scriptable Objects\\Equipment\\SO_EquipRegister.cs",
-              "ToolTip": "D:\\stealth-project\\stealth project\\Assets\\Scriptable Objects\\Equipment\\SO_EquipRegister.cs",
-              "RelativeToolTip": "Assets\\Scriptable Objects\\Equipment\\SO_EquipRegister.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAABgAAAAoAAAA",
+              "Title": "Projectile.cs",
+              "DocumentMoniker": "D:\\stealth-project\\stealth project\\Assets\\Scriptable Objects\\Projectile.cs",
+              "RelativeDocumentMoniker": "Assets\\Scriptable Objects\\Projectile.cs",
+              "ToolTip": "D:\\stealth-project\\stealth project\\Assets\\Scriptable Objects\\Projectile.cs",
+              "RelativeToolTip": "Assets\\Scriptable Objects\\Projectile.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-05T03:57:49.863Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "FieldOfView.cs",
-              "DocumentMoniker": "D:\\stealth-project\\stealth project\\Assets\\2_Scripts\\Enemies\\FieldOfView.cs",
-              "RelativeDocumentMoniker": "Assets\\2_Scripts\\Enemies\\FieldOfView.cs",
-              "ToolTip": "D:\\stealth-project\\stealth project\\Assets\\2_Scripts\\Enemies\\FieldOfView.cs",
-              "RelativeToolTip": "Assets\\2_Scripts\\Enemies\\FieldOfView.cs",
-              "ViewState": "AQIAACUAAAAAAAAAAAAswCIAAAAnAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-30T04:16:55.9Z"
+              "WhenOpened": "2024-11-06T10:00:12.163Z"
             },
             {
               "$type": "Document",
@@ -84,7 +86,7 @@
               "RelativeDocumentMoniker": "Assets\\2_Scripts\\Equipment\\RopeScript.cs",
               "ToolTip": "D:\\stealth-project\\stealth project\\Assets\\2_Scripts\\Equipment\\RopeScript.cs",
               "RelativeToolTip": "Assets\\2_Scripts\\Equipment\\RopeScript.cs",
-              "ViewState": "AQIAADIAAAAAAAAAAAAIwFsAAAAFAAAA",
+              "ViewState": "AQIAAA8AAAAAAAAAAAAowB0AAAAjAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-10-24T04:10:22.692Z"
             },
@@ -114,16 +116,15 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 3,
               "Title": "PlayerController.cs",
               "DocumentMoniker": "D:\\stealth-project\\stealth project\\Assets\\2_Scripts\\Player Controller\\PlayerController.cs",
               "RelativeDocumentMoniker": "Assets\\2_Scripts\\Player Controller\\PlayerController.cs",
               "ToolTip": "D:\\stealth-project\\stealth project\\Assets\\2_Scripts\\Player Controller\\PlayerController.cs",
               "RelativeToolTip": "Assets\\2_Scripts\\Player Controller\\PlayerController.cs",
-              "ViewState": "AQIAAEIDAAAAAAAAAAAiwHADAAARAAAA",
+              "ViewState": "AQIAAL8FAAAAAAAAAAAswO0FAAApAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-23T06:04:04.433Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-10-23T06:04:04.433Z"
             }
           ]
         }

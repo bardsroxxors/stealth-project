@@ -22,6 +22,7 @@ TagManager:
   - GrabPlatform
   - Coin
   - Rope
+  - CanShoot
   layers:
   - Default
   - TransparentFX
@@ -50,7 +51,7 @@ TagManager:
   - Grate
   - WaterReflection
   - Lights_Rim
-  - 
+  - CanShoot
   - 
   - 
   - 

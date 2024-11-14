@@ -34,7 +34,13 @@ public class Earpiece : MonoBehaviour
                 float dist = Vector3.Distance(transform.position, collision.transform.position);
 
                 if(dist < reach)
-                    ec.NoiseHeard(collision.gameObject.transform.position, noise.awarenessIncrease);
+                {
+                    if(noise.directCondition)
+                        ec.NoiseHeard(collision.gameObject.transform.position, noise.awarenessIncrease, noise.condition);
+                    else
+                        ec.NoiseHeard(collision.gameObject.transform.position, noise.awarenessIncrease);
+                }
+                    
             }
                 
         }

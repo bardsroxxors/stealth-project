@@ -49,6 +49,7 @@ public class PL_Kunai : MonoBehaviour
         if (hit)
         {
             hasHit = true;
+            HitOther(hit.collider);
             
             return;
         }
@@ -81,6 +82,17 @@ public class PL_Kunai : MonoBehaviour
         }
 
         
+    }
+
+
+    private void HitOther(Collider2D collider)
+    {
+        if(collider.gameObject.tag == "CanShoot")
+        {
+            collider.gameObject.SendMessage("KunaiHit");
+
+            DestroyImmediate(this.gameObject);
+        }
     }
 
     private void HitEnemy(Collider2D collider)

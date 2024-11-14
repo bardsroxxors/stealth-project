@@ -139,6 +139,7 @@
     <Compile Include="Assets\2_Scripts\Level Generation\RoomZones.cs" />
     <Compile Include="Assets\2_Scripts\Enemies\ShooterExtension.cs" />
     <Compile Include="Assets\2_Scripts\Parallax\ParallaxLayer.cs" />
+    <Compile Include="Assets\2_Scripts\Environmental Interacts\KunaiTarget.cs" />
     <Compile Include="Assets\2_Scripts\Utilities.cs" />
     <Compile Include="Assets\2_Scripts\DamageSource.cs" />
     <Compile Include="Assets\2_Scripts\Player Controller\PaperdollSpriteManager.cs" />
@@ -1063,10 +1064,6 @@
     <ProjectReference Include="Unity.2D.Common.Runtime.Player.csproj">
       <Project>{E6FE2FB0-96CA-364F-4937-2C4125BA3AA4}</Project>
       <Name>Unity.2D.Common.Runtime.Player</Name>
-    </ProjectReference>
-    <ProjectReference Include="Unity.Polybrush.Player.csproj">
-      <Project>{84D068D2-6AF6-7ED2-A76A-6FBB8AC74705}</Project>
-      <Name>Unity.Polybrush.Player</Name>
     </ProjectReference>
     <ProjectReference Include="Unity.RenderPipeline.Universal.ShaderLibrary.Player.csproj">
       <Project>{A1290469-2A14-11A7-FDE0-BF158A623AF3}</Project>

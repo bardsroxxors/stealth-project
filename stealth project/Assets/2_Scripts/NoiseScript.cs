@@ -16,11 +16,17 @@ public class NoiseScript : MonoBehaviour
     private SpriteRenderer sprite;
     private float initialAlpha = 0;
 
+    public bool directCondition = false;
+    public e_EnemyConditions condition;
+
     // Start is called before the first frame update
     void Start()
     {
         t_lifetime = soundSO.lifetime;
         transform.localScale = new Vector3(soundSO.initialScale, soundSO.initialScale, 1);
+        directCondition = soundSO.directCondition;
+        if(directCondition)
+            condition = soundSO.condition;
         awarenessIncrease = soundSO.awarenessIncrease;
         sprite = GetComponent<SpriteRenderer>();
         if (sprite) initialAlpha = sprite.color.a;

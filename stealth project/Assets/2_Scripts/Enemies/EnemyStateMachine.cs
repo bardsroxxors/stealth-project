@@ -28,14 +28,14 @@ public enum e_EnemyStates
 
 public enum e_EnemyConditions
 {
-    vigilant, // Looks around frequently, has been alerted
+    vigilant,       // Looks around frequently, has been alerted
     blind,
     immobile,
-    piqued,   // has become curious
-    alerted,  // has become alert
-    oblivious, // has moved past hidden player
-    bodySighted // has sighted a body
-
+    piqued,         // has become curious
+    alerted,        // has become alert
+    oblivious,      // has moved past hidden player
+    bodySighted,    // has sighted a body
+    spooked         // spooked by a noise or sighting
 
 }
 
@@ -1180,6 +1180,9 @@ public class EnemyStateMachine : MonoBehaviour
                 case e_EnemyConditions.bodySighted:
                     this.SendMessage("AddBounty", 2);
                     break;
+                case e_EnemyConditions.spooked:
+                    this.SendMessage("AddBounty", 2);
+                    break;
             }
             return true;
         }
@@ -1291,7 +1294,18 @@ public class EnemyStateMachine : MonoBehaviour
         if (awareScript.currentAwareness == AwarenessLevel.unaware)
             PlayerSightGained(e_EnemyStates.investigate);
     }
-    
+
+    public void NoiseHeard(Vector3 position, float awareIncrease, e_EnemyConditions cond)
+    {
+        //EditorApplication.isPaused = true;
+        awareScript.alertPercent += awareIncrease;
+
+        AddCondition(cond);
+
+        if (awareScript.currentAwareness == AwarenessLevel.unaware)
+            PlayerSightGained(e_EnemyStates.investigate);
+    }
+
     public void TriggerFootstep()
     {
         GameObject noise = Instantiate(passiveNoisePrefab, transform.position, Quaternion.identity);
