@@ -13,9 +13,6 @@ Shader "SS_BuildingMaster_01"
         _Mask_Strength_X("Mask Strength X", Float) = 15
         _Mask_Min_X("Mask Min X", Float) = 0
         _Mask_Max_X("Mask Max X", Float) = 1
-        [NonModifiableTextureData][NoScaleOffset]_SampleTexture2D_cb94edd4eb6c495eae4c93398c1e10ec_Texture_1_Texture2D("Texture2D", 2D) = "white" {}
-        [NonModifiableTextureData][NoScaleOffset]_SampleTexture2D_cd494f44ee2e4a48aef8d8c7541d0cb6_Texture_1_Texture2D("Texture2D", 2D) = "white" {}
-        [NonModifiableTextureData][NoScaleOffset]_SampleTexture2D_92aa66cfc1594e75953f78eda338240d_Texture_1_Texture2D("Texture2D", 2D) = "white" {}
         [HideInInspector][NoScaleOffset]unity_Lightmaps("unity_Lightmaps", 2DArray) = "" {}
         [HideInInspector][NoScaleOffset]unity_LightmapsInd("unity_LightmapsInd", 2DArray) = "" {}
         [HideInInspector][NoScaleOffset]unity_ShadowMasks("unity_ShadowMasks", 2DArray) = "" {}
@@ -41,9 +38,9 @@ Shader "SS_BuildingMaster_01"
             }
         
         // Render State
-        //Cull Off
-        //Blend SrcAlpha OneMinusSrcAlpha, One OneMinusSrcAlpha
-        ZTest LEqual
+       //Cull Off
+        Blend SrcAlpha OneMinusSrcAlpha, One OneMinusSrcAlpha
+        //ZTest LEqual
         //ZWrite Off
         
         // Debug
@@ -76,7 +73,6 @@ Shader "SS_BuildingMaster_01"
         #define ATTRIBUTES_NEED_COLOR
         #define VARYINGS_NEED_POSITION_WS
         #define VARYINGS_NEED_NORMAL_WS
-        #define VARYINGS_NEED_TANGENT_WS
         #define VARYINGS_NEED_TEXCOORD0
         #define VARYINGS_NEED_COLOR
         #define VARYINGS_NEED_SCREENPOSITION
@@ -123,7 +119,6 @@ Shader "SS_BuildingMaster_01"
              float4 positionCS : SV_POSITION;
              float3 positionWS;
              float3 normalWS;
-             float4 tangentWS;
              float4 texCoord0;
              float4 color;
              float4 screenPosition;
@@ -143,11 +138,6 @@ Shader "SS_BuildingMaster_01"
         struct SurfaceDescriptionInputs
         {
              float3 WorldSpaceNormal;
-             float3 WorldSpaceTangent;
-             float3 WorldSpaceBiTangent;
-             float3 WorldSpacePosition;
-             float3 AbsoluteWorldSpacePosition;
-             float4 VertexColor;
         };
         struct VertexDescriptionInputs
         {
@@ -156,15 +146,13 @@ Shader "SS_BuildingMaster_01"
              float3 ObjectSpacePosition;
         };
         struct PackedVaryings
-        //            float4 color : INTERP2;????
         {
              float4 positionCS : SV_POSITION;
-             float4 tangentWS : INTERP0;
-             float4 texCoord0 : INTERP1;
-             float4 color : INTERP2;
-             float4 screenPosition : INTERP3;
-             float3 positionWS : INTERP4;
-             float3 normalWS : INTERP5;
+             float4 texCoord0 : INTERP0;
+             float4 color : INTERP1;
+             float4 screenPosition : INTERP2;
+             float3 positionWS : INTERP3;
+             float3 normalWS : INTERP4;
             #if UNITY_ANY_INSTANCING_ENABLED
              uint instanceID : CUSTOM_INSTANCE_ID;
             #endif
@@ -184,7 +172,6 @@ Shader "SS_BuildingMaster_01"
             PackedVaryings output;
             ZERO_INITIALIZE(PackedVaryings, output);
             output.positionCS = input.positionCS;
-            output.tangentWS.xyzw = input.tangentWS;
             output.texCoord0.xyzw = input.texCoord0;
             output.color.xyzw = input.color;
             output.screenPosition.xyzw = input.screenPosition;
@@ -209,7 +196,6 @@ Shader "SS_BuildingMaster_01"
         {
             Varyings output;
             output.positionCS = input.positionCS;
-            output.tangentWS = input.tangentWS.xyzw;
             output.texCoord0 = input.texCoord0.xyzw;
             output.color = input.color.xyzw;
             output.screenPosition = input.screenPosition.xyzw;
@@ -236,9 +222,6 @@ Shader "SS_BuildingMaster_01"
         
         // Graph Properties
         CBUFFER_START(UnityPerMaterial)
-        float4 _SampleTexture2D_92aa66cfc1594e75953f78eda338240d_Texture_1_Texture2D_TexelSize;
-        float4 _SampleTexture2D_cb94edd4eb6c495eae4c93398c1e10ec_Texture_1_Texture2D_TexelSize;
-        float4 _SampleTexture2D_cd494f44ee2e4a48aef8d8c7541d0cb6_Texture_1_Texture2D_TexelSize;
         float4 _Texture2D_TexelSize;
         float4 _Colour_X;
         float4 _Colour_Y;
@@ -254,13 +237,6 @@ Shader "SS_BuildingMaster_01"
         
         
         // Object and Global properties
-        SAMPLER(SamplerState_Linear_Repeat);
-        TEXTURE2D(_SampleTexture2D_92aa66cfc1594e75953f78eda338240d_Texture_1_Texture2D);
-        SAMPLER(sampler_SampleTexture2D_92aa66cfc1594e75953f78eda338240d_Texture_1_Texture2D);
-        TEXTURE2D(_SampleTexture2D_cb94edd4eb6c495eae4c93398c1e10ec_Texture_1_Texture2D);
-        SAMPLER(sampler_SampleTexture2D_cb94edd4eb6c495eae4c93398c1e10ec_Texture_1_Texture2D);
-        TEXTURE2D(_SampleTexture2D_cd494f44ee2e4a48aef8d8c7541d0cb6_Texture_1_Texture2D);
-        SAMPLER(sampler_SampleTexture2D_cd494f44ee2e4a48aef8d8c7541d0cb6_Texture_1_Texture2D);
         TEXTURE2D(_Texture2D);
         SAMPLER(sampler_Texture2D);
         
@@ -280,129 +256,9 @@ Shader "SS_BuildingMaster_01"
         
         // Graph Functions
         
-        void Unity_Divide_float3(float3 A, float3 B, out float3 Out)
-        {
-            Out = A / B;
-        }
-        
-        void Unity_ChannelMask_GreenBlue_float3 (float3 In, out float3 Out)
-        {
-        Out = float3(0, In.g, In.b);
-        }
-        
         void Unity_Absolute_float3(float3 In, out float3 Out)
         {
             Out = abs(In);
-        }
-        
-        void Unity_Power_float3(float3 A, float3 B, out float3 Out)
-        {
-            Out = pow(A, B);
-        }
-        
-        void Unity_Contrast_float(float3 In, float Contrast, out float3 Out)
-        {
-            float midpoint = pow(0.5, 2.2);
-            Out =  (In - midpoint) * Contrast + midpoint;
-        }
-        
-        void Unity_Multiply_float3_float3(float3 A, float3 B, out float3 Out)
-        {
-        Out = A * B;
-        }
-        
-        void Unity_ChannelMask_RedBlue_float3 (float3 In, out float3 Out)
-        {
-        Out = float3(In.r, 0, In.b);
-        }
-        
-        void Unity_ChannelMask_RedGreen_float3 (float3 In, out float3 Out)
-        {
-        Out = float3(In.r, In.g, 0);
-        }
-        
-        void Unity_Add_float3(float3 A, float3 B, out float3 Out)
-        {
-            Out = A + B;
-        }
-        
-        struct Bindings_SBGCheaptriplanar_82958fd6428020c44bfdb5b5b5fb1ce6_float
-        {
-        float3 WorldSpaceNormal;
-        float3 WorldSpaceTangent;
-        float3 WorldSpaceBiTangent;
-        float3 WorldSpacePosition;
-        float3 AbsoluteWorldSpacePosition;
-        };
-        
-        void SG_SBGCheaptriplanar_82958fd6428020c44bfdb5b5b5fb1ce6_float(Bindings_SBGCheaptriplanar_82958fd6428020c44bfdb5b5b5fb1ce6_float IN, out float2 Alpha_1)
-        {
-        float3 _Transform_e9bec0e35831453a994f90e7b0453849_Out_1_Vector3;
-        {
-        // Converting Position from AbsoluteWorld to Object via world space
-        float3 world;
-        world = GetCameraRelativePositionWS(IN.AbsoluteWorldSpacePosition.xyz);
-        _Transform_e9bec0e35831453a994f90e7b0453849_Out_1_Vector3 = TransformWorldToObject(world);
-        }
-        float _Float_d8d5ee1b4a9342e0acdb554a6fb02662_Out_0_Float = 1024;
-        float3 _Divide_e749f4409b1e4d32848eefb2bf3c88fb_Out_2_Vector3;
-        Unity_Divide_float3(_Transform_e9bec0e35831453a994f90e7b0453849_Out_1_Vector3, (_Float_d8d5ee1b4a9342e0acdb554a6fb02662_Out_0_Float.xxx), _Divide_e749f4409b1e4d32848eefb2bf3c88fb_Out_2_Vector3);
-        float3 _ChannelMask_a0e64fdfddb540809b324da85474f6ea_Out_1_Vector3;
-        Unity_ChannelMask_GreenBlue_float3 (_Divide_e749f4409b1e4d32848eefb2bf3c88fb_Out_2_Vector3, _ChannelMask_a0e64fdfddb540809b324da85474f6ea_Out_1_Vector3);
-        float3 _Vector3_2050ca69d4a947c6af34ad61848f07c4_Out_0_Vector3 = float3(0, 0, 1);
-        float3 _Transform_bec2f16fc1ad4315b55113b169029f51_Out_1_Vector3;
-        {
-        // Converting Position from Tangent to Object via world space
-        float3 world;
-        {
-        float3x3 tangentTransform = float3x3(IN.WorldSpaceTangent, IN.WorldSpaceBiTangent, IN.WorldSpaceNormal);
-        world = TransformTangentToWorldDir(_Vector3_2050ca69d4a947c6af34ad61848f07c4_Out_0_Vector3.xyz, tangentTransform, false).xyz + IN.WorldSpacePosition;
-        }
-        _Transform_bec2f16fc1ad4315b55113b169029f51_Out_1_Vector3 = TransformWorldToObject(world);
-        }
-        float3 _Absolute_b2182449a62f44808113365ada259ee2_Out_1_Vector3;
-        Unity_Absolute_float3(_Transform_bec2f16fc1ad4315b55113b169029f51_Out_1_Vector3, _Absolute_b2182449a62f44808113365ada259ee2_Out_1_Vector3);
-        float _Float_081ee3c0116543d09db94af274033691_Out_0_Float = 160;
-        float3 _Power_2f521294f76e45ac8b563f020e192d78_Out_2_Vector3;
-        Unity_Power_float3(_Absolute_b2182449a62f44808113365ada259ee2_Out_1_Vector3, (_Float_081ee3c0116543d09db94af274033691_Out_0_Float.xxx), _Power_2f521294f76e45ac8b563f020e192d78_Out_2_Vector3);
-        float3 _Divide_b969b5ce97a54395a8e8e280383b32d2_Out_2_Vector3;
-        Unity_Divide_float3(_Power_2f521294f76e45ac8b563f020e192d78_Out_2_Vector3, _Power_2f521294f76e45ac8b563f020e192d78_Out_2_Vector3, _Divide_b969b5ce97a54395a8e8e280383b32d2_Out_2_Vector3);
-        float3 _Contrast_600f4e8d94244859adbd158287369cd4_Out_2_Vector3;
-        Unity_Contrast_float(_Divide_b969b5ce97a54395a8e8e280383b32d2_Out_2_Vector3, 512, _Contrast_600f4e8d94244859adbd158287369cd4_Out_2_Vector3);
-        float _Split_f23741fee00f4e28b3c8caf2939dd35a_R_1_Float = _Contrast_600f4e8d94244859adbd158287369cd4_Out_2_Vector3[0];
-        float _Split_f23741fee00f4e28b3c8caf2939dd35a_G_2_Float = _Contrast_600f4e8d94244859adbd158287369cd4_Out_2_Vector3[1];
-        float _Split_f23741fee00f4e28b3c8caf2939dd35a_B_3_Float = _Contrast_600f4e8d94244859adbd158287369cd4_Out_2_Vector3[2];
-        float _Split_f23741fee00f4e28b3c8caf2939dd35a_A_4_Float = 0;
-        float3 _Multiply_b9d2e30cdcf94763a7124fa853f93fe7_Out_2_Vector3;
-        Unity_Multiply_float3_float3(_ChannelMask_a0e64fdfddb540809b324da85474f6ea_Out_1_Vector3, (_Split_f23741fee00f4e28b3c8caf2939dd35a_B_3_Float.xxx), _Multiply_b9d2e30cdcf94763a7124fa853f93fe7_Out_2_Vector3);
-        float3 _ChannelMask_27749b8cadbd42f5991ec7cd4ad98b27_Out_1_Vector3;
-        Unity_ChannelMask_RedBlue_float3 (_Divide_e749f4409b1e4d32848eefb2bf3c88fb_Out_2_Vector3, _ChannelMask_27749b8cadbd42f5991ec7cd4ad98b27_Out_1_Vector3);
-        float3 _Multiply_1f36462bfff14a8fabe4ce5bb67f59e4_Out_2_Vector3;
-        Unity_Multiply_float3_float3(_ChannelMask_27749b8cadbd42f5991ec7cd4ad98b27_Out_1_Vector3, (_Split_f23741fee00f4e28b3c8caf2939dd35a_G_2_Float.xxx), _Multiply_1f36462bfff14a8fabe4ce5bb67f59e4_Out_2_Vector3);
-        float3 _ChannelMask_781535be92614c1aa8ae024956bcfc07_Out_1_Vector3;
-        Unity_ChannelMask_RedGreen_float3 (_Divide_e749f4409b1e4d32848eefb2bf3c88fb_Out_2_Vector3, _ChannelMask_781535be92614c1aa8ae024956bcfc07_Out_1_Vector3);
-        float3 _Multiply_585d93bfd4854357a05b3f76c623991b_Out_2_Vector3;
-        Unity_Multiply_float3_float3(_ChannelMask_781535be92614c1aa8ae024956bcfc07_Out_1_Vector3, (_Split_f23741fee00f4e28b3c8caf2939dd35a_R_1_Float.xxx), _Multiply_585d93bfd4854357a05b3f76c623991b_Out_2_Vector3);
-        float3 _Add_b117ee877fb641718fd739e492e47156_Out_2_Vector3;
-        Unity_Add_float3(_Multiply_1f36462bfff14a8fabe4ce5bb67f59e4_Out_2_Vector3, _Multiply_585d93bfd4854357a05b3f76c623991b_Out_2_Vector3, _Add_b117ee877fb641718fd739e492e47156_Out_2_Vector3);
-        float3 _Add_0f71d5ddfd914e3180fab7da8ea55391_Out_2_Vector3;
-        Unity_Add_float3(_Multiply_b9d2e30cdcf94763a7124fa853f93fe7_Out_2_Vector3, _Add_b117ee877fb641718fd739e492e47156_Out_2_Vector3, _Add_0f71d5ddfd914e3180fab7da8ea55391_Out_2_Vector3);
-        Alpha_1 = (_Add_0f71d5ddfd914e3180fab7da8ea55391_Out_2_Vector3.xy);
-        }
-        
-        void Unity_Multiply_float2_float2(float2 A, float2 B, out float2 Out)
-        {
-            Out = A * B;
-        }
-        
-        void Unity_Lerp_float(float A, float B, float T, out float Out)
-        {
-            Out = lerp(A, B, T);
-        }
-        
-        void Unity_Add_float(float A, float B, out float Out)
-        {
-            Out = A + B;
         }
         
         void Unity_Smoothstep_float3(float3 Edge1, float3 Edge2, float3 In, out float3 Out)
@@ -470,46 +326,6 @@ Shader "SS_BuildingMaster_01"
         SurfaceDescription SurfaceDescriptionFunction(SurfaceDescriptionInputs IN)
         {
             SurfaceDescription surface = (SurfaceDescription)0;
-            Bindings_SBGCheaptriplanar_82958fd6428020c44bfdb5b5b5fb1ce6_float _SBGCheaptriplanar_d2fc95a0d41d49799c43ca1a1b30c64e;
-            _SBGCheaptriplanar_d2fc95a0d41d49799c43ca1a1b30c64e.WorldSpaceNormal = IN.WorldSpaceNormal;
-            _SBGCheaptriplanar_d2fc95a0d41d49799c43ca1a1b30c64e.WorldSpaceTangent = IN.WorldSpaceTangent;
-            _SBGCheaptriplanar_d2fc95a0d41d49799c43ca1a1b30c64e.WorldSpaceBiTangent = IN.WorldSpaceBiTangent;
-            _SBGCheaptriplanar_d2fc95a0d41d49799c43ca1a1b30c64e.WorldSpacePosition = IN.WorldSpacePosition;
-            _SBGCheaptriplanar_d2fc95a0d41d49799c43ca1a1b30c64e.AbsoluteWorldSpacePosition = IN.AbsoluteWorldSpacePosition;
-            float2 _SBGCheaptriplanar_d2fc95a0d41d49799c43ca1a1b30c64e_Alpha_1_Vector2;
-            SG_SBGCheaptriplanar_82958fd6428020c44bfdb5b5b5fb1ce6_float(_SBGCheaptriplanar_d2fc95a0d41d49799c43ca1a1b30c64e, _SBGCheaptriplanar_d2fc95a0d41d49799c43ca1a1b30c64e_Alpha_1_Vector2);
-            float _Float_63545e2f5be047c9b414de1d23f9a383_Out_0_Float = 128;
-            float2 _Multiply_bec534511d454c6498f26992388a72e9_Out_2_Vector2;
-            Unity_Multiply_float2_float2(_SBGCheaptriplanar_d2fc95a0d41d49799c43ca1a1b30c64e_Alpha_1_Vector2, (_Float_63545e2f5be047c9b414de1d23f9a383_Out_0_Float.xx), _Multiply_bec534511d454c6498f26992388a72e9_Out_2_Vector2);
-            float4 _SampleTexture2D_cb94edd4eb6c495eae4c93398c1e10ec_RGBA_0_Vector4 = SAMPLE_TEXTURE2D(UnityBuildTexture2DStructNoScale(_SampleTexture2D_cb94edd4eb6c495eae4c93398c1e10ec_Texture_1_Texture2D).tex, UnityBuildTexture2DStructNoScale(_SampleTexture2D_cb94edd4eb6c495eae4c93398c1e10ec_Texture_1_Texture2D).samplerstate, UnityBuildTexture2DStructNoScale(_SampleTexture2D_cb94edd4eb6c495eae4c93398c1e10ec_Texture_1_Texture2D).GetTransformedUV(_Multiply_bec534511d454c6498f26992388a72e9_Out_2_Vector2) );
-            float _SampleTexture2D_cb94edd4eb6c495eae4c93398c1e10ec_R_4_Float = _SampleTexture2D_cb94edd4eb6c495eae4c93398c1e10ec_RGBA_0_Vector4.r;
-            float _SampleTexture2D_cb94edd4eb6c495eae4c93398c1e10ec_G_5_Float = _SampleTexture2D_cb94edd4eb6c495eae4c93398c1e10ec_RGBA_0_Vector4.g;
-            float _SampleTexture2D_cb94edd4eb6c495eae4c93398c1e10ec_B_6_Float = _SampleTexture2D_cb94edd4eb6c495eae4c93398c1e10ec_RGBA_0_Vector4.b;
-            float _SampleTexture2D_cb94edd4eb6c495eae4c93398c1e10ec_A_7_Float = _SampleTexture2D_cb94edd4eb6c495eae4c93398c1e10ec_RGBA_0_Vector4.a;
-            float _Split_b6373367e7a44a05bf573c7e0ca41b69_R_1_Float = IN.VertexColor[0];
-            float _Split_b6373367e7a44a05bf573c7e0ca41b69_G_2_Float = IN.VertexColor[1];
-            float _Split_b6373367e7a44a05bf573c7e0ca41b69_B_3_Float = IN.VertexColor[2];
-            float _Split_b6373367e7a44a05bf573c7e0ca41b69_A_4_Float = IN.VertexColor[3];
-            float _Lerp_81ce795475b34cf7b403ca64f13df295_Out_3_Float;
-            Unity_Lerp_float(1, _SampleTexture2D_cb94edd4eb6c495eae4c93398c1e10ec_B_6_Float, _Split_b6373367e7a44a05bf573c7e0ca41b69_B_3_Float, _Lerp_81ce795475b34cf7b403ca64f13df295_Out_3_Float);
-            float4 _SampleTexture2D_cd494f44ee2e4a48aef8d8c7541d0cb6_RGBA_0_Vector4 = SAMPLE_TEXTURE2D(UnityBuildTexture2DStructNoScale(_SampleTexture2D_cd494f44ee2e4a48aef8d8c7541d0cb6_Texture_1_Texture2D).tex, UnityBuildTexture2DStructNoScale(_SampleTexture2D_cd494f44ee2e4a48aef8d8c7541d0cb6_Texture_1_Texture2D).samplerstate, UnityBuildTexture2DStructNoScale(_SampleTexture2D_cd494f44ee2e4a48aef8d8c7541d0cb6_Texture_1_Texture2D).GetTransformedUV(_Multiply_bec534511d454c6498f26992388a72e9_Out_2_Vector2) );
-            float _SampleTexture2D_cd494f44ee2e4a48aef8d8c7541d0cb6_R_4_Float = _SampleTexture2D_cd494f44ee2e4a48aef8d8c7541d0cb6_RGBA_0_Vector4.r;
-            float _SampleTexture2D_cd494f44ee2e4a48aef8d8c7541d0cb6_G_5_Float = _SampleTexture2D_cd494f44ee2e4a48aef8d8c7541d0cb6_RGBA_0_Vector4.g;
-            float _SampleTexture2D_cd494f44ee2e4a48aef8d8c7541d0cb6_B_6_Float = _SampleTexture2D_cd494f44ee2e4a48aef8d8c7541d0cb6_RGBA_0_Vector4.b;
-            float _SampleTexture2D_cd494f44ee2e4a48aef8d8c7541d0cb6_A_7_Float = _SampleTexture2D_cd494f44ee2e4a48aef8d8c7541d0cb6_RGBA_0_Vector4.a;
-            float _Lerp_06d874a3ba7f468dacd59c3a87b5b905_Out_3_Float;
-            Unity_Lerp_float(1, _SampleTexture2D_cd494f44ee2e4a48aef8d8c7541d0cb6_R_4_Float, _Split_b6373367e7a44a05bf573c7e0ca41b69_R_1_Float, _Lerp_06d874a3ba7f468dacd59c3a87b5b905_Out_3_Float);
-            float4 _SampleTexture2D_92aa66cfc1594e75953f78eda338240d_RGBA_0_Vector4 = SAMPLE_TEXTURE2D(UnityBuildTexture2DStructNoScale(_SampleTexture2D_92aa66cfc1594e75953f78eda338240d_Texture_1_Texture2D).tex, UnityBuildTexture2DStructNoScale(_SampleTexture2D_92aa66cfc1594e75953f78eda338240d_Texture_1_Texture2D).samplerstate, UnityBuildTexture2DStructNoScale(_SampleTexture2D_92aa66cfc1594e75953f78eda338240d_Texture_1_Texture2D).GetTransformedUV(_Multiply_bec534511d454c6498f26992388a72e9_Out_2_Vector2) );
-            float _SampleTexture2D_92aa66cfc1594e75953f78eda338240d_R_4_Float = _SampleTexture2D_92aa66cfc1594e75953f78eda338240d_RGBA_0_Vector4.r;
-            float _SampleTexture2D_92aa66cfc1594e75953f78eda338240d_G_5_Float = _SampleTexture2D_92aa66cfc1594e75953f78eda338240d_RGBA_0_Vector4.g;
-            float _SampleTexture2D_92aa66cfc1594e75953f78eda338240d_B_6_Float = _SampleTexture2D_92aa66cfc1594e75953f78eda338240d_RGBA_0_Vector4.b;
-            float _SampleTexture2D_92aa66cfc1594e75953f78eda338240d_A_7_Float = _SampleTexture2D_92aa66cfc1594e75953f78eda338240d_RGBA_0_Vector4.a;
-            float _Lerp_b226becee310499996558c0e87d02c21_Out_3_Float;
-            Unity_Lerp_float(1, _SampleTexture2D_92aa66cfc1594e75953f78eda338240d_G_5_Float, _Split_b6373367e7a44a05bf573c7e0ca41b69_G_2_Float, _Lerp_b226becee310499996558c0e87d02c21_Out_3_Float);
-            float _Add_f8680e335fe2400ab2120a48b092521b_Out_2_Float;
-            Unity_Add_float(_Lerp_06d874a3ba7f468dacd59c3a87b5b905_Out_3_Float, _Lerp_b226becee310499996558c0e87d02c21_Out_3_Float, _Add_f8680e335fe2400ab2120a48b092521b_Out_2_Float);
-            float _Add_4e99e1444d614722944fa354d76dc5bc_Out_2_Float;
-            Unity_Add_float(_Lerp_81ce795475b34cf7b403ca64f13df295_Out_3_Float, _Add_f8680e335fe2400ab2120a48b092521b_Out_2_Float, _Add_4e99e1444d614722944fa354d76dc5bc_Out_2_Float);
             float4 _Property_31d23e9460d4481ab2477c0c32d709b2_Out_0_Vector4 = _Colour_Y;
             float _Property_415ba7edaa924b959b4b24743eea47fb_Out_0_Float = _Smooth1;
             float _Property_2308849ccfce4fada98b571ee8542c85_Out_0_Float = _Smooth2;
@@ -539,10 +355,8 @@ Shader "SS_BuildingMaster_01"
             Unity_Add_float4(_Multiply_f8d0d981ee5246168c415c16f8e3f69f_Out_2_Vector4, _Multiply_fd21b14a37bc4980a7a2e4b76b0dfbd8_Out_2_Vector4, _Add_111439db138a4f049d56fd5655eba09e_Out_2_Vector4);
             float4 _Add_7d52388d03df45e584050508f3c3a71e_Out_2_Vector4;
             Unity_Add_float4(_Multiply_e94213b485ca45cda0437b758de6c6b1_Out_2_Vector4, _Add_111439db138a4f049d56fd5655eba09e_Out_2_Vector4, _Add_7d52388d03df45e584050508f3c3a71e_Out_2_Vector4);
-            float4 _Multiply_e4241fe0242d43e48811b57c49a3b2df_Out_2_Vector4;
-            Unity_Multiply_float4_float4((_Add_4e99e1444d614722944fa354d76dc5bc_Out_2_Float.xxxx), _Add_7d52388d03df45e584050508f3c3a71e_Out_2_Vector4, _Multiply_e4241fe0242d43e48811b57c49a3b2df_Out_2_Vector4);
             float4 _Saturate_ab09d63345d6469f8434dc9bac61722b_Out_1_Vector4;
-            Unity_Saturate_float4(_Multiply_e4241fe0242d43e48811b57c49a3b2df_Out_2_Vector4, _Saturate_ab09d63345d6469f8434dc9bac61722b_Out_1_Vector4);
+            Unity_Saturate_float4(_Add_7d52388d03df45e584050508f3c3a71e_Out_2_Vector4, _Saturate_ab09d63345d6469f8434dc9bac61722b_Out_1_Vector4);
             surface.BaseColor = (_Saturate_ab09d63345d6469f8434dc9bac61722b_Out_1_Vector4.xyz);
             surface.Alpha = 1;
             surface.SpriteMask = IsGammaSpace() ? float4(1, 1, 1, 1) : float4 (SRGBToLinear(float3(1, 1, 1)), 1);
@@ -587,27 +401,16 @@ Shader "SS_BuildingMaster_01"
             float3 unnormalizedNormalWS = input.normalWS;
             const float renormFactor = 1.0 / length(unnormalizedNormalWS);
         
-            // use bitangent on the fly like in hdrp
-            // IMPORTANT! If we ever support Flip on double sided materials ensure bitangent and tangent are NOT flipped.
-            float crossSign = (input.tangentWS.w > 0.0 ? 1.0 : -1.0)* GetOddNegativeScale();
-            float3 bitang = crossSign * cross(input.normalWS.xyz, input.tangentWS.xyz);
         
             output.WorldSpaceNormal = renormFactor * input.normalWS.xyz;      // we want a unit length Normal Vector node in shader graph
         
-            // to pr               eserve mikktspace compliance we use same scale renormFactor as was used on the normal.
-            // This                is explained in section 2.2 in "surface gradient based bump mapping framework"
-            output.WorldSpaceTangent = renormFactor * input.tangentWS.xyz;
-            output.WorldSpaceBiTangent = renormFactor * bitang;
         
-            output.WorldSpacePosition = input.positionWS;
-            output.AbsoluteWorldSpacePosition = GetAbsolutePositionWS(input.positionWS);
         
             #if UNITY_UV_STARTS_AT_TOP
             #else
             #endif
         
-        //Mesh Vertex Data
-            output.VertexColor = input.color;
+        
         #if defined(SHADER_STAGE_FRAGMENT) && defined(VARYINGS_NEED_CULLFACE)
         #define BUILD_SURFACE_DESCRIPTION_INPUTS_OUTPUT_FACESIGN output.FaceSign =                    IS_FRONT_VFACE(input.cullFace, true, false);
         #else
@@ -642,8 +445,8 @@ Shader "SS_BuildingMaster_01"
         
         // Render State
         //Cull Off
-        //Blend SrcAlpha OneMinusSrcAlpha, One OneMinusSrcAlpha
-        ZTest LEqual
+        Blend SrcAlpha OneMinusSrcAlpha, One OneMinusSrcAlpha
+        //ZTest LEqual
         //ZWrite Off
         
         // Debug
@@ -668,11 +471,8 @@ Shader "SS_BuildingMaster_01"
         
         #define ATTRIBUTES_NEED_NORMAL
         #define ATTRIBUTES_NEED_TANGENT
-        #define ATTRIBUTES_NEED_COLOR
-        #define VARYINGS_NEED_POSITION_WS
         #define VARYINGS_NEED_NORMAL_WS
         #define VARYINGS_NEED_TANGENT_WS
-        #define VARYINGS_NEED_COLOR
         #define FEATURES_GRAPH_VERTEX
         /* WARNING: $splice Could not find named fragment 'PassInstancing' */
         #define SHADERPASS SHADERPASS_SPRITENORMAL
@@ -705,7 +505,6 @@ Shader "SS_BuildingMaster_01"
              float3 positionOS : POSITION;
              float3 normalOS : NORMAL;
              float4 tangentOS : TANGENT;
-             float4 color : COLOR;
             #if UNITY_ANY_INSTANCING_ENABLED
              uint instanceID : INSTANCEID_SEMANTIC;
             #endif
@@ -713,10 +512,8 @@ Shader "SS_BuildingMaster_01"
         struct Varyings
         {
              float4 positionCS : SV_POSITION;
-             float3 positionWS;
              float3 normalWS;
              float4 tangentWS;
-             float4 color;
             #if UNITY_ANY_INSTANCING_ENABLED
              uint instanceID : CUSTOM_INSTANCE_ID;
             #endif
@@ -734,11 +531,6 @@ Shader "SS_BuildingMaster_01"
         {
              float3 WorldSpaceNormal;
              float3 TangentSpaceNormal;
-             float3 WorldSpaceTangent;
-             float3 WorldSpaceBiTangent;
-             float3 WorldSpacePosition;
-             float3 AbsoluteWorldSpacePosition;
-             float4 VertexColor;
         };
         struct VertexDescriptionInputs
         {
@@ -750,9 +542,7 @@ Shader "SS_BuildingMaster_01"
         {
              float4 positionCS : SV_POSITION;
              float4 tangentWS : INTERP0;
-             float4 color : INTERP1;
-             float3 positionWS : INTERP2;
-             float3 normalWS : INTERP3;
+             float3 normalWS : INTERP1;
             #if UNITY_ANY_INSTANCING_ENABLED
              uint instanceID : CUSTOM_INSTANCE_ID;
             #endif
@@ -773,8 +563,6 @@ Shader "SS_BuildingMaster_01"
             ZERO_INITIALIZE(PackedVaryings, output);
             output.positionCS = input.positionCS;
             output.tangentWS.xyzw = input.tangentWS;
-            output.color.xyzw = input.color;
-            output.positionWS.xyz = input.positionWS;
             output.normalWS.xyz = input.normalWS;
             #if UNITY_ANY_INSTANCING_ENABLED
             output.instanceID = input.instanceID;
@@ -796,8 +584,6 @@ Shader "SS_BuildingMaster_01"
             Varyings output;
             output.positionCS = input.positionCS;
             output.tangentWS = input.tangentWS.xyzw;
-            output.color = input.color.xyzw;
-            output.positionWS = input.positionWS.xyz;
             output.normalWS = input.normalWS.xyz;
             #if UNITY_ANY_INSTANCING_ENABLED
             output.instanceID = input.instanceID;
@@ -820,9 +606,6 @@ Shader "SS_BuildingMaster_01"
         
         // Graph Properties
         CBUFFER_START(UnityPerMaterial)
-        float4 _SampleTexture2D_92aa66cfc1594e75953f78eda338240d_Texture_1_Texture2D_TexelSize;
-        float4 _SampleTexture2D_cb94edd4eb6c495eae4c93398c1e10ec_Texture_1_Texture2D_TexelSize;
-        float4 _SampleTexture2D_cd494f44ee2e4a48aef8d8c7541d0cb6_Texture_1_Texture2D_TexelSize;
         float4 _Texture2D_TexelSize;
         float4 _Colour_X;
         float4 _Colour_Y;
@@ -838,13 +621,6 @@ Shader "SS_BuildingMaster_01"
         
         
         // Object and Global properties
-        SAMPLER(SamplerState_Linear_Repeat);
-        TEXTURE2D(_SampleTexture2D_92aa66cfc1594e75953f78eda338240d_Texture_1_Texture2D);
-        SAMPLER(sampler_SampleTexture2D_92aa66cfc1594e75953f78eda338240d_Texture_1_Texture2D);
-        TEXTURE2D(_SampleTexture2D_cb94edd4eb6c495eae4c93398c1e10ec_Texture_1_Texture2D);
-        SAMPLER(sampler_SampleTexture2D_cb94edd4eb6c495eae4c93398c1e10ec_Texture_1_Texture2D);
-        TEXTURE2D(_SampleTexture2D_cd494f44ee2e4a48aef8d8c7541d0cb6_Texture_1_Texture2D);
-        SAMPLER(sampler_SampleTexture2D_cd494f44ee2e4a48aef8d8c7541d0cb6_Texture_1_Texture2D);
         TEXTURE2D(_Texture2D);
         SAMPLER(sampler_Texture2D);
         
@@ -864,129 +640,9 @@ Shader "SS_BuildingMaster_01"
         
         // Graph Functions
         
-        void Unity_Divide_float3(float3 A, float3 B, out float3 Out)
-        {
-            Out = A / B;
-        }
-        
-        void Unity_ChannelMask_GreenBlue_float3 (float3 In, out float3 Out)
-        {
-        Out = float3(0, In.g, In.b);
-        }
-        
         void Unity_Absolute_float3(float3 In, out float3 Out)
         {
             Out = abs(In);
-        }
-        
-        void Unity_Power_float3(float3 A, float3 B, out float3 Out)
-        {
-            Out = pow(A, B);
-        }
-        
-        void Unity_Contrast_float(float3 In, float Contrast, out float3 Out)
-        {
-            float midpoint = pow(0.5, 2.2);
-            Out =  (In - midpoint) * Contrast + midpoint;
-        }
-        
-        void Unity_Multiply_float3_float3(float3 A, float3 B, out float3 Out)
-        {
-        Out = A * B;
-        }
-        
-        void Unity_ChannelMask_RedBlue_float3 (float3 In, out float3 Out)
-        {
-        Out = float3(In.r, 0, In.b);
-        }
-        
-        void Unity_ChannelMask_RedGreen_float3 (float3 In, out float3 Out)
-        {
-        Out = float3(In.r, In.g, 0);
-        }
-        
-        void Unity_Add_float3(float3 A, float3 B, out float3 Out)
-        {
-            Out = A + B;
-        }
-        
-        struct Bindings_SBGCheaptriplanar_82958fd6428020c44bfdb5b5b5fb1ce6_float
-        {
-        float3 WorldSpaceNormal;
-        float3 WorldSpaceTangent;
-        float3 WorldSpaceBiTangent;
-        float3 WorldSpacePosition;
-        float3 AbsoluteWorldSpacePosition;
-        };
-        
-        void SG_SBGCheaptriplanar_82958fd6428020c44bfdb5b5b5fb1ce6_float(Bindings_SBGCheaptriplanar_82958fd6428020c44bfdb5b5b5fb1ce6_float IN, out float2 Alpha_1)
-        {
-        float3 _Transform_e9bec0e35831453a994f90e7b0453849_Out_1_Vector3;
-        {
-        // Converting Position from AbsoluteWorld to Object via world space
-        float3 world;
-        world = GetCameraRelativePositionWS(IN.AbsoluteWorldSpacePosition.xyz);
-        _Transform_e9bec0e35831453a994f90e7b0453849_Out_1_Vector3 = TransformWorldToObject(world);
-        }
-        float _Float_d8d5ee1b4a9342e0acdb554a6fb02662_Out_0_Float = 1024;
-        float3 _Divide_e749f4409b1e4d32848eefb2bf3c88fb_Out_2_Vector3;
-        Unity_Divide_float3(_Transform_e9bec0e35831453a994f90e7b0453849_Out_1_Vector3, (_Float_d8d5ee1b4a9342e0acdb554a6fb02662_Out_0_Float.xxx), _Divide_e749f4409b1e4d32848eefb2bf3c88fb_Out_2_Vector3);
-        float3 _ChannelMask_a0e64fdfddb540809b324da85474f6ea_Out_1_Vector3;
-        Unity_ChannelMask_GreenBlue_float3 (_Divide_e749f4409b1e4d32848eefb2bf3c88fb_Out_2_Vector3, _ChannelMask_a0e64fdfddb540809b324da85474f6ea_Out_1_Vector3);
-        float3 _Vector3_2050ca69d4a947c6af34ad61848f07c4_Out_0_Vector3 = float3(0, 0, 1);
-        float3 _Transform_bec2f16fc1ad4315b55113b169029f51_Out_1_Vector3;
-        {
-        // Converting Position from Tangent to Object via world space
-        float3 world;
-        {
-        float3x3 tangentTransform = float3x3(IN.WorldSpaceTangent, IN.WorldSpaceBiTangent, IN.WorldSpaceNormal);
-        world = TransformTangentToWorldDir(_Vector3_2050ca69d4a947c6af34ad61848f07c4_Out_0_Vector3.xyz, tangentTransform, false).xyz + IN.WorldSpacePosition;
-        }
-        _Transform_bec2f16fc1ad4315b55113b169029f51_Out_1_Vector3 = TransformWorldToObject(world);
-        }
-        float3 _Absolute_b2182449a62f44808113365ada259ee2_Out_1_Vector3;
-        Unity_Absolute_float3(_Transform_bec2f16fc1ad4315b55113b169029f51_Out_1_Vector3, _Absolute_b2182449a62f44808113365ada259ee2_Out_1_Vector3);
-        float _Float_081ee3c0116543d09db94af274033691_Out_0_Float = 160;
-        float3 _Power_2f521294f76e45ac8b563f020e192d78_Out_2_Vector3;
-        Unity_Power_float3(_Absolute_b2182449a62f44808113365ada259ee2_Out_1_Vector3, (_Float_081ee3c0116543d09db94af274033691_Out_0_Float.xxx), _Power_2f521294f76e45ac8b563f020e192d78_Out_2_Vector3);
-        float3 _Divide_b969b5ce97a54395a8e8e280383b32d2_Out_2_Vector3;
-        Unity_Divide_float3(_Power_2f521294f76e45ac8b563f020e192d78_Out_2_Vector3, _Power_2f521294f76e45ac8b563f020e192d78_Out_2_Vector3, _Divide_b969b5ce97a54395a8e8e280383b32d2_Out_2_Vector3);
-        float3 _Contrast_600f4e8d94244859adbd158287369cd4_Out_2_Vector3;
-        Unity_Contrast_float(_Divide_b969b5ce97a54395a8e8e280383b32d2_Out_2_Vector3, 512, _Contrast_600f4e8d94244859adbd158287369cd4_Out_2_Vector3);
-        float _Split_f23741fee00f4e28b3c8caf2939dd35a_R_1_Float = _Contrast_600f4e8d94244859adbd158287369cd4_Out_2_Vector3[0];
-        float _Split_f23741fee00f4e28b3c8caf2939dd35a_G_2_Float = _Contrast_600f4e8d94244859adbd158287369cd4_Out_2_Vector3[1];
-        float _Split_f23741fee00f4e28b3c8caf2939dd35a_B_3_Float = _Contrast_600f4e8d94244859adbd158287369cd4_Out_2_Vector3[2];
-        float _Split_f23741fee00f4e28b3c8caf2939dd35a_A_4_Float = 0;
-        float3 _Multiply_b9d2e30cdcf94763a7124fa853f93fe7_Out_2_Vector3;
-        Unity_Multiply_float3_float3(_ChannelMask_a0e64fdfddb540809b324da85474f6ea_Out_1_Vector3, (_Split_f23741fee00f4e28b3c8caf2939dd35a_B_3_Float.xxx), _Multiply_b9d2e30cdcf94763a7124fa853f93fe7_Out_2_Vector3);
-        float3 _ChannelMask_27749b8cadbd42f5991ec7cd4ad98b27_Out_1_Vector3;
-        Unity_ChannelMask_RedBlue_float3 (_Divide_e749f4409b1e4d32848eefb2bf3c88fb_Out_2_Vector3, _ChannelMask_27749b8cadbd42f5991ec7cd4ad98b27_Out_1_Vector3);
-        float3 _Multiply_1f36462bfff14a8fabe4ce5bb67f59e4_Out_2_Vector3;
-        Unity_Multiply_float3_float3(_ChannelMask_27749b8cadbd42f5991ec7cd4ad98b27_Out_1_Vector3, (_Split_f23741fee00f4e28b3c8caf2939dd35a_G_2_Float.xxx), _Multiply_1f36462bfff14a8fabe4ce5bb67f59e4_Out_2_Vector3);
-        float3 _ChannelMask_781535be92614c1aa8ae024956bcfc07_Out_1_Vector3;
-        Unity_ChannelMask_RedGreen_float3 (_Divide_e749f4409b1e4d32848eefb2bf3c88fb_Out_2_Vector3, _ChannelMask_781535be92614c1aa8ae024956bcfc07_Out_1_Vector3);
-        float3 _Multiply_585d93bfd4854357a05b3f76c623991b_Out_2_Vector3;
-        Unity_Multiply_float3_float3(_ChannelMask_781535be92614c1aa8ae024956bcfc07_Out_1_Vector3, (_Split_f23741fee00f4e28b3c8caf2939dd35a_R_1_Float.xxx), _Multiply_585d93bfd4854357a05b3f76c623991b_Out_2_Vector3);
-        float3 _Add_b117ee877fb641718fd739e492e47156_Out_2_Vector3;
-        Unity_Add_float3(_Multiply_1f36462bfff14a8fabe4ce5bb67f59e4_Out_2_Vector3, _Multiply_585d93bfd4854357a05b3f76c623991b_Out_2_Vector3, _Add_b117ee877fb641718fd739e492e47156_Out_2_Vector3);
-        float3 _Add_0f71d5ddfd914e3180fab7da8ea55391_Out_2_Vector3;
-        Unity_Add_float3(_Multiply_b9d2e30cdcf94763a7124fa853f93fe7_Out_2_Vector3, _Add_b117ee877fb641718fd739e492e47156_Out_2_Vector3, _Add_0f71d5ddfd914e3180fab7da8ea55391_Out_2_Vector3);
-        Alpha_1 = (_Add_0f71d5ddfd914e3180fab7da8ea55391_Out_2_Vector3.xy);
-        }
-        
-        void Unity_Multiply_float2_float2(float2 A, float2 B, out float2 Out)
-        {
-            Out = A * B;
-        }
-        
-        void Unity_Lerp_float(float A, float B, float T, out float Out)
-        {
-            Out = lerp(A, B, T);
-        }
-        
-        void Unity_Add_float(float A, float B, out float Out)
-        {
-            Out = A + B;
         }
         
         void Unity_Smoothstep_float3(float3 Edge1, float3 Edge2, float3 In, out float3 Out)
@@ -1054,46 +710,6 @@ Shader "SS_BuildingMaster_01"
         SurfaceDescription SurfaceDescriptionFunction(SurfaceDescriptionInputs IN)
         {
             SurfaceDescription surface = (SurfaceDescription)0;
-            Bindings_SBGCheaptriplanar_82958fd6428020c44bfdb5b5b5fb1ce6_float _SBGCheaptriplanar_d2fc95a0d41d49799c43ca1a1b30c64e;
-            _SBGCheaptriplanar_d2fc95a0d41d49799c43ca1a1b30c64e.WorldSpaceNormal = IN.WorldSpaceNormal;
-            _SBGCheaptriplanar_d2fc95a0d41d49799c43ca1a1b30c64e.WorldSpaceTangent = IN.WorldSpaceTangent;
-            _SBGCheaptriplanar_d2fc95a0d41d49799c43ca1a1b30c64e.WorldSpaceBiTangent = IN.WorldSpaceBiTangent;
-            _SBGCheaptriplanar_d2fc95a0d41d49799c43ca1a1b30c64e.WorldSpacePosition = IN.WorldSpacePosition;
-            _SBGCheaptriplanar_d2fc95a0d41d49799c43ca1a1b30c64e.AbsoluteWorldSpacePosition = IN.AbsoluteWorldSpacePosition;
-            float2 _SBGCheaptriplanar_d2fc95a0d41d49799c43ca1a1b30c64e_Alpha_1_Vector2;
-            SG_SBGCheaptriplanar_82958fd6428020c44bfdb5b5b5fb1ce6_float(_SBGCheaptriplanar_d2fc95a0d41d49799c43ca1a1b30c64e, _SBGCheaptriplanar_d2fc95a0d41d49799c43ca1a1b30c64e_Alpha_1_Vector2);
-            float _Float_63545e2f5be047c9b414de1d23f9a383_Out_0_Float = 128;
-            float2 _Multiply_bec534511d454c6498f26992388a72e9_Out_2_Vector2;
-            Unity_Multiply_float2_float2(_SBGCheaptriplanar_d2fc95a0d41d49799c43ca1a1b30c64e_Alpha_1_Vector2, (_Float_63545e2f5be047c9b414de1d23f9a383_Out_0_Float.xx), _Multiply_bec534511d454c6498f26992388a72e9_Out_2_Vector2);
-            float4 _SampleTexture2D_cb94edd4eb6c495eae4c93398c1e10ec_RGBA_0_Vector4 = SAMPLE_TEXTURE2D(UnityBuildTexture2DStructNoScale(_SampleTexture2D_cb94edd4eb6c495eae4c93398c1e10ec_Texture_1_Texture2D).tex, UnityBuildTexture2DStructNoScale(_SampleTexture2D_cb94edd4eb6c495eae4c93398c1e10ec_Texture_1_Texture2D).samplerstate, UnityBuildTexture2DStructNoScale(_SampleTexture2D_cb94edd4eb6c495eae4c93398c1e10ec_Texture_1_Texture2D).GetTransformedUV(_Multiply_bec534511d454c6498f26992388a72e9_Out_2_Vector2) );
-            float _SampleTexture2D_cb94edd4eb6c495eae4c93398c1e10ec_R_4_Float = _SampleTexture2D_cb94edd4eb6c495eae4c93398c1e10ec_RGBA_0_Vector4.r;
-            float _SampleTexture2D_cb94edd4eb6c495eae4c93398c1e10ec_G_5_Float = _SampleTexture2D_cb94edd4eb6c495eae4c93398c1e10ec_RGBA_0_Vector4.g;
-            float _SampleTexture2D_cb94edd4eb6c495eae4c93398c1e10ec_B_6_Float = _SampleTexture2D_cb94edd4eb6c495eae4c93398c1e10ec_RGBA_0_Vector4.b;
-            float _SampleTexture2D_cb94edd4eb6c495eae4c93398c1e10ec_A_7_Float = _SampleTexture2D_cb94edd4eb6c495eae4c93398c1e10ec_RGBA_0_Vector4.a;
-            float _Split_b6373367e7a44a05bf573c7e0ca41b69_R_1_Float = IN.VertexColor[0];
-            float _Split_b6373367e7a44a05bf573c7e0ca41b69_G_2_Float = IN.VertexColor[1];
-            float _Split_b6373367e7a44a05bf573c7e0ca41b69_B_3_Float = IN.VertexColor[2];
-            float _Split_b6373367e7a44a05bf573c7e0ca41b69_A_4_Float = IN.VertexColor[3];
-            float _Lerp_81ce795475b34cf7b403ca64f13df295_Out_3_Float;
-            Unity_Lerp_float(1, _SampleTexture2D_cb94edd4eb6c495eae4c93398c1e10ec_B_6_Float, _Split_b6373367e7a44a05bf573c7e0ca41b69_B_3_Float, _Lerp_81ce795475b34cf7b403ca64f13df295_Out_3_Float);
-            float4 _SampleTexture2D_cd494f44ee2e4a48aef8d8c7541d0cb6_RGBA_0_Vector4 = SAMPLE_TEXTURE2D(UnityBuildTexture2DStructNoScale(_SampleTexture2D_cd494f44ee2e4a48aef8d8c7541d0cb6_Texture_1_Texture2D).tex, UnityBuildTexture2DStructNoScale(_SampleTexture2D_cd494f44ee2e4a48aef8d8c7541d0cb6_Texture_1_Texture2D).samplerstate, UnityBuildTexture2DStructNoScale(_SampleTexture2D_cd494f44ee2e4a48aef8d8c7541d0cb6_Texture_1_Texture2D).GetTransformedUV(_Multiply_bec534511d454c6498f26992388a72e9_Out_2_Vector2) );
-            float _SampleTexture2D_cd494f44ee2e4a48aef8d8c7541d0cb6_R_4_Float = _SampleTexture2D_cd494f44ee2e4a48aef8d8c7541d0cb6_RGBA_0_Vector4.r;
-            float _SampleTexture2D_cd494f44ee2e4a48aef8d8c7541d0cb6_G_5_Float = _SampleTexture2D_cd494f44ee2e4a48aef8d8c7541d0cb6_RGBA_0_Vector4.g;
-            float _SampleTexture2D_cd494f44ee2e4a48aef8d8c7541d0cb6_B_6_Float = _SampleTexture2D_cd494f44ee2e4a48aef8d8c7541d0cb6_RGBA_0_Vector4.b;
-            float _SampleTexture2D_cd494f44ee2e4a48aef8d8c7541d0cb6_A_7_Float = _SampleTexture2D_cd494f44ee2e4a48aef8d8c7541d0cb6_RGBA_0_Vector4.a;
-            float _Lerp_06d874a3ba7f468dacd59c3a87b5b905_Out_3_Float;
-            Unity_Lerp_float(1, _SampleTexture2D_cd494f44ee2e4a48aef8d8c7541d0cb6_R_4_Float, _Split_b6373367e7a44a05bf573c7e0ca41b69_R_1_Float, _Lerp_06d874a3ba7f468dacd59c3a87b5b905_Out_3_Float);
-            float4 _SampleTexture2D_92aa66cfc1594e75953f78eda338240d_RGBA_0_Vector4 = SAMPLE_TEXTURE2D(UnityBuildTexture2DStructNoScale(_SampleTexture2D_92aa66cfc1594e75953f78eda338240d_Texture_1_Texture2D).tex, UnityBuildTexture2DStructNoScale(_SampleTexture2D_92aa66cfc1594e75953f78eda338240d_Texture_1_Texture2D).samplerstate, UnityBuildTexture2DStructNoScale(_SampleTexture2D_92aa66cfc1594e75953f78eda338240d_Texture_1_Texture2D).GetTransformedUV(_Multiply_bec534511d454c6498f26992388a72e9_Out_2_Vector2) );
-            float _SampleTexture2D_92aa66cfc1594e75953f78eda338240d_R_4_Float = _SampleTexture2D_92aa66cfc1594e75953f78eda338240d_RGBA_0_Vector4.r;
-            float _SampleTexture2D_92aa66cfc1594e75953f78eda338240d_G_5_Float = _SampleTexture2D_92aa66cfc1594e75953f78eda338240d_RGBA_0_Vector4.g;
-            float _SampleTexture2D_92aa66cfc1594e75953f78eda338240d_B_6_Float = _SampleTexture2D_92aa66cfc1594e75953f78eda338240d_RGBA_0_Vector4.b;
-            float _SampleTexture2D_92aa66cfc1594e75953f78eda338240d_A_7_Float = _SampleTexture2D_92aa66cfc1594e75953f78eda338240d_RGBA_0_Vector4.a;
-            float _Lerp_b226becee310499996558c0e87d02c21_Out_3_Float;
-            Unity_Lerp_float(1, _SampleTexture2D_92aa66cfc1594e75953f78eda338240d_G_5_Float, _Split_b6373367e7a44a05bf573c7e0ca41b69_G_2_Float, _Lerp_b226becee310499996558c0e87d02c21_Out_3_Float);
-            float _Add_f8680e335fe2400ab2120a48b092521b_Out_2_Float;
-            Unity_Add_float(_Lerp_06d874a3ba7f468dacd59c3a87b5b905_Out_3_Float, _Lerp_b226becee310499996558c0e87d02c21_Out_3_Float, _Add_f8680e335fe2400ab2120a48b092521b_Out_2_Float);
-            float _Add_4e99e1444d614722944fa354d76dc5bc_Out_2_Float;
-            Unity_Add_float(_Lerp_81ce795475b34cf7b403ca64f13df295_Out_3_Float, _Add_f8680e335fe2400ab2120a48b092521b_Out_2_Float, _Add_4e99e1444d614722944fa354d76dc5bc_Out_2_Float);
             float4 _Property_31d23e9460d4481ab2477c0c32d709b2_Out_0_Vector4 = _Colour_Y;
             float _Property_415ba7edaa924b959b4b24743eea47fb_Out_0_Float = _Smooth1;
             float _Property_2308849ccfce4fada98b571ee8542c85_Out_0_Float = _Smooth2;
@@ -1123,10 +739,8 @@ Shader "SS_BuildingMaster_01"
             Unity_Add_float4(_Multiply_f8d0d981ee5246168c415c16f8e3f69f_Out_2_Vector4, _Multiply_fd21b14a37bc4980a7a2e4b76b0dfbd8_Out_2_Vector4, _Add_111439db138a4f049d56fd5655eba09e_Out_2_Vector4);
             float4 _Add_7d52388d03df45e584050508f3c3a71e_Out_2_Vector4;
             Unity_Add_float4(_Multiply_e94213b485ca45cda0437b758de6c6b1_Out_2_Vector4, _Add_111439db138a4f049d56fd5655eba09e_Out_2_Vector4, _Add_7d52388d03df45e584050508f3c3a71e_Out_2_Vector4);
-            float4 _Multiply_e4241fe0242d43e48811b57c49a3b2df_Out_2_Vector4;
-            Unity_Multiply_float4_float4((_Add_4e99e1444d614722944fa354d76dc5bc_Out_2_Float.xxxx), _Add_7d52388d03df45e584050508f3c3a71e_Out_2_Vector4, _Multiply_e4241fe0242d43e48811b57c49a3b2df_Out_2_Vector4);
             float4 _Saturate_ab09d63345d6469f8434dc9bac61722b_Out_1_Vector4;
-            Unity_Saturate_float4(_Multiply_e4241fe0242d43e48811b57c49a3b2df_Out_2_Vector4, _Saturate_ab09d63345d6469f8434dc9bac61722b_Out_1_Vector4);
+            Unity_Saturate_float4(_Add_7d52388d03df45e584050508f3c3a71e_Out_2_Vector4, _Saturate_ab09d63345d6469f8434dc9bac61722b_Out_1_Vector4);
             surface.BaseColor = (_Saturate_ab09d63345d6469f8434dc9bac61722b_Out_1_Vector4.xyz);
             surface.Alpha = 1;
             surface.NormalTS = IN.TangentSpaceNormal;
@@ -1171,28 +785,17 @@ Shader "SS_BuildingMaster_01"
             float3 unnormalizedNormalWS = input.normalWS;
             const float renormFactor = 1.0 / length(unnormalizedNormalWS);
         
-            // use bitangent on the fly like in hdrp
-            // IMPORTANT! If we ever support Flip on double sided materials ensure bitangent and tangent are NOT flipped.
-            float crossSign = (input.tangentWS.w > 0.0 ? 1.0 : -1.0)* GetOddNegativeScale();
-            float3 bitang = crossSign * cross(input.normalWS.xyz, input.tangentWS.xyz);
         
             output.WorldSpaceNormal = renormFactor * input.normalWS.xyz;      // we want a unit length Normal Vector node in shader graph
             output.TangentSpaceNormal = float3(0.0f, 0.0f, 1.0f);
         
-            // to pr               eserve mikktspace compliance we use same scale renormFactor as was used on the normal.
-            // This                is explained in section 2.2 in "surface gradient based bump mapping framework"
-            output.WorldSpaceTangent = renormFactor * input.tangentWS.xyz;
-            output.WorldSpaceBiTangent = renormFactor * bitang;
         
-            output.WorldSpacePosition = input.positionWS;
-            output.AbsoluteWorldSpacePosition = GetAbsolutePositionWS(input.positionWS);
         
             #if UNITY_UV_STARTS_AT_TOP
             #else
             #endif
         
         
-            output.VertexColor = input.color;
         #if defined(SHADER_STAGE_FRAGMENT) && defined(VARYINGS_NEED_CULLFACE)
         #define BUILD_SURFACE_DESCRIPTION_INPUTS_OUTPUT_FACESIGN output.FaceSign =                    IS_FRONT_VFACE(input.cullFace, true, false);
         #else
@@ -1375,9 +978,6 @@ Shader "SS_BuildingMaster_01"
         
         // Graph Properties
         CBUFFER_START(UnityPerMaterial)
-        float4 _SampleTexture2D_92aa66cfc1594e75953f78eda338240d_Texture_1_Texture2D_TexelSize;
-        float4 _SampleTexture2D_cb94edd4eb6c495eae4c93398c1e10ec_Texture_1_Texture2D_TexelSize;
-        float4 _SampleTexture2D_cd494f44ee2e4a48aef8d8c7541d0cb6_Texture_1_Texture2D_TexelSize;
         float4 _Texture2D_TexelSize;
         float4 _Colour_X;
         float4 _Colour_Y;
@@ -1393,13 +993,6 @@ Shader "SS_BuildingMaster_01"
         
         
         // Object and Global properties
-        SAMPLER(SamplerState_Linear_Repeat);
-        TEXTURE2D(_SampleTexture2D_92aa66cfc1594e75953f78eda338240d_Texture_1_Texture2D);
-        SAMPLER(sampler_SampleTexture2D_92aa66cfc1594e75953f78eda338240d_Texture_1_Texture2D);
-        TEXTURE2D(_SampleTexture2D_cb94edd4eb6c495eae4c93398c1e10ec_Texture_1_Texture2D);
-        SAMPLER(sampler_SampleTexture2D_cb94edd4eb6c495eae4c93398c1e10ec_Texture_1_Texture2D);
-        TEXTURE2D(_SampleTexture2D_cd494f44ee2e4a48aef8d8c7541d0cb6_Texture_1_Texture2D);
-        SAMPLER(sampler_SampleTexture2D_cd494f44ee2e4a48aef8d8c7541d0cb6_Texture_1_Texture2D);
         TEXTURE2D(_Texture2D);
         SAMPLER(sampler_Texture2D);
         
@@ -1688,9 +1281,6 @@ Shader "SS_BuildingMaster_01"
         
         // Graph Properties
         CBUFFER_START(UnityPerMaterial)
-        float4 _SampleTexture2D_92aa66cfc1594e75953f78eda338240d_Texture_1_Texture2D_TexelSize;
-        float4 _SampleTexture2D_cb94edd4eb6c495eae4c93398c1e10ec_Texture_1_Texture2D_TexelSize;
-        float4 _SampleTexture2D_cd494f44ee2e4a48aef8d8c7541d0cb6_Texture_1_Texture2D_TexelSize;
         float4 _Texture2D_TexelSize;
         float4 _Colour_X;
         float4 _Colour_Y;
@@ -1706,13 +1296,6 @@ Shader "SS_BuildingMaster_01"
         
         
         // Object and Global properties
-        SAMPLER(SamplerState_Linear_Repeat);
-        TEXTURE2D(_SampleTexture2D_92aa66cfc1594e75953f78eda338240d_Texture_1_Texture2D);
-        SAMPLER(sampler_SampleTexture2D_92aa66cfc1594e75953f78eda338240d_Texture_1_Texture2D);
-        TEXTURE2D(_SampleTexture2D_cb94edd4eb6c495eae4c93398c1e10ec_Texture_1_Texture2D);
-        SAMPLER(sampler_SampleTexture2D_cb94edd4eb6c495eae4c93398c1e10ec_Texture_1_Texture2D);
-        TEXTURE2D(_SampleTexture2D_cd494f44ee2e4a48aef8d8c7541d0cb6_Texture_1_Texture2D);
-        SAMPLER(sampler_SampleTexture2D_cd494f44ee2e4a48aef8d8c7541d0cb6_Texture_1_Texture2D);
         TEXTURE2D(_Texture2D);
         SAMPLER(sampler_Texture2D);
         
@@ -1792,7 +1375,6 @@ Shader "SS_BuildingMaster_01"
             output.ObjectSpacePosition =                        input.positionOS;
         
             return output;
-            //???? QuestionMark???
         }
         SurfaceDescriptionInputs BuildSurfaceDescriptionInputs(Varyings input)
         {
@@ -1884,7 +1466,6 @@ Shader "SS_BuildingMaster_01"
         #define ATTRIBUTES_NEED_COLOR
         #define VARYINGS_NEED_POSITION_WS
         #define VARYINGS_NEED_NORMAL_WS
-        #define VARYINGS_NEED_TANGENT_WS
         #define VARYINGS_NEED_TEXCOORD0
         #define VARYINGS_NEED_COLOR
         #define FEATURES_GRAPH_VERTEX
@@ -1929,7 +1510,6 @@ Shader "SS_BuildingMaster_01"
              float4 positionCS : SV_POSITION;
              float3 positionWS;
              float3 normalWS;
-             float4 tangentWS;
              float4 texCoord0;
              float4 color;
             #if UNITY_ANY_INSTANCING_ENABLED
@@ -1949,11 +1529,6 @@ Shader "SS_BuildingMaster_01"
         {
              float3 WorldSpaceNormal;
              float3 TangentSpaceNormal;
-             float3 WorldSpaceTangent;
-             float3 WorldSpaceBiTangent;
-             float3 WorldSpacePosition;
-             float3 AbsoluteWorldSpacePosition;
-             float4 VertexColor;
         };
         struct VertexDescriptionInputs
         {
@@ -1964,11 +1539,10 @@ Shader "SS_BuildingMaster_01"
         struct PackedVaryings
         {
              float4 positionCS : SV_POSITION;
-             float4 tangentWS : INTERP0;
-             float4 texCoord0 : INTERP1;
-             float4 color : INTERP2;
-             float3 positionWS : INTERP3;
-             float3 normalWS : INTERP4;
+             float4 texCoord0 : INTERP0;
+             float4 color : INTERP1;
+             float3 positionWS : INTERP2;
+             float3 normalWS : INTERP3;
             #if UNITY_ANY_INSTANCING_ENABLED
              uint instanceID : CUSTOM_INSTANCE_ID;
             #endif
@@ -1988,7 +1562,6 @@ Shader "SS_BuildingMaster_01"
             PackedVaryings output;
             ZERO_INITIALIZE(PackedVaryings, output);
             output.positionCS = input.positionCS;
-            output.tangentWS.xyzw = input.tangentWS;
             output.texCoord0.xyzw = input.texCoord0;
             output.color.xyzw = input.color;
             output.positionWS.xyz = input.positionWS;
@@ -2012,7 +1585,6 @@ Shader "SS_BuildingMaster_01"
         {
             Varyings output;
             output.positionCS = input.positionCS;
-            output.tangentWS = input.tangentWS.xyzw;
             output.texCoord0 = input.texCoord0.xyzw;
             output.color = input.color.xyzw;
             output.positionWS = input.positionWS.xyz;
@@ -2038,9 +1610,6 @@ Shader "SS_BuildingMaster_01"
         
         // Graph Properties
         CBUFFER_START(UnityPerMaterial)
-        float4 _SampleTexture2D_92aa66cfc1594e75953f78eda338240d_Texture_1_Texture2D_TexelSize;
-        float4 _SampleTexture2D_cb94edd4eb6c495eae4c93398c1e10ec_Texture_1_Texture2D_TexelSize;
-        float4 _SampleTexture2D_cd494f44ee2e4a48aef8d8c7541d0cb6_Texture_1_Texture2D_TexelSize;
         float4 _Texture2D_TexelSize;
         float4 _Colour_X;
         float4 _Colour_Y;
@@ -2056,13 +1625,6 @@ Shader "SS_BuildingMaster_01"
         
         
         // Object and Global properties
-        SAMPLER(SamplerState_Linear_Repeat);
-        TEXTURE2D(_SampleTexture2D_92aa66cfc1594e75953f78eda338240d_Texture_1_Texture2D);
-        SAMPLER(sampler_SampleTexture2D_92aa66cfc1594e75953f78eda338240d_Texture_1_Texture2D);
-        TEXTURE2D(_SampleTexture2D_cb94edd4eb6c495eae4c93398c1e10ec_Texture_1_Texture2D);
-        SAMPLER(sampler_SampleTexture2D_cb94edd4eb6c495eae4c93398c1e10ec_Texture_1_Texture2D);
-        TEXTURE2D(_SampleTexture2D_cd494f44ee2e4a48aef8d8c7541d0cb6_Texture_1_Texture2D);
-        SAMPLER(sampler_SampleTexture2D_cd494f44ee2e4a48aef8d8c7541d0cb6_Texture_1_Texture2D);
         TEXTURE2D(_Texture2D);
         SAMPLER(sampler_Texture2D);
         
@@ -2082,129 +1644,9 @@ Shader "SS_BuildingMaster_01"
         
         // Graph Functions
         
-        void Unity_Divide_float3(float3 A, float3 B, out float3 Out)
-        {
-            Out = A / B;
-        }
-        
-        void Unity_ChannelMask_GreenBlue_float3 (float3 In, out float3 Out)
-        {
-        Out = float3(0, In.g, In.b);
-        }
-        
         void Unity_Absolute_float3(float3 In, out float3 Out)
         {
             Out = abs(In);
-        }
-        
-        void Unity_Power_float3(float3 A, float3 B, out float3 Out)
-        {
-            Out = pow(A, B);
-        }
-        
-        void Unity_Contrast_float(float3 In, float Contrast, out float3 Out)
-        {
-            float midpoint = pow(0.5, 2.2);
-            Out =  (In - midpoint) * Contrast + midpoint;
-        }
-        
-        void Unity_Multiply_float3_float3(float3 A, float3 B, out float3 Out)
-        {
-        Out = A * B;
-        }
-        
-        void Unity_ChannelMask_RedBlue_float3 (float3 In, out float3 Out)
-        {
-        Out = float3(In.r, 0, In.b);
-        }
-        
-        void Unity_ChannelMask_RedGreen_float3 (float3 In, out float3 Out)
-        {
-        Out = float3(In.r, In.g, 0);
-        }
-        
-        void Unity_Add_float3(float3 A, float3 B, out float3 Out)
-        {
-            Out = A + B;
-        }
-        
-        struct Bindings_SBGCheaptriplanar_82958fd6428020c44bfdb5b5b5fb1ce6_float
-        {
-        float3 WorldSpaceNormal;
-        float3 WorldSpaceTangent;
-        float3 WorldSpaceBiTangent;
-        float3 WorldSpacePosition;
-        float3 AbsoluteWorldSpacePosition;
-        };
-        
-        void SG_SBGCheaptriplanar_82958fd6428020c44bfdb5b5b5fb1ce6_float(Bindings_SBGCheaptriplanar_82958fd6428020c44bfdb5b5b5fb1ce6_float IN, out float2 Alpha_1)
-        {
-        float3 _Transform_e9bec0e35831453a994f90e7b0453849_Out_1_Vector3;
-        {
-        // Converting Position from AbsoluteWorld to Object via world space
-        float3 world;
-        world = GetCameraRelativePositionWS(IN.AbsoluteWorldSpacePosition.xyz);
-        _Transform_e9bec0e35831453a994f90e7b0453849_Out_1_Vector3 = TransformWorldToObject(world);
-        }
-        float _Float_d8d5ee1b4a9342e0acdb554a6fb02662_Out_0_Float = 1024;
-        float3 _Divide_e749f4409b1e4d32848eefb2bf3c88fb_Out_2_Vector3;
-        Unity_Divide_float3(_Transform_e9bec0e35831453a994f90e7b0453849_Out_1_Vector3, (_Float_d8d5ee1b4a9342e0acdb554a6fb02662_Out_0_Float.xxx), _Divide_e749f4409b1e4d32848eefb2bf3c88fb_Out_2_Vector3);
-        float3 _ChannelMask_a0e64fdfddb540809b324da85474f6ea_Out_1_Vector3;
-        Unity_ChannelMask_GreenBlue_float3 (_Divide_e749f4409b1e4d32848eefb2bf3c88fb_Out_2_Vector3, _ChannelMask_a0e64fdfddb540809b324da85474f6ea_Out_1_Vector3);
-        float3 _Vector3_2050ca69d4a947c6af34ad61848f07c4_Out_0_Vector3 = float3(0, 0, 1);
-        float3 _Transform_bec2f16fc1ad4315b55113b169029f51_Out_1_Vector3;
-        {
-        // Converting Position from Tangent to Object via world space
-        float3 world;
-        {
-        float3x3 tangentTransform = float3x3(IN.WorldSpaceTangent, IN.WorldSpaceBiTangent, IN.WorldSpaceNormal);
-        world = TransformTangentToWorldDir(_Vector3_2050ca69d4a947c6af34ad61848f07c4_Out_0_Vector3.xyz, tangentTransform, false).xyz + IN.WorldSpacePosition;
-        }
-        _Transform_bec2f16fc1ad4315b55113b169029f51_Out_1_Vector3 = TransformWorldToObject(world);
-        }
-        float3 _Absolute_b2182449a62f44808113365ada259ee2_Out_1_Vector3;
-        Unity_Absolute_float3(_Transform_bec2f16fc1ad4315b55113b169029f51_Out_1_Vector3, _Absolute_b2182449a62f44808113365ada259ee2_Out_1_Vector3);
-        float _Float_081ee3c0116543d09db94af274033691_Out_0_Float = 160;
-        float3 _Power_2f521294f76e45ac8b563f020e192d78_Out_2_Vector3;
-        Unity_Power_float3(_Absolute_b2182449a62f44808113365ada259ee2_Out_1_Vector3, (_Float_081ee3c0116543d09db94af274033691_Out_0_Float.xxx), _Power_2f521294f76e45ac8b563f020e192d78_Out_2_Vector3);
-        float3 _Divide_b969b5ce97a54395a8e8e280383b32d2_Out_2_Vector3;
-        Unity_Divide_float3(_Power_2f521294f76e45ac8b563f020e192d78_Out_2_Vector3, _Power_2f521294f76e45ac8b563f020e192d78_Out_2_Vector3, _Divide_b969b5ce97a54395a8e8e280383b32d2_Out_2_Vector3);
-        float3 _Contrast_600f4e8d94244859adbd158287369cd4_Out_2_Vector3;
-        Unity_Contrast_float(_Divide_b969b5ce97a54395a8e8e280383b32d2_Out_2_Vector3, 512, _Contrast_600f4e8d94244859adbd158287369cd4_Out_2_Vector3);
-        float _Split_f23741fee00f4e28b3c8caf2939dd35a_R_1_Float = _Contrast_600f4e8d94244859adbd158287369cd4_Out_2_Vector3[0];
-        float _Split_f23741fee00f4e28b3c8caf2939dd35a_G_2_Float = _Contrast_600f4e8d94244859adbd158287369cd4_Out_2_Vector3[1];
-        float _Split_f23741fee00f4e28b3c8caf2939dd35a_B_3_Float = _Contrast_600f4e8d94244859adbd158287369cd4_Out_2_Vector3[2];
-        float _Split_f23741fee00f4e28b3c8caf2939dd35a_A_4_Float = 0;
-        float3 _Multiply_b9d2e30cdcf94763a7124fa853f93fe7_Out_2_Vector3;
-        Unity_Multiply_float3_float3(_ChannelMask_a0e64fdfddb540809b324da85474f6ea_Out_1_Vector3, (_Split_f23741fee00f4e28b3c8caf2939dd35a_B_3_Float.xxx), _Multiply_b9d2e30cdcf94763a7124fa853f93fe7_Out_2_Vector3);
-        float3 _ChannelMask_27749b8cadbd42f5991ec7cd4ad98b27_Out_1_Vector3;
-        Unity_ChannelMask_RedBlue_float3 (_Divide_e749f4409b1e4d32848eefb2bf3c88fb_Out_2_Vector3, _ChannelMask_27749b8cadbd42f5991ec7cd4ad98b27_Out_1_Vector3);
-        float3 _Multiply_1f36462bfff14a8fabe4ce5bb67f59e4_Out_2_Vector3;
-        Unity_Multiply_float3_float3(_ChannelMask_27749b8cadbd42f5991ec7cd4ad98b27_Out_1_Vector3, (_Split_f23741fee00f4e28b3c8caf2939dd35a_G_2_Float.xxx), _Multiply_1f36462bfff14a8fabe4ce5bb67f59e4_Out_2_Vector3);
-        float3 _ChannelMask_781535be92614c1aa8ae024956bcfc07_Out_1_Vector3;
-        Unity_ChannelMask_RedGreen_float3 (_Divide_e749f4409b1e4d32848eefb2bf3c88fb_Out_2_Vector3, _ChannelMask_781535be92614c1aa8ae024956bcfc07_Out_1_Vector3);
-        float3 _Multiply_585d93bfd4854357a05b3f76c623991b_Out_2_Vector3;
-        Unity_Multiply_float3_float3(_ChannelMask_781535be92614c1aa8ae024956bcfc07_Out_1_Vector3, (_Split_f23741fee00f4e28b3c8caf2939dd35a_R_1_Float.xxx), _Multiply_585d93bfd4854357a05b3f76c623991b_Out_2_Vector3);
-        float3 _Add_b117ee877fb641718fd739e492e47156_Out_2_Vector3;
-        Unity_Add_float3(_Multiply_1f36462bfff14a8fabe4ce5bb67f59e4_Out_2_Vector3, _Multiply_585d93bfd4854357a05b3f76c623991b_Out_2_Vector3, _Add_b117ee877fb641718fd739e492e47156_Out_2_Vector3);
-        float3 _Add_0f71d5ddfd914e3180fab7da8ea55391_Out_2_Vector3;
-        Unity_Add_float3(_Multiply_b9d2e30cdcf94763a7124fa853f93fe7_Out_2_Vector3, _Add_b117ee877fb641718fd739e492e47156_Out_2_Vector3, _Add_0f71d5ddfd914e3180fab7da8ea55391_Out_2_Vector3);
-        Alpha_1 = (_Add_0f71d5ddfd914e3180fab7da8ea55391_Out_2_Vector3.xy);
-        }
-        
-        void Unity_Multiply_float2_float2(float2 A, float2 B, out float2 Out)
-        {
-            Out = A * B;
-        }
-        
-        void Unity_Lerp_float(float A, float B, float T, out float Out)
-        {
-            Out = lerp(A, B, T);
-        }
-        
-        void Unity_Add_float(float A, float B, out float Out)
-        {
-            Out = A + B;
         }
         
         void Unity_Smoothstep_float3(float3 Edge1, float3 Edge2, float3 In, out float3 Out)
@@ -2272,46 +1714,6 @@ Shader "SS_BuildingMaster_01"
         SurfaceDescription SurfaceDescriptionFunction(SurfaceDescriptionInputs IN)
         {
             SurfaceDescription surface = (SurfaceDescription)0;
-            Bindings_SBGCheaptriplanar_82958fd6428020c44bfdb5b5b5fb1ce6_float _SBGCheaptriplanar_d2fc95a0d41d49799c43ca1a1b30c64e;
-            _SBGCheaptriplanar_d2fc95a0d41d49799c43ca1a1b30c64e.WorldSpaceNormal = IN.WorldSpaceNormal;
-            _SBGCheaptriplanar_d2fc95a0d41d49799c43ca1a1b30c64e.WorldSpaceTangent = IN.WorldSpaceTangent;
-            _SBGCheaptriplanar_d2fc95a0d41d49799c43ca1a1b30c64e.WorldSpaceBiTangent = IN.WorldSpaceBiTangent;
-            _SBGCheaptriplanar_d2fc95a0d41d49799c43ca1a1b30c64e.WorldSpacePosition = IN.WorldSpacePosition;
-            _SBGCheaptriplanar_d2fc95a0d41d49799c43ca1a1b30c64e.AbsoluteWorldSpacePosition = IN.AbsoluteWorldSpacePosition;
-            float2 _SBGCheaptriplanar_d2fc95a0d41d49799c43ca1a1b30c64e_Alpha_1_Vector2;
-            SG_SBGCheaptriplanar_82958fd6428020c44bfdb5b5b5fb1ce6_float(_SBGCheaptriplanar_d2fc95a0d41d49799c43ca1a1b30c64e, _SBGCheaptriplanar_d2fc95a0d41d49799c43ca1a1b30c64e_Alpha_1_Vector2);
-            float _Float_63545e2f5be047c9b414de1d23f9a383_Out_0_Float = 128;
-            float2 _Multiply_bec534511d454c6498f26992388a72e9_Out_2_Vector2;
-            Unity_Multiply_float2_float2(_SBGCheaptriplanar_d2fc95a0d41d49799c43ca1a1b30c64e_Alpha_1_Vector2, (_Float_63545e2f5be047c9b414de1d23f9a383_Out_0_Float.xx), _Multiply_bec534511d454c6498f26992388a72e9_Out_2_Vector2);
-            float4 _SampleTexture2D_cb94edd4eb6c495eae4c93398c1e10ec_RGBA_0_Vector4 = SAMPLE_TEXTURE2D(UnityBuildTexture2DStructNoScale(_SampleTexture2D_cb94edd4eb6c495eae4c93398c1e10ec_Texture_1_Texture2D).tex, UnityBuildTexture2DStructNoScale(_SampleTexture2D_cb94edd4eb6c495eae4c93398c1e10ec_Texture_1_Texture2D).samplerstate, UnityBuildTexture2DStructNoScale(_SampleTexture2D_cb94edd4eb6c495eae4c93398c1e10ec_Texture_1_Texture2D).GetTransformedUV(_Multiply_bec534511d454c6498f26992388a72e9_Out_2_Vector2) );
-            float _SampleTexture2D_cb94edd4eb6c495eae4c93398c1e10ec_R_4_Float = _SampleTexture2D_cb94edd4eb6c495eae4c93398c1e10ec_RGBA_0_Vector4.r;
-            float _SampleTexture2D_cb94edd4eb6c495eae4c93398c1e10ec_G_5_Float = _SampleTexture2D_cb94edd4eb6c495eae4c93398c1e10ec_RGBA_0_Vector4.g;
-            float _SampleTexture2D_cb94edd4eb6c495eae4c93398c1e10ec_B_6_Float = _SampleTexture2D_cb94edd4eb6c495eae4c93398c1e10ec_RGBA_0_Vector4.b;
-            float _SampleTexture2D_cb94edd4eb6c495eae4c93398c1e10ec_A_7_Float = _SampleTexture2D_cb94edd4eb6c495eae4c93398c1e10ec_RGBA_0_Vector4.a;
-            float _Split_b6373367e7a44a05bf573c7e0ca41b69_R_1_Float = IN.VertexColor[0];
-            float _Split_b6373367e7a44a05bf573c7e0ca41b69_G_2_Float = IN.VertexColor[1];
-            float _Split_b6373367e7a44a05bf573c7e0ca41b69_B_3_Float = IN.VertexColor[2];
-            float _Split_b6373367e7a44a05bf573c7e0ca41b69_A_4_Float = IN.VertexColor[3];
-            float _Lerp_81ce795475b34cf7b403ca64f13df295_Out_3_Float;
-            Unity_Lerp_float(1, _SampleTexture2D_cb94edd4eb6c495eae4c93398c1e10ec_B_6_Float, _Split_b6373367e7a44a05bf573c7e0ca41b69_B_3_Float, _Lerp_81ce795475b34cf7b403ca64f13df295_Out_3_Float);
-            float4 _SampleTexture2D_cd494f44ee2e4a48aef8d8c7541d0cb6_RGBA_0_Vector4 = SAMPLE_TEXTURE2D(UnityBuildTexture2DStructNoScale(_SampleTexture2D_cd494f44ee2e4a48aef8d8c7541d0cb6_Texture_1_Texture2D).tex, UnityBuildTexture2DStructNoScale(_SampleTexture2D_cd494f44ee2e4a48aef8d8c7541d0cb6_Texture_1_Texture2D).samplerstate, UnityBuildTexture2DStructNoScale(_SampleTexture2D_cd494f44ee2e4a48aef8d8c7541d0cb6_Texture_1_Texture2D).GetTransformedUV(_Multiply_bec534511d454c6498f26992388a72e9_Out_2_Vector2) );
-            float _SampleTexture2D_cd494f44ee2e4a48aef8d8c7541d0cb6_R_4_Float = _SampleTexture2D_cd494f44ee2e4a48aef8d8c7541d0cb6_RGBA_0_Vector4.r;
-            float _SampleTexture2D_cd494f44ee2e4a48aef8d8c7541d0cb6_G_5_Float = _SampleTexture2D_cd494f44ee2e4a48aef8d8c7541d0cb6_RGBA_0_Vector4.g;
-            float _SampleTexture2D_cd494f44ee2e4a48aef8d8c7541d0cb6_B_6_Float = _SampleTexture2D_cd494f44ee2e4a48aef8d8c7541d0cb6_RGBA_0_Vector4.b;
-            float _SampleTexture2D_cd494f44ee2e4a48aef8d8c7541d0cb6_A_7_Float = _SampleTexture2D_cd494f44ee2e4a48aef8d8c7541d0cb6_RGBA_0_Vector4.a;
-            float _Lerp_06d874a3ba7f468dacd59c3a87b5b905_Out_3_Float;
-            Unity_Lerp_float(1, _SampleTexture2D_cd494f44ee2e4a48aef8d8c7541d0cb6_R_4_Float, _Split_b6373367e7a44a05bf573c7e0ca41b69_R_1_Float, _Lerp_06d874a3ba7f468dacd59c3a87b5b905_Out_3_Float);
-            float4 _SampleTexture2D_92aa66cfc1594e75953f78eda338240d_RGBA_0_Vector4 = SAMPLE_TEXTURE2D(UnityBuildTexture2DStructNoScale(_SampleTexture2D_92aa66cfc1594e75953f78eda338240d_Texture_1_Texture2D).tex, UnityBuildTexture2DStructNoScale(_SampleTexture2D_92aa66cfc1594e75953f78eda338240d_Texture_1_Texture2D).samplerstate, UnityBuildTexture2DStructNoScale(_SampleTexture2D_92aa66cfc1594e75953f78eda338240d_Texture_1_Texture2D).GetTransformedUV(_Multiply_bec534511d454c6498f26992388a72e9_Out_2_Vector2) );
-            float _SampleTexture2D_92aa66cfc1594e75953f78eda338240d_R_4_Float = _SampleTexture2D_92aa66cfc1594e75953f78eda338240d_RGBA_0_Vector4.r;
-            float _SampleTexture2D_92aa66cfc1594e75953f78eda338240d_G_5_Float = _SampleTexture2D_92aa66cfc1594e75953f78eda338240d_RGBA_0_Vector4.g;
-            float _SampleTexture2D_92aa66cfc1594e75953f78eda338240d_B_6_Float = _SampleTexture2D_92aa66cfc1594e75953f78eda338240d_RGBA_0_Vector4.b;
-            float _SampleTexture2D_92aa66cfc1594e75953f78eda338240d_A_7_Float = _SampleTexture2D_92aa66cfc1594e75953f78eda338240d_RGBA_0_Vector4.a;
-            float _Lerp_b226becee310499996558c0e87d02c21_Out_3_Float;
-            Unity_Lerp_float(1, _SampleTexture2D_92aa66cfc1594e75953f78eda338240d_G_5_Float, _Split_b6373367e7a44a05bf573c7e0ca41b69_G_2_Float, _Lerp_b226becee310499996558c0e87d02c21_Out_3_Float);
-            float _Add_f8680e335fe2400ab2120a48b092521b_Out_2_Float;
-            Unity_Add_float(_Lerp_06d874a3ba7f468dacd59c3a87b5b905_Out_3_Float, _Lerp_b226becee310499996558c0e87d02c21_Out_3_Float, _Add_f8680e335fe2400ab2120a48b092521b_Out_2_Float);
-            float _Add_4e99e1444d614722944fa354d76dc5bc_Out_2_Float;
-            Unity_Add_float(_Lerp_81ce795475b34cf7b403ca64f13df295_Out_3_Float, _Add_f8680e335fe2400ab2120a48b092521b_Out_2_Float, _Add_4e99e1444d614722944fa354d76dc5bc_Out_2_Float);
             float4 _Property_31d23e9460d4481ab2477c0c32d709b2_Out_0_Vector4 = _Colour_Y;
             float _Property_415ba7edaa924b959b4b24743eea47fb_Out_0_Float = _Smooth1;
             float _Property_2308849ccfce4fada98b571ee8542c85_Out_0_Float = _Smooth2;
@@ -2341,10 +1743,8 @@ Shader "SS_BuildingMaster_01"
             Unity_Add_float4(_Multiply_f8d0d981ee5246168c415c16f8e3f69f_Out_2_Vector4, _Multiply_fd21b14a37bc4980a7a2e4b76b0dfbd8_Out_2_Vector4, _Add_111439db138a4f049d56fd5655eba09e_Out_2_Vector4);
             float4 _Add_7d52388d03df45e584050508f3c3a71e_Out_2_Vector4;
             Unity_Add_float4(_Multiply_e94213b485ca45cda0437b758de6c6b1_Out_2_Vector4, _Add_111439db138a4f049d56fd5655eba09e_Out_2_Vector4, _Add_7d52388d03df45e584050508f3c3a71e_Out_2_Vector4);
-            float4 _Multiply_e4241fe0242d43e48811b57c49a3b2df_Out_2_Vector4;
-            Unity_Multiply_float4_float4((_Add_4e99e1444d614722944fa354d76dc5bc_Out_2_Float.xxxx), _Add_7d52388d03df45e584050508f3c3a71e_Out_2_Vector4, _Multiply_e4241fe0242d43e48811b57c49a3b2df_Out_2_Vector4);
             float4 _Saturate_ab09d63345d6469f8434dc9bac61722b_Out_1_Vector4;
-            Unity_Saturate_float4(_Multiply_e4241fe0242d43e48811b57c49a3b2df_Out_2_Vector4, _Saturate_ab09d63345d6469f8434dc9bac61722b_Out_1_Vector4);
+            Unity_Saturate_float4(_Add_7d52388d03df45e584050508f3c3a71e_Out_2_Vector4, _Saturate_ab09d63345d6469f8434dc9bac61722b_Out_1_Vector4);
             surface.BaseColor = (_Saturate_ab09d63345d6469f8434dc9bac61722b_Out_1_Vector4.xyz);
             surface.Alpha = 1;
             surface.NormalTS = IN.TangentSpaceNormal;
@@ -2389,28 +1789,17 @@ Shader "SS_BuildingMaster_01"
             float3 unnormalizedNormalWS = input.normalWS;
             const float renormFactor = 1.0 / length(unnormalizedNormalWS);
         
-            // use bitangent on the fly like in hdrp
-            // IMPORTANT! If we ever support Flip on double sided materials ensure bitangent and tangent are NOT flipped.
-            float crossSign = (input.tangentWS.w > 0.0 ? 1.0 : -1.0)* GetOddNegativeScale();
-            float3 bitang = crossSign * cross(input.normalWS.xyz, input.tangentWS.xyz);
         
             output.WorldSpaceNormal = renormFactor * input.normalWS.xyz;      // we want a unit length Normal Vector node in shader graph
             output.TangentSpaceNormal = float3(0.0f, 0.0f, 1.0f);
         
-            // to pr               eserve mikktspace compliance we use same scale renormFactor as was used on the normal.
-            // This                is explained in section 2.2 in "surface gradient based bump mapping framework"
-            output.WorldSpaceTangent = renormFactor * input.tangentWS.xyz;
-            output.WorldSpaceBiTangent = renormFactor * bitang;
         
-            output.WorldSpacePosition = input.positionWS;
-            output.AbsoluteWorldSpacePosition = GetAbsolutePositionWS(input.positionWS);
         
             #if UNITY_UV_STARTS_AT_TOP
             #else
             #endif
         
-        // Possible Cause?
-            output.VertexColor = input.color;
+        
         #if defined(SHADER_STAGE_FRAGMENT) && defined(VARYINGS_NEED_CULLFACE)
         #define BUILD_SURFACE_DESCRIPTION_INPUTS_OUTPUT_FACESIGN output.FaceSign =                    IS_FRONT_VFACE(input.cullFace, true, false);
         #else
