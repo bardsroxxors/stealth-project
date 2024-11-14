@@ -21,7 +21,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: M_BuildingMaster_01
-  m_Shader: {fileID: -6465566751694194690, guid: aa405ce42b9a3564aa9bd0538288b1fc, type: 3}
+  m_Shader: {fileID: 4800000, guid: 76f412487f35ea34a82300da80ad5576, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
@@ -62,6 +62,10 @@ Material:
         m_Offset: {x: 0, y: 0}
     - _SampleTexture2D_239be6dac0cb4bfeaf00527e58b2c3ba_Texture_1_Texture2D:
         m_Texture: {fileID: 2800000, guid: ee2523340e7944c4297a80937a51484c, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SampleTexture2D_743a4aeaef0949abb9e0cdbc84fd74d8_Texture_1_Texture2D:
+        m_Texture: {fileID: 2800000, guid: e89e2691b2e22d04c82038761fecb17d, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _SampleTexture2D_79834501d2fe4dbeabfcd840bed1c542_Texture_1_Texture2D:
@@ -136,7 +140,7 @@ Material:
     - _Mask_G_Contrast: -3
     - _Mask_G_Power: 8
     - _Mask_Max: 11.2
-    - _Mask_Max_X: 0
+    - _Mask_Max_X: 1
     - _Mask_Min_X: 0
     - _Mask_Strength_X: 0
     - _Mask_Strength_Y: 1
@@ -147,8 +151,10 @@ Material:
     - _Multiply_X: 4.25
     - _Multiply_Y: 17.68
     - _Multiply_Z: 5
-    - _Smooth1: 1
-    - _Smooth2: 0
+    - _QueueControl: 0
+    - _QueueOffset: 0
+    - _Smooth1: 0.5
+    - _Smooth2: 1
     - _World_Aligned: 0
     - _World_Aligned_X: 0
     - _World_Aligned_Y: 0
