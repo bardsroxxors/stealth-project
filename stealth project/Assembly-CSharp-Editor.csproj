@@ -60,10 +60,29 @@
     <Analyzer Include="F:\Unity\2022.3.20f1\Editor\Data\Tools\Unity.SourceGenerators\Unity.Properties.SourceGenerator.dll" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\VertexPaint\Editor\ColorSwatches.cs" />
+    <Compile Include="Assets\VertexPaint\Editor\PaintJob.cs" />
+    <Compile Include="Assets\VertexPaint\Editor\CustomBrushes\Noise.cs" />
+    <Compile Include="Assets\VertexPaint\Editor\CustomUtilities\SaveMeshes.cs" />
+    <Compile Include="Assets\VertexPaint\Editor\RxLookingGlass.cs" />
+    <Compile Include="Assets\VertexPaint\Editor\CustomBrushes\VertexPainterNoiseBrush.cs" />
+    <Compile Include="Assets\VertexPaint\Editor\VertexPainterUtilities.cs" />
+    <Compile Include="Assets\VertexPaint\Editor\CustomBrushes\BlendNormalsBrush.cs" />
     <Compile Include="Assets\2_Scripts\Editor\LightScriptEditor.cs" />
+    <Compile Include="Assets\VertexPaint\Editor\CustomUtilities\BakeAO.cs" />
+    <Compile Include="Assets\VertexPaint\Editor\CustomUtilities\IVertexPainterUtility.cs" />
+    <Compile Include="Assets\VertexPaint\Editor\VertexPainterWindow_GUI.cs" />
+    <Compile Include="Assets\VertexPaint\Editor\CustomUtilities\BakeTexture.cs" />
     <Compile Include="Assets\2_Scripts\Editor\LineRendererSmootherEditor.cs" />
+    <Compile Include="Assets\VertexPaint\Editor\CustomUtilities\MultiplyChannelValues.cs" />
     <Compile Include="Assets\AOSFogWar\Editor\editorFogWar.cs" />
+    <Compile Include="Assets\VertexPaint\Editor\VertexPainterWindow_Painting.cs" />
+    <Compile Include="Assets\VertexPaint\Editor\CustomUtilities\CombineMeshes.cs" />
     <Compile Include="Assets\Advanced Rule Tiles\Editor\AdvancedRuleTileEditor.cs" />
+    <Compile Include="Assets\VertexPaint\Examples\SplatMapping\Shaders\Editor\SplatMapShaderGUI.cs" />
+    <Compile Include="Assets\VertexPaint\Editor\CustomUtilities\BakePivot.cs" />
+    <Compile Include="Assets\VertexPaint\Editor\VertexPainterWindow.cs" />
+    <Compile Include="Assets\VertexPaint\Editor\VertexPainterCustomBrush.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Library\PackageCache\com.unity.collab-proxy@2.2.0\Lib\Editor\PlasticSCM\Localization\commontypes.ko.txt" />

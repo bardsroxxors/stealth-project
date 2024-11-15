@@ -35,6 +35,7 @@ public class PointBounty : MonoBehaviour
     public void AddBounty(int more)
     {
         bounty += more;
+        pm.SendMessage("AddMulti", more);
     }
 
     public void SubtractBounty(int less)
