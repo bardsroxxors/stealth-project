@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
 using static UnityEditor.PlayerSettings;
 
@@ -92,14 +93,17 @@ public class PointsManager : MonoBehaviour
     public int GetMulti() {
         int m = 0;
 
+
         for (int i = 0; i < multiMax; i++)
         {
             if(barScore > barScoreThresholds[i])
             {
-                m = i;
+                m = i+2;
             }
         }
-        if (m > 0)
+        if (m > multiMax)
+            return multiMax;
+        else if (m > 0)
             return m;
         else
             return 1;
@@ -143,14 +147,45 @@ public class PointsManager : MonoBehaviour
         if (multiplier == multiMax)
             return 1;
 
-        float dif = barScore - barScoreThresholds[multiplier];
-        float nextMax = barScoreThresholds[multiplier + 1] - barScoreThresholds[multiplier];
+        float lower = 0;
+
+        float upper = barScoreThresholds[0];
+
+        // get the lower bound
+        for (int i = 0; i< barScoreThresholds.Length; i++)
+        {
+            if(barScoreThresholds[i] < barScore)
+            {
+                lower = barScoreThresholds[i];
+                upper = barScoreThresholds[i+1];
+            }
+        }
+
+        // get the upper bound
+        
+
+
+
+
+
+
+
+        float dif = barScore - lower;
+        float nextMax = upper - lower;
 
         float percent = dif / nextMax;
+
+        Debug.Log("lower: " + lower + "upper: " + upper);
 
         Debug.Log(percent);
 
         return percent;
     }
-    
+
+    void OnAddPoints(InputValue value)
+    {
+        AddMulti(1);
+    }
+
+
 }

@@ -91,7 +91,7 @@ public class PlayerController : MonoBehaviour
     public Vector2 playerFacingVector = new Vector2(1, 0); // used to aim abilities if there is no input, and used to determine sprite facing
     public Vector2 gravityVector = Vector2.zero;
     public float airFrameSpeedThreshold = 3;
-
+    [Space(50)]
     [Header("Wall Grabbing")]
     public bool canWallGrab = true;
     public Vector2 wallJumpForce = Vector2.zero;

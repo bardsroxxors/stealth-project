@@ -1,0 +1,45 @@
+{
+    "name": "DebugTools",
+    "maps": [
+        {
+            "name": "New action map",
+            "id": "e4f4ab16-5b4b-4710-9f1c-6eb415d178bf",
+            "actions": [
+                {
+                    "name": "AddPoints",
+                    "type": "Button",
+                    "id": "964355c6-d8d1-47d3-8008-cafbbc930da7",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "9b53810d-1e71-42d8-bbc0-fcbebbeab16d",
+                    "path": "<Keyboard>/#(M)",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "AddPoints",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "5f6ddf68-223f-483d-91dc-88f5054133fb",
+                    "path": "",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "AddPoints",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}
