@@ -60,6 +60,7 @@
     <Analyzer Include="F:\Unity\2022.3.20f1\Editor\Data\Tools\Unity.SourceGenerators\Unity.Properties.SourceGenerator.dll" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\2_Scripts\Enemies\EntityMovement.cs" />
     <Compile Include="Assets\unity-wave-function-collapse\impl\OverlappingModel.cs" />
     <Compile Include="Assets\2_Scripts\Equipment\RopeScript.cs" />
     <Compile Include="Assets\AOSFogWar\Shadowcaster.cs" />
@@ -121,6 +122,7 @@
     <Compile Include="Assets\unity-wave-function-collapse\TilePainter.cs" />
     <Compile Include="Assets\KadaXuanwu\UtilityDesigner\Demos\Survival\Scripts\KillDeer.cs" />
     <Compile Include="Assets\2_Scripts\HideSprite.cs" />
+    <Compile Include="Assets\2_Scripts\Enemies\EntityPathfinding.cs" />
     <Compile Include="Assets\2_Scripts\Enemies\ScryingEye.cs" />
     <Compile Include="Assets\2_Scripts\Level Stuff\Grate.cs" />
     <Compile Include="Assets\2_Scripts\Equipment\Payloads\PL_ForceMine.cs" />
