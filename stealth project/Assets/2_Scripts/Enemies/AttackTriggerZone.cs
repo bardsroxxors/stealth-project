@@ -37,12 +37,12 @@ public class AttackTriggerZone : MonoBehaviour
                 if (pc != null)
                 {
                     if(pc.CurrentPlayerState != e_PlayerControllerStates.WallGrab &&
-                        pc.playerFacingVector.x != ec.facingDirection &&
+                        pc.playerFacingVector.x != ec.GetFacingDirection() &&
                         ec.currentState != e_EnemyStates.damageFlinch &&
                         ec.currentState != e_EnemyStates.attacking &&
                         t_shoveCooldown <= 0)
                     {
-                        pc.SendMessage("TriggerKnockback", (int)ec.facingDirection);
+                        pc.SendMessage("TriggerKnockback", (int)ec.GetFacingDirection());
                         t_shoveCooldown = shoveCooldown;
                         Debug.Log("Shove!");
                     }

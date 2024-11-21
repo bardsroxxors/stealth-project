@@ -11,7 +11,6 @@ public class EntityPathfinding : MonoBehaviour
 
     [Header("Pathfinding")]
 
-    private bool followPath = false;
 
     private Vector3 pathfindTarget;
     public float pathUpdateSeconds = 0.5f;
@@ -40,18 +39,15 @@ public class EntityPathfinding : MonoBehaviour
     }
 
     private void FixedUpdate()
-    {
+    {   /*
         if (followPath)
         {
             PathFollow();
-        }
+        }*/
     }
 
 
-    public void SetFollowPath(bool p)
-    {
-        followPath = p;
-    }
+
 
     public Vector3 GetPathFindTarget()
     {
@@ -61,10 +57,11 @@ public class EntityPathfinding : MonoBehaviour
 
     // #######  Pathfinding Methods  #######
 
-    // Moves along the current A* path
-    private void PathFollow()
+    // Moves along the current A* path *** old
+    // Now it should return the direction required to path along path
+    public Vector2 PathDirection()
     {
-        if (path == null) return;
+        if (path == null) return Vector2.zero;
 
         // if we can't reach our destination, ie we've accidentally reached the end of our path
         // right now just scramble
@@ -78,7 +75,7 @@ public class EntityPathfinding : MonoBehaviour
             queuedState = e_EnemyStates.investigate;
             ChangeState(e_EnemyStates.scramble);*/
 
-            return;
+            return Vector2.zero;
         }
 
 
@@ -92,21 +89,11 @@ public class EntityPathfinding : MonoBehaviour
         // reached end of path
         if (currentWaypoint >= path.vectorPath.Count)
         {
-            return;
+            return Vector2.zero;
         }
 
 
-        // check if we need to jump
-        float xDelta = Mathf.Abs(path.vectorPath[currentWaypoint].x - transform.position.x);
-        float yDelta = path.vectorPath[currentWaypoint].y - transform.position.y;
-        if (xDelta <= jumpMinDistance.x
-            && currentState != e_EnemyStates.jump
-            && collisionDirections.y == -1
-            && yDelta >= jumpMinDistance.y)
-        {
-            if (!conditions.Contains(e_EnemyConditions.immobile))
-                Jump();
-        }
+        
 
         // direction calculation
         Vector2 direction = ((Vector2)path.vectorPath[currentWaypoint] - rb.position).normalized;
@@ -114,15 +101,26 @@ public class EntityPathfinding : MonoBehaviour
         else if (direction.x < 0) direction.x = -1;
 
         direction.y = 0;
+
+
+
+        return direction;
+
+        /*
         if (currentState == e_EnemyStates.patrolling)
             ec_movement.inputVector = direction * patrolSpeed;
         else if (awareScript.currentAwareness != AwarenessLevel.alert)
             ec_movement.inputVector = direction * patrolSpeed * 1.5f;
         else
             ec_movement.inputVector = direction * pursueSpeed;
-
+        */
 
     }
+
+
+
+
+
 
     // called periodically to update A* path based on target
     private void UpdatePath()

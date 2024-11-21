@@ -10,8 +10,7 @@ public class EntityMovement : MonoBehaviour
     public GameObject graphicsObject;
 
     [Header("Movement")]
-    public float patrolSpeed = 5;
-    public float pursueSpeed = 8;
+    
     public float moveDecay = 0.5f;
     public float gravity = 5;
 
@@ -24,7 +23,7 @@ public class EntityMovement : MonoBehaviour
     public float facingDirection = 1;
     public float facingSwitchTimer = 0.2f;
     private float t_facingSwitchTimer = 0;
-    public string[] collisionLayers;
+    public string[] collisionTags;
     [SerializeField]
     private Vector2 collisionDirections = Vector2.zero;
     public float maxFallSpeed = 20f;
@@ -33,7 +32,10 @@ public class EntityMovement : MonoBehaviour
     public bool f_insideEnemy = false;
     public float shoveForce = 3f;
 
-    
+    public bool lockMovement = false; // used for immobilising effects
+    public bool lockGravity = false;
+
+
 
 
     [Header("Jump")]
@@ -64,16 +66,18 @@ public class EntityMovement : MonoBehaviour
         if (graphicsObject.transform.localScale.x != facingDirection)
         {
             graphicsObject.transform.localScale = new Vector3(facingDirection, 1, 1);
-            attackTrigger.transform.localPosition = new Vector3(facingDirection, 0, 0);
+            //attackTrigger.transform.localPosition = new Vector3(facingDirection, 0, 0);
         }
     }
 
     private void FixedUpdate()
     {
-        inputVector = Vector3.zero;
+        
 
 
         ApplyMovement();
+
+        inputVector = Vector3.zero;
 
         // update facing direction
         if (Mathf.Abs(movementVector.x) > 0.1) SwitchFacing(Mathf.Sign(movementVector.x));
@@ -88,25 +92,35 @@ public class EntityMovement : MonoBehaviour
     private void ApplyMovement()
     {
         // apply input
-        if (inputVector.x != 0) movementVector.x = inputVector.x;
-        if (inputVector.y != 0) movementVector.y = inputVector.y;
+
+        if (!lockMovement)
+        {
+            
+            if (inputVector.x != 0) movementVector.x = inputVector.x;
+            if (inputVector.y != 0) movementVector.y = inputVector.y;
+        }
+        else
+        {
+            movementVector = Vector2.zero;
+        }
+        
 
 
         // apply gravity if not grounded
-        if (collisionDirections.y != -1 || gravityVector.x != 0)
+        if ((collisionDirections.y != -1 || gravityVector.x != 0) && !lockGravity)
         {
             movementVector.x = gravityVector.x + inputVector.x;
             movementVector.y = gravityVector.y;
 
         }
         // else set gravity to zero
-        else if (collisionDirections.y == -1) gravityVector.y = 0;
+        else if (collisionDirections.y == -1 || lockGravity) gravityVector.y = 0;
 
         // apply decay
         if (inputVector.x == 0) movementVector.x = movementVector.x - (movementVector.x * moveDecay * Time.deltaTime);
         if (inputVector.y == 0) movementVector.y = movementVector.y - (movementVector.y * moveDecay * Time.deltaTime);
 
-
+        
         // clamp to zero
         if (Mathf.Abs(inputVector.x) <= 0.2) inputVector.x = 0;
         if (Mathf.Abs(inputVector.y) <= 0.2) inputVector.y = 0;
@@ -114,7 +128,7 @@ public class EntityMovement : MonoBehaviour
         if (Mathf.Abs(movementVector.x) <= 0.1) movementVector.x = 0;
         if (Mathf.Abs(movementVector.y) <= 0.1) movementVector.y = 0;
 
-        if (collisionDirections.y != -1 || gravityVector.x != 0) CalculateGravity();
+        if (collisionDirections.y != -1 || gravityVector.x != 0 && !lockGravity) CalculateGravity();
 
         /*
         // apply shoving from enemies if need be
@@ -126,8 +140,8 @@ public class EntityMovement : MonoBehaviour
 
         ClampMovementForCollisions();
 
-        if (!conditions.Contains(e_EnemyConditions.immobile))
-            transform.position += (Vector3)movementVector * Time.deltaTime;
+
+        transform.position += (Vector3)movementVector * Time.deltaTime;
     }
 
 
@@ -178,6 +192,7 @@ public class EntityMovement : MonoBehaviour
     {
         if (collisionDirections.y > 0) movementVector.y = Mathf.Clamp(movementVector.y, -100, 0);
         else if (collisionDirections.y < 0) movementVector.y = Mathf.Clamp(movementVector.y, 0, 100);
+
 
         if (collisionDirections.x > 0) movementVector.x = Mathf.Clamp(movementVector.x, -100, 0);
         else if (collisionDirections.x < 0) movementVector.x = Mathf.Clamp(movementVector.x, 0, 100);
@@ -242,7 +257,7 @@ public class EntityMovement : MonoBehaviour
 
     private void OnCollisionStay2D(Collision2D collision)
     {
-        if (collisionLayers.Contains(collision.collider.gameObject.tag))
+        if (collisionTags.Contains(collision.collider.gameObject.tag))
         {
             Vector2 normal;
 
@@ -281,7 +296,7 @@ public class EntityMovement : MonoBehaviour
 
     private void OnCollisionExit2D(Collision2D collision)
     {
-        if (collisionLayers.Contains(collision.collider.gameObject.tag))
+        if (collisionTags.Contains(collision.collider.gameObject.tag))
         {
             collisionDirections = Vector2.zero;
         }

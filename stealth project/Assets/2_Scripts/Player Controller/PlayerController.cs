@@ -1371,7 +1371,7 @@ public class PlayerController : MonoBehaviour
                 return true;
 
             // OR if facing same direction
-            else if (currentTarget.GetComponent<EnemyStateMachine>().facingDirection == playerFacingVector.x)
+            else if (currentTarget.GetComponent<EnemyStateMachine>().GetFacingDirection() == playerFacingVector.x)
             {
                 // AND target is in front of player
                 float offset = currentTarget.transform.position.x - transform.position.x;

@@ -9,6 +9,7 @@ using Random = UnityEngine.Random;
 using System.Linq;
 using static UnityEditor.PlayerSettings;
 using UnityEditor;
+using System.IO;
 
 
 public enum e_EnemyStates
@@ -55,8 +56,8 @@ public class EnemyStateMachine : MonoBehaviour
     public Sound snd_footstep;
     public Sound soundSO;
     private e_EnemyStates queuedState = e_EnemyStates.investigate;
+    public GameObject graphicsObject;
 
-    
 
 
 
@@ -71,6 +72,8 @@ public class EnemyStateMachine : MonoBehaviour
     public int currentNodeIndex = 0;
     private Vector2 currentPatrolDestination;
     public float nodeCompleteDistance = 0.5f;
+    public float patrolSpeed = 5;
+    public float pursueSpeed = 8;
 
     [Header("Waiting")]
     public float t_currentWaitTimer = 0f;
@@ -235,9 +238,9 @@ public class EnemyStateMachine : MonoBehaviour
             case e_EnemyStates.attacking:
                 ProcessAttack();
                 break;
-            case e_EnemyStates.jump:
-                ProcessJump();
-                break;
+            //case e_EnemyStates.jump:
+                //ProcessJump();
+                //break;
             case e_EnemyStates.fall:
                 ProcessFall();
                 break;
@@ -267,10 +270,21 @@ public class EnemyStateMachine : MonoBehaviour
             ChangeState(e_EnemyStates.attacking);
         }
 
-        
+        if (conditions.Contains(e_EnemyConditions.immobile))
+        {
+            ec_movement.lockGravity = true;
+            ec_movement.lockMovement = true;
+        }
+        else
+        {
+            ec_movement.lockGravity = false;
+            ec_movement.lockMovement = false;
+        }
+            
 
-        // check if we are freshly piqued
-        if(awareScript.currentAwareness == AwarenessLevel.curious)
+
+            // check if we are freshly piqued
+            if (awareScript.currentAwareness == AwarenessLevel.curious)
         {
             AddCondition(e_EnemyConditions.piqued);
 
@@ -346,8 +360,7 @@ public class EnemyStateMachine : MonoBehaviour
 
 
         ec_pathing.SetPathfindTarget( (Vector3)patrolRoute.nodes[currentNodeIndex] + patrolRouteObject.transform.position  );
-
-        ec_pathing.SetFollowPath(true);
+        ec_movement.inputVector = ec_pathing.PathDirection() * patrolSpeed;
 
     }
 
@@ -396,8 +409,8 @@ public class EnemyStateMachine : MonoBehaviour
             {
                 ec_pathing.SetPathfindTarget(awareScript.lastKnownPosition);
             }
+            ec_movement.inputVector = ec_pathing.PathDirection() * pursueSpeed;
 
-            ec_pathing.SetFollowPath(true);
         }
         else
         {
@@ -464,13 +477,8 @@ public class EnemyStateMachine : MonoBehaviour
 
         float dist = (lookTarget - transform.position).magnitude;
         SightConeTrack();
-        /*
-        if (dist > investigateDistance)
-        {
-            pathfindTarget = lookTarget;
-            PathFollow();
-        }
-        else*/ ec_movement.inputVector = Vector3.zero;
+
+        ec_movement.inputVector = Vector3.zero;
 
         if (t_swivelStateTime <= 0)
         {
@@ -612,7 +620,6 @@ public class EnemyStateMachine : MonoBehaviour
                 ec_pathing.SetPathfindTarget( scramblePos);
             }
 
-            ec_pathing.SetFollowPath(true);
         }
         else
         {
@@ -639,6 +646,21 @@ public class EnemyStateMachine : MonoBehaviour
 
     }
 
+
+    private void CheckForJump()
+    {   /*
+        // check if we need to jump
+        float xDelta = Mathf.Abs(path.vectorPath[currentWaypoint].x - transform.position.x);
+        float yDelta = path.vectorPath[currentWaypoint].y - transform.position.y;
+        if (xDelta <= jumpMinDistance.x
+            && currentState != e_EnemyStates.jump
+            && collisionDirections.y == -1
+            && yDelta >= jumpMinDistance.y)
+        {
+            if (!conditions.Contains(e_EnemyConditions.immobile))
+                Jump();
+        }*/
+    }
 
     private void KOStart()
     {
@@ -870,12 +892,12 @@ public class EnemyStateMachine : MonoBehaviour
 
 
 
-
-
     
 
 
-    
+
+
+
 
     private GameObject GetRandomNavPoint()
     {
@@ -1039,6 +1061,11 @@ public class EnemyStateMachine : MonoBehaviour
         Die();
     }
 
+    public float GetFacingDirection()
+    {
+        return ec_movement.facingDirection;
+    }
+
     void FindNearestPatrolRoute()
     {
         Debug.Log("Finding nearest route");
@@ -1072,14 +1099,14 @@ public class EnemyStateMachine : MonoBehaviour
         if(patrolRouteObject != null)
             Handles.DrawWireDisc(patrolRouteObject.transform.position, Vector3.forward, 0.4f);
 
-
+        /*
         if (path != null && currentWaypoint < path.vectorPath.Count - 1)
         {
             Handles.color = UnityEngine.Color.green;
             if (path != null && path.vectorPath.Count > 0 && Application.isPlaying)
                 Handles.DrawWireCube(path.vectorPath[currentWaypoint], new Vector3(0.25f, 0.25f, 0.25f));
 
-        }
+        }*/
 
         
     }
