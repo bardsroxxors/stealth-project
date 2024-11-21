@@ -22,4 +22,4 @@ MonoBehaviour:
   maxFallSpeed: 45
   collisionMask:
     serializedVersion: 2
-    m_Bits: 136
+    m_Bits: 134217864

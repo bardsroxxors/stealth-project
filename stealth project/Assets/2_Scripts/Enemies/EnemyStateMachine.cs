@@ -35,8 +35,8 @@ public enum e_EnemyConditions
     alerted,        // has become alert
     oblivious,      // has moved past hidden player
     bodySighted,    // has sighted a body
-    spooked         // spooked by a noise or sighting
-
+    chimes,         
+    forceMine
 }
 
 public class EnemyStateMachine : MonoBehaviour
@@ -1180,8 +1180,14 @@ public class EnemyStateMachine : MonoBehaviour
                 case e_EnemyConditions.bodySighted:
                     this.SendMessage("AddBounty", 2);
                     break;
-                case e_EnemyConditions.spooked:
+                case e_EnemyConditions.chimes:
                     this.SendMessage("AddBounty", 2);
+                    break;
+                case e_EnemyConditions.forceMine:
+                    this.SendMessage("AddBounty", 1);
+                    break;
+                case e_EnemyConditions.immobile:
+                    this.SendMessage("AddBounty", 1);
                     break;
             }
             return true;

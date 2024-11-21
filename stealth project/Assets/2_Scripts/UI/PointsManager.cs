@@ -15,7 +15,9 @@ public class PointsManager : MonoBehaviour
 
     public float barScore = 0;              // bar score increases in order to raise the bar and multiplier
     public float initialBarScoreThreshold = 10;    // initial barscore threshold for mulit increase
-    public float multiTierScaling = 0;      // exponent used to scale the barscore needed for each multiplier
+    public float initialTierDiff = 3;
+    public float tierDiffDelta = 0.5f;
+    //public float multiTierScaling = 0;      // exponent used to scale the barscore needed for each multiplier
     public float pipValue = 3;              // barScore value per pip 
 
     private TextMeshProUGUI scoreText;
@@ -123,7 +125,7 @@ public class PointsManager : MonoBehaviour
         {
             barScoreThresholds[i] = init;
             Debug.Log(init);
-            init = init * multiTierScaling;
+            init = init + (tierDiffDelta * (i+1));
         }
     }
 

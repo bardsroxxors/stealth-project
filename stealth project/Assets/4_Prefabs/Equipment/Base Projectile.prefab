@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 313194480086522533}
   - component: {fileID: 3287124936252484352}
   - component: {fileID: 7833118187128722172}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Base Projectile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -109,6 +109,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8fa55b9b1f045cf4b9eb7e3d8b6c1fc0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  forceVector: {x: 0, y: 0}
   so_projectile: {fileID: 0}
   launchVector: {x: 0, y: 0}
 --- !u!212 &7833118187128722172

@@ -129,6 +129,7 @@
     <Compile Include="Assets\2_Scripts\NoiseScript.cs" />
     <Compile Include="Assets\AOSFogWar\Demo\Scripts\csEyeController.cs" />
     <Compile Include="Assets\2_Scripts\Player Controller\PlayerGroundTrigger.cs" />
+    <Compile Include="Assets\2_Scripts\UI\UI_BountyMessageStack.cs" />
     <Compile Include="Assets\2_Scripts\Player Controller\PlayerAttackManager.cs" />
     <Compile Include="Assets\KadaXuanwu\UtilityDesigner\Demos\Survival\Scripts\TakeSteak.cs" />
     <Compile Include="Assets\2_Scripts\UI\BountyMessage.cs" />
