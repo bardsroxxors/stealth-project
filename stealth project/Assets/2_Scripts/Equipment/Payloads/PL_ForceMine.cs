@@ -26,8 +26,9 @@ public class PL_ForceMine : MonoBehaviour
             Vector2 f = new Vector2(Mathf.Sign(hit.point.x - transform.position.x) * force.x, force.y);
 
             EnemyStateMachine ec = hit.collider.gameObject.GetComponent<EnemyStateMachine>();
-            if (ec != null) { 
-                ec.ApplyForce(f);
+            if (ec != null) {
+                //ec.ApplyForce(f);
+                hit.collider.gameObject.SendMessage("ApplyForce", f);
             }
 
         }

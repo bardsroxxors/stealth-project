@@ -9,6 +9,7 @@ using Random = UnityEngine.Random;
 using System.Linq;
 using static UnityEditor.PlayerSettings;
 using UnityEditor;
+using System.IO;
 
 
 public enum e_EnemyStates
@@ -46,7 +47,7 @@ public class EnemyStateMachine : MonoBehaviour
     private e_EnemyStates previousState;
     public int currentHP = 10;
     public int maxHP = 10;
-    public GameObject graphicsObject;
+    //public GameObject graphicsObject;
     private Animator animator;
     public List<e_EnemyConditions> conditions = new List<e_EnemyConditions>();
     public List<float> conditionTimes = new List<float>();
@@ -55,28 +56,15 @@ public class EnemyStateMachine : MonoBehaviour
     public Sound snd_footstep;
     public Sound soundSO;
     private e_EnemyStates queuedState = e_EnemyStates.investigate;
+    public GameObject graphicsObject;
 
-    [Header("Movement")]
-    public float patrolSpeed = 5;
-    public float pursueSpeed = 8;
-    public float moveDecay = 0.5f;
-    public float gravity = 5;
-    public Vector2 inputVector = Vector2.zero;
-    public Vector2 movementVector = Vector2.zero;
-    public Vector2 gravityVector = Vector2.zero;
-    public float facingDirection = 1;
-    public float facingSwitchTimer = 0.2f;
-    private float t_facingSwitchTimer = 0;
-    public string[] collisionLayers;
-    public Vector2 collisionDirections = Vector2.zero;
-    public float maxFallSpeed = 20f;
-    public float gravityAccel = 1f;
+
+
+
+
     public float damageKnowTime = 2f;
     private float t_damageKnowTime = 0;
     public bool f_koLocked = false;
-    public GameObject shovingEnemy;
-    public bool f_insideEnemy = false;
-    public float shoveForce = 3f;
 
 
     [Header("Patrolling")]
@@ -84,6 +72,8 @@ public class EnemyStateMachine : MonoBehaviour
     public int currentNodeIndex = 0;
     private Vector2 currentPatrolDestination;
     public float nodeCompleteDistance = 0.5f;
+    public float patrolSpeed = 5;
+    public float pursueSpeed = 8;
 
     [Header("Waiting")]
     public float t_currentWaitTimer = 0f;
@@ -107,10 +97,7 @@ public class EnemyStateMachine : MonoBehaviour
     public float[] lookAngles;
 
 
-    [Header("Pathfinding")]
-    public Vector3 pathfindTarget;
-    public float pathUpdateSeconds = 0.5f;
-    public float nextWaypointDistance = 1f;
+    
 
     [Header("Sight Cone")]
     public GameObject sightCone;
@@ -118,7 +105,7 @@ public class EnemyStateMachine : MonoBehaviour
     public float coneTrackingSpeed = 1;
     public Vector3 targetLookPosition = Vector3.zero;
     public GameObject defaultLookTarget;
-    private Vector3 facingVector = Vector3.zero;
+    
 
     [Header("Reactions")]
     public float reactionTime = 1f;
@@ -132,16 +119,7 @@ public class EnemyStateMachine : MonoBehaviour
     private float t_flinchTime = 0;
     public GameObject bloodPrefab;
 
-    [Header("Jump")]
-    public float lerpSpeedBase = 1;
-    private bool f_jumpInit = false;
-    private Vector3 jumpTarget = Vector3.zero;
-    private Vector3 jumpStartPos = Vector3.zero;
-    private float jumpLerp = 0;
-    private float lerpSpeedCurrent = 0;
-    public Vector2 jumpMinDistance = new Vector2(2, 0.8f);
-    private bool f_fallInit = false;
-    public Vector2 jumpForce;
+    
 
     [Header("Attack")]
     public float attackCooldown = 1f;
@@ -171,10 +149,9 @@ public class EnemyStateMachine : MonoBehaviour
     public float blindChaseDistance = 4;
     public bool f_blindChase = false;
 
+    private bool f_fallInit = false;
 
-    private Path path;
-    private int currentWaypoint = 0;
-    Seeker seeker;
+
     Rigidbody2D rb;
     private EnemyAwareness awareScript;
     private Utilities utils = new Utilities();
@@ -187,20 +164,25 @@ public class EnemyStateMachine : MonoBehaviour
     private PatrolRoute patrolRoute;
     private bool boomerangBackwards = false;
 
+    private EntityMovement ec_movement;
+    private EntityPathfinding ec_pathing;
+
 
 
     // Start is called before the first frame update
     void Start()
     {
-        seeker = GetComponent<Seeker>();
+        
         rb = GetComponent<Rigidbody2D>();
         awareScript = GetComponent<EnemyAwareness>();
         animator = graphicsObject.GetComponent<Animator>();
+        ec_movement = GetComponent<EntityMovement>();
+        ec_pathing = GetComponent<EntityPathfinding>();
 
 
-        InvokeRepeating("UpdatePath", 0f, pathUpdateSeconds);
+        
 
-        facingVector = new Vector3(facingDirection, 1, 1);
+        
 
 
 
@@ -220,16 +202,12 @@ public class EnemyStateMachine : MonoBehaviour
     {
         UpdateAnimator();
 
-        if (graphicsObject.transform.localScale.x != facingDirection)
-        {
-            graphicsObject.transform.localScale = new Vector3(facingDirection, 1, 1);
-            attackTrigger.transform.localPosition = new Vector3(facingDirection, 0, 0);
-        }
+        
     }
 
     void FixedUpdate()
     { 
-        inputVector = Vector3.zero;
+        
 
         if (currentHP <= 0 && currentState != e_EnemyStates.dead)
         {
@@ -260,9 +238,9 @@ public class EnemyStateMachine : MonoBehaviour
             case e_EnemyStates.attacking:
                 ProcessAttack();
                 break;
-            case e_EnemyStates.jump:
-                ProcessJump();
-                break;
+            //case e_EnemyStates.jump:
+                //ProcessJump();
+                //break;
             case e_EnemyStates.fall:
                 ProcessFall();
                 break;
@@ -271,16 +249,15 @@ public class EnemyStateMachine : MonoBehaviour
                 break;
         }
 
+        // check if we need to fall
+        if (ec_movement.GetCollisionDirections().y != -1 && currentState != e_EnemyStates.jump)
+        {
+            ChangeState(e_EnemyStates.fall);
+        }
 
-        ApplyMovement();
-
-        // update facing direction
-        if (Mathf.Abs(movementVector.x) > 0.1)  SwitchFacing(Mathf.Sign(movementVector.x));
-
-        facingVector = new Vector3(facingDirection, 1, 1);
 
         // the flinch state is triggered by setting its timer
-        if(t_flinchTime > 0 && currentState != e_EnemyStates.damageFlinch)
+        if (t_flinchTime > 0 && currentState != e_EnemyStates.damageFlinch)
         {
             ChangeState(e_EnemyStates.damageFlinch);
         }
@@ -293,14 +270,21 @@ public class EnemyStateMachine : MonoBehaviour
             ChangeState(e_EnemyStates.attacking);
         }
 
-        // check if we need to fall
-        if(collisionDirections.y != -1 && currentState != e_EnemyStates.jump)
+        if (conditions.Contains(e_EnemyConditions.immobile))
         {
-            ChangeState(e_EnemyStates.fall);
+            ec_movement.lockGravity = true;
+            ec_movement.lockMovement = true;
         }
+        else
+        {
+            ec_movement.lockGravity = false;
+            ec_movement.lockMovement = false;
+        }
+            
 
-        // check if we are freshly piqued
-        if(awareScript.currentAwareness == AwarenessLevel.curious)
+
+            // check if we are freshly piqued
+            if (awareScript.currentAwareness == AwarenessLevel.curious)
         {
             AddCondition(e_EnemyConditions.piqued);
 
@@ -360,15 +344,11 @@ public class EnemyStateMachine : MonoBehaviour
             else
                 ChangeState(e_EnemyStates.waiting);
 
-            //facingDirection = patrolRoute.directions[currentNodeIndex];
-
-            UpdatePath();
-            //inputVector = Vector3.zero;
         }
 
         // look in the direction we're walking
         float angle = 190;
-        if (facingDirection > 0) angle = 350;
+        if (ec_movement.facingDirection > 0) angle = 350;
         Vector3 lookTarget = Vector3.zero;
 
         lookTarget = utils.GetVectorFromAngle(angle) * randomPointDistance;
@@ -379,9 +359,8 @@ public class EnemyStateMachine : MonoBehaviour
         SightConeTrack();
 
 
-        pathfindTarget = (Vector3)patrolRoute.nodes[currentNodeIndex] + patrolRouteObject.transform.position;
-
-        PathFollow();
+        ec_pathing.SetPathfindTarget( (Vector3)patrolRoute.nodes[currentNodeIndex] + patrolRouteObject.transform.position  );
+        ec_movement.inputVector = ec_pathing.PathDirection() * patrolSpeed;
 
     }
 
@@ -389,15 +368,15 @@ public class EnemyStateMachine : MonoBehaviour
     private void ProcessWaiting()
     {
         if (t_currentWaitTimer <= 0) ChangeState(e_EnemyStates.patrolling);
-        inputVector = Vector2.zero;
+        ec_movement.inputVector = Vector2.zero;
 
 
-        if(movementVector.magnitude == 0)
+        if(ec_movement.GetMovementVector().magnitude == 0)
         // look in right direction for the patrol point
-            facingDirection = patrolFacing;
+            ec_movement.facingDirection = patrolFacing;
 
         float angle = 190;
-        if (facingDirection > 0) angle = 350;
+        if (ec_movement.facingDirection > 0) angle = 350;
         Vector3 lookTarget = Vector3.zero;
 
         
@@ -426,17 +405,16 @@ public class EnemyStateMachine : MonoBehaviour
         if (dist > investigateDistance)
         {
             f_waitingToScramble = false;
-            if(pathfindTarget != awareScript.lastKnownPosition)
+            if(ec_pathing.GetPathFindTarget() != awareScript.lastKnownPosition)
             {
-                pathfindTarget = awareScript.lastKnownPosition;
-                UpdatePath();
+                ec_pathing.SetPathfindTarget(awareScript.lastKnownPosition);
             }
-            
-            PathFollow();
+            ec_movement.inputVector = ec_pathing.PathDirection() * pursueSpeed;
+
         }
         else
         {
-            inputVector = Vector3.zero;
+            ec_movement.inputVector = Vector3.zero;
            
             if (queuedState == e_EnemyStates.scramble && !f_waitingToScramble)
             {
@@ -446,9 +424,9 @@ public class EnemyStateMachine : MonoBehaviour
         }
             
 
-        if (Mathf.Sign(targetLookPosition.x - transform.position.x) != facingDirection)
+        if (Mathf.Sign(targetLookPosition.x - transform.position.x) != ec_movement.facingDirection)
         {
-            SwitchFacing(Mathf.Sign(targetLookPosition.x - transform.position.x));
+            ec_movement.SwitchFacing(Mathf.Sign(targetLookPosition.x - transform.position.x));
         }
 
         
@@ -473,7 +451,7 @@ public class EnemyStateMachine : MonoBehaviour
             t_swivelChangeTime = 0;
         }
 
-        if (inputVector != Vector2.zero) inputVector = Vector2.zero;
+        if (ec_movement.inputVector != Vector2.zero) ec_movement.inputVector = Vector2.zero;
 
         Vector3 lookTarget = Vector3.zero;
 
@@ -490,22 +468,17 @@ public class EnemyStateMachine : MonoBehaviour
             targetLookPosition = lookTarget;
         }
 
-        if (Mathf.Sign(targetLookPosition.x - transform.position.x) != facingDirection)
+        if (Mathf.Sign(targetLookPosition.x - transform.position.x) != ec_movement.facingDirection)
         {
             //facingDirection = Mathf.Sign(targetLookPosition.x - transform.position.x);
-            SwitchFacing(Mathf.Sign(targetLookPosition.x - transform.position.x));
+            ec_movement.SwitchFacing(Mathf.Sign(targetLookPosition.x - transform.position.x));
         }
 
 
         float dist = (lookTarget - transform.position).magnitude;
         SightConeTrack();
-        /*
-        if (dist > investigateDistance)
-        {
-            pathfindTarget = lookTarget;
-            PathFollow();
-        }
-        else*/ inputVector = Vector3.zero;
+
+        ec_movement.inputVector = Vector3.zero;
 
         if (t_swivelStateTime <= 0)
         {
@@ -541,38 +514,8 @@ public class EnemyStateMachine : MonoBehaviour
         SightConeTrack();
     }
 
-    // Jump (awful lerp jump must remake)
-    private void ProcessJump()
-    {
-        if (!f_jumpInit)
-        {
-            jumpStartPos = transform.position;
-            jumpLerp = 0;
-            jumpTarget = path.vectorPath[currentWaypoint];
 
 
-            float distance = (jumpTarget - transform.position).magnitude;
-            lerpSpeedCurrent = lerpSpeedBase / distance;
-
-            RaycastHit2D landing = Physics2D.BoxCast(jumpTarget, new Vector2(1,1), 0, Vector2.down);
-            if (landing) jumpTarget = landing.centroid;
-
-            f_jumpInit = true;
-        }
-
-        targetLookPosition = jumpTarget;
-        SightConeTrack();
-
-        jumpLerp += Time.deltaTime * lerpSpeedCurrent;
-        transform.position = Vector3.Lerp(jumpStartPos, jumpTarget, jumpLerp);
-
-        if(jumpLerp >= 1)
-        {
-            f_jumpInit = false;
-            jumpLerp = 0;
-            ChangeState(previousState);
-        }
-    }
 
     // Falling
     private void ProcessFall()
@@ -580,13 +523,13 @@ public class EnemyStateMachine : MonoBehaviour
         float xMomentum = 0;
         if (f_fallInit)
         {
-            xMomentum = inputVector.x;
+            xMomentum = ec_movement.inputVector.x;
             f_fallInit = true;
         }
 
-        inputVector = new Vector2(xMomentum, 0);
+        ec_movement.inputVector = new Vector2(xMomentum, 0);
 
-        if(collisionDirections.y == -1)
+        if(ec_movement.GetCollisionDirections().y == -1)
         {
             f_fallInit = false;
             ChangeState(previousState);
@@ -610,7 +553,7 @@ public class EnemyStateMachine : MonoBehaviour
 
             swordObject.SetActive(true);
             //swordObject.transform.position = transform.position;
-            swordObject.transform.localScale = new Vector3(facingDirection, 1, 1);
+            swordObject.transform.localScale = new Vector3(ec_movement.facingDirection, 1, 1);
             swordObject.GetComponentInChildren<Animator>().SetTrigger("swing");
             swordObject.GetComponentInChildren<SwordScript>().animating = true;
 
@@ -672,17 +615,15 @@ public class EnemyStateMachine : MonoBehaviour
 
         if (dist > investigateDistance)
         {
-            if (pathfindTarget != scramblePos)
+            if (ec_pathing.GetPathFindTarget() != scramblePos)
             {
-                pathfindTarget = scramblePos;
-                UpdatePath();
+                ec_pathing.SetPathfindTarget( scramblePos);
             }
 
-            PathFollow();
         }
         else
         {
-            inputVector = Vector3.zero;
+            ec_movement.inputVector = Vector3.zero;
             if (!f_waiting)
             {
                 f_waiting = true;
@@ -697,14 +638,29 @@ public class EnemyStateMachine : MonoBehaviour
             scramblePos = GetRandomNavPoint().transform.position;
         }
 
-        if (Mathf.Sign(targetLookPosition.x - transform.position.x) != facingDirection)
+        if (Mathf.Sign(targetLookPosition.x - transform.position.x) != ec_movement.facingDirection)
         {
-            SwitchFacing(Mathf.Sign(targetLookPosition.x - transform.position.x));
+            ec_movement.SwitchFacing(Mathf.Sign(targetLookPosition.x - transform.position.x));
         }
 
 
     }
 
+
+    private void CheckForJump()
+    {   /*
+        // check if we need to jump
+        float xDelta = Mathf.Abs(path.vectorPath[currentWaypoint].x - transform.position.x);
+        float yDelta = path.vectorPath[currentWaypoint].y - transform.position.y;
+        if (xDelta <= jumpMinDistance.x
+            && currentState != e_EnemyStates.jump
+            && collisionDirections.y == -1
+            && yDelta >= jumpMinDistance.y)
+        {
+            if (!conditions.Contains(e_EnemyConditions.immobile))
+                Jump();
+        }*/
+    }
 
     private void KOStart()
     {
@@ -716,84 +672,34 @@ public class EnemyStateMachine : MonoBehaviour
         f_koLocked = false;
     }
 
-    private void ApplyMovement()
+
+
+
+    // set the index for the next patrol route node
+    private void SetNextNodeIndex()
     {
-        // apply input
-        if (inputVector.x != 0) movementVector.x = inputVector.x;
-        if (inputVector.y != 0) movementVector.y = inputVector.y;
-
-
-        // apply gravity if not grounded
-        if (collisionDirections.y != -1 || gravityVector.x != 0)
+        // change the index properly
+        if (patrolRoute.boomerang)
         {
-            movementVector.x = gravityVector.x + inputVector.x;
-            movementVector.y = gravityVector.y;
-
-        }
-        // else set gravity to zero
-        else if (collisionDirections.y == -1) gravityVector.y = 0;
-
-        // apply decay
-        if (inputVector.x == 0) movementVector.x = movementVector.x - (movementVector.x * moveDecay * Time.deltaTime);
-        if (inputVector.y == 0) movementVector.y = movementVector.y - (movementVector.y * moveDecay * Time.deltaTime);
+            if (currentNodeIndex == patrolRoute.nodes.Length - 1) boomerangBackwards = true;
 
 
-        // clamp to zero
-        if (Mathf.Abs(inputVector.x) <= 0.2) inputVector.x = 0;
-        if (Mathf.Abs(inputVector.y) <= 0.2) inputVector.y = 0;
-
-        if (Mathf.Abs(movementVector.x) <= 0.1) movementVector.x = 0;
-        if (Mathf.Abs(movementVector.y) <= 0.1) movementVector.y = 0;
-
-        if (collisionDirections.y != -1 || gravityVector.x != 0) CalculateGravity();
-
-        /*
-        // apply shoving from enemies if need be
-        if (f_insideEnemy && (currentState == e_EnemyStates.investigate ||
-                              currentState == e_EnemyStates.patrolling))
-            movementVector += EnemyShove();*/
-
-        //movementVector += EnemyShove();
-
-        ClampMovementForCollisions();
-
-        if(!conditions.Contains(e_EnemyConditions.immobile))
-            transform.position += (Vector3)movementVector * Time.deltaTime;
-    }
+            else if (currentNodeIndex == 0) boomerangBackwards = false;
 
 
-    public void CalculateGravity()
-    {
-
-        if (true)
-        {
-
-
-            gravityVector.y -= gravityAccel * Time.deltaTime;
-
-            // keep fall speed below the max
-            if (gravityVector.y < -maxFallSpeed) gravityVector.y = -maxFallSpeed;
-
-
-            // decay x component as well
-            if(collisionDirections.y != -1)
-                gravityVector.x = gravityVector.x - (Mathf.Sign(gravityVector.x) * 2 * Time.deltaTime);
-            else
-                gravityVector.x = gravityVector.x - (gravityVector.x * moveDecay * Time.deltaTime);
-
-            // clamp x to zero when its close
-            if (Mathf.Abs(gravityVector.x) <= 0.1) gravityVector.x = 0;
+            if (boomerangBackwards) currentNodeIndex--;
+            else currentNodeIndex++;
         }
 
+        currentPatrolDestination = (Vector3)patrolRoute.nodes[currentNodeIndex] + patrolRouteObject.transform.position;
+        ec_pathing.SetPathfindTarget(currentPatrolDestination);
+
+
+        awareScript.lastKnownPosition = currentPatrolDestination;
 
     }
 
-    public void Jump()
-    {
-        gravityVector = jumpForce;
-        gravityVector.x *= facingDirection;
-        collisionDirections = Vector2.zero;
-    }
+
 
     public void ChangeState(e_EnemyStates state)
     {
@@ -809,7 +715,6 @@ public class EnemyStateMachine : MonoBehaviour
             if (state == e_EnemyStates.patrolling ||
                 state == e_EnemyStates.investigate ||
                 state == e_EnemyStates.scramble)
-                UpdatePath();
             f_init_scramble = false;
             currentState = state;
         }
@@ -818,14 +723,7 @@ public class EnemyStateMachine : MonoBehaviour
     }
 
 
-    private void ClampMovementForCollisions()
-    {
-        if (collisionDirections.y > 0) movementVector.y = Mathf.Clamp(movementVector.y, -100, 0);
-        else if (collisionDirections.y < 0) movementVector.y = Mathf.Clamp(movementVector.y, 0, 100);
-
-        if (collisionDirections.x > 0) movementVector.x = Mathf.Clamp(movementVector.x, -100, 0);
-        else if (collisionDirections.x < 0) movementVector.x = Mathf.Clamp(movementVector.x, 0, 100);
-    }
+    
 
     private void KunaiHit()
     {
@@ -844,8 +742,8 @@ public class EnemyStateMachine : MonoBehaviour
         t_reactionTime = reactionTime;
 
         targetLookPosition = awareScript.lastKnownPosition;
-        pathfindTarget = awareScript.lastKnownPosition;
-        UpdatePath();
+        ec_pathing.SetPathfindTarget(awareScript.lastKnownPosition);
+
 
         lastKnownDirection = Math.Sign(targetLookPosition.x - transform.position.x);
 
@@ -894,11 +792,7 @@ public class EnemyStateMachine : MonoBehaviour
             
     }
 
-    public void ApplyForce(Vector2 force)
-    {
-        Debug.Log("force applied :0");
-        gravityVector += force;
-    }
+    
 
     // called by the awareness script when the state chanegs
     public void AwarenessChange(AwarenessLevel newState)
@@ -940,7 +834,7 @@ public class EnemyStateMachine : MonoBehaviour
     // manage animator variables
     private void UpdateAnimator()
     {
-        if (Mathf.Abs(movementVector.x) <= 1f) animator.SetBool("moving", false);
+        if (Mathf.Abs(ec_movement.GetMovementVector().x) <= 1f) animator.SetBool("moving", false);
         else animator.SetBool("moving", true);
 
         if ( awareScript.currentAwareness != AwarenessLevel.alert ) animator.SetBool("alert", false);
@@ -963,14 +857,7 @@ public class EnemyStateMachine : MonoBehaviour
     }
 
     // use this to change facing, it uses a timer to prevent jettery behaviour
-    private void SwitchFacing(float newFacing)
-    {
-        if(t_facingSwitchTimer <= 0)
-        {
-            facingDirection = newFacing;
-            t_facingSwitchTimer = facingSwitchTimer;
-        }
-    }
+    
 
     private void ManageTimers()
     {
@@ -983,7 +870,7 @@ public class EnemyStateMachine : MonoBehaviour
         if (t_timeBeforeLookAround > 0) t_timeBeforeLookAround -= Time.deltaTime;
         if (t_flinchTime > 0) t_flinchTime -= Time.deltaTime;
         if (t_attackCooldown > 0) t_attackCooldown -= Time.deltaTime;
-        if (t_facingSwitchTimer > 0) t_facingSwitchTimer -= Time.deltaTime;
+        
         if (t_waitTime > 0) t_waitTime -= Time.deltaTime;
         if (t_timeBeforeScramble > 0) t_timeBeforeScramble -= Time.deltaTime;
         if (t_damageKnowTime > 0) t_damageKnowTime -= Time.deltaTime;
@@ -1005,126 +892,12 @@ public class EnemyStateMachine : MonoBehaviour
 
 
 
+    
 
 
-    // #######  Pathfinding Methods  #######
-
-    // Moves along the current A* path
-    private void PathFollow()
-    {
-        if (path == null) return;
-
-        // if we can't reach our destination, ie we've accidentally reached the end of our path
-        // right now just scramble
-        if(currentWaypoint > path.vectorPath.Count - 1)
-        {
-            //Debug.Log("Scramblin' time!");
-            UpdatePath();
-
-            /*
-            f_waitingToScramble = false;
-            queuedState = e_EnemyStates.investigate;
-            ChangeState(e_EnemyStates.scramble);*/
-
-            return;
-        }
 
 
-        // next waypoint
-        float distance = Vector2.Distance(rb.position, path.vectorPath[currentWaypoint]);
-        if (distance < nextWaypointDistance)
-        {
-            currentWaypoint++;
-        }
 
-        // reached end of path
-        if (currentWaypoint >= path.vectorPath.Count)
-        {
-            return;
-        }
-
-
-        // check if we need to jump
-        float xDelta = Mathf.Abs(path.vectorPath[currentWaypoint].x - transform.position.x);
-        float yDelta = path.vectorPath[currentWaypoint].y - transform.position.y;
-        if (xDelta <= jumpMinDistance.x 
-            && currentState != e_EnemyStates.jump 
-            && collisionDirections.y == -1 
-            && yDelta >= jumpMinDistance.y)
-        {
-            if (!conditions.Contains(e_EnemyConditions.immobile))
-                Jump();
-        }
-
-        // direction calculation
-        Vector2 direction = ((Vector2)path.vectorPath[currentWaypoint] - rb.position).normalized;
-        if (direction.x > 0) direction.x = 1;
-        else if (direction.x < 0) direction.x = -1;
-
-        direction.y = 0;
-        if(currentState == e_EnemyStates.patrolling)
-            inputVector = direction * patrolSpeed;
-        else if (awareScript.currentAwareness != AwarenessLevel.alert)
-            inputVector = direction * patrolSpeed * 1.5f;
-        else
-            inputVector = direction * pursueSpeed;
-
-
-    }
-
-    // called periodically to update A* path based on target
-    private void UpdatePath()
-    {
-        if (seeker.IsDone() && pathfindTarget != null)
-        {
-            seeker.StartPath(rb.position, pathfindTarget, OnPathComplete);
-        }
-    }
-
-    // called when A* path is finished
-    private void OnPathComplete(Path p)
-    {
-        path = p;
-        currentWaypoint = 0;
-    }
-
-    private Vector2 EnemyShove()
-    {
-        if (shovingEnemy == null) return Vector2.zero;
-        Vector3 antitarget = shovingEnemy.transform.position;
-        Vector3 diff = transform.position - antitarget;
-        diff.y = 0;
-
-        return (Vector2)diff * shoveForce;
-
-
-    }
-
-    // set the index for the next patrol route node
-    private void SetNextNodeIndex()
-    {
-        // change the index properly
-        if (patrolRoute.boomerang)
-        {
-            if (currentNodeIndex == patrolRoute.nodes.Length - 1) boomerangBackwards = true;
-
-
-            else if (currentNodeIndex == 0) boomerangBackwards = false;
-
-
-            if (boomerangBackwards) currentNodeIndex--;
-            else currentNodeIndex++;
-        }
-
-        currentPatrolDestination = (Vector3)patrolRoute.nodes[currentNodeIndex] + patrolRouteObject.transform.position;
-        pathfindTarget = currentPatrolDestination;
-        UpdatePath();
-
-        awareScript.lastKnownPosition = currentPatrolDestination;
-
-    }
-
-    // #######  ------------------  #######
 
     private GameObject GetRandomNavPoint()
     {
@@ -1194,6 +967,7 @@ public class EnemyStateMachine : MonoBehaviour
         }
     }
 
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if(collision.gameObject.tag == "PlayerProjectile" && currentState != e_EnemyStates.dead)
@@ -1219,72 +993,10 @@ public class EnemyStateMachine : MonoBehaviour
             }
         }
 
-        else if (collision.transform.name == "shove zone" && !collision.transform.IsChildOf(transform))
-        {
-            shovingEnemy = collision.gameObject;
-            f_insideEnemy = true;
-        }
         
     }
 
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-        if (collision.transform.name == "shove zone" && !collision.transform.IsChildOf(transform))
-        {
-            f_insideEnemy = false;
-        }
-        /*if(collision.transform.tag == "Door")
-        {
-            collision.transform.gameObject.SendMessage("SetOpen", SendMessageOptions.DontRequireReceiver);
-        }*/
-    }
-
-    private void OnCollisionStay2D(Collision2D collision)
-    {
-        if (collisionLayers.Contains(collision.collider.gameObject.tag))
-        {
-            Vector2 normal;
-
-            for (int i = 0; i < collision.contacts.Length; i++)
-            {
-                normal = collision.contacts[i].normal;
-
-                // if surface faces up
-                if (Vector2.Angle(normal, Vector2.up) < 45f)
-                {
-                    collisionDirections.y = -1;
-                }
-                // if surface faces down
-                else if (Vector2.Angle(normal, Vector2.down) < 45f)
-                {
-                    if(collisionDirections.y != 1)
-                        gravityVector.y = 0;
-                    collisionDirections.y = 1;
-                }
-                // if surface faces left
-                else if (Vector2.Angle(normal, Vector2.left) < 45f)
-                {
-                    collisionDirections.x = 1;
-                }
-                // if surface faces right
-                else if (Vector2.Angle(normal, Vector2.right) < 45f)
-                {
-                    collisionDirections.x = -1;
-                }
-
-
-            }
-
-        }
-    }
-
-    private void OnCollisionExit2D(Collision2D collision)
-    {
-        if (collisionLayers.Contains(collision.collider.gameObject.tag))
-        {
-            collisionDirections = Vector2.zero;
-        }
-    }
+    
 
     public void ObliviousIdiot()
     {
@@ -1333,16 +1045,7 @@ public class EnemyStateMachine : MonoBehaviour
         f_triggerAttack = true;
     }
 
-    /*
-    private void OnDrawGizmos()
-    {
-
-        Handles.color = UnityEngine.Color.cyan;
-
-        if(path.vectorPath[currentWaypoint] != null)
-            Handles.DrawWireCube(path.vectorPath[currentWaypoint], new Vector3(0.25f, 0.25f, 0.25f));
-    }
-    */
+ 
 
     private void Die()
     {
@@ -1353,7 +1056,7 @@ public class EnemyStateMachine : MonoBehaviour
         //UpdateAnimator();
         Vector3 offset = new Vector3(0, 0.5f, 0);
         GameObject dead = Instantiate(deadEnemy, transform.position + offset, Quaternion.identity);
-        if(facingDirection == -1)
+        if(ec_movement.facingDirection == -1)
             dead.GetComponent<SpriteRenderer>().flipX = true;
         Destroy(this.gameObject);
     }
@@ -1362,6 +1065,11 @@ public class EnemyStateMachine : MonoBehaviour
     {
         //if (awareScript.currentAwareness != AwarenessLevel.alert)
         Die();
+    }
+
+    public float GetFacingDirection()
+    {
+        return ec_movement.facingDirection;
     }
 
     void FindNearestPatrolRoute()
@@ -1397,14 +1105,14 @@ public class EnemyStateMachine : MonoBehaviour
         if(patrolRouteObject != null)
             Handles.DrawWireDisc(patrolRouteObject.transform.position, Vector3.forward, 0.4f);
 
-
+        /*
         if (path != null && currentWaypoint < path.vectorPath.Count - 1)
         {
             Handles.color = UnityEngine.Color.green;
             if (path != null && path.vectorPath.Count > 0 && Application.isPlaying)
                 Handles.DrawWireCube(path.vectorPath[currentWaypoint], new Vector3(0.25f, 0.25f, 0.25f));
 
-        }
+        }*/
 
         
     }
