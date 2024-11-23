@@ -16,8 +16,11 @@ public class EnemyAwareness : MonoBehaviour
 
     public AwarenessLevel currentAwareness = AwarenessLevel.unaware;
     public float alertPercent = 0f;
+    [HideInInspector]
     public bool f_playerInSight = false;
+    [HideInInspector]
     public GameObject playerObject;
+    [HideInInspector]
     public Vector3 lastKnownPosition;
     public GameObject yellowIndicator;
     public GameObject redIndicator;
@@ -29,14 +32,14 @@ public class EnemyAwareness : MonoBehaviour
     private EnemyStateMachine mainScript;
 
     [Header("Awareness Numbers")]
-    public float sightAwareIncreaseSpeedMin = 0.3f;
-    public float sightAwareIncreaseSpeedMax = 0.9f;
+    public float sightAwareIncreaseSpeedMin = 0.5f;
+    public float sightAwareIncreaseSpeedMax = 2.5f;
     //public float soundAwareIncrease = 0.5f;
-    public float awarenessDecaySpeed = 0.2f;
-    public float alertDecaySpeed = 0.15f;
-    public float alertDecayDelay = 0.5f;
+    public float awarenessDecaySpeed = 0.05f;
+    public float alertDecaySpeed = 0.05f;
+    public float alertDecayDelay = 3f;
     private float t_alertDecayDelay = 0f;
-    public float minAwareIncreaseDistance = 10f;
+    public float minAwareIncreaseDistance = 5f;
     public float vigilanceMultiplier = 2f;
 
     private bool previousFrame_playerInSight = false;

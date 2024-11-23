@@ -65,6 +65,7 @@
     <Compile Include="Assets\2_Scripts\Equipment\RopeScript.cs" />
     <Compile Include="Assets\AOSFogWar\Shadowcaster.cs" />
     <Compile Include="Assets\KadaXuanwu\UtilityDesigner\Demos\Survival\Scripts\BearController.cs" />
+    <Compile Include="Assets\2_Scripts\Enemies\Awareness State Machine\SM_Awareness.cs" />
     <Compile Include="Assets\2_Scripts\Enemies\EnemySightCone.cs" />
     <Compile Include="Assets\Scriptable Objects\Projectile.cs" />
     <Compile Include="Assets\KadaXuanwu\UtilityDesigner\Demos\Survival\Scripts\DoPushupMovement.cs" />
@@ -85,6 +86,7 @@
     <Compile Include="Assets\KadaXuanwu\UtilityDesigner\Demos\Survival\Scripts\GameManager.cs" />
     <Compile Include="Assets\2_Scripts\UI\UI_itemBar.cs" />
     <Compile Include="Assets\2_Scripts\Player Controller\Equipment\EquipmentManager.cs" />
+    <Compile Include="Assets\2_Scripts\Enemies\Awareness State Machine\st_awareness_curious.cs" />
     <Compile Include="Assets\2_Scripts\Player Controller\PlayerAnimationManager.cs" />
     <Compile Include="Assets\2_Scripts\Player Controller\PlayerSpriteManager.cs" />
     <Compile Include="Assets\2_Scripts\Enemies\LongSightCone.cs" />
@@ -100,6 +102,7 @@
     <Compile Include="Assets\2_Scripts\PatrolRoute.cs" />
     <Compile Include="Assets\2_Scripts\Equipment\Payloads\PL_Kunai.cs" />
     <Compile Include="Assets\unity-wave-function-collapse\impl\Stuff.cs" />
+    <Compile Include="Assets\2_Scripts\Enemies\Awareness State Machine\st_awareness_alert.cs" />
     <Compile Include="Assets\Scriptable Objects\Equipment\SO_Equipment.cs" />
     <Compile Include="Assets\2_Scripts\SnapToGrid.cs" />
     <Compile Include="Assets\2_Scripts\Equipment\BaseCloud.cs" />
@@ -111,6 +114,7 @@
     <Compile Include="Assets\unity-wave-function-collapse\impl\Model.cs" />
     <Compile Include="Assets\2_Scripts\Parallax\ParallaxBackground.cs" />
     <Compile Include="Assets\2_Scripts\Equipment\Payloads\PL_Rope.cs" />
+    <Compile Include="Assets\2_Scripts\General State Machine\EntityState.cs" />
     <Compile Include="Assets\2_Scripts\Enemies\FieldOfView.cs" />
     <Compile Include="Assets\Scriptable Objects\Sounds\Sound.cs" />
     <Compile Include="Assets\2_Scripts\CameraFollow.cs" />
@@ -142,6 +146,8 @@
     <Compile Include="Assets\2_Scripts\Level Stuff\FalseWall.cs" />
     <Compile Include="Assets\2_Scripts\Level Generation\RoomZones.cs" />
     <Compile Include="Assets\2_Scripts\Enemies\ShooterExtension.cs" />
+    <Compile Include="Assets\2_Scripts\General State Machine\EntityStateMachine.cs" />
+    <Compile Include="Assets\2_Scripts\Enemies\Awareness State Machine\st_awareness_unaware.cs" />
     <Compile Include="Assets\2_Scripts\Parallax\ParallaxLayer.cs" />
     <Compile Include="Assets\2_Scripts\Environmental Interacts\KunaiTarget.cs" />
     <Compile Include="Assets\2_Scripts\Utilities.cs" />

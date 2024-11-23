@@ -9,21 +9,36 @@ public class EntityPathfinding : MonoBehaviour
     // this script should tell the movement script which way to go
     // talk to it using the inputVector
 
-    [Header("Pathfinding")]
-
 
     private Vector3 pathfindTarget;
+
+
     public float pathUpdateSeconds = 0.5f;
     public float nextWaypointDistance = 1f;
     private Path path;
     private int currentWaypoint = 0;
     Seeker seeker;
-
     private Rigidbody2D rb;
 
 
 
-    // Start is called before the first frame update
+
+
+
+
+    public void SetPathfindTarget(Vector3 target)
+    {
+        pathfindTarget = target;
+        UpdatePath();
+    }
+
+    public Vector3 GetPathFindTarget()
+    {
+        return pathfindTarget;
+    }
+
+
+
     void Start()
     {
         seeker = GetComponent<Seeker>();
@@ -32,30 +47,7 @@ public class EntityPathfinding : MonoBehaviour
         InvokeRepeating("UpdatePath", 0f, pathUpdateSeconds);
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 
-    private void FixedUpdate()
-    {   /*
-        if (followPath)
-        {
-            PathFollow();
-        }*/
-    }
-
-
-
-
-    public Vector3 GetPathFindTarget()
-    {
-        return pathfindTarget;
-    }
-
-
-    // #######  Pathfinding Methods  #######
 
     // Moves along the current A* path *** old
     // Now it should return the direction required to path along path
@@ -106,14 +98,6 @@ public class EntityPathfinding : MonoBehaviour
 
         return direction;
 
-        /*
-        if (currentState == e_EnemyStates.patrolling)
-            ec_movement.inputVector = direction * patrolSpeed;
-        else if (awareScript.currentAwareness != AwarenessLevel.alert)
-            ec_movement.inputVector = direction * patrolSpeed * 1.5f;
-        else
-            ec_movement.inputVector = direction * pursueSpeed;
-        */
 
     }
 
@@ -139,12 +123,4 @@ public class EntityPathfinding : MonoBehaviour
     }
 
 
-    public void SetPathfindTarget(Vector3 target)
-    {
-        pathfindTarget = target;
-        UpdatePath();
-    }
-    
-
-    // #######  ------------------  #######
 }
