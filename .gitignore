@@ -2,7 +2,7 @@ stealth\ project/Library
 stealth\ project/Temp
 stealth\ project/Logs
 stealth\ project/obj/Debug
-stealth project/UserSettings/
+stealth\ project/UserSettings/
 
 stealth project/.vs/stealth project/FileContentIndex/2e55d1cf-bd1c-4010-9f3a-106e7a5dabab.vsidx
 stealth project/.vs/stealth project/FileContentIndex/b65531e9-545d-4a1b-ae01-66cc8c9870d6.vsidx
@@ -29,7 +29,7 @@ stealth project/.vs/stealth project/FileContentIndex/dce6d373-66b3-4e23-b3cd-bc8
 # Log files can be ignored.
 fmod_editor.log
 
-/stealth project/.vs/stealth project/v17/.suo
+/stealth\ project/.vs/stealth project/v17/
 /stealth project/.vs/stealth project/v17/DocumentLayout.json
 /stealth project/.vs/stealth project/v17/fileList.bin
 *.json
