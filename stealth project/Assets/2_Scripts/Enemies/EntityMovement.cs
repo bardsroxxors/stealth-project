@@ -5,6 +5,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using UnityEngine;
 
+[RequireComponent(typeof(Rigidbody2D))]
 public class EntityMovement : MonoBehaviour
 {
     public GameObject graphicsObject;
@@ -12,7 +13,7 @@ public class EntityMovement : MonoBehaviour
     [Header("Movement")]
     
     public float moveDecay = 0.5f;
-    public float gravity = 5;
+    //public float gravity = 5;
 
     public Vector2 inputVector = Vector2.zero;
     [SerializeField]
@@ -35,6 +36,9 @@ public class EntityMovement : MonoBehaviour
     public bool lockMovement = false; // used for immobilising effects
     public bool lockGravity = false;
 
+    private Rigidbody2D rb;
+    private Collider2D collider;
+    public LayerMask collisionMask;
 
 
 
@@ -55,7 +59,8 @@ public class EntityMovement : MonoBehaviour
     {
         facingVector = new Vector3(facingDirection, 1, 1);
         ec_main = GetComponent<EnemyStateMachine>();
-        
+        rb = GetComponent<Rigidbody2D>();
+        collider = GetComponent<Collider2D>();
     }
 
     // Update is called once per frame
@@ -140,8 +145,8 @@ public class EntityMovement : MonoBehaviour
 
         ClampMovementForCollisions();
 
-
-        transform.position += (Vector3)movementVector * Time.deltaTime;
+        rb.velocity = movementVector;
+        //transform.position += (Vector3)movementVector * Time.deltaTime;
     }
 
 
@@ -214,7 +219,10 @@ public class EntityMovement : MonoBehaviour
         }
     }
 
-
+    public void SetGravityVector(Vector2 g)
+    {
+        gravityVector = g;
+    }
 
     public Vector2 GetMovementVector()
     {
@@ -257,6 +265,8 @@ public class EntityMovement : MonoBehaviour
 
     private void OnCollisionStay2D(Collision2D collision)
     {
+        CollisionDirectionCheck();
+        /*
         if (collisionTags.Contains(collision.collider.gameObject.tag))
         {
             Vector2 normal;
@@ -291,7 +301,7 @@ public class EntityMovement : MonoBehaviour
 
             }
 
-        }
+        }*/
     }
 
     private void OnCollisionExit2D(Collision2D collision)
@@ -300,6 +310,40 @@ public class EntityMovement : MonoBehaviour
         {
             collisionDirections = Vector2.zero;
         }
+    }
+
+    // this is called by on collision stay to determine which directions are being collided
+    // by doing a tiny raycast in each direction from the edge of the collider
+    private void CollisionDirectionCheck()
+    {
+        Vector3 center = collider.bounds.center;
+        Vector3 leftPoint = center + new Vector3(-collider.bounds.size.x/2, 0, 0);
+        Vector3 rightPoint = center + new Vector3(collider.bounds.size.x/2, 0, 0);
+        Vector3 upPoint = center + new Vector3(0, collider.bounds.size.y / 2, 0);
+        Vector3 downPoint = center + new Vector3(0, -collider.bounds.size.y / 2, 0);
+
+        float range = 0.05f;
+
+        RaycastHit2D left = Physics2D.Raycast(leftPoint, Vector2.left, range, collisionMask);
+        RaycastHit2D right = Physics2D.Raycast(rightPoint, Vector2.right, range, collisionMask);
+        RaycastHit2D up = Physics2D.Raycast(upPoint, Vector2.up, range, collisionMask);
+        RaycastHit2D down = Physics2D.Raycast(downPoint, Vector2.down, range, collisionMask);
+
+
+        if (left)
+            collisionDirections.x = -1;
+        if (right)
+            collisionDirections.x = 1;
+        if (!right && !right)
+            collisionDirections.x = 0;
+
+        if (down)
+            collisionDirections.y = -1;
+        if (up) 
+            collisionDirections.y = 1;
+        if(!up && !down)
+            collisionDirections.y = 0;
+
     }
 
 }
