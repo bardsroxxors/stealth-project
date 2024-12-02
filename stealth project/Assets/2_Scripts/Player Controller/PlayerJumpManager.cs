@@ -43,7 +43,7 @@ public class PlayerJumpManager : MonoBehaviour
     public bool f_jumpKeyDown = false;
     public bool f_wallGrabReady = false;
 
-
+    private EntityMovement em;
 
 
 
@@ -52,6 +52,7 @@ public class PlayerJumpManager : MonoBehaviour
     void Start()
     {
         pc = GetComponent<PlayerController>();
+        em = GetComponent<EntityMovement>();
     }
 
 
@@ -59,12 +60,12 @@ public class PlayerJumpManager : MonoBehaviour
     public void Jump()
     {
         if(pc.CurrentPlayerState == e_PlayerControllerStates.FreeMove)
-            pc.gravityVector.y = jumpForce;
+            em.SetGravityY( jumpForce);
 
         if (pc.sliding)
         {
-            pc.gravityVector.x = pc.moveSpeed * pc.playerFacingVector.x * pc.slideSpeedFactor * slideJumpFactor.x;
-            pc.gravityVector.y = jumpForce * slideJumpFactor.y;
+            em.SetGravityX(pc.moveSpeed * pc.playerFacingVector.x * pc.slideSpeedFactor * slideJumpFactor.x);
+            em.SetGravityY(jumpForce * slideJumpFactor.y);
         }
             
 
@@ -74,9 +75,9 @@ public class PlayerJumpManager : MonoBehaviour
 
     public void WallJump()
     {
-        pc.gravityVector.x = wallJumpForceVector.x * (pc.grabbedDirection * -1);
+        em.SetGravityX(wallJumpForceVector.x * (pc.grabbedDirection * -1));
         //Debug.Log(wallJumpForceVector.x * (pc.collisionDirections.x * -1));
-        pc.gravityVector.y = wallJumpForceVector.y;
+        em.SetGravityY(wallJumpForceVector.y);
         //pc.playerFacingVector = new Vector2(wallJumpForceVector.x, 0);
 
 
@@ -85,9 +86,9 @@ public class PlayerJumpManager : MonoBehaviour
 
     public void WallJumpDown()
     {
-        pc.gravityVector.x = downJumpVector.x * (pc.grabbedDirection * -1);
+        em.SetGravityX(downJumpVector.x * (pc.grabbedDirection * -1));
         //Debug.Log(wallJumpForceVector.x * (pc.collisionDirections.x * -1));
-        pc.gravityVector.y = downJumpVector.y;
+        em.SetGravityY(downJumpVector.y);
         //pc.playerFacingVector = new Vector2(wallJumpForceVector.x, 0);
 
 
@@ -101,15 +102,15 @@ public class PlayerJumpManager : MonoBehaviour
 
         if (f_jumped && f_stopOnKeyRelease)
         {
-            pc.gravityVector.y = pc.gravityVector.y * releaseVelocityFactor;
-            pc.movementVector.y = pc.gravityVector.y;
+            em.SetGravityY( em.GetGravityVector().y * releaseVelocityFactor);
+            em.SetMovementY( em.GetGravityVector().y );
         }
 
         //Debug.Break();
     }
 
 
-
+    /*
     public void CalculateGravity()
     {
 
@@ -117,9 +118,9 @@ public class PlayerJumpManager : MonoBehaviour
         {
             // if we're using peak speed boost
             // then apply it
-            if (f_peakSpeedBoost && Mathf.Abs(pc.gravityVector.y) <= peakBoostSpeedWindow)
+            if (f_peakSpeedBoost && Mathf.Abs(em.GetGravityVector().y) <= peakBoostSpeedWindow)
             {
-                pc.movementVector.x = pc.movementVector.x * peakBoostFactor;
+                em.SetMovementX(em.GetMovementVector().x * peakBoostFactor);
             }
 
 
@@ -151,7 +152,7 @@ public class PlayerJumpManager : MonoBehaviour
             pc.gravityVector.y = 0;
         }
         
-    }
+    }*/
 
 
 

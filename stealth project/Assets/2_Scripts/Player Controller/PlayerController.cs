@@ -313,7 +313,7 @@ public class PlayerController : MonoBehaviour
 
         CheckColliderSize();
 
-
+        CheckGroundClose();
 
         // Process the current state
         switch (CurrentPlayerState)
@@ -1020,6 +1020,25 @@ public class PlayerController : MonoBehaviour
     }
 
 
+    void CheckGroundClose()
+    {
+        // check if groundclose
+        RaycastHit2D hit = Physics2D.BoxCast(
+            collider.bounds.center,
+            new Vector2(collider.size.x * 0.8f, colliderYscale / 2),
+            0,
+            Vector3.down,
+            (0.1f * Mathf.Abs(em.GetGravityVector().y / jumpManager.maxFallSpeed)) + (colliderYscale * 0.6f),
+            collisionMask
+            );
+
+        if (hit)
+        {
+            f_groundClose = true;
+        }
+        else f_groundClose = false;
+    }
+
 
     /*
 
@@ -1184,6 +1203,7 @@ public class PlayerController : MonoBehaviour
                 }
 
 
+
             }
 
         }*/
@@ -1203,12 +1223,12 @@ public class PlayerController : MonoBehaviour
                 // if surface faces up
                 if (Vector2.Angle(normal, Vector2.up) < 45f)
                 {
-                    gravityVector.y = 0;
+                    em.SetGravityY(0);
                     jumpManager.f_jumped = false;
 
                     if (t_gracetimePreCollide > 0)
                     {
-                        collisionDirections.y = 0;
+                        //collisionDirections.y = 0;
                         jumpManager.Jump();
                     }
                     //Debug.Break();
@@ -1367,14 +1387,6 @@ public class PlayerController : MonoBehaviour
         return false;
     }*/
 
-    private void ClampMovementForCollisions()
-    {
-        if (collisionDirections.y > 0) movementVector.y = Mathf.Clamp(movementVector.y, -100, 0);
-        else if (collisionDirections.y < 0) movementVector.y = Mathf.Clamp(movementVector.y, 0, 100);
-
-        if (collisionDirections.x > 0) movementVector.x = Mathf.Clamp(movementVector.x, -100, 0);
-        else if (collisionDirections.x < 0) movementVector.x = Mathf.Clamp(movementVector.x, 0, 100);
-    }
 
     public void TriggerKnockback(int direction)
     {
@@ -1382,7 +1394,7 @@ public class PlayerController : MonoBehaviour
         if (t_iTime <= 0)
         {
             t_knockTime = knockTime;
-            gravityVector.y = knockVector.y;
+            em.SetGravityY(knockVector.y);
             knockDirection = direction;
             ChangeState(e_PlayerControllerStates.Hurt);
         }
@@ -1415,7 +1427,7 @@ public class PlayerController : MonoBehaviour
         switch (CurrentPlayerState)
         {
             case e_PlayerControllerStates.FreeMove:                 // FreeMove
-                if (collisionDirections.y == -1 || f_groundClose)   // if grounded
+                if (em.GetCollisionDirections().y == -1 || f_groundClose)   // if grounded
                 {
                     animator.speed = 1;
                     if(nextAnim == "throw")
@@ -1423,7 +1435,7 @@ public class PlayerController : MonoBehaviour
                         PlayAnimation("throw", true, false);
                         nextAnim = "";
                     }
-                    else if (Mathf.Abs(inputVector.x) >= 0.5f)           // if moving
+                    else if (Mathf.Abs(em.inputVector.x) >= 0.5f)           // if moving
                     {
                         if (sneaking)
                             PlayAnimation("walk", false, false);
@@ -1460,12 +1472,12 @@ public class PlayerController : MonoBehaviour
         float n = airFrameSpeedThreshold;
 
         // if we're moving up, use 0
-        if (movementVector.y > n)
+        if (em.GetMovementVector().y > n)
             return 0;
 
-        else if (movementVector.y < n && movementVector.y > -n)
+        else if (em.GetMovementVector().y < n && em.GetMovementVector().y > -n)
         {
-            float inV = movementVector.y;
+            float inV = em.GetMovementVector().y;
             float min = -n;
             float max = n;
             float range = max - min; // = 4
@@ -1561,18 +1573,18 @@ public class PlayerController : MonoBehaviour
             moveStickVector.y = value.Get<Vector2>().y;*/
 
     }
-
+    
     void OnJump(InputValue value)
     {
 
         jumpManager.f_jumpKeyDown = true;
 
         // if we're on the ground or platform grab
-        if (collisionDirections.y == -1 || t_gracetimePostCollide > 0 || CurrentPlayerState == e_PlayerControllerStates.PlatformGrab)
+        if (em.GetCollisionDirections().y == -1 || t_gracetimePostCollide > 0 || CurrentPlayerState == e_PlayerControllerStates.PlatformGrab)
         {
             if(CurrentPlayerState == e_PlayerControllerStates.PlatformGrab)
                 ChangeState(e_PlayerControllerStates.FreeMove);
-            collisionDirections.y = 0;
+            //collisionDirections.y = 0;
             jumpManager.Jump();
         }
         // else if in wall grab
@@ -1582,7 +1594,7 @@ public class PlayerController : MonoBehaviour
             t_wallJumpNoGrabTime = wallJumpNoGrabTime;
             if (moveStickVector.y >= 0) jumpManager.WallJump();
             else if (moveStickVector.y < 0) jumpManager.WallJumpDown();
-            collisionDirections.x = 0;
+            //collisionDirections.x = 0;
             playerFacingVector.x *= -1;
         }
         else

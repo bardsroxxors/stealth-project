@@ -30,7 +30,7 @@ public class PlayerFieldOfView : MonoBehaviour
 
     private Utilities utils = new Utilities();
     private GameObject playerObject;
-    private PlayerController playerController;
+    private EntityMovement em;
 
     SpriteRenderer sprite;
 
@@ -52,7 +52,7 @@ public class PlayerFieldOfView : MonoBehaviour
             
 
         playerObject = transform.parent.gameObject;
-        playerController = playerObject.GetComponent<PlayerController>();
+        em = playerObject.GetComponent<EntityMovement>();
     }
 
 
@@ -171,7 +171,7 @@ public class PlayerFieldOfView : MonoBehaviour
         // the collision surface
         // but what about if there are two collisions?
         // worry about that later
-        Vector2 colDir = playerController.collisionDirections;
+        Vector2 colDir = em.GetCollisionDirections();
 
         // if standing on the ground
         if(colDir.y == -1)

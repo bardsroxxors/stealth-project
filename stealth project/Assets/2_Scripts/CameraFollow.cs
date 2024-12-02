@@ -10,7 +10,7 @@ public class CameraFollow : MonoBehaviour
 {
     public GameObject playerObject;
     private Transform target; // The object the camera should follow
-    private PlayerController playerController;
+    private EntityMovement em;
     private Vector2 playerMovementVector = Vector2.zero;
 
     [Range(0, 1)]
@@ -46,7 +46,7 @@ public class CameraFollow : MonoBehaviour
     {
         cameraComponent = GetComponent<Camera>();
         target = playerObject.transform;
-        playerController = playerObject.GetComponent<PlayerController>();
+        em = playerObject.GetComponent<EntityMovement>();
 
         screenCenter.x = screenSize.x / 2;
         screenCenter.y = screenSize.y / 2;
@@ -64,7 +64,7 @@ public class CameraFollow : MonoBehaviour
         screenCenter.x = screenSize.x / 2;
         screenCenter.y = screenSize.y / 2;
 
-        playerMovementVector = playerController.movementVector;
+        playerMovementVector = em.GetMovementVector();
 
         Vector3 targetCamPos = (Vector2)target.position + offset + (playerMovementVector * leadingFactor);
         targetCamPos = targetCamPos + GetMousePosVector();

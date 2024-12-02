@@ -219,9 +219,33 @@ public class EntityMovement : MonoBehaviour
         }
     }
 
+    
+    public void SetMovementX(float g)
+    {
+        movementVector.x = g;
+    }
+    public void SetMovementY(float g)
+    {
+        movementVector.y = g;
+    }
+
     public void SetGravityVector(Vector2 g)
     {
         gravityVector = g;
+    }
+
+    public void SetGravityY(float y)
+    {
+        gravityVector.y = y;
+    }
+    public void SetGravityX(float x)
+    {
+        gravityVector.x = x;
+    }
+
+    public Vector2 GetGravityVector()
+    {
+        return gravityVector;
     }
 
     public Vector2 GetMovementVector()
