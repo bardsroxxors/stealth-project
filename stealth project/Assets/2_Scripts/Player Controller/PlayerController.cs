@@ -42,7 +42,7 @@ public enum e_ControlSchemes
     Gamepad
 }
 
-[RequireComponent(typeof(EntityMovement))]
+[RequireComponent(typeof(EntityMove_Player))]
 public class PlayerController : MonoBehaviour
 {
 
@@ -251,7 +251,7 @@ public class PlayerController : MonoBehaviour
     public bool giz_airframenum = true;
 
     private string giz_text_jumpFrame = "null";
-    private EntityMovement em;
+    private EntityMove_Player em;
 
 
 
@@ -267,7 +267,7 @@ public class PlayerController : MonoBehaviour
         //backpack = GameObject.Find("Backpack").GetComponent<UI_Backpack>();
         ScoreManager = GameObject.Find("Points Manager");
         colliderYscale = collider.size.y;
-        em = GetComponent<EntityMovement>();
+        em = GetComponent<EntityMove_Player>();
 
 
         for (int i = 0; i < EquipmentRegister.enums.Count; i++)
@@ -531,12 +531,15 @@ public class PlayerController : MonoBehaviour
         // change to wall grab under right conditions
         if (em.GetCollisionDirections().x != 0)
         {
-            RaycastHit2D wallCheck = Physics2D.BoxCast(transform.position,
-                                                    new Vector2(0.2f, 0.2f),
-                                                    0,
-                                                    new Vector2(em.GetCollisionDirections().x * 0.2f, 0),
-                                                    1,
-                                                    collisionMask);
+            RaycastHit2D wallCheck = Physics2D.BoxCast(new Vector2(collider.bounds.max.x * em.GetCollisionDirections().x, 0),      // origin
+                                                    new Vector2(0.2f, 0.2f),    // size
+                                                    0,                          // angle
+                                                    Vector2.zero, //new Vector2(em.GetCollisionDirections().x * 0.2f, 0), // direction
+                                                    0,                          // distance
+                                                    collisionMask);             // layermask
+            if (wallCheck)
+                Debug.Log("wallcheck");
+            
             if (wallCheck &&
                 em.GetCollisionDirections().y != -1 &&
                 t_wallJumpNoGrabTime <= 0 &&
@@ -579,7 +582,6 @@ public class PlayerController : MonoBehaviour
     private void ProcessWallGrab()
     {
 
-
         em.inputVector.x = 0;
         // set player facing based on collision direction
         if (em.GetCollisionDirections().x != 0)
@@ -590,11 +592,11 @@ public class PlayerController : MonoBehaviour
 
 
 
-        RaycastHit2D wallCheck = Physics2D.BoxCast(transform.position,
-                                                    new Vector2(0.2f, 0.2f),
-                                                    0,
-                                                    new Vector2(grabbedDirection * 0.2f, 0),
-                                                    1,
+        RaycastHit2D wallCheck = Physics2D.BoxCast(new Vector2(collider.bounds.max.x * em.GetCollisionDirections().x, 0),      // origin
+                                                    new Vector2(0.2f, 0.2f),    // size
+                                                    0,                          // angle
+                                                    Vector2.zero, //new Vector2(em.GetCollisionDirections().x * 0.2f, 0), // direction
+                                                    0,                          // distance
                                                     collisionMask);
 
 
@@ -639,7 +641,6 @@ public class PlayerController : MonoBehaviour
             snap.y += 0.5f;
 
             transform.position = snap;
-
             ChangeState(e_PlayerControllerStates.FreeMove);
         }
         else if (!wallCheck)
@@ -852,7 +853,6 @@ public class PlayerController : MonoBehaviour
             ChangeState(e_PlayerControllerStates.FreeMove);
         else if (grabbedRope)
         {
-            em.lockGravity = true;
             Vector3 targetPos = grabTarget.GetComponent<RopeScript>().GetNearestPoint(transform.position);
 
             if (!f_initialRopePos)
@@ -1028,7 +1028,7 @@ public class PlayerController : MonoBehaviour
             new Vector2(collider.size.x * 0.8f, colliderYscale / 2),
             0,
             Vector3.down,
-            (0.1f * Mathf.Abs(em.GetGravityVector().y / jumpManager.maxFallSpeed)) + (colliderYscale * 0.6f),
+            (0.1f * Mathf.Abs(em.GetGravityVector().y / em.maxFallSpeed)) + (colliderYscale * 0.6f),
             collisionMask
             );
 
@@ -1584,7 +1584,7 @@ public class PlayerController : MonoBehaviour
         {
             if(CurrentPlayerState == e_PlayerControllerStates.PlatformGrab)
                 ChangeState(e_PlayerControllerStates.FreeMove);
-            //collisionDirections.y = 0;
+            em.ResetCollisionY();
             jumpManager.Jump();
         }
         // else if in wall grab
@@ -1594,7 +1594,7 @@ public class PlayerController : MonoBehaviour
             t_wallJumpNoGrabTime = wallJumpNoGrabTime;
             if (moveStickVector.y >= 0) jumpManager.WallJump();
             else if (moveStickVector.y < 0) jumpManager.WallJumpDown();
-            //collisionDirections.x = 0;
+            em.ResetCollisionX();
             playerFacingVector.x *= -1;
         }
         else

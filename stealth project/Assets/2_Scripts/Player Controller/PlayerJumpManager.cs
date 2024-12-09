@@ -9,17 +9,18 @@ public class PlayerJumpManager : MonoBehaviour
 
     private PlayerController pc;
 
+    /*
     [Header("Options")]
     public bool f_reduceGravityAtPeak = false;
     public bool f_stopOnKeyRelease = false;
     public bool f_peakSpeedBoost = false;
-
+    */
     [Header("Jump")]
     public float jumpForce = 5;
-    public LayerMask selfLayerMask;
-    public float gravityAccel = 1;
-    public float jumpPeakGravityScale = 0.5f;
-    public float maxFallSpeed = 10;
+    //public LayerMask selfLayerMask;
+    //public float gravityAccel = 1;
+    //public float jumpPeakGravityScale = 0.5f;
+    //public float maxFallSpeed = 10;
     public Vector2 slideJumpFactor = Vector2.one;
 
     [Header("Wall Jump")]
@@ -29,13 +30,13 @@ public class PlayerJumpManager : MonoBehaviour
     [Header("Stop on Release Options")]
     public float releaseVelocityFactor = 0.5f;
 
-    [Header("Reduce Gravity at Peak Options")]
-    public float peakGravityFactor = 0.5f;
-    public float peakGravitySpeedWindow = 1f;
+    //[Header("Reduce Gravity at Peak Options")]
+    //public float peakGravityFactor = 0.5f;
+    //public float peakGravitySpeedWindow = 1f;
 
-    [Header("Peak Speed Boost Options")]
-    public float peakBoostFactor = 1.2f;
-    public float peakBoostSpeedWindow = 0.5f;
+    //[Header("Peak Speed Boost Options")]
+    //public float peakBoostFactor = 1.2f;
+    //public float peakBoostSpeedWindow = 0.5f;
 
     // used while airborne to check if we started a jump from the ground
     public bool f_jumped = false;
@@ -100,7 +101,7 @@ public class PlayerJumpManager : MonoBehaviour
         f_jumpKeyDown = false;
         f_wallGrabReady = true;
 
-        if (f_jumped && f_stopOnKeyRelease)
+        if (f_jumped)
         {
             em.SetGravityY( em.GetGravityVector().y * releaseVelocityFactor);
             em.SetMovementY( em.GetGravityVector().y );

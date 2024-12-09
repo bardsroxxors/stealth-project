@@ -89,6 +89,7 @@
     <Compile Include="Assets\2_Scripts\Enemies\Awareness State Machine\st_awareness_curious.cs" />
     <Compile Include="Assets\2_Scripts\Player Controller\PlayerAnimationManager.cs" />
     <Compile Include="Assets\2_Scripts\Player Controller\PlayerSpriteManager.cs" />
+    <Compile Include="Assets\2_Scripts\Player Controller\EntityMove_Player.cs" />
     <Compile Include="Assets\2_Scripts\Enemies\LongSightCone.cs" />
     <Compile Include="Assets\2_Scripts\LightScript.cs" />
     <Compile Include="Assets\AOSFogWar\csFogWar.cs" />

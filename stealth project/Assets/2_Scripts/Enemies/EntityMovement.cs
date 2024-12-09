@@ -40,6 +40,7 @@ public class EntityMovement : MonoBehaviour
     private Collider2D collider;
     public LayerMask collisionMask;
 
+    public bool drawGizmos = true;
 
 
     [Header("Jump")]
@@ -54,8 +55,20 @@ public class EntityMovement : MonoBehaviour
     private EnemyStateMachine ec_main;
 
 
+
+    private RaycastHit2D leftBox;
+    private RaycastHit2D rightBox;
+    private RaycastHit2D upBox;
+    private RaycastHit2D downBox;
+
+
     // Start is called before the first frame update
     void Start()
+    {
+        OnStart();
+    }
+
+    public virtual void OnStart()
     {
         facingVector = new Vector3(facingDirection, 1, 1);
         ec_main = GetComponent<EnemyStateMachine>();
@@ -155,7 +168,7 @@ public class EntityMovement : MonoBehaviour
         gravityVector += force;
     }
 
-    public void CalculateGravity()
+    public virtual void CalculateGravity()
     {
 
         if (true)
@@ -219,7 +232,17 @@ public class EntityMovement : MonoBehaviour
         }
     }
 
-    
+    public void ResetCollisionX()
+    {
+        collisionDirections.x = 0;
+    }
+
+    public void ResetCollisionY()
+    {
+        collisionDirections.y = 0;
+    }
+
+
     public void SetMovementX(float g)
     {
         movementVector.x = g;
@@ -287,6 +310,9 @@ public class EntityMovement : MonoBehaviour
         }*/
     }
 
+
+    
+
     private void OnCollisionStay2D(Collision2D collision)
     {
         CollisionDirectionCheck();
@@ -330,10 +356,7 @@ public class EntityMovement : MonoBehaviour
 
     private void OnCollisionExit2D(Collision2D collision)
     {
-        if (collisionTags.Contains(collision.collider.gameObject.tag))
-        {
-            collisionDirections = Vector2.zero;
-        }
+        CollisionDirectionCheck();
     }
 
     // this is called by on collision stay to determine which directions are being collided
@@ -341,33 +364,65 @@ public class EntityMovement : MonoBehaviour
     private void CollisionDirectionCheck()
     {
         Vector3 center = collider.bounds.center;
+        float width = collider.bounds.size.x;
+        float height = collider.bounds.size.y;
+
         Vector3 leftPoint = center + new Vector3(-collider.bounds.size.x/2, 0, 0);
         Vector3 rightPoint = center + new Vector3(collider.bounds.size.x/2, 0, 0);
         Vector3 upPoint = center + new Vector3(0, collider.bounds.size.y / 2, 0);
         Vector3 downPoint = center + new Vector3(0, -collider.bounds.size.y / 2, 0);
 
         float range = 0.05f;
+        Vector2 hSize = new Vector2(width, range*2);
+        Vector2 vSize = new Vector2(range * 2, height);
 
+        
+
+        leftBox =     Physics2D.BoxCast(leftPoint, vSize, 0,  Vector2.left, 0, collisionMask);
+        rightBox =    Physics2D.BoxCast(rightPoint, vSize, 0, Vector2.right, 0, collisionMask);
+        upBox =       Physics2D.BoxCast(upPoint, hSize, 0, Vector2.up, 0, collisionMask);
+        downBox =     Physics2D.BoxCast(downPoint, hSize, 0, Vector2.down, 0, collisionMask);
+
+
+        /*
         RaycastHit2D left = Physics2D.Raycast(leftPoint, Vector2.left, range, collisionMask);
         RaycastHit2D right = Physics2D.Raycast(rightPoint, Vector2.right, range, collisionMask);
         RaycastHit2D up = Physics2D.Raycast(upPoint, Vector2.up, range, collisionMask);
         RaycastHit2D down = Physics2D.Raycast(downPoint, Vector2.down, range, collisionMask);
+        */
 
-
-        if (left)
+        if (leftBox)
             collisionDirections.x = -1;
-        if (right)
+        if (rightBox)
             collisionDirections.x = 1;
-        if (!right && !right)
+        if (!leftBox && !rightBox)
             collisionDirections.x = 0;
 
-        if (down)
+        if (downBox)
             collisionDirections.y = -1;
-        if (up) 
+        if (upBox) 
             collisionDirections.y = 1;
-        if(!up && !down)
+        if(!upBox && !downBox)
             collisionDirections.y = 0;
 
+    }
+
+    private void OnDrawGizmos()
+    {
+        if(drawGizmos)
+        {
+            if (upBox)
+            {
+                Gizmos.color = Color.yellow;
+                
+                Gizmos.DrawWireCube(upBox.centroid, upBox.collider.bounds.extents);
+            }
+            if (rightBox)
+            {
+                Gizmos.color = Color.yellow;
+                Gizmos.DrawWireCube(rightBox.centroid, rightBox.collider.bounds.extents);
+            }
+        }
     }
 
 }
