@@ -8,7 +8,7 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Rendering;
-
+/*
 public enum e_PlayerControllerStates
 {
     FreeMove,
@@ -21,7 +21,7 @@ public enum e_PlayerControllerStates
     StealthKill,
     Blink,
     Dead
-}
+}*/
 
 public enum e_Equipment
 {
@@ -436,7 +436,7 @@ public class PlayerController : MonoBehaviour
 
 
     // Update Functions for States
-
+    // ########
     void ProcessFreeMove()
     {
 
@@ -485,7 +485,7 @@ public class PlayerController : MonoBehaviour
 
         if (crouching) crouchReleased = false;
 
-
+        // #######################################################
 
         // get inputVector from raw input, set player facing
         if (moveStickVector.magnitude >= 0.25 && !(aiming && em.GetCollisionDirections().y == -1))
@@ -575,7 +575,7 @@ public class PlayerController : MonoBehaviour
             noise.SendMessage("SetProfile", footstepSound);
         }
 
-
+        // #######################################
     }
 
 

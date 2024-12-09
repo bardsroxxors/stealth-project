@@ -5,7 +5,6 @@ using UnityEngine;
 public class EntityState : MonoBehaviour
 {
 
-    //public EntityStateMachine sm;
 
     private void Start()
     {
@@ -14,7 +13,7 @@ public class EntityState : MonoBehaviour
 
     public virtual void OnStart()
     {
-        //sm = GetComponent<EntityStateMachine>();
+        
     }
 
     public virtual void OnUpdate()
