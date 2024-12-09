@@ -115,7 +115,7 @@ public class PointsManager : MonoBehaviour
     private void SetupThresholds()
     {
 
-        Debug.Log("threshold setup");
+        //Debug.Log("threshold setup");
 
         barScoreThresholds = new float[multiMax];
 
@@ -124,7 +124,7 @@ public class PointsManager : MonoBehaviour
         for(int i = 0; i< multiMax; i++)
         {
             barScoreThresholds[i] = init;
-            Debug.Log(init);
+            //Debug.Log(init);
             init = init + (tierDiffDelta * (i+1));
         }
     }
@@ -177,9 +177,9 @@ public class PointsManager : MonoBehaviour
 
         float percent = dif / nextMax;
 
-        Debug.Log("lower: " + lower + "upper: " + upper);
+        //Debug.Log("lower: " + lower + "upper: " + upper);
 
-        Debug.Log(percent);
+        //Debug.Log(percent);
 
         return percent;
     }

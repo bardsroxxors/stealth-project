@@ -7,7 +7,7 @@ public class PlayerJumpManager : MonoBehaviour
 {
 
 
-    private PlayerController pc;
+    private Player_StateMachine psm;
 
     /*
     [Header("Options")]
@@ -45,27 +45,28 @@ public class PlayerJumpManager : MonoBehaviour
     public bool f_wallGrabReady = false;
 
     private EntityMovement em;
-
+    private Freemove_Player_State st_free;
 
 
 
     // Start is called before the first frame update
     void Start()
     {
-        pc = GetComponent<PlayerController>();
+        psm = GetComponent<Player_StateMachine>();
         em = GetComponent<EntityMovement>();
+        st_free = GetComponent<Freemove_Player_State>();
     }
 
 
 
     public void Jump()
     {
-        if(pc.CurrentPlayerState == e_PlayerControllerStates.FreeMove)
+        if(psm.e_currentState == e_PlayerControllerStates.FreeMove)
             em.SetGravityY( jumpForce);
 
-        if (pc.sliding)
+        if (psm.sliding)
         {
-            em.SetGravityX(pc.moveSpeed * pc.playerFacingVector.x * pc.slideSpeedFactor * slideJumpFactor.x);
+            em.SetGravityX(st_free.moveSpeed * psm.playerFacingVector.x * st_free.slideSpeedFactor * slideJumpFactor.x);
             em.SetGravityY(jumpForce * slideJumpFactor.y);
         }
             
@@ -76,7 +77,7 @@ public class PlayerJumpManager : MonoBehaviour
 
     public void WallJump()
     {
-        em.SetGravityX(wallJumpForceVector.x * (pc.grabbedDirection * -1));
+        em.SetGravityX(wallJumpForceVector.x * (psm.grabbedDirection * -1));
         //Debug.Log(wallJumpForceVector.x * (pc.collisionDirections.x * -1));
         em.SetGravityY(wallJumpForceVector.y);
         //pc.playerFacingVector = new Vector2(wallJumpForceVector.x, 0);
@@ -87,7 +88,7 @@ public class PlayerJumpManager : MonoBehaviour
 
     public void WallJumpDown()
     {
-        em.SetGravityX(downJumpVector.x * (pc.grabbedDirection * -1));
+        em.SetGravityX(downJumpVector.x * (psm.grabbedDirection * -1));
         //Debug.Log(wallJumpForceVector.x * (pc.collisionDirections.x * -1));
         em.SetGravityY(downJumpVector.y);
         //pc.playerFacingVector = new Vector2(wallJumpForceVector.x, 0);

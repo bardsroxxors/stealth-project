@@ -5,31 +5,27 @@ using UnityEngine;
 public class EntityStateMachine : MonoBehaviour
 {
 
-    public List<EntityState> states = new List<EntityState>();
+    //public List<EntityState> states = new List<EntityState>();
     public EntityState currentState;
 
 
-    void Start()
-    {
-        
-    }
 
 
     void FixedUpdate()
     {
-        currentState.OnUpdate();
+
+        if(currentState != null)
+            currentState.OnUpdate();
     }
 
     public virtual bool ChangeState(EntityState nextState)
     {
-        if ((states.Contains(nextState)))
-        {
+        if(currentState != null)
             currentState.OnExit();
-            currentState = nextState;
-            currentState.OnEnter();
-            return true;
-        }
-        else return false;
+        currentState = nextState;
+        currentState.OnEnter();
+        return true;
+
         
     }
 }

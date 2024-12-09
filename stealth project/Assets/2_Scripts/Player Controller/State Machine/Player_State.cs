@@ -11,7 +11,10 @@ public class Player_State : EntityState
     [HideInInspector]
     public Collider2D collider;
 
-    // Start is called before the first frame update
+    private void Start()
+    {
+        OnStart();
+    }
     public override void OnStart()
     {
         base.OnStart();

@@ -69,6 +69,7 @@
     <Compile Include="Assets\2_Scripts\Enemies\EnemySightCone.cs" />
     <Compile Include="Assets\Scriptable Objects\Projectile.cs" />
     <Compile Include="Assets\KadaXuanwu\UtilityDesigner\Demos\Survival\Scripts\DoPushupMovement.cs" />
+    <Compile Include="Assets\2_Scripts\Player Controller\State Machine\States\Platformgrab_Player_State.cs" />
     <Compile Include="Assets\2_Scripts\Player Controller\State Machine\Player_State.cs" />
     <Compile Include="Assets\2_Scripts\Player Controller\Bow\ShotIndicatorCollision.cs" />
     <Compile Include="Assets\2_Scripts\Player Controller\KOIndicator.cs" />
@@ -90,7 +91,6 @@
     <Compile Include="Assets\2_Scripts\Player Controller\Equipment\EquipmentManager.cs" />
     <Compile Include="Assets\2_Scripts\Enemies\Awareness State Machine\st_awareness_curious.cs" />
     <Compile Include="Assets\2_Scripts\Player Controller\PlayerAnimationManager.cs" />
-    <Compile Include="Assets\2_Scripts\Player Controller\State Machine\Freemove_Player_State.cs" />
     <Compile Include="Assets\2_Scripts\Player Controller\PlayerSpriteManager.cs" />
     <Compile Include="Assets\2_Scripts\Player Controller\EntityMove_Player.cs" />
     <Compile Include="Assets\2_Scripts\Enemies\LongSightCone.cs" />
@@ -131,6 +131,7 @@
     <Compile Include="Assets\KadaXuanwu\UtilityDesigner\Demos\Survival\Scripts\KillDeer.cs" />
     <Compile Include="Assets\2_Scripts\HideSprite.cs" />
     <Compile Include="Assets\2_Scripts\Enemies\EntityPathfinding.cs" />
+    <Compile Include="Assets\2_Scripts\Player Controller\State Machine\States\Wallgrab_Player_State.cs" />
     <Compile Include="Assets\2_Scripts\Enemies\ScryingEye.cs" />
     <Compile Include="Assets\2_Scripts\Level Stuff\Grate.cs" />
     <Compile Include="Assets\2_Scripts\Equipment\Payloads\PL_ForceMine.cs" />
@@ -152,9 +153,8 @@
     <Compile Include="Assets\2_Scripts\Enemies\ShooterExtension.cs" />
     <Compile Include="Assets\2_Scripts\General State Machine\EntityStateMachine.cs" />
     <Compile Include="Assets\2_Scripts\Enemies\Awareness State Machine\st_awareness_unaware.cs" />
-    <Compile Include="Assets\2_Scripts\Player Controller\State Machine\Wallgrab_Player_State.cs" />
     <Compile Include="Assets\2_Scripts\Parallax\ParallaxLayer.cs" />
-    <Compile Include="Assets\2_Scripts\Player Controller\State Machine\Platformgrab_Player_State.cs" />
+    <Compile Include="Assets\2_Scripts\Player Controller\State Machine\States\Freemove_Player_State.cs" />
     <Compile Include="Assets\2_Scripts\Environmental Interacts\KunaiTarget.cs" />
     <Compile Include="Assets\2_Scripts\Utilities.cs" />
     <Compile Include="Assets\2_Scripts\DamageSource.cs" />

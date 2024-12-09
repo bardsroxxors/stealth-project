@@ -21,19 +21,25 @@ public class EntityMovement : MonoBehaviour
     [SerializeField]
     private Vector2 gravityVector = Vector2.zero;
 
+    [HideInInspector]
     public float facingDirection = 1;
     public float facingSwitchTimer = 0.2f;
     private float t_facingSwitchTimer = 0;
-    public string[] collisionTags;
+    //public string[] collisionTags;
     [SerializeField]
     private Vector2 collisionDirections = Vector2.zero;
     public float maxFallSpeed = 20f;
     public float gravityAccel = 1f;
+    [HideInInspector]
     public GameObject shovingEnemy;
+    [HideInInspector]
     public bool f_insideEnemy = false;
+    [HideInInspector]
     public float shoveForce = 3f;
 
+    [HideInInspector]
     public bool lockMovement = false; // used for immobilising effects
+    [HideInInspector]
     public bool lockGravity = false;
 
     private Rigidbody2D rb;
@@ -42,13 +48,13 @@ public class EntityMovement : MonoBehaviour
 
     public bool drawGizmos = true;
 
-
+    /*
     [Header("Jump")]
     private bool f_jumpInit = false;
     public Vector2 jumpMinDistance = new Vector2(2, 0.8f);
-    
+    */
     public Vector2 jumpForce;
-
+    
 
 
     private Vector3 facingVector = Vector3.zero;

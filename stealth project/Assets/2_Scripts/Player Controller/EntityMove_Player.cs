@@ -1,25 +1,26 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
-[RequireComponent(typeof(PlayerController))]
 public class EntityMove_Player : EntityMovement
 {
-    private PlayerController pc;
-
+    private Player_StateMachine psm;
+    
     [Header("Options")]
     public bool f_reduceGravityAtPeak = false;
     public bool f_stopOnKeyRelease = false;
     public bool f_peakSpeedBoost = false;
-
+    
+    /*
     [Header("Jump")]
     public LayerMask selfLayerMask;
     public float jumpPeakGravityScale = 0.5f;
-    public Vector2 slideJumpFactor = Vector2.one;
+    public Vector2 slideJumpFactor = Vector2.one;*/
 
-    [Header("Wall Jump")]
-    public Vector2 wallJumpForceVector = Vector2.zero;
-    public Vector2 downJumpVector = Vector2.zero;
+    //[Header("Wall Jump")]
+    //public Vector2 wallJumpForceVector = Vector2.zero;
+    //public Vector2 downJumpVector = Vector2.zero;
 
     [Header("Stop on Release Options")]
     public float releaseVelocityFactor = 0.5f;
@@ -36,12 +37,12 @@ public class EntityMove_Player : EntityMovement
     public override void OnStart()
     {
         base.OnStart();
-        pc = GetComponent<PlayerController>();
+        psm = GetComponent<Player_StateMachine>();
     }
 
     public override void CalculateGravity()
     {
-        if (pc.CurrentPlayerState != e_PlayerControllerStates.WallGrab)
+        if (psm.e_currentState != e_PlayerControllerStates.WallGrab)
         {
             // if we're using peak speed boost
             // then apply it
@@ -69,16 +70,18 @@ public class EntityMove_Player : EntityMovement
 
 
             // decay x component as well
-            SetGravityX( GetGravityVector().x  -  (GetGravityVector().x * (pc.moveDecay / 2) * Time.deltaTime) );
+            SetGravityX( GetGravityVector().x  -  (GetGravityVector().x * (moveDecay / 2) * Time.deltaTime) );
 
             // clamp x to zero when its close
             if (Mathf.Abs(GetGravityVector().x) <= 0.1) SetGravityX(0);
         }
-        else if (       pc.CurrentPlayerState == e_PlayerControllerStates.WallGrab 
-                    ||  pc.CurrentPlayerState == e_PlayerControllerStates.PlatformGrab)
+        else if (       psm.e_currentState == e_PlayerControllerStates.WallGrab 
+                    ||  psm.e_currentState == e_PlayerControllerStates.PlatformGrab)
         {
             Debug.Log("no grabity");
             SetGravityY(0);
         }
     }
+
+    
 }
