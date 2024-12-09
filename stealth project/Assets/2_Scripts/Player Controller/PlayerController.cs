@@ -908,7 +908,7 @@ public class PlayerController : MonoBehaviour
 
         else if (!grabbedRope)
         {
-            em.lockGravity = true;
+            //em.lockGravity = true;
             Vector3 targetPos = grabTarget.transform.position;
 
             em.inputVector = Vector2.zero;

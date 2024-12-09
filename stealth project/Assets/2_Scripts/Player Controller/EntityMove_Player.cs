@@ -74,8 +74,10 @@ public class EntityMove_Player : EntityMovement
             // clamp x to zero when its close
             if (Mathf.Abs(GetGravityVector().x) <= 0.1) SetGravityX(0);
         }
-        else if (pc.CurrentPlayerState == e_PlayerControllerStates.WallGrab)
+        else if (       pc.CurrentPlayerState == e_PlayerControllerStates.WallGrab 
+                    ||  pc.CurrentPlayerState == e_PlayerControllerStates.PlatformGrab)
         {
+            Debug.Log("no grabity");
             SetGravityY(0);
         }
     }
