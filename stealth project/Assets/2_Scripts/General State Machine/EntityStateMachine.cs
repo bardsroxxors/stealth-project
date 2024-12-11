@@ -18,6 +18,7 @@ public class EntityStateMachine : MonoBehaviour
             currentState.OnUpdate();
     }
 
+
     public virtual bool ChangeState(EntityState nextState)
     {
         if(currentState != null)

@@ -77,9 +77,12 @@ public class Player_StateMachine : EntityStateMachine
 
     public float airFrameSpeedThreshold = 3;
 
-    // Component References
+    // ####### Component References ########
     private PlayerJumpManager jumpManager;
     private EntityMove_Player em;
+    private DashAttack_Player_State dash;
+    private Animator animator;
+    // #######       -------        ########
 
     [Header("Grace Timers")]
     public float gracetimePostCollide = 0.2f;
@@ -89,6 +92,13 @@ public class Player_StateMachine : EntityStateMachine
     public float wallJumpNoGrabTime = 0.5f;
     private float t_wallJumpNoGrabTime = 0f;
 
+    [HideInInspector]
+    public Utilities utils;
+
+    public SO_AnimationRegister animRegister;
+    public Material material;
+
+
 
 
     private void Start()
@@ -96,7 +106,39 @@ public class Player_StateMachine : EntityStateMachine
         ChangeStateEnum(e_PlayerControllerStates.FreeMove);
         jumpManager = GetComponent<PlayerJumpManager>();
         em = GetComponent<EntityMove_Player>();
+        animator = em.graphicsObject.GetComponent<Animator>();
+        dash = GetComponent<DashAttack_Player_State>();
+        utils = new Utilities();
         Debug.Log("huh");
+    }
+
+    private void FixedUpdate()
+    {
+        if (currentState != null)
+            currentState.OnUpdate();
+
+        ManageTimers();
+    }
+
+    private void LateUpdate()
+    {
+        if (playerFacingVector.x != 0)
+        {
+            em.graphicsObject.transform.localScale = new Vector3(Mathf.Sign(playerFacingVector.x), 1, 1);
+
+            if (playerFacingVector.x < 0)
+            {
+                if(material != null)
+                    material.SetFloat("_Facing_Right", 0);
+            }
+            else if (playerFacingVector.x > 0 && e_currentState != e_PlayerControllerStates.WallGrab)
+            {
+                if (material != null)
+                    material.SetFloat("_Facing_Right", 1);
+            }
+
+        }
+
     }
 
     public void ChangeStateEnum(e_PlayerControllerStates state)
@@ -123,6 +165,9 @@ public class Player_StateMachine : EntityStateMachine
             case e_PlayerControllerStates.PlatformGrab:
                 s = GetComponent<Platformgrab_Player_State>();
                 break;
+            case e_PlayerControllerStates.DashAttack:
+                s = GetComponent<DashAttack_Player_State>();
+                break;
         }
 
         return s;
@@ -135,7 +180,11 @@ public class Player_StateMachine : EntityStateMachine
 
     private void ManageTimers()
     {
-        // t_iTime
+        if (t_iTime > 0) t_iTime -= Time.deltaTime;
+        if (dash.t_attackCooldown > 0) dash.t_attackCooldown -= Time.deltaTime;
+        if (t_gracetimePostCollide > 0) t_gracetimePostCollide -= Time.deltaTime;
+        if (t_gracetimePreCollide > 0) t_gracetimePreCollide -= Time.deltaTime;
+        if (t_wallJumpNoGrabTime > 0) t_wallJumpNoGrabTime -= Time.deltaTime;
     }
 
     public Vector2 GetVectorToMouse()
@@ -180,6 +229,34 @@ public class Player_StateMachine : EntityStateMachine
         else
         {
             t_gracetimePreCollide = gracetimePreCollide;
+        }
+
+    }
+
+    void OnLeftMouse(InputValue value)
+    {
+        //if (currentTarget != null && CheckTargetLOS(currentTarget) && KOTargetValid())
+        //TriggerStealthKill();
+        //else
+        //{
+        if (    dash.t_attackCooldown <= 0 &&
+                e_currentState == e_PlayerControllerStates.FreeMove &&
+                !f_carryingObject &&
+                !aiming)
+
+            //ChangeState(e_PlayerControllerStates.SwordSwing);
+            ChangeStateEnum(e_PlayerControllerStates.DashAttack);
+
+    }
+
+        public void PlayAnimation(string name, float frame)
+    {
+        AnimationClip anim = animRegister.GetAnimation(name);
+
+        if (anim != null)
+        {
+            animator.Play(anim.name, 0, frame);
+            //t_currentAnimTime = animator.GetCurrentAnimatorClipInfo(0)[0].clip.length;
         }
 
     }

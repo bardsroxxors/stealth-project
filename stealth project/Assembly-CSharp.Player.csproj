@@ -172,6 +172,7 @@
     <Compile Include="Assets\2_Scripts\Level Stuff\Door.cs" />
     <Compile Include="Assets\2_Scripts\UI\PointsManager.cs" />
     <Compile Include="Assets\2_Scripts\Enemies\PlayerFieldOfView.cs" />
+    <Compile Include="Assets\2_Scripts\Player Controller\State Machine\States\DashAttack_Player_State.cs" />
     <Compile Include="Assets\2_Scripts\UI\UI_Backpack.cs" />
     <Compile Include="Assets\2_Scripts\Arrow.cs" />
     <Compile Include="Assets\unity-wave-function-collapse\impl\SimpleTiledModel.cs" />
