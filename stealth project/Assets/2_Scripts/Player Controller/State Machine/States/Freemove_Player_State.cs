@@ -153,16 +153,38 @@ public class Freemove_Player_State : Player_State
         // change to wall grab under right conditions
         if (em.GetCollisionDirections().x != 0)
         {
-            RaycastHit2D wallCheck = Physics2D.BoxCast(new Vector2(collider.bounds.max.x * em.GetCollisionDirections().x, 0),      // origin
-                                                    new Vector2(0.2f, 0.2f),    // size
-                                                    0,                          // angle
-                                                    Vector2.zero, //new Vector2(em.GetCollisionDirections().x * 0.2f, 0), // direction
-                                                    0,                          // distance
-                                                    psm.collisionMask);             // layermask
-            if (wallCheck)
-                Debug.Log("wallcheck");
 
-            if (wallCheck &&
+            Vector3 center = collider.bounds.center;
+            float height = collider.bounds.size.y/2;
+
+            Vector3 leftPoint = center + new Vector3(-collider.bounds.size.x / 2, 0, 0);
+            Vector3 rightPoint = center + new Vector3(collider.bounds.size.x / 2, 0, 0);
+
+
+            float range = 0.05f;
+            Vector2 vSize = new Vector2(range * 2, height);
+
+            RaycastHit2D box = new RaycastHit2D();
+
+            if(em.GetCollisionDirections().x == -1)
+                box = Physics2D.BoxCast(leftPoint, vSize, 0, Vector2.left, 0, psm.collisionMask);
+            else if (em.GetCollisionDirections().x == 1)
+                box = Physics2D.BoxCast(rightPoint, vSize, 0, Vector2.right, 0, psm.collisionMask);
+
+
+
+            /*
+            if (box)
+            {
+
+                Debug.DrawLine(transform.position + new Vector3(collider.bounds.max.x * em.GetCollisionDirections().x, 0, 0),
+                            transform.position + new Vector3(em.GetCollisionDirections().x, 0), Color.cyan);
+            }*/
+                
+
+            
+
+            if (box &&
                 em.GetCollisionDirections().y != -1 &&
                 wallg.t_wallJumpNoGrabTime <= 0 &&
                 jumpMan.f_jumpKeyDown &&

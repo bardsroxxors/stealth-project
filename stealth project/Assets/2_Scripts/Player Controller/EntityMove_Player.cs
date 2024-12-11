@@ -6,6 +6,7 @@ using UnityEngine.InputSystem;
 public class EntityMove_Player : EntityMovement
 {
     private Player_StateMachine psm;
+    private EntityMove_Player em;
     
     [Header("Options")]
     public bool f_reduceGravityAtPeak = false;
@@ -38,6 +39,7 @@ public class EntityMove_Player : EntityMovement
     {
         base.OnStart();
         psm = GetComponent<Player_StateMachine>();
+        em = GetComponent<EntityMove_Player>();
     }
 
     public override void CalculateGravity()
@@ -78,10 +80,18 @@ public class EntityMove_Player : EntityMovement
         else if (       psm.e_currentState == e_PlayerControllerStates.WallGrab 
                     ||  psm.e_currentState == e_PlayerControllerStates.PlatformGrab)
         {
-            Debug.Log("no grabity");
+            //Debug.Log("no grabity");
             SetGravityY(0);
         }
     }
 
-    
+    /*
+    public override void ClampMovementForCollisions()
+    {
+        base.ClampMovementForCollisions();
+        
+    }*/
+
+
+
 }

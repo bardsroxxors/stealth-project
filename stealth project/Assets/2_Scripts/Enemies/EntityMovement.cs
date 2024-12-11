@@ -212,14 +212,32 @@ public class EntityMovement : MonoBehaviour
 
     }
 
-    private void ClampMovementForCollisions()
+    public virtual void ClampMovementForCollisions()
     {
-        if (collisionDirections.y > 0) movementVector.y = Mathf.Clamp(movementVector.y, -100, 0);
-        else if (collisionDirections.y < 0) movementVector.y = Mathf.Clamp(movementVector.y, 0, 100);
+        if (collisionDirections.y > 0)
+        {
+            movementVector.y = Mathf.Clamp(movementVector.y, -100, 0);
+            gravityVector.y = Mathf.Clamp(gravityVector.y, -100, 0);
+        }
+        else if (collisionDirections.y < 0)
+        {
+            movementVector.y = Mathf.Clamp(movementVector.y, 0, 100);
+            gravityVector.y = Mathf.Clamp(gravityVector.y, 0, 100);
+        }
+            
 
 
-        if (collisionDirections.x > 0) movementVector.x = Mathf.Clamp(movementVector.x, -100, 0);
-        else if (collisionDirections.x < 0) movementVector.x = Mathf.Clamp(movementVector.x, 0, 100);
+        if (collisionDirections.x > 0)
+        {
+            movementVector.x = Mathf.Clamp(movementVector.x, -100, 0);
+            gravityVector.x = Mathf.Clamp(gravityVector.x, -100, 0);
+        }
+        else if (collisionDirections.x < 0)
+        {
+            movementVector.x = Mathf.Clamp(movementVector.x, 0, 100);
+            gravityVector.x = Mathf.Clamp(gravityVector.x, 0, 100);
+        }
+            
     }
 
     public void Jump()
