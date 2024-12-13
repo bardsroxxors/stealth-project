@@ -149,7 +149,7 @@ ScriptedImporter:
     rect:
       serializedVersion: 2
       x: 1556
-      y: 4
+      y: 219
       width: 205
       height: 207
     spriteID: d67943a360bf51a4088660446825a1e0
@@ -160,7 +160,7 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 1556, y: 4}
+    uvTransform: {x: 1556, y: 219}
   - name: SmokeFX Lite 1A_Frame_2
     originalName: 
     pivot: {x: 0.06930693, y: 0.82159626}
@@ -329,7 +329,7 @@ ScriptedImporter:
     rect:
       serializedVersion: 2
       x: 1556
-      y: 219
+      y: 434
       width: 205
       height: 207
     spriteID: 63c8838c9032c304cb5d5541753f713b
@@ -340,7 +340,7 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 1556, y: 219}
+    uvTransform: {x: 1556, y: 434}
   - name: SmokeFX Lite 1A_Frame_12
     originalName: 
     pivot: {x: 0.38118812, y: 0.82159626}
@@ -468,7 +468,7 @@ ScriptedImporter:
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 1769
+      x: 1770
       y: 4
       width: 221
       height: 77
@@ -480,7 +480,7 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 1769, y: 4}
+    uvTransform: {x: 1770, y: 4}
   - name: SmokeFX Lite 1A_Frame_20
     originalName: 
     pivot: {x: 0.6801802, y: 0.879397}
@@ -509,7 +509,7 @@ ScriptedImporter:
     rect:
       serializedVersion: 2
       x: 1556
-      y: 434
+      y: 649
       width: 205
       height: 207
     spriteID: 82c8a9d2c318e7b49b75ce53926d9462
@@ -520,7 +520,7 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 1556, y: 434}
+    uvTransform: {x: 1556, y: 649}
   - name: SmokeFX Lite 1A_Frame_22
     originalName: 
     pivot: {x: 0.6980198, y: 0.82159626}
@@ -648,7 +648,7 @@ ScriptedImporter:
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 1769
+      x: 1770
       y: 89
       width: 221
       height: 77
@@ -660,7 +660,7 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 1769, y: 89}
+    uvTransform: {x: 1770, y: 89}
   - name: SmokeFX Lite 1A_Frame_30
     originalName: 
     pivot: {x: 0.972973, y: 0.879397}
@@ -689,7 +689,7 @@ ScriptedImporter:
     rect:
       serializedVersion: 2
       x: 1556
-      y: 649
+      y: 864
       width: 205
       height: 207
     spriteID: ae15f7913cb03784ea9f5e8872b12ed8
@@ -700,7 +700,7 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 1556, y: 649}
+    uvTransform: {x: 1556, y: 864}
   - name: SmokeFX Lite 1A_Frame_32
     originalName: 
     pivot: {x: 1.019802, y: 0.82159626}
@@ -828,7 +828,7 @@ ScriptedImporter:
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 1769
+      x: 1770
       y: 174
       width: 221
       height: 77
@@ -840,7 +840,7 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 1769, y: 174}
+    uvTransform: {x: 1770, y: 174}
   - name: SmokeFX Lite 1A_Frame_40
     originalName: 
     pivot: {x: 0.10810811, y: 0.56281406}
@@ -869,7 +869,7 @@ ScriptedImporter:
     rect:
       serializedVersion: 2
       x: 1556
-      y: 864
+      y: 1079
       width: 205
       height: 207
     spriteID: d8eba3638ac59134b85103764a3f26fa
@@ -880,7 +880,7 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 1556, y: 864}
+    uvTransform: {x: 1556, y: 1079}
   - name: SmokeFX Lite 1A_Frame_42
     originalName: 
     pivot: {x: 0.06930693, y: 0.5258216}
@@ -1008,7 +1008,7 @@ ScriptedImporter:
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 1769
+      x: 1770
       y: 259
       width: 221
       height: 77
@@ -1020,7 +1020,7 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 1769, y: 259}
+    uvTransform: {x: 1770, y: 259}
   - name: SmokeFX Lite 1A_Frame_50
     originalName: 
     pivot: {x: 0.3918919, y: 0.56281406}
@@ -1049,7 +1049,7 @@ ScriptedImporter:
     rect:
       serializedVersion: 2
       x: 1556
-      y: 1079
+      y: 1294
       width: 205
       height: 207
     spriteID: 6e1c529e873f3f848b1f66d3c66545cf
@@ -1060,7 +1060,7 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 1556, y: 1079}
+    uvTransform: {x: 1556, y: 1294}
   - name: SmokeFX Lite 1A_Frame_52
     originalName: 
     pivot: {x: 0.38118812, y: 0.5258216}
@@ -1188,7 +1188,7 @@ ScriptedImporter:
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 1769
+      x: 1770
       y: 344
       width: 221
       height: 77
@@ -1200,7 +1200,7 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 1769, y: 344}
+    uvTransform: {x: 1770, y: 344}
   - name: SmokeFX Lite 1A_Frame_60
     originalName: 
     pivot: {x: 0.6846847, y: 0.56281406}
@@ -1229,7 +1229,7 @@ ScriptedImporter:
     rect:
       serializedVersion: 2
       x: 1556
-      y: 1294
+      y: 1509
       width: 205
       height: 207
     spriteID: 90fb806719557f34c9fe4d64af4600a0
@@ -1240,7 +1240,7 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 1556, y: 1294}
+    uvTransform: {x: 1556, y: 1509}
   - name: SmokeFX Lite 1A_Frame_62
     originalName: 
     pivot: {x: 0.70297027, y: 0.5258216}
@@ -1368,7 +1368,7 @@ ScriptedImporter:
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 1769
+      x: 1770
       y: 429
       width: 221
       height: 77
@@ -1380,7 +1380,7 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 1769, y: 429}
+    uvTransform: {x: 1770, y: 429}
   - name: SmokeFX Lite 1A_Frame_70
     originalName: 
     pivot: {x: 0.9684685, y: 0.56281406}
@@ -1409,7 +1409,7 @@ ScriptedImporter:
     rect:
       serializedVersion: 2
       x: 1556
-      y: 1509
+      y: 1724
       width: 205
       height: 207
     spriteID: da1ae0d998b39a3478869e08de7a5655
@@ -1420,7 +1420,7 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 1556, y: 1509}
+    uvTransform: {x: 1556, y: 1724}
   - name: SmokeFX Lite 1A_Frame_72
     originalName: 
     pivot: {x: 1.0148515, y: 0.5258216}
@@ -1548,7 +1548,7 @@ ScriptedImporter:
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 1769
+      x: 1770
       y: 514
       width: 221
       height: 77
@@ -1560,7 +1560,7 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 1769, y: 514}
+    uvTransform: {x: 1770, y: 514}
   - name: SmokeFX Lite 1A_Frame_80
     originalName: 
     pivot: {x: 0.10810811, y: 0.24120602}
@@ -1589,7 +1589,7 @@ ScriptedImporter:
     rect:
       serializedVersion: 2
       x: 1556
-      y: 1724
+      y: 1939
       width: 205
       height: 207
     spriteID: 03037458ecc5c7844ae4d3919d90e2d8
@@ -1600,7 +1600,7 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 1556, y: 1724}
+    uvTransform: {x: 1556, y: 1939}
   - name: SmokeFX Lite 1A_Frame_82
     originalName: 
     pivot: {x: 0.06930693, y: 0.22535211}
@@ -1728,7 +1728,7 @@ ScriptedImporter:
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 1769
+      x: 1770
       y: 599
       width: 221
       height: 77
@@ -1740,7 +1740,7 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 1769, y: 599}
+    uvTransform: {x: 1770, y: 599}
   - name: SmokeFX Lite 1A_Frame_90
     originalName: 
     pivot: {x: 0.3963964, y: 0.24120602}
@@ -1769,7 +1769,7 @@ ScriptedImporter:
     rect:
       serializedVersion: 2
       x: 1556
-      y: 1939
+      y: 2154
       width: 205
       height: 207
     spriteID: cae6dd749f30b70449f1fcbde96a39ff
@@ -1780,7 +1780,7 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 1556, y: 1939}
+    uvTransform: {x: 1556, y: 2154}
   - name: SmokeFX Lite 1A_Frame_92
     originalName: 
     pivot: {x: 0.38613862, y: 0.22535211}
@@ -1908,7 +1908,7 @@ ScriptedImporter:
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 1769
+      x: 1770
       y: 684
       width: 221
       height: 77
@@ -1920,7 +1920,7 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 1769, y: 684}
+    uvTransform: {x: 1770, y: 684}
   - name: SmokeFX Lite 1A_Frame_100
     originalName: 
     pivot: {x: 0.6846847, y: 0.24120602}
@@ -1949,7 +1949,7 @@ ScriptedImporter:
     rect:
       serializedVersion: 2
       x: 1556
-      y: 2154
+      y: 2369
       width: 205
       height: 207
     spriteID: b4f24b53005d7174eb0d675fc4d9cf9d
@@ -1960,7 +1960,7 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 1556, y: 2154}
+    uvTransform: {x: 1556, y: 2369}
   - name: SmokeFX Lite 1A_Frame_102
     originalName: 
     pivot: {x: 0.70297027, y: 0.22535211}
@@ -2088,7 +2088,7 @@ ScriptedImporter:
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 1769
+      x: 1770
       y: 769
       width: 221
       height: 77
@@ -2100,7 +2100,7 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 1769, y: 769}
+    uvTransform: {x: 1770, y: 769}
   - name: SmokeFX Lite 1A_Frame_110
     originalName: 
     pivot: {x: 0.9684685, y: 0.24120602}
@@ -2129,7 +2129,7 @@ ScriptedImporter:
     rect:
       serializedVersion: 2
       x: 1556
-      y: 2369
+      y: 2584
       width: 205
       height: 207
     spriteID: e9a9971275f8a2148854e6a961b57d6e
@@ -2140,7 +2140,7 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 1556, y: 2369}
+    uvTransform: {x: 1556, y: 2584}
   - name: SmokeFX Lite 1A_Frame_112
     originalName: 
     pivot: {x: 1.0148515, y: 0.22535211}
@@ -2268,7 +2268,7 @@ ScriptedImporter:
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 1769
+      x: 1770
       y: 854
       width: 221
       height: 77
@@ -2280,7 +2280,7 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 1769, y: 854}
+    uvTransform: {x: 1770, y: 854}
   - name: SmokeFX Lite 1A_Frame_120
     originalName: 
     pivot: {x: 0.10810811, y: -0.08040201}
@@ -2303,14 +2303,14 @@ ScriptedImporter:
     uvTransform: {x: 906, y: 2488}
   - name: SmokeFX Lite 1A_Frame_121
     originalName: 
-    pivot: {x: 0.043902438, y: -0.077294685}
+    pivot: {x: 0.04854369, y: -0.077294685}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
       x: 1556
-      y: 2584
-      width: 205
+      y: 4
+      width: 206
       height: 207
     spriteID: 194a759810a60214a8137b2ff7a6b6a9
     spriteBone: []
@@ -2320,7 +2320,7 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 1556, y: 2584}
+    uvTransform: {x: 1556, y: 4}
   - name: SmokeFX Lite 1A_Frame_122
     originalName: 
     pivot: {x: 0.06930693, y: -0.07511737}
@@ -2448,7 +2448,7 @@ ScriptedImporter:
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 1769
+      x: 1770
       y: 939
       width: 221
       height: 77
@@ -2460,7 +2460,7 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 1769, y: 939}
+    uvTransform: {x: 1770, y: 939}
   - name: SmokeFX Lite 1A_Frame_130
     originalName: 
     pivot: {x: 0.3918919, y: -0.08040201}
@@ -2628,7 +2628,7 @@ ScriptedImporter:
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 1769
+      x: 1770
       y: 1024
       width: 221
       height: 77
@@ -2640,7 +2640,7 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 1769, y: 1024}
+    uvTransform: {x: 1770, y: 1024}
   - name: SmokeFX Lite 1A_Frame_140
     originalName: 
     pivot: {x: 0.6846847, y: -0.08040201}
@@ -2808,7 +2808,7 @@ ScriptedImporter:
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 1769
+      x: 1770
       y: 1109
       width: 221
       height: 77
@@ -2820,7 +2820,7 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 1769, y: 1109}
+    uvTransform: {x: 1770, y: 1109}
   - name: SmokeFX Lite 1A_Frame_150
     originalName: 
     pivot: {x: 0.9684685, y: -0.08040201}
@@ -2988,7 +2988,7 @@ ScriptedImporter:
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 1769
+      x: 1770
       y: 1194
       width: 221
       height: 77
@@ -3000,7 +3000,7 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 1769, y: 1194}
+    uvTransform: {x: 1770, y: 1194}
   spriteSheetImportData: []
   asepriteLayers:
   - layerIndex: 0
@@ -3885,9 +3885,9 @@ ScriptedImporter:
     - name: SmokeFX Lite 1A_Frame_121
       frameIndex: 121
       cellRect:
-        x: 23
+        x: 22
         y: 16
-        width: 205
+        width: 206
         height: 207
       spriteId: 194a759810a60214a8137b2ff7a6b6a9
     - name: SmokeFX Lite 1A_Frame_122

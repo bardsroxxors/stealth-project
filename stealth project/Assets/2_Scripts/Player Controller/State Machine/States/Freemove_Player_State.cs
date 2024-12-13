@@ -66,7 +66,14 @@ public class Freemove_Player_State : Player_State
         
         CheckPlatformGrab();
         
-
+        if(em.GetMovementVector().magnitude > 1)
+        {
+            psm.PlayAnimation("walk", false, false);
+        }
+        else
+        {
+            psm.PlayAnimation("idle", false, false);
+        }
 
         // create noise when triggered
         if (f_noiseAnimationTrigger)

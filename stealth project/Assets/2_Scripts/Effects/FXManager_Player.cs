@@ -7,7 +7,10 @@ public class FXManager_Player : MonoBehaviour
 
     public bool spawn_footDust = false;
     private bool last_footDust = false;
-    public GameObject footStepDust;
+    [SerializeField]
+    private GameObject footStepDust;
+    [SerializeField]
+    private GameObject footDustPos;
 
     // Start is called before the first frame update
     void Start()
@@ -24,7 +27,8 @@ public class FXManager_Player : MonoBehaviour
         {
             spawn_footDust = false;
             last_footDust = true;
-            Instantiate(footStepDust, transform.position, Quaternion.identity);
+            GameObject dust = Instantiate(footStepDust, footDustPos.transform.position, Quaternion.identity);
+            dust.transform.localScale = this.transform.localScale;
         }
 
 

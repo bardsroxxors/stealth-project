@@ -82,6 +82,8 @@ public class Player_StateMachine : EntityStateMachine
     private EntityMove_Player em;
     private DashAttack_Player_State dash;
     private Animator animator;
+    private Freemove_Player_State freemove;
+    private UI_itemBar itembar;
     // #######       -------        ########
 
     [Header("Grace Timers")]
@@ -108,8 +110,14 @@ public class Player_StateMachine : EntityStateMachine
         em = GetComponent<EntityMove_Player>();
         animator = em.graphicsObject.GetComponent<Animator>();
         dash = GetComponent<DashAttack_Player_State>();
+        freemove = GetComponent<Freemove_Player_State>();
         utils = new Utilities();
-        Debug.Log("huh");
+
+        itembar = GameObject.Find("Equipment panel").GetComponent<UI_itemBar>();
+        for (int i = 0; i < equipList.Length; i++)
+        {
+            itembar.SetIcon(i, equipList[i]);
+        }
     }
 
     private void FixedUpdate()
@@ -271,5 +279,41 @@ public class Player_StateMachine : EntityStateMachine
             ChangeStateEnum(e_PlayerControllerStates.DashAttack);
 
     }
+
+    void OnToggleSneak(InputValue value)
+    {
+        //if(CurrentPlayerState == e_PlayerControllerStates.FreeMove)
+        //{
+        if ( freemove.f_holdToRun) sneaking = false;
+        else sneaking = !sneaking;
+        //}
+
+    }
+
+    void OnSneakRelease(InputValue value)
+    {
+        if (freemove.f_holdToRun)
+        {
+            sneaking = true;
+
+        }
+    }
+
+    void OnEquipUp(InputValue value)
+    {
+        activeEquipIndex -= 1;
+        if (activeEquipIndex < 0)
+            activeEquipIndex = equipList.Length - 1;
+        itembar.SetIndicator(activeEquipIndex);
+    }
+
+    void OnEquipDown(InputValue value)
+    {
+        activeEquipIndex += 1;
+        if (activeEquipIndex > equipList.Length - 1)
+            activeEquipIndex = 0;
+        itembar.SetIndicator(activeEquipIndex);
+    }
+
 
 }
