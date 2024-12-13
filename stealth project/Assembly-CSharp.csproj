@@ -110,6 +110,7 @@
     <Compile Include="Assets\Scriptable Objects\Equipment\SO_Equipment.cs" />
     <Compile Include="Assets\2_Scripts\SnapToGrid.cs" />
     <Compile Include="Assets\2_Scripts\Equipment\BaseCloud.cs" />
+    <Compile Include="Assets\2_Scripts\Effects\FXManager_Player.cs" />
     <Compile Include="Assets\2_Scripts\Parallax\ParallaxCamera.cs" />
     <Compile Include="Assets\2_Scripts\Player Controller\ObliviousChecker.cs" />
     <Compile Include="Assets\2_Scripts\Tilemap Gemeration\LevelGen.cs" />
@@ -183,6 +184,7 @@
     <Compile Include="Assets\Advanced Rule Tiles\AdvancedRuleTile.cs" />
     <Compile Include="Assets\2_Scripts\Equipment\BaseProjectile.cs" />
     <Compile Include="Assets\2_Scripts\Player Controller\PlayerController.cs" />
+    <Compile Include="Assets\2_Scripts\Effects\AnimatorDestroy.cs" />
     <Compile Include="Assets\Scriptable Objects\SO_AnimationRegister.cs" />
     <Compile Include="Assets\KadaXuanwu\UtilityDesigner\Demos\Survival\Scripts\DeerController.cs" />
     <Compile Include="Assets\2_Scripts\Player Controller\GrappleLineRenderer.cs" />

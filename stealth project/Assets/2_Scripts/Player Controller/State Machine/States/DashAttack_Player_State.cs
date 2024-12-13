@@ -40,6 +40,8 @@ public class DashAttack_Player_State : Player_State
         attackDirection = (Vector3)psm.GetVectorToMouse();
         
         psm.playerFacingVector = new Vector2(Mathf.Sign(attackDirection.x), 0);
+        em.ResetCollisionX();
+        em.ResetCollisionY();
 
         swordObject.SetActive(true);
         swordObject.transform.GetChild(0).transform.gameObject.SetActive(true);

@@ -152,7 +152,7 @@ public class EntityMovement : MonoBehaviour
         if (Mathf.Abs(movementVector.x) <= 0.1) movementVector.x = 0;
         if (Mathf.Abs(movementVector.y) <= 0.1) movementVector.y = 0;
 
-        if (collisionDirections.y != -1 || gravityVector.x != 0 && !lockGravity) CalculateGravity();
+        if ((collisionDirections.y != -1 || gravityVector.x != 0) && !lockGravity) CalculateGravity();
 
         /*
         // apply shoving from enemies if need be

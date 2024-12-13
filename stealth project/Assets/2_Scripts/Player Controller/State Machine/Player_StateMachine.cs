@@ -194,7 +194,30 @@ public class Player_StateMachine : EntityStateMachine
         return direction.normalized;
     }
 
+    public void PlayAnimation(string name, float frame)
+    {
+        AnimationClip anim = animRegister.GetAnimation(name);
 
+        if (anim != null)
+        {
+            animator.Play(anim.name, 0, frame);
+            //t_currentAnimTime = animator.GetCurrentAnimatorClipInfo(0)[0].clip.length;
+        }
+
+    }
+
+    public void PlayAnimation(string name, bool wait, bool overide) // wait means lock any other animations until ths one has finished
+    {
+        AnimationClip anim = animRegister.GetAnimation(name);
+
+        if (anim != null && (overide || t_currentAnimTime <= 0))
+        {
+            animator.Play(anim.name, 0);
+            if (wait)
+                t_currentAnimTime = animator.GetCurrentAnimatorClipInfo(0)[0].clip.length;
+        }
+
+    }
 
     void OnMove(InputValue value)
     {
@@ -249,15 +272,4 @@ public class Player_StateMachine : EntityStateMachine
 
     }
 
-        public void PlayAnimation(string name, float frame)
-    {
-        AnimationClip anim = animRegister.GetAnimation(name);
-
-        if (anim != null)
-        {
-            animator.Play(anim.name, 0, frame);
-            //t_currentAnimTime = animator.GetCurrentAnimatorClipInfo(0)[0].clip.length;
-        }
-
-    }
 }
