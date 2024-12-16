@@ -11,7 +11,7 @@ using static UnityEditor.PlayerSettings;
 using UnityEditor;
 using System.IO;
 
-
+/*
 public enum e_EnemyStates
 {
     patrolling, // walking to next patrol point
@@ -25,8 +25,8 @@ public enum e_EnemyStates
     jump,
     fall,
     dead
-}
-
+}*/
+/*
 public enum e_EnemyConditions
 {
     vigilant,       // Looks around frequently, has been alerted
@@ -38,7 +38,7 @@ public enum e_EnemyConditions
     bodySighted,    // has sighted a body
     chimes,         
     forceMine
-}
+}*/
 
 public class EnemyStateMachine : MonoBehaviour
 {
@@ -283,8 +283,8 @@ public class EnemyStateMachine : MonoBehaviour
             
 
 
-            // check if we are freshly piqued
-            if (awareScript.currentAwareness == AwarenessLevel.curious)
+        // check if we are freshly piqued
+        if (awareScript.currentAwareness == AwarenessLevel.curious)
         {
             AddCondition(e_EnemyConditions.piqued);
 
@@ -363,6 +363,8 @@ public class EnemyStateMachine : MonoBehaviour
         ec_movement.inputVector = ec_pathing.PathDirection() * patrolSpeed;
 
     }
+
+
 
     // Waiting at a patrol node
     private void ProcessWaiting()

@@ -3,6 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
+[RequireComponent(typeof(AIDestinationSetter))]
+[RequireComponent(typeof(Seeker))]
 public class EntityPathfinding : MonoBehaviour
 {
 

@@ -64,6 +64,7 @@
     <Compile Include="Assets\unity-wave-function-collapse\impl\OverlappingModel.cs" />
     <Compile Include="Assets\2_Scripts\Equipment\RopeScript.cs" />
     <Compile Include="Assets\AOSFogWar\Shadowcaster.cs" />
+    <Compile Include="Assets\2_Scripts\PlayerGhost.cs" />
     <Compile Include="Assets\KadaXuanwu\UtilityDesigner\Demos\Survival\Scripts\BearController.cs" />
     <Compile Include="Assets\2_Scripts\Enemies\Awareness State Machine\SM_Awareness.cs" />
     <Compile Include="Assets\2_Scripts\Enemies\EnemySightCone.cs" />
@@ -72,6 +73,7 @@
     <Compile Include="Assets\2_Scripts\Player Controller\State Machine\States\Platformgrab_Player_State.cs" />
     <Compile Include="Assets\2_Scripts\Player Controller\State Machine\Player_State.cs" />
     <Compile Include="Assets\2_Scripts\Player Controller\Bow\ShotIndicatorCollision.cs" />
+    <Compile Include="Assets\2_Scripts\Enemies\Main State Machine\Guard_State.cs" />
     <Compile Include="Assets\2_Scripts\Player Controller\KOIndicator.cs" />
     <Compile Include="Assets\VertexPaint\VertexInstanceStream.cs" />
     <Compile Include="Assets\KadaXuanwu\UtilityDesigner\Demos\Survival\Scripts\SleepEffect.cs" />
@@ -93,6 +95,7 @@
     <Compile Include="Assets\2_Scripts\Player Controller\PlayerAnimationManager.cs" />
     <Compile Include="Assets\2_Scripts\Player Controller\PlayerSpriteManager.cs" />
     <Compile Include="Assets\2_Scripts\Player Controller\EntityMove_Player.cs" />
+    <Compile Include="Assets\2_Scripts\Enemies\Main State Machine\States\Fall_Guard_State.cs" />
     <Compile Include="Assets\2_Scripts\Enemies\LongSightCone.cs" />
     <Compile Include="Assets\2_Scripts\LightScript.cs" />
     <Compile Include="Assets\AOSFogWar\csFogWar.cs" />
@@ -118,6 +121,7 @@
     <Compile Include="Assets\2_Scripts\Player Controller\GroundItem.cs" />
     <Compile Include="Assets\unity-wave-function-collapse\impl\Model.cs" />
     <Compile Include="Assets\2_Scripts\Parallax\ParallaxBackground.cs" />
+    <Compile Include="Assets\2_Scripts\Enemies\Main State Machine\States\Wait_Guard_State.cs" />
     <Compile Include="Assets\2_Scripts\Equipment\Payloads\PL_Rope.cs" />
     <Compile Include="Assets\2_Scripts\General State Machine\EntityState.cs" />
     <Compile Include="Assets\2_Scripts\Enemies\FieldOfView.cs" />
@@ -137,6 +141,7 @@
     <Compile Include="Assets\2_Scripts\Level Stuff\Grate.cs" />
     <Compile Include="Assets\2_Scripts\Equipment\Payloads\PL_ForceMine.cs" />
     <Compile Include="Assets\2_Scripts\Player Controller\RopeShooter.cs" />
+    <Compile Include="Assets\2_Scripts\Enemies\Main State Machine\States\Searching_Guard_State.cs" />
     <Compile Include="Assets\2_Scripts\Enemies\EnemyAnimationTrigger.cs" />
     <Compile Include="Assets\2_Scripts\NoiseScript.cs" />
     <Compile Include="Assets\AOSFogWar\Demo\Scripts\csEyeController.cs" />
@@ -147,6 +152,7 @@
     <Compile Include="Assets\2_Scripts\UI\BountyMessage.cs" />
     <Compile Include="Assets\2_Scripts\Enemies\PointBounty.cs" />
     <Compile Include="Assets\2_Scripts\ShadowCastersGeneratorEditor.cs" />
+    <Compile Include="Assets\2_Scripts\Enemies\Main State Machine\States\Patrol_Guard_State.cs" />
     <Compile Include="Assets\2_Scripts\Navmesh Generation\NavmeshGenEditor.cs" />
     <Compile Include="Assets\2_Scripts\Enemies\AttackTriggerZone.cs" />
     <Compile Include="Assets\2_Scripts\Level Stuff\FalseWall.cs" />
@@ -166,6 +172,7 @@
     <Compile Include="Assets\2_Scripts\Player Controller\SwordHitboxScript.cs" />
     <Compile Include="Assets\KadaXuanwu\UtilityDesigner\Demos\Survival\Scripts\TakeFishingRod.cs" />
     <Compile Include="Assets\unity-wave-function-collapse\Training.cs" />
+    <Compile Include="Assets\2_Scripts\Enemies\Main State Machine\Guard_StateMachine.cs" />
     <Compile Include="Assets\2_Scripts\Navmesh Generation\NavmeshGenerator.cs" />
     <Compile Include="Assets\Scriptable Objects\Clouds\Cloud.cs" />
     <Compile Include="Assets\2_Scripts\HeldItem.cs" />
@@ -189,6 +196,7 @@
     <Compile Include="Assets\KadaXuanwu\UtilityDesigner\Demos\Survival\Scripts\DeerController.cs" />
     <Compile Include="Assets\2_Scripts\Player Controller\GrappleLineRenderer.cs" />
     <Compile Include="Assets\Scriptable Objects\Mine.cs" />
+    <Compile Include="Assets\2_Scripts\Enemies\Main State Machine\ConditionManager.cs" />
     <Compile Include="Assets\2_Scripts\Effects\OneShotParticle.cs" />
     <Compile Include="Assets\2_Scripts\Player Controller\Bow\Bow.cs" />
     <Compile Include="Assets\AOSFogWar\Examples\csRevealerSpawner.cs" />
